@@ -1,16 +1,20 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private PlayerMovement movement;
+    void Start()
+    {
+        moveAction = InputSystem.actions.FindAction("Move");
+    }
     void Update()
     {
         MoveCharacter();
     }
+    private InputAction moveAction;
     private void MoveCharacter()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-        movement.MovePlayer((new Vector3(moveHorizontal, 0.0f, moveVertical)).normalized);
+        movement.MovePlayer(moveAction.ReadValue<Vector2>().normalized);
     }
 }
