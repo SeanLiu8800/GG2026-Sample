@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 993337297}
   - component: {fileID: 993337296}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -247,10 +247,13 @@ MonoBehaviour:
   playerCollider: {fileID: 993337299}
   playerRigidbody: {fileID: 993337298}
   moveSpeed: 5
-  currentDashTime: 0
+  currMoveSpeed: 0
+  currDashTime: 0
   dashTime: 1
-  c: 2
-  exp: 2
+  speedRestoreRate: 5
+  speedDecayRate: 2
+  approach: 3
+  perfectDashLeniency: 0.05
 --- !u!114 &993337297
 MonoBehaviour:
   m_ObjectHideFlags: 0
