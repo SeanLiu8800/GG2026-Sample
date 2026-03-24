@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : PlayerComponent
 {
     [SerializeField] private Collider2D playerCollider;
+    [SerializeField] private Collider2D dashCollider;
     [SerializeField] private Rigidbody2D playerRigidbody;
 
     private InputAction moveAction;
@@ -12,7 +13,7 @@ public class PlayerMovement : PlayerComponent
     [Header("Movement Variables")]
     [SerializeField, Range(5.0f, 15.0f)] float moveSpeed = 5.0f;
     [SerializeField, ReadOnly, Range(0.0f, 60.0f)] float currMoveSpeed = 0.0f;
-    [SerializeField, ReadOnly, Range(5.0f, 60.0f)] float maxMoveSpeed = 30.0f;
+    [SerializeField, Range(5.0f, 60.0f)] float maxMoveSpeed = 30.0f;
     [Range(0.0f, 5.0f)] public float speedRestoreRate = 1.0f;
     [Range(0.0f, 5.0f)] public float speedDecayRate = 1.0f;
     public Vector3 lastMovementDirection { get; private set; } = Vector3.up;
@@ -26,7 +27,7 @@ public class PlayerMovement : PlayerComponent
     [SerializeField, Range(0.0f, 1.5f)] private float dashTime = 2.0f;
     [SerializeField, Range(0.0f, 2.0f)] private float dashCooldown = 0.5f;
     [SerializeField, Range(0.0f, 0.5f)] private float perfectDashLeniency = 0.05f;
-    private Vector3 dashDirection;
+    public Vector3 dashDirection { get; private set; }
     protected override void Awake()
     {
         base.Awake();
@@ -35,6 +36,8 @@ public class PlayerMovement : PlayerComponent
         dashAction = InputSystem.actions.FindAction("Dash");
 
         currMoveSpeed = moveSpeed;
+        playerCollider.enabled = true;
+        dashCollider.enabled = false;
     }
     void OnEnable()
     {
@@ -93,9 +96,13 @@ public class PlayerMovement : PlayerComponent
 
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.dashSoundEffect);
         isDashing = true;
+        playerCollider.enabled = false;
+        dashCollider.enabled = true;
         dashStartTime = Time.time;
         dashDirection = (movementInput == Vector3.zero) ? lastMovementDirection : movementInput;
         currDashVelocity = dashDirection * 20;  // Dash is hard coded to be 20 units
+
+        player.attack.ResetDamage();
     }
     private void Dash()
     {
@@ -116,6 +123,8 @@ public class PlayerMovement : PlayerComponent
         if (!isDashing) return;
 
         isDashing = false;
+        playerCollider.enabled = true;
+        dashCollider.enabled = false;
         // Perfect Dash
         if (Mathf.Abs(0.5f*dashTime - currDashTime) <= perfectDashLeniency)
         {
