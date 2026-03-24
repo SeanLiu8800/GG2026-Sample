@@ -10,7 +10,9 @@ public class PlayerMovement : PlayerComponent
     [SerializeField, Range(0.0f, 10.0f)] float moveSpeed = 5.0f;
     [SerializeField, ReadOnly, Range(0.0f, 60.0f)] float currMoveSpeed = 0.0f;
     [SerializeField, ReadOnly, Range(5.0f, 60.0f)] float maxMoveSpeed = 30.0f;
-    private Vector3 lastmovementDirection = Vector3.up;
+    [Range(0.0f, 5.0f)] public float speedRestoreRate = 1.0f;
+    [Range(0.0f, 5.0f)] public float speedDecayRate = 1.0f;
+    private Vector3 lastMovementDirection = Vector3.up;
     private Vector3 movementInput;
 
     private bool isDashing = false;
@@ -19,6 +21,7 @@ public class PlayerMovement : PlayerComponent
     [SerializeField, ReadOnly] private float currDashTime = 0.0f;
     [SerializeField, Range(0.0f, 1.5f)] private float dashTime = 2.0f;
     [SerializeField, Range(0.0f, 2.0f)] private float dashCooldown = 0.5f;
+    [SerializeField, Range(0.0f, 0.5f)] private float perfectDashLeniency = 0.05f;
     private Vector3 dashDirection;
     void Start()
     {
@@ -40,10 +43,8 @@ public class PlayerMovement : PlayerComponent
     private void MoveCharacter()
     {
         movementInput = moveAction.ReadValue<Vector2>();
-        if (movementInput != Vector3.zero) lastmovementDirection = movementInput;
+        if (movementInput != Vector3.zero) lastMovementDirection = movementInput;
     }
-    [Range(0.0f, 5.0f)] public float speedRestoreRate = 1.0f;
-    [Range(0.0f, 5.0f)] public float speedDecayRate = 1.0f;
     private float CorrectedMoveSpeed()
     {
         float unitsUnderLimit = moveSpeed - currMoveSpeed;
@@ -67,11 +68,16 @@ public class PlayerMovement : PlayerComponent
     private void StartDash()
     {
         // Dash still on Cooldown
-        if (Time.time - dashStartTime < dashCooldown) return;
+        if (Time.time - dashStartTime < dashCooldown)
+        {
+            AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.dashFailsSoundEffect);
+            return;
+        }
 
+        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.dashSoundEffect);
         isDashing = true;
         dashStartTime = Time.time;
-        dashDirection = (movementInput == Vector3.zero) ? lastmovementDirection : movementInput;
+        dashDirection = (movementInput == Vector3.zero) ? lastMovementDirection : movementInput;
         currDashVelocity = dashDirection * 20;
     }
     private void Dash()
@@ -87,7 +93,6 @@ public class PlayerMovement : PlayerComponent
         playerRigidbody.linearVelocity = currDashVelocity;
         currDashVelocity = Vector3.Lerp(currDashVelocity, Vector3.zero, Time.fixedDeltaTime * 3.0f);
     }
-    [SerializeField, Range(0.0f, 0.5f)] private float perfectDashLeniency = 0.05f;
     private void StopDash()
     {
         if (!isDashing) return;
@@ -98,12 +103,14 @@ public class PlayerMovement : PlayerComponent
         {
             currMoveSpeed = Mathf.Clamp(currMoveSpeed * 1.5f, 0.0f, maxMoveSpeed);
             dashStartTime = Time.time - (dashCooldown / 2.0f);
+            AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.perfectDashSoundEffect);
         }
         // Imperfect Dash
         else
         {
             currMoveSpeed = Mathf.Clamp(currMoveSpeed - 5.0f, moveSpeed * 0.5f, maxMoveSpeed);
             dashStartTime = Time.time;
+            AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.imperfectDashSoundEffect);
         }
     }
 }
