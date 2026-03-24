@@ -9,12 +9,12 @@ public class PlayerMovement : PlayerComponent
     private InputAction moveAction;
     private InputAction dashAction;
 
-    [SerializeField, Range(0.0f, 10.0f)] float moveSpeed = 5.0f;
+    [SerializeField, Range(5.0f, 15.0f)] float moveSpeed = 5.0f;
     [SerializeField, ReadOnly, Range(0.0f, 60.0f)] float currMoveSpeed = 0.0f;
     [SerializeField, ReadOnly, Range(5.0f, 60.0f)] float maxMoveSpeed = 30.0f;
     [Range(0.0f, 5.0f)] public float speedRestoreRate = 1.0f;
     [Range(0.0f, 5.0f)] public float speedDecayRate = 1.0f;
-    private Vector3 lastMovementDirection = Vector3.up;
+    public Vector3 lastMovementDirection { get; private set; } = Vector3.up;
     private Vector3 movementInput;
 
     private bool isDashing = false;
@@ -91,7 +91,7 @@ public class PlayerMovement : PlayerComponent
         isDashing = true;
         dashStartTime = Time.time;
         dashDirection = (movementInput == Vector3.zero) ? lastMovementDirection : movementInput;
-        currDashVelocity = dashDirection * 20;
+        currDashVelocity = dashDirection * 20;  // Dash is hard coded to be 20 units
     }
     private void Dash()
     {
@@ -125,5 +125,13 @@ public class PlayerMovement : PlayerComponent
             dashStartTime = Time.time;
             AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.imperfectDashSoundEffect);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!Application.isPlaying) return;
+
+        Gizmos.DrawLine(this.transform.position, this.transform.position + movementInput);
+        Gizmos.DrawSphere(this.transform.position + movementInput, 0.1f);
     }
 }
