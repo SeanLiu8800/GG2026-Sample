@@ -7,6 +7,8 @@ public class PlayerMovement : PlayerComponent
     [SerializeField] private Rigidbody2D playerRigidbody;
 
     private InputAction moveAction;
+    private InputAction dashAction;
+
     [SerializeField, Range(0.0f, 10.0f)] float moveSpeed = 5.0f;
     [SerializeField, ReadOnly, Range(0.0f, 60.0f)] float currMoveSpeed = 0.0f;
     [SerializeField, ReadOnly, Range(5.0f, 60.0f)] float maxMoveSpeed = 30.0f;
@@ -23,17 +25,28 @@ public class PlayerMovement : PlayerComponent
     [SerializeField, Range(0.0f, 2.0f)] private float dashCooldown = 0.5f;
     [SerializeField, Range(0.0f, 0.5f)] private float perfectDashLeniency = 0.05f;
     private Vector3 dashDirection;
-    void Start()
+    protected override void Awake()
     {
+        base.Awake();
+    
         moveAction = InputSystem.actions.FindAction("Move");
+        dashAction = InputSystem.actions.FindAction("Dash");
 
         currMoveSpeed = moveSpeed;
+    }
+    void OnEnable()
+    {
+        dashAction.started += StartDash;
+        dashAction.canceled += StopDash;
+    }
+    void OnDisable()
+    {
+        dashAction.started -= StartDash;
+        dashAction.canceled -= StopDash;
     }
     void Update()
     {
         MoveCharacter();
-        if (Keyboard.current.spaceKey.wasPressedThisFrame) StartDash();
-        else if (Keyboard.current.spaceKey.wasReleasedThisFrame) StopDash();
     }
     void FixedUpdate()
     {
@@ -65,7 +78,7 @@ public class PlayerMovement : PlayerComponent
         }
         return currMoveSpeed;
     }
-    private void StartDash()
+    private void StartDash(InputAction.CallbackContext context)
     {
         // Dash still on Cooldown
         if (Time.time - dashStartTime < dashCooldown)
@@ -85,7 +98,7 @@ public class PlayerMovement : PlayerComponent
         currDashTime = Time.time - dashStartTime;
         if (currDashTime >= dashTime)
         {
-            StopDash();
+            StopDash(new InputAction.CallbackContext());
             return;
         }
         float coef = currDashTime / dashTime;
@@ -93,7 +106,7 @@ public class PlayerMovement : PlayerComponent
         playerRigidbody.linearVelocity = currDashVelocity;
         currDashVelocity = Vector3.Lerp(currDashVelocity, Vector3.zero, Time.fixedDeltaTime * 3.0f);
     }
-    private void StopDash()
+    private void StopDash(InputAction.CallbackContext context)
     {
         if (!isDashing) return;
 
