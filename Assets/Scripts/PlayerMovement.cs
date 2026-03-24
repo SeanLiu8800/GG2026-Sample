@@ -13,6 +13,7 @@ public class PlayerMovement : PlayerComponent
 
     private bool isDashing = false;
     private float dashStartTime = 0.0f;
+    private Vector3 currDashVelocity;
     [SerializeField, ReadOnly] private float currentDashTime = 0.0f;
     [SerializeField, Range(0.0f, 1.5f)] private float dashTime = 2.0f;
     private Vector3 dashDirection;
@@ -28,7 +29,7 @@ public class PlayerMovement : PlayerComponent
     }
     void FixedUpdate()
     {
-        playerRigidbody.linearVelocity = movementInput * moveSpeed;
+        if (!isDashing) playerRigidbody.linearVelocity = movementInput * moveSpeed;
         if (isDashing) Dash();
     }
     private void MoveCharacter()
@@ -36,13 +37,15 @@ public class PlayerMovement : PlayerComponent
         movementInput = moveAction.ReadValue<Vector2>();
         if (movementInput != Vector3.zero) lastmovementDirection = movementInput;
     }
-    
+
     private void StartDash()
     {
         isDashing = true;
         dashStartTime = Time.time;
         dashDirection = (movementInput == Vector3.zero) ? lastmovementDirection : movementInput;
+        currDashVelocity = dashDirection * 20;
     }
+    [Range(0.0f, 5.0f)] public float approach = 3.0f;
     private void Dash()
     {
         currentDashTime = Time.time - dashStartTime;
@@ -52,7 +55,9 @@ public class PlayerMovement : PlayerComponent
             return;
         }
         float coef = currentDashTime / dashTime;
-        playerRigidbody.AddForce(Vector3.Lerp(dashDirection * 1000, Vector3.zero, coef*coef), ForceMode2D.Force);
+
+        playerRigidbody.linearVelocity = currDashVelocity;
+        currDashVelocity = Vector3.Lerp(currDashVelocity, Vector3.zero, Time.deltaTime * approach);
     }
     private void StopDash()
     {

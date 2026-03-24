@@ -246,7 +246,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   playerCollider: {fileID: 993337299}
   playerRigidbody: {fileID: 993337298}
-  movementSpeed: 5
+  moveSpeed: 5
+  currentDashTime: 0
+  dashTime: 1
+  c: 2
+  exp: 2
 --- !u!114 &993337297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +263,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 169fb73f72bb4cf4db399590c1bb68fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  movement: {fileID: 993337296}
 --- !u!50 &993337298
 Rigidbody2D:
   serializedVersion: 5
