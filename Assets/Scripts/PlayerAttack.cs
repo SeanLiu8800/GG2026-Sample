@@ -7,14 +7,16 @@ public class PlayerAttack : PlayerComponent
     [SerializeField] private Collider2D attackArea;
     [SerializeField] private ContactFilter2D attackTargetFiler;
 
-    [SerializeField] private bool attackIsActive = false;
-    private float attackStartTime = 0.0f;
+    [field : Header("Attack Variables")]
+    [field : SerializeField, ReadOnly] public bool attackIsActive { get; private set; } = false;
     [SerializeField, Range(0.0f, 1.0f)] private float attackDuration = 0.2f;
+    private float attackStartTime = 0.0f;
     protected override void Awake()
     {
         base.Awake();
 
         attackAction = InputSystem.actions.FindAction("Attack");
+        attackArea.enabled = false;
     }
     void OnEnable()
     {
@@ -40,6 +42,7 @@ public class PlayerAttack : PlayerComponent
             return;
         }
 
+        player.movement.StartAttackLunge();
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.swordSwingSoundEffect);
         foreach (Collider2D currCollider in hits)
         {
@@ -48,7 +51,6 @@ public class PlayerAttack : PlayerComponent
     }
     private void EnableAttackArea()
     {
-        Debug.Log("Enable Attack");
         attackIsActive = true;
         attackArea.enabled = true;
         attackStartTime = Time.time;
@@ -62,7 +64,6 @@ public class PlayerAttack : PlayerComponent
     }
     private void DisableAttackArea()
     {
-        Debug.Log("Disable Attack");
         attackIsActive = false;
         attackArea.enabled = false;
     }

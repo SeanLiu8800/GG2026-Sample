@@ -9,6 +9,7 @@ public class PlayerMovement : PlayerComponent
     private InputAction moveAction;
     private InputAction dashAction;
 
+    [Header("Movement Variables")]
     [SerializeField, Range(5.0f, 15.0f)] float moveSpeed = 5.0f;
     [SerializeField, ReadOnly, Range(0.0f, 60.0f)] float currMoveSpeed = 0.0f;
     [SerializeField, ReadOnly, Range(5.0f, 60.0f)] float maxMoveSpeed = 30.0f;
@@ -17,6 +18,7 @@ public class PlayerMovement : PlayerComponent
     public Vector3 lastMovementDirection { get; private set; } = Vector3.up;
     private Vector3 movementInput;
 
+    [Header("Dash Variables")]
     private bool isDashing = false;
     private float dashStartTime = 0.0f;
     private Vector3 currDashVelocity;
@@ -51,7 +53,8 @@ public class PlayerMovement : PlayerComponent
     void FixedUpdate()
     {
         if (!isDashing) playerRigidbody.linearVelocity = movementInput * CorrectedMoveSpeed();
-        if (isDashing) Dash();
+        Dash();
+        AttackLunge();
     }
     private void MoveCharacter()
     {
@@ -78,10 +81,11 @@ public class PlayerMovement : PlayerComponent
         }
         return currMoveSpeed;
     }
+    
     private void StartDash(InputAction.CallbackContext context)
     {
         // Dash still on Cooldown
-        if (Time.time - dashStartTime < dashCooldown)
+        if (isLunging || Time.time - dashStartTime < dashCooldown)
         {
             AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.dashFailsSoundEffect);
             return;
@@ -95,13 +99,14 @@ public class PlayerMovement : PlayerComponent
     }
     private void Dash()
     {
+        if (!isDashing) return;
+
         currDashTime = Time.time - dashStartTime;
         if (currDashTime >= dashTime)
         {
             StopDash(new InputAction.CallbackContext());
             return;
         }
-        float coef = currDashTime / dashTime;
 
         playerRigidbody.linearVelocity = currDashVelocity;
         currDashVelocity = Vector3.Lerp(currDashVelocity, Vector3.zero, Time.fixedDeltaTime * 3.0f);
@@ -127,11 +132,44 @@ public class PlayerMovement : PlayerComponent
         }
     }
 
+    [field : Header("Attack Lunge Variables")]
+    [field : SerializeField, ReadOnly] public bool isLunging { get; private set; } = false;
+    [SerializeField, Range(0.0f, 0.5f)] private float lungeDuration = 0.2f;
+    private float lungeStartTime = 0.0f;
+    private float currLungeTime = 0.0f;
+    private Vector3 currLungeVelocity;
+    public void StartAttackLunge()
+    {
+        isLunging = true;
+        lungeStartTime = Time.time;
+        currLungeVelocity = lastMovementDirection * currMoveSpeed * 1.2f;
+    }
+    private void AttackLunge()
+    {
+        if (!isLunging) return;
+
+        currLungeTime = Time.time - lungeStartTime;
+        if (currLungeTime >= lungeDuration)
+        {
+            StopAttackLunge();
+            return;
+        }
+
+        playerRigidbody.linearVelocity = currLungeVelocity;
+        currLungeVelocity = Vector3.Lerp(currLungeVelocity, Vector3.zero, Time.fixedDeltaTime * 6.0f);
+    }
+    private void StopAttackLunge()
+    {
+        if (!isLunging) return;
+
+        isLunging = false;
+    }
+    
     private void OnDrawGizmos()
     {
         if (!Application.isPlaying) return;
 
-        Gizmos.DrawLine(this.transform.position, this.transform.position + movementInput);
-        Gizmos.DrawSphere(this.transform.position + movementInput, 0.1f);
+        Gizmos.DrawLine(this.transform.position, this.transform.position + lastMovementDirection);
+        Gizmos.DrawSphere(this.transform.position + lastMovementDirection, 0.1f);
     }
 }
