@@ -436,7 +436,7 @@ MonoBehaviour:
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 64
+      m_Bits: 192
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0
@@ -461,7 +461,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -518,7 +518,7 @@ GameObject:
   - component: {fileID: 1142618802}
   - component: {fileID: 1142618805}
   - component: {fileID: 1142618801}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -543,6 +543,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   damage: 1
+  empowerRate: 1
 --- !u!58 &1142618802
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -648,7 +649,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3, y: 2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

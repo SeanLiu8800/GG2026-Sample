@@ -19,8 +19,8 @@ public class PlayerMovement : PlayerComponent
     public Vector3 lastMovementDirection { get; private set; } = Vector3.up;
     private Vector3 movementInput;
 
-    [Header("Dash Variables")]
-    public bool isDashing { get; private set; } = false;
+    [field : Header("Dash Variables")]
+    [field : SerializeField, ReadOnly] public bool isDashing { get; private set; } = false;
     private float dashStartTime = 0.0f;
     private Vector3 currDashVelocity;
     [SerializeField, ReadOnly] private float currDashTime = 0.0f;
@@ -62,7 +62,7 @@ public class PlayerMovement : PlayerComponent
     private void MoveCharacter()
     {
         movementInput = moveAction.ReadValue<Vector2>();
-        if (movementInput != Vector3.zero) lastMovementDirection = movementInput;
+        if (movementInput != Vector3.zero) lastMovementDirection = movementInput.normalized;
     }
     private float CorrectedMoveSpeed()
     {
@@ -99,7 +99,7 @@ public class PlayerMovement : PlayerComponent
         playerCollider.enabled = false;
         dashCollider.enabled = true;
         dashStartTime = Time.time;
-        dashDirection = (movementInput == Vector3.zero) ? lastMovementDirection : movementInput;
+        dashDirection = (movementInput == Vector3.zero) ? lastMovementDirection : movementInput.normalized;
         currDashVelocity = dashDirection * 20;  // Dash is hard coded to be 20 units
 
         player.attack.ResetDamage();
