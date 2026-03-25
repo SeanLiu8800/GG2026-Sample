@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : PlayerComponent
 {
-    [field: SerializeField] public Collider2D playerCollider { get; private set; }
     [SerializeField] private Collider2D dashCollider;
     [SerializeField] private Rigidbody2D playerRigidbody;
 
@@ -36,7 +35,7 @@ public class PlayerMovement : PlayerComponent
         dashAction = InputSystem.actions.FindAction("Dash");
 
         currMoveSpeed = moveSpeed;
-        playerCollider.enabled = true;
+        player.playerCollider.enabled = true;
         dashCollider.enabled = false;
     }
     void OnEnable()
@@ -96,7 +95,7 @@ public class PlayerMovement : PlayerComponent
 
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.dashSoundEffect);
         isDashing = true;
-        playerCollider.enabled = false;
+        player.playerCollider.enabled = false;
         dashCollider.enabled = true;
         dashStartTime = Time.time;
         dashDirection = (movementInput == Vector3.zero) ? lastMovementDirection : movementInput.normalized;
@@ -123,7 +122,7 @@ public class PlayerMovement : PlayerComponent
         if (!isDashing) return;
 
         isDashing = false;
-        playerCollider.enabled = true;
+        player.playerCollider.enabled = true;
         dashCollider.enabled = false;
         // Perfect Dash
         if (Mathf.Abs(0.5f*dashTime - currDashTime) <= perfectDashLeniency)
