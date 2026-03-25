@@ -20,6 +20,10 @@ public class BulletScript : MonoBehaviour
         }
     }
 
+    public void SetLinearVelocity(Vector3 input)
+    {
+        bulletRigidbody.linearVelocity = input;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (((1 << collision.gameObject.layer) & layerMask) == 0) return;
@@ -27,7 +31,7 @@ public class BulletScript : MonoBehaviour
         if (collision.TryGetComponent<Player>(out Player player)) PlayerCollision(player);
         else if (collision.TryGetComponent(out IDamageable iDamageable)) iDamageable.Damage(damage);
 
-        //Destroy(this.gameObject);
+        Destroy(this.gameObject);
     }
     private void PlayerCollision(Player player)
     {
