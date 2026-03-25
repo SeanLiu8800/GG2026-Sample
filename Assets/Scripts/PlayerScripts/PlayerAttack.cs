@@ -7,10 +7,10 @@ public class PlayerAttack : PlayerComponent
     [SerializeField] public Collider2D attackArea;
     [SerializeField] private ContactFilter2D attackTargetFiler;
 
-    [Header("Attack Variables")]
+    [field : Header("Attack Variables")]
+    [field: SerializeField, ReadOnly] public bool isAttacking { get; private set; } = false;
     [SerializeField, Range(0, 5)] private int baseDamage = 1;
     [field: SerializeField, Range(0, 5), ReadOnly] public int currDamage { get; private set; } = 1;
-    [field : SerializeField, ReadOnly] public bool attackIsActive { get; private set; } = false;
     [SerializeField, Range(0.0f, 1.0f)] private float attackDuration = 0.2f;
     private float attackStartTime = 0.0f;
     [field : SerializeField, ReadOnly] public int currAttackID { get; private set; } = 0;
@@ -55,7 +55,7 @@ public class PlayerAttack : PlayerComponent
     }
     private void EnableAttackArea()
     {
-        attackIsActive = true;
+        isAttacking = true;
         attackArea.enabled = true;
         attackStartTime = Time.time;
 
@@ -63,12 +63,12 @@ public class PlayerAttack : PlayerComponent
     }
     private void UpdateAttackArea()
     {
-        if (!attackIsActive || Time.time - attackStartTime < attackDuration) return;
+        if (!isAttacking || Time.time - attackStartTime < attackDuration) return;
         DisableAttackArea();
     }
     private void DisableAttackArea()
     {
-        attackIsActive = false;
+        isAttacking = false;
         attackArea.enabled = false;
     }
     public void ResetDamage()

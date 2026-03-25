@@ -756,10 +756,11 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  <isAttacking>k__BackingField: 0
   baseDamage: 1
   <currDamage>k__BackingField: 1
-  <attackIsActive>k__BackingField: 0
   attackDuration: 0.2
+  <currAttackID>k__BackingField: 0
 --- !u!61 &993337303
 BoxCollider2D:
   m_ObjectHideFlags: 0
