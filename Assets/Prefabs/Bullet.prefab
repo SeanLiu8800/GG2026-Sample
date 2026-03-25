@@ -173,6 +173,6 @@ MonoBehaviour:
   bulletRigidbody: {fileID: 7457468284515171231}
   layerMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 264
   damage: 1
   empowerRate: 1

@@ -151,7 +151,7 @@ public class PlayerMovement : PlayerComponent
     {
         isLunging = true;
         lungeStartTime = Time.time;
-        currLungeVelocity = lastMovementDirection * currMoveSpeed * 1.2f;
+        currLungeVelocity = lastMovementDirection * currMoveSpeed * 1.5f;
     }
     private void AttackLunge()
     {

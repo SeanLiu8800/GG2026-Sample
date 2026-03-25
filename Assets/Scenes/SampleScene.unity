@@ -1518,6 +1518,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   <health>k__BackingField: {fileID: 1620073971}
+  <enemySpriteRenderer>k__BackingField: {fileID: 1620073969}
+  <enemyCollider>k__BackingField: {fileID: 1620073968}
 --- !u!1 &2010581680
 GameObject:
   m_ObjectHideFlags: 0

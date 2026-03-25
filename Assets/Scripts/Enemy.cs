@@ -3,6 +3,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [field : SerializeField] public EnemyHealth health { get; private set; }
+    [field : SerializeField] public SpriteRenderer enemySpriteRenderer { get; private set; }
+    [field: SerializeField] public Collider2D enemyCollider { get; private set; }
 
     void Awake()
     {
@@ -11,7 +13,18 @@ public class Enemy : MonoBehaviour
             Debug.LogError($"{this.name} DOES NOT have an EnemyHealth Component!");
             return;
         }
-
         health = _health;
+        if (!TryGetComponent<SpriteRenderer>(out SpriteRenderer _spriteRenderer))
+        {
+            Debug.LogError($"{this.name} DOES NOT have an SpriteRenderer Component!");
+            return;
+        }
+        enemySpriteRenderer = _spriteRenderer;
+        if (!TryGetComponent<Collider2D>(out Collider2D _collider2D))
+        {
+            Debug.LogError($"{this.name} DOES NOT have a Collider2D Component!");
+            return;
+        }
+        enemyCollider = _collider2D;
     }
 }

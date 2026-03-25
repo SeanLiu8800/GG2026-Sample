@@ -35,7 +35,16 @@ public class EnemyHealth : EnemyComponent, IDamageable
     }
     public void Die()
     {
-        Debug.Log("Enemy runs out of health!");
+        enemy.enemySpriteRenderer.enabled = false;
+        enemy.enemyCollider.enabled = false;
+        Invoke(nameof(Respawn), 1.0f);
+    }
+    private void Respawn()
+    {
+        enemy.enemySpriteRenderer.enabled = true;
+        enemy.enemyCollider.enabled = true;
+        Heal(99);
+        this.transform.position = Vector3.zero;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
