@@ -20,7 +20,7 @@ public class PlayerMovement : PlayerComponent
     private Vector3 movementInput;
 
     [Header("Dash Variables")]
-    private bool isDashing = false;
+    public bool isDashing { get; private set; } = false;
     private float dashStartTime = 0.0f;
     private Vector3 currDashVelocity;
     [SerializeField, ReadOnly] private float currDashTime = 0.0f;

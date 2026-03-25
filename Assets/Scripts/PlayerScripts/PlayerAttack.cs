@@ -75,6 +75,7 @@ public class PlayerAttack : PlayerComponent
     }
     public void Empower(int input = 1)
     {
+        Debug.Log("Empowering Player's Attack!");
         currDamage += input;
     }
 }
