@@ -2,11 +2,20 @@ using UnityEngine;
 
 public class PlayerHealth : PlayerComponent, IDamageable
 {
+    [field: Header("Health Variables")]
     [field : SerializeField] public int maxHealth { get; private set; } = 5;
     [field : SerializeField] public int currHealth { get; private set; } = 5;
-
+    [field : Header("Invincibility Variables")]
+    [field: SerializeField, ReadOnly] public bool isInvincible { get; private set; } = false;
+    [SerializeField, Range(0.0f, 2.0f)] private float invincibilityDuration = 1.0f;
+    private float invincibilityEndTime = 0.0f;
+    void Update()
+    {
+        UpdateInvincibility();
+    }
     public void Damage(int damage = 1)
     {
+        if (isInvincible) return;
         if (damage < 0)
         {
             Heal(-damage);
@@ -17,6 +26,7 @@ public class PlayerHealth : PlayerComponent, IDamageable
         currHealth = Mathf.Clamp(currHealth - damage, 0, maxHealth);
         if (currHealth <= 0) Die();
 
+        StartInvincibility();
         return;
     }
     public void Heal(int heal = 1)
@@ -35,5 +45,27 @@ public class PlayerHealth : PlayerComponent, IDamageable
     public void Die()
     {
         Debug.Log($"{this.name} has run out of health!");
+    }
+
+    private void StartInvincibility(float duration = -1.0f)
+    {
+        if (duration < 0.0f) duration = invincibilityDuration;
+        // don't update Invincibility Time if current IFrame period will outlast the input duration
+        if (Time.time + duration < invincibilityEndTime) return;
+
+        isInvincible = true;
+        invincibilityEndTime = Time.time + duration;
+        player.spriteRenderer.SetAlpha(0.5f);
+    }
+    private void UpdateInvincibility()
+    {
+        if (!isInvincible || Time.time < invincibilityEndTime) return;
+
+        EndInvincibility();
+    }
+    private void EndInvincibility()
+    {
+        isInvincible = false;
+        player.spriteRenderer.SetAlpha(1.0f);
     }
 }

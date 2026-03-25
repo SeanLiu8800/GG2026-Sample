@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : PlayerComponent
 {
-    [SerializeField] private Collider2D playerCollider;
+    [field: SerializeField] public Collider2D playerCollider { get; private set; }
     [SerializeField] private Collider2D dashCollider;
     [SerializeField] private Rigidbody2D playerRigidbody;
 

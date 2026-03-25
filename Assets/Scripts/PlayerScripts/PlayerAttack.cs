@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class PlayerAttack : PlayerComponent
 {
     private InputAction attackAction;
-    [SerializeField] private Collider2D attackArea;
+    [SerializeField] public Collider2D attackArea;
     [SerializeField] private ContactFilter2D attackTargetFiler;
 
     [Header("Attack Variables")]

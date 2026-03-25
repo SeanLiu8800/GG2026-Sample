@@ -35,13 +35,13 @@ public class EnemyHealth : EnemyComponent, IDamageable
     }
     public void Die()
     {
-        enemy.enemySpriteRenderer.enabled = false;
+        enemy.spriteRenderer.enabled = false;
         enemy.enemyCollider.enabled = false;
         Invoke(nameof(Respawn), 1.0f);
     }
     private void Respawn()
     {
-        enemy.enemySpriteRenderer.enabled = true;
+        enemy.spriteRenderer.enabled = true;
         enemy.enemyCollider.enabled = true;
         Heal(99);
         this.transform.position = Vector3.zero;

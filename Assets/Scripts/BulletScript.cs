@@ -28,12 +28,26 @@ public class BulletScript : MonoBehaviour
     {
         if (((1 << collision.gameObject.layer) & layerMask) == 0) return;
 
-        if (collision.TryGetComponent<Player>(out Player player)) PlayerCollision(player);
-        else if (collision.TryGetComponent(out IDamageable iDamageable)) iDamageable.Damage(damage);
+        if (collision.TryGetComponent<Player>(out Player player))
+        {
+            if (PlayerCollision(player)) Destroy(this.gameObject);
+        }
+        else if (collision.TryGetComponent(out IDamageable iDamageable))
+        {
+            iDamageable.Damage(damage);
+            Destroy(this.gameObject);
+        }
+        else
+        {
 
-        Destroy(this.gameObject);
+        }        
     }
-    private void PlayerCollision(Player player)
+    /// <summary>
+    /// Performs logic when Player collides with this bullet
+    /// </summary>
+    /// <param name="player">Player to attack</param>
+    /// <returns>Returns True if the bullet interacts with Player, False otherwise (like if Player is Invincible)</returns>
+    private bool PlayerCollision(Player player)
     {
         if (player.movement.isDashing)
         {
@@ -41,6 +55,11 @@ public class BulletScript : MonoBehaviour
             Vector3.Dot(bulletRigidbody.linearVelocity.normalized, player.movement.dashDirection) < -0.7f)
                 player.attack.Empower(empowerRate);
         }
-        else player.health.Damage(damage);
+        else
+        {
+            if (!player.health.isInvincible) player.health.Damage(damage);
+            else return false;
+        }
+        return true;
     }
 }

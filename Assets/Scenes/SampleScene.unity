@@ -558,7 +558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64e17a5654d177f4fac5c62d3bd173c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  playerCollider: {fileID: 993337299}
+  <playerCollider>k__BackingField: {fileID: 993337299}
   dashCollider: {fileID: 993337303}
   playerRigidbody: {fileID: 993337298}
   moveSpeed: 10
@@ -588,6 +588,7 @@ MonoBehaviour:
   <movement>k__BackingField: {fileID: 993337296}
   <attack>k__BackingField: {fileID: 993337302}
   <health>k__BackingField: {fileID: 993337304}
+  <spriteRenderer>k__BackingField: {fileID: 993337300}
 --- !u!50 &993337298
 Rigidbody2D:
   serializedVersion: 5
@@ -817,6 +818,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   <maxHealth>k__BackingField: 5
   <currHealth>k__BackingField: 5
+  invincibilityDuration: 1
 --- !u!1 &1351050882
 GameObject:
   m_ObjectHideFlags: 0
@@ -1518,7 +1520,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   <health>k__BackingField: {fileID: 1620073971}
-  <enemySpriteRenderer>k__BackingField: {fileID: 1620073969}
+  <spriteRenderer>k__BackingField: {fileID: 0}
   <enemyCollider>k__BackingField: {fileID: 1620073968}
 --- !u!1 &2010581680
 GameObject:
