@@ -563,7 +563,7 @@ MonoBehaviour:
   playerRigidbody: {fileID: 993337298}
   moveSpeed: 10
   currMoveSpeed: 0
-  maxMoveSpeed: 25
+  maxMoveSpeed: 20
   speedRestoreRate: 5
   speedDecayRate: 5
   <isDashing>k__BackingField: 0

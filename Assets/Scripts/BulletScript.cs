@@ -35,10 +35,10 @@ public class BulletScript : MonoBehaviour
     }
     private void PlayerCollision(Player player)
     {
-        if (player.movement.isDashing &&
-           (bulletRigidbody.linearVelocity == Vector2.zero ||
-            Vector3.Dot(bulletRigidbody.linearVelocity.normalized, player.movement.dashDirection) < -0.7f))
+        if (player.movement.isDashing)
         {
+            if (bulletRigidbody.linearVelocity == Vector2.zero ||
+            Vector3.Dot(bulletRigidbody.linearVelocity.normalized, player.movement.dashDirection) < -0.7f)
                 player.attack.Empower(empowerRate);
         }
         else player.health.Damage(damage);
