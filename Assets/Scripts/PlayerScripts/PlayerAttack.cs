@@ -46,10 +46,10 @@ public class PlayerAttack : PlayerComponent
 
         player.movement.StartAttackLunge();
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.swordSwingSoundEffect);
-        foreach (Collider2D currCollider in hits)
-        {
-            Debug.Log($"Hits {currCollider.name}");
-        }
+        //foreach (Collider2D currCollider in hits)
+        //{
+        //    Debug.Log($"Hits {currCollider.name}");
+        //}
     }
     private void EnableAttackArea()
     {
