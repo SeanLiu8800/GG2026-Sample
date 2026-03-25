@@ -13,6 +13,7 @@ public class PlayerAttack : PlayerComponent
     [field : SerializeField, ReadOnly] public bool attackIsActive { get; private set; } = false;
     [SerializeField, Range(0.0f, 1.0f)] private float attackDuration = 0.2f;
     private float attackStartTime = 0.0f;
+    [field : SerializeField, ReadOnly] public int currAttackID { get; private set; } = 0;
     protected override void Awake()
     {
         base.Awake();
@@ -44,6 +45,7 @@ public class PlayerAttack : PlayerComponent
             return;
         }
 
+        currAttackID = AttackIDGenerator();
         player.movement.StartAttackLunge();
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.swordSwingSoundEffect);
         //foreach (Collider2D currCollider in hits)
@@ -77,5 +79,9 @@ public class PlayerAttack : PlayerComponent
     {
         Debug.Log("Empowering Player's Attack!");
         currDamage += input;
+    }
+    private int AttackIDGenerator()
+    {
+        return (currAttackID = (currAttackID + 1) % 255);
     }
 }

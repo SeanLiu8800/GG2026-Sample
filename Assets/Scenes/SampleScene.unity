@@ -570,7 +570,9 @@ MonoBehaviour:
   dashTime: 1
   dashCooldown: 0.5
   perfectDashLeniency: 0.05
+  <canLunge>k__BackingField: 0
   <isLunging>k__BackingField: 0
+  minDashEnableLunge: 0.2
   lungeDuration: 0.2
 --- !u!114 &993337297
 MonoBehaviour:
@@ -1521,7 +1523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   <health>k__BackingField: {fileID: 1620073971}
-  <spriteRenderer>k__BackingField: {fileID: 0}
+  <spriteRenderer>k__BackingField: {fileID: 1620073969}
   <enemyCollider>k__BackingField: {fileID: 1620073968}
 --- !u!1 &2010581680
 GameObject:
