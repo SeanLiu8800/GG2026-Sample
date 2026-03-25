@@ -5,7 +5,7 @@ public class EnemyHealth : EnemyComponent, IDamageable
     [SerializeField] private LayerMask layerMask;
     [field: SerializeField] public int maxHealth { get; private set; } = 5;
     [field: SerializeField] public int currHealth { get; private set; } = 5;
-    private int lastAttackID = 0;
+    
     public void Damage(int damage = 1)
     {
         if (damage < 1)
@@ -46,6 +46,8 @@ public class EnemyHealth : EnemyComponent, IDamageable
         Heal(99);
         this.transform.position = Vector3.zero;
     }
+
+    private int lastAttackID = 0;
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (((1 << collision.gameObject.layer) & layerMask) == 0) return;

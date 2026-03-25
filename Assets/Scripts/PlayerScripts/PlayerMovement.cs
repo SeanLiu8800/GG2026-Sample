@@ -86,7 +86,7 @@ public class PlayerMovement : PlayerComponent
     
     private void StartDash(InputAction.CallbackContext context)
     {
-        // Dash still on Cooldown
+        // Player is Lunging or Dash still on Cooldown
         if (isLunging || Time.time - dashStartTime < dashCooldown)
         {
             AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.dashFailsSoundEffect);

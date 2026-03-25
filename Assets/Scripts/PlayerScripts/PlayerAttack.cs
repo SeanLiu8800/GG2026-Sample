@@ -82,6 +82,6 @@ public class PlayerAttack : PlayerComponent
     }
     private int AttackIDGenerator()
     {
-        return (currAttackID = (currAttackID + 1) % 255);
+        return (currAttackID = (currAttackID + 1) % 256);
     }
 }
