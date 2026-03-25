@@ -36,6 +36,8 @@ public class PlayerAttack : PlayerComponent
 
     private void Attack(InputAction.CallbackContext context)
     {
+        if (Time.time - attackStartTime < attackDuration+0.1f) return;
+
         EnableAttackArea();
         List<Collider2D> hits = new List<Collider2D>();
         // No target to attack
@@ -48,10 +50,6 @@ public class PlayerAttack : PlayerComponent
         currAttackID = AttackIDGenerator();
         player.movement.StartAttackLunge();
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.swordSwingSoundEffect);
-        //foreach (Collider2D currCollider in hits)
-        //{
-        //    Debug.Log($"Hits {currCollider.name}");
-        //}
     }
     private void EnableAttackArea()
     {
