@@ -9,7 +9,7 @@ public class PlayerAttack : PlayerComponent
 
     [Header("Attack Variables")]
     [SerializeField, Range(0, 5)] private int baseDamage = 1;
-    [SerializeField, Range(0, 5)] private int currDamage = 1;
+    [field: SerializeField, Range(0, 5), ReadOnly] public int currDamage { get; private set; } = 1;
     [field : SerializeField, ReadOnly] public bool attackIsActive { get; private set; } = false;
     [SerializeField, Range(0.0f, 1.0f)] private float attackDuration = 0.2f;
     private float attackStartTime = 0.0f;
