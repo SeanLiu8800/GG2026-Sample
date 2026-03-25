@@ -36,7 +36,7 @@ public class PlayerAttack : PlayerComponent
 
     private void Attack(InputAction.CallbackContext context)
     {
-        if (Time.time - attackStartTime < attackDuration+0.1f) return;
+        if (!player.canAttack || Time.time - attackStartTime < attackDuration+0.1f) return;
 
         EnableAttackArea();
         List<Collider2D> hits = new List<Collider2D>();

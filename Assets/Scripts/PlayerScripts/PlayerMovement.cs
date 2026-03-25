@@ -86,6 +86,7 @@ public class PlayerMovement : PlayerComponent
     
     private void StartDash(InputAction.CallbackContext context)
     {
+        if (!player.canDash) return;
         // Player is Lunging or Dash still on Cooldown
         if (isLunging || Time.time - dashStartTime < dashCooldown)
         {
@@ -109,7 +110,7 @@ public class PlayerMovement : PlayerComponent
 
         currDashTime = Time.time - dashStartTime;
         // Enables Attack Lunging if player Dashes for the minimum amount of time
-        if (currDashTime >= minDashEnableLunge) canLunge = true;
+        if (currDashTime >= minDashEnableLunge) willLunge = true;
         if (currDashTime >= dashTime)
         {
             StopDash(new InputAction.CallbackContext());
@@ -143,7 +144,7 @@ public class PlayerMovement : PlayerComponent
     }
 
     [field : Header("Attack Lunge Variables")]
-    [field: SerializeField, ReadOnly] public bool canLunge { get; private set; } = false;
+    [field: SerializeField, ReadOnly] public bool willLunge { get; private set; } = false;
     [field : SerializeField, ReadOnly] public bool isLunging { get; private set; } = false;
     [Tooltip("The minimum amount of time to dash to enable Attack Lunging")]
     [SerializeField, Range(0.0f, 0.5f)] private float minDashEnableLunge = 0.2f;
@@ -153,10 +154,11 @@ public class PlayerMovement : PlayerComponent
     private Vector3 currLungeVelocity;
     public void StartAttackLunge()
     {
-        if (!canLunge) return;
+        if (!player.canLunge) willLunge = false;
+        if (!willLunge) return;
 
         isLunging = true;
-        canLunge = false;
+        willLunge = false;
         lungeStartTime = Time.time;
         currLungeVelocity = lastMovementDirection * Mathf.Max(currMoveSpeed * 1.5f, 15.0f);
     }
