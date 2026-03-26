@@ -48,7 +48,8 @@ public class PlayerAttack : PlayerComponent
         }
 
         currAttackID = AttackIDGenerator();
-        player.movement.StartAttackLunge();
+        if (!player.movement.willLunge) player.movement.MultiplyMoveSpeed(0.5f);
+        else player.movement.StartAttackLunge();
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.swordSwingSoundEffect);
     }
     private void EnableAttackArea()

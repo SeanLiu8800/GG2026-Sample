@@ -10,9 +10,9 @@ public class PlayerMovement : PlayerComponent
     private InputAction dashAction;
 
     [Header("Movement Variables")]
-    [SerializeField, Range(5.0f, 15.0f)] float moveSpeed = 5.0f;
-    [SerializeField, ReadOnly, Range(0.0f, 60.0f)] float currMoveSpeed = 0.0f;
-    [SerializeField, Range(5.0f, 60.0f)] float maxMoveSpeed = 30.0f;
+    [SerializeField, Range(5.0f, 15.0f)] private float moveSpeed = 5.0f;
+    [SerializeField, ReadOnly, Range(0.0f, 60.0f)] private float currMoveSpeed = 0.0f;
+    [SerializeField, Range(5.0f, 60.0f)] private float maxMoveSpeed = 30.0f;
     [Range(0.0f, 5.0f)] public float speedRestoreRate = 1.0f;
     [Range(0.0f, 5.0f)] public float speedDecayRate = 1.0f;
     public Vector3 lastMovementDirection { get; private set; } = Vector3.up;
@@ -83,7 +83,15 @@ public class PlayerMovement : PlayerComponent
         }
         return currMoveSpeed;
     }
-    
+    public void AddMoveSpeed(float addAmount)
+    {
+        currMoveSpeed = Mathf.Max(currMoveSpeed + addAmount, 0.0f);
+    }
+    public void MultiplyMoveSpeed(float multiplier)
+    {
+        currMoveSpeed = Mathf.Max(multiplier * currMoveSpeed, 0.0f);
+    }
+
     private void StartDash(InputAction.CallbackContext context)
     {
         if (!player.canDash) return;
