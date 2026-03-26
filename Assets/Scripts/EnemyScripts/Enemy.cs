@@ -4,7 +4,7 @@ public class Enemy : MonoBehaviour
 {
     [field : SerializeField] public EnemyHealth health { get; private set; }
     [field : SerializeField] public SpriteRenderer spriteRenderer { get; private set; }
-    [field: SerializeField] public Collider2D enemyCollider { get; private set; }
+    [field : SerializeField] public Collider2D enemyCollider { get; private set; }
 
     void Awake()
     {

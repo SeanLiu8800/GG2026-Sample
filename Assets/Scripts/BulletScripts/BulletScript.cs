@@ -6,6 +6,9 @@ public class BulletScript : MonoBehaviour
     [SerializeField, ReadOnly] private Rigidbody2D bulletRigidbody;
     [SerializeField] private LayerMask layerMask;
 
+    [Header("Bullet Variables")]
+    [SerializeField, ReadOnly] private GameObject owner;
+    [SerializeField, ReadOnly] private GameObject target;
     [SerializeField, Range(0, 5)] private int damage = 1;
     [SerializeField, Range(0, 5)] private int empowerRate = 1;
     void Awake()
@@ -20,6 +23,12 @@ public class BulletScript : MonoBehaviour
         }
     }
 
+    public void Initialize(GameObject owner, GameObject target, Vector3 initialLinearVelocity = default)
+    {
+        this.owner = owner;
+        this.target = target;
+        SetLinearVelocity(initialLinearVelocity);
+    }
     public void SetLinearVelocity(Vector3 input)
     {
         bulletRigidbody.linearVelocity = input;
