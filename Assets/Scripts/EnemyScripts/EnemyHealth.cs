@@ -44,12 +44,13 @@ public class EnemyHealth : EnemyComponent, IDamageable
         enemy.spriteRenderer.enabled = true;
         enemy.enemyCollider.enabled = true;
         Heal(99);
-        this.transform.position = Vector3.zero;
+        this.transform.position = new Vector3(3.5f, 0.0f, 0.0f);
     }
 
     private int lastAttackID = 0;
+    
     private void OnTriggerStay2D(Collider2D collision)
-    {
+    {   // Should only collide with player's Attack Area Collider because this it is a Trigger Collider
         if (((1 << collision.gameObject.layer) & layerMask) == 0) return;
 
         Player player = collision.gameObject.GetComponentInParent<Player>();

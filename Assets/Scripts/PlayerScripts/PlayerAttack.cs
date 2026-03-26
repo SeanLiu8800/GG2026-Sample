@@ -5,7 +5,7 @@ public class PlayerAttack : PlayerComponent
 {
     private InputAction attackAction;
     [SerializeField] public Collider2D attackArea;
-    [SerializeField] private ContactFilter2D attackTargetFiler;
+    [SerializeField] private ContactFilter2D attackTargetFilter;
 
     [field : Header("Attack Variables")]
     [field: SerializeField, ReadOnly] public bool isAttacking { get; private set; } = false;
@@ -38,12 +38,11 @@ public class PlayerAttack : PlayerComponent
 
     private void Attack(InputAction.CallbackContext context)
     {
-        if (!player.canAttack || Time.time - attackStartTime < attackDuration+0.1f) return;
+        if (!player.canAttack || Time.time - attackStartTime < attackDuration + 0.1f) return;
 
         EnableAttackArea();
-        List<Collider2D> hits = new List<Collider2D>();
         // No target to attack
-        if (attackArea.Overlap(attackTargetFiler, hits) <= 0)
+        if (!CheckAttackArea())
         {
             DisableAttackArea();
             return;
@@ -53,6 +52,33 @@ public class PlayerAttack : PlayerComponent
         if (!player.movement.willLunge) player.movement.MultiplyMoveSpeed(0.5f);
         else player.movement.StartAttackLunge();
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.swordSwingSoundEffect);
+    }
+    /// <summary>
+    /// Check to see if there are Colliders within attackArea that follow attackTargetFilter
+    /// </summary>
+    /// <returns>True if there are applicable Colliders<br/>False if not</returns>
+    private bool CheckAttackArea()
+    {
+        List<Collider2D> currHits = new List<Collider2D>();
+        HashSet<Collider2D> totalHits = new HashSet<Collider2D>();
+        Vector3 currPos = transform.position;
+        Vector3 finalPos = transform.position;
+        if (player.movement.willLunge) // Determine finalPos of sliding area checking
+        {
+            if (player.movement.GetMoveSpeed() > 15.0f) finalPos += (player.movement.lastMovementDirection * 3.0f);
+            else finalPos += (player.movement.lastMovementDirection * 2.0f);
+        }
+        // Angle assumes Collider's Default position, so must calculate it's orientation
+        float angleDeg = (attackArea.transform.eulerAngles.z - 360) % 360;
+        do
+        {
+            attackArea.Overlap(currPos, angleDeg, attackTargetFilter, currHits);
+            totalHits.UnionWith(currHits);
+            currPos = Vector3.MoveTowards(currPos, finalPos, 1.0f);
+        }
+        while (currPos != finalPos);
+        Debug.LogWarning($"{totalHits.Count}, {totalHits.Count >= 1}");
+        return totalHits.Count >= 1;
     }
     private void EnableAttackArea()
     {

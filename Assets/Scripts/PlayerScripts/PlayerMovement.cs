@@ -83,6 +83,7 @@ public class PlayerMovement : PlayerComponent
         }
         return currMoveSpeed;
     }
+    public float GetMoveSpeed() { return currMoveSpeed; }
     public void AddMoveSpeed(float addAmount)
     {
         currMoveSpeed = Mathf.Max(currMoveSpeed + addAmount, 0.0f);
@@ -103,6 +104,7 @@ public class PlayerMovement : PlayerComponent
         }
 
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.dashSoundEffect);
+        willLunge = false;
         isDashing = true;
         player.playerCollider.enabled = false;
         dashCollider.enabled = true;
