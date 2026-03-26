@@ -174,5 +174,8 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 264
+  owner: {fileID: 0}
+  target: {fileID: 0}
   damage: 1
   empowerRate: 1
+  isParriable: 1

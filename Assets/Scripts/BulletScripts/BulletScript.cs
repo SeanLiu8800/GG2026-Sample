@@ -11,6 +11,9 @@ public class BulletScript : MonoBehaviour
     [SerializeField, ReadOnly] private GameObject target;
     [SerializeField, Range(0, 5)] private int damage = 1;
     [SerializeField, Range(0, 5)] private int empowerRate = 1;
+
+    [Header("Parry Variables")]
+    [SerializeField] private bool isParriable = false;
     void Awake()
     {
         if (!TryGetComponent<Collider2D>(out bulletCollider))
@@ -32,6 +35,14 @@ public class BulletScript : MonoBehaviour
     public void SetLinearVelocity(Vector3 input)
     {
         bulletRigidbody.linearVelocity = input;
+    }
+
+    private void AttackParried()
+    {
+        if (!isParriable || owner == null || !owner.TryGetComponent<Enemy>(out Enemy enemy)) return;
+
+        Debug.Log($"{this.name} IS PARRIED");
+        enemy.attack.Parried();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -86,6 +97,7 @@ public class BulletScript : MonoBehaviour
         else if (player.attack.isAttacking)
         {
             if (!player.attack.AttackIsEnhanced()) return false;
+            else AttackParried();
         }
         else
         {
