@@ -835,7 +835,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d68ee6d1397f2e04ea48b08c7034b2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  attackArea: {fileID: 1351050884}
+  attackArea: {fileID: 1351050887}
   attackTargetFilter:
     useTriggers: 1
     useLayerMask: 1
@@ -930,6 +930,7 @@ GameObject:
   - component: {fileID: 1351050886}
   - component: {fileID: 1351050885}
   - component: {fileID: 1351050884}
+  - component: {fileID: 1351050887}
   m_Layer: 3
   m_Name: AttackArea
   m_TagString: Untagged
@@ -1093,6 +1094,21 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1351050887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351050882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45b125af6e3f0445b1233642366acec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AttackArea
+  spriteRenderer: {fileID: 1351050886}
+  attackCollider: {fileID: 1351050884}
+  spriteAlwaysOn: 0
 --- !u!1 &1379630733
 GameObject:
   m_ObjectHideFlags: 0

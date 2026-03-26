@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class PlayerAttack : PlayerComponent
 {
     private InputAction attackAction;
-    [SerializeField] public Collider2D attackArea;
+    [SerializeField] private AttackArea attackArea;
     [SerializeField] private ContactFilter2D attackTargetFilter;
 
     [field : Header("Attack Variables")]
@@ -20,8 +20,6 @@ public class PlayerAttack : PlayerComponent
         base.Awake();
 
         attackAction = InputSystem.actions.FindAction("Attack");
-        attackArea.gameObject.SetActive(false);
-        attackArea.enabled = false;
     }
     void OnEnable()
     {
@@ -54,7 +52,7 @@ public class PlayerAttack : PlayerComponent
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.swordSwingSoundEffect);
     }
     /// <summary>
-    /// Check to see if there are Colliders within attackArea that follow attackTargetFilter
+    /// Check to see if there are Colliders within attackArea's Collider2D that follow attackTargetFilter
     /// </summary>
     /// <returns>True if there are applicable Colliders<br/>False if not</returns>
     private bool CheckAttackArea()
@@ -72,7 +70,7 @@ public class PlayerAttack : PlayerComponent
         float angleDeg = (attackArea.transform.eulerAngles.z - 360) % 360;
         do
         {
-            attackArea.Overlap(currPos, angleDeg, attackTargetFilter, currHits);
+            attackArea.GetCollider2D().Overlap(currPos, angleDeg, attackTargetFilter, currHits);
             totalHits.UnionWith(currHits);
             currPos = Vector3.MoveTowards(currPos, finalPos, 1.0f);
         }
@@ -83,8 +81,7 @@ public class PlayerAttack : PlayerComponent
     private void EnableAttackArea()
     {
         isAttacking = true;
-        attackArea.gameObject.SetActive(true);
-        attackArea.enabled = true;
+        attackArea.EnableAttack();
         attackStartTime = Time.time;
 
         attackArea.transform.rotation = Quaternion.LookRotation(Vector3.forward, player.movement.lastMovementDirection);
@@ -97,8 +94,7 @@ public class PlayerAttack : PlayerComponent
     private void DisableAttackArea()
     {
         isAttacking = false;
-        attackArea.gameObject.SetActive(false);
-        attackArea.enabled = false;
+        attackArea.DisableAttack();
         attackIsEnhanced = false;
         currDamage = baseDamage;
     }

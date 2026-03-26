@@ -48,7 +48,6 @@ public class EnemyHealth : EnemyComponent, IDamageable
     }
 
     private int lastAttackID = 0;
-    
     private void OnTriggerStay2D(Collider2D collision)
     {   // Should only collide with player's Attack Area Collider because this it is a Trigger Collider
         if (((1 << collision.gameObject.layer) & layerMask) == 0) return;
