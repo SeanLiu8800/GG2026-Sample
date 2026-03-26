@@ -570,7 +570,7 @@ MonoBehaviour:
   dashTime: 1
   dashCooldown: 0.5
   perfectDashLeniency: 0.05
-  <canLunge>k__BackingField: 0
+  <willLunge>k__BackingField: 0
   <isLunging>k__BackingField: 0
   minDashEnableLunge: 0.2
   lungeDuration: 0.2
@@ -591,6 +591,9 @@ MonoBehaviour:
   <health>k__BackingField: {fileID: 993337304}
   <playerCollider>k__BackingField: {fileID: 993337299}
   <spriteRenderer>k__BackingField: {fileID: 993337300}
+  canDash: 1
+  canAttack: 1
+  canLunge: 1
 --- !u!50 &993337298
 Rigidbody2D:
   serializedVersion: 5
@@ -751,7 +754,7 @@ MonoBehaviour:
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 192
+      m_Bits: 64
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0
@@ -1543,7 +1546,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &2010581681
 BoxCollider2D:
   m_ObjectHideFlags: 0
