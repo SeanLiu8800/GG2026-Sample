@@ -20,6 +20,7 @@ public class PlayerAttack : PlayerComponent
         base.Awake();
 
         attackAction = InputSystem.actions.FindAction("Attack");
+        attackArea.gameObject.SetActive(false);
         attackArea.enabled = false;
     }
     void OnEnable()
@@ -56,6 +57,7 @@ public class PlayerAttack : PlayerComponent
     private void EnableAttackArea()
     {
         isAttacking = true;
+        attackArea.gameObject.SetActive(true);
         attackArea.enabled = true;
         attackStartTime = Time.time;
 
@@ -69,6 +71,7 @@ public class PlayerAttack : PlayerComponent
     private void DisableAttackArea()
     {
         isAttacking = false;
+        attackArea.gameObject.SetActive(false);
         attackArea.enabled = false;
         attackIsEnhanced = false;
         currDamage = baseDamage;
