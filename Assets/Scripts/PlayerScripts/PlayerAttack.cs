@@ -70,18 +70,15 @@ public class PlayerAttack : PlayerComponent
     {
         isAttacking = false;
         attackArea.enabled = false;
-        ResetAttack();
+        attackIsEnhanced = false;
+        currDamage = baseDamage;
     }
     
     public void EnhanceAttack()
     {
         attackIsEnhanced = true;
     }
-    public void ResetAttack()
-    {
-        attackIsEnhanced = false;
-        currDamage = baseDamage;
-    }
+    public bool AttackIsEnhanced() { return attackIsEnhanced; }
     public void Empower(int input = 1)
     {
         Debug.Log("Empowering Player's Attack!");

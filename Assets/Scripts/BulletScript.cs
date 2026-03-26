@@ -76,7 +76,7 @@ public class BulletScript : MonoBehaviour
         }
         else if (player.attack.isAttacking)
         {
-            
+            if (!player.attack.AttackIsEnhanced()) return false;
         }
         else
         {
