@@ -9,6 +9,7 @@ public class PlayerAttack : PlayerComponent
 
     [field : Header("Attack Variables")]
     [field: SerializeField, ReadOnly] public bool isAttacking { get; private set; } = false;
+    [field: SerializeField, ReadOnly] public bool attackIsEnhanced { get; private set; } = false;
     [SerializeField, Range(0, 5)] private int baseDamage = 1;
     [field: SerializeField, Range(0, 5), ReadOnly] public int currDamage { get; private set; } = 1;
     [SerializeField, Range(0.0f, 1.0f)] private float attackDuration = 0.2f;
@@ -69,9 +70,16 @@ public class PlayerAttack : PlayerComponent
     {
         isAttacking = false;
         attackArea.enabled = false;
+        ResetAttack();
     }
-    public void ResetDamage()
+    
+    public void EnhanceAttack()
     {
+        attackIsEnhanced = true;
+    }
+    public void ResetAttack()
+    {
+        attackIsEnhanced = false;
         currDamage = baseDamage;
     }
     public void Empower(int input = 1)
