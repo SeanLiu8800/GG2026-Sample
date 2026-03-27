@@ -3,6 +3,7 @@ using System;
 public struct PlayerEvents
 {
     public Action dashStarts;
+    public Action enhanceAttack;
     public Action dashEnds;
     public Action perfectDash;
     public Action imperfectDash;
@@ -10,7 +11,6 @@ public struct PlayerEvents
     public Action lungeStarts;
     public Action lungeEnds;
 
-    public Action enhanceAttack;
     public Action attackStarts;
     public Action attackEnds;
 

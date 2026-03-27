@@ -51,6 +51,8 @@ public class PlayerMovement : PlayerComponent
 
         player.playerEvents.lungeStarts += LungeStarts;
         player.playerEvents.lungeEnds += LungeEnds;
+
+        player.playerEvents.attackStarts += AttackStarts;
     }
     void OnDisable()
     {
@@ -65,6 +67,8 @@ public class PlayerMovement : PlayerComponent
 
         player.playerEvents.lungeStarts -= LungeStarts;
         player.playerEvents.lungeEnds -= LungeEnds;
+
+        player.playerEvents.attackStarts -= AttackStarts;
     }
     void DashStarts()
     {
@@ -109,6 +113,11 @@ public class PlayerMovement : PlayerComponent
     void LungeEnds()
     {
         isLunging = false;
+    }
+    void AttackStarts()
+    {
+        if (!willLunge) MultiplyMoveSpeed(0.5f);
+        else StartAttackLunge();
     }
     void Update()
     {

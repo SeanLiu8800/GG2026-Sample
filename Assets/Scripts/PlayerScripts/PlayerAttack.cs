@@ -26,6 +26,7 @@ public class PlayerAttack : PlayerComponent
         attackAction.canceled += Attack;
 
         player.playerEvents.enhanceAttack += EnhanceAttack;
+
         player.playerEvents.attackStarts += AttackStarts;
         player.playerEvents.attackEnds += AttackEnds;
     }
@@ -34,6 +35,7 @@ public class PlayerAttack : PlayerComponent
         attackAction.canceled -= Attack;
 
         player.playerEvents.enhanceAttack -= EnhanceAttack;
+
         player.playerEvents.attackStarts -= AttackStarts;
         player.playerEvents.attackEnds -= AttackEnds;
     }
@@ -43,7 +45,8 @@ public class PlayerAttack : PlayerComponent
     }
     void AttackStarts()
     {
-
+        currAttackID = AttackIDGenerator();
+        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.swordSwingSoundEffect);
     }
     void AttackEnds()
     {
@@ -66,10 +69,7 @@ public class PlayerAttack : PlayerComponent
             return;
         }
 
-        currAttackID = AttackIDGenerator();
-        if (!player.movement.willLunge) player.movement.MultiplyMoveSpeed(0.5f);
-        else player.movement.StartAttackLunge();
-        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.swordSwingSoundEffect);
+        player.playerEvents.attackStarts?.Invoke();
     }
     /// <summary>
     /// Check to see if there are Colliders within attackArea's Collider2D that follow attackTargetFilter
