@@ -6,14 +6,11 @@ public class BulletScript : MonoBehaviour
     [SerializeField, ReadOnly] private Rigidbody2D bulletRigidbody;
     [SerializeField] private LayerMask layerMask;
 
-    [Header("Bullet Variables")]
-    [SerializeField, ReadOnly] private GameObject owner;
-    [SerializeField, ReadOnly] private GameObject target;
+    [field : Header("Bullet Variables")]
+    [field : SerializeField, ReadOnly] public GameObject owner { get; private set; }
+    [field : SerializeField, ReadOnly] public GameObject target { get; private set; }
     [SerializeField, Range(0, 5)] private int damage = 1;
     [SerializeField, Range(0, 5)] private int empowerRate = 1;
-
-    [Header("Parry Variables")]
-    [SerializeField] private bool isParriable = false;
 
     public BulletEvents bulletEvents;
     void Awake()
@@ -39,13 +36,6 @@ public class BulletScript : MonoBehaviour
         bulletRigidbody.linearVelocity = input;
     }
 
-    private void AttackParried()
-    {
-        if (!isParriable || owner == null || !owner.TryGetComponent<Enemy>(out Enemy enemy)) return;
-
-        Debug.Log($"{this.name} IS PARRIED");
-        enemy.attack.Parried();
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (((1 << collision.gameObject.layer) & layerMask) == 0) return;
@@ -98,11 +88,7 @@ public class BulletScript : MonoBehaviour
         }
         else if (player.attack.isAttacking)
         {
-            if (player.attack.AttackIsEnhanced())
-            {
-                AttackParried();
-                bulletEvents.onParried?.Invoke();
-            }
+            if (player.attack.AttackIsEnhanced()) bulletEvents.onParried?.Invoke();
             else return false;
         }
         else
