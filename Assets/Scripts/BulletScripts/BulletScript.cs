@@ -14,6 +14,8 @@ public class BulletScript : MonoBehaviour
 
     [Header("Parry Variables")]
     [SerializeField] private bool isParriable = false;
+
+    public BulletEvents bulletEvents;
     void Awake()
     {
         if (!TryGetComponent<Collider2D>(out bulletCollider))
@@ -96,13 +98,17 @@ public class BulletScript : MonoBehaviour
         }
         else if (player.attack.isAttacking)
         {
-            if (!player.attack.AttackIsEnhanced()) return false;
-            else AttackParried();
+            if (player.attack.AttackIsEnhanced())
+            {
+                AttackParried();
+                bulletEvents.onParried?.Invoke();
+            }
+            else return false;
         }
         else
         {
-            if (!player.health.isInvincible) player.health.Damage(damage);
-            else return false;
+            if (player.health.isInvincible) return false;
+            else player.health.Damage(damage);
         }
         return true;
     }

@@ -14,6 +14,8 @@ public struct PlayerEvents
     public Action attackStarts;
     public Action attackEnds;
 
+    public Action playerParries;
+
     public Action healthChanges;
     public Action playerDies;
 
