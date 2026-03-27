@@ -1,12 +1,11 @@
 using UnityEngine;
 
-public class Bullet_IsParriable : Bullet_OnParried_BehaviorBase
+public class Bullet_OnEnhancedAttacked_BeParried : Bullet_OnEnhancedAttacked_BehaviorBase
 {
-    protected override void onParriedBehavior()
+    protected override void OnEnhancedAttackedBehavior()
     {
         if (bullet.owner == null || !bullet.owner.TryGetComponent<Enemy>(out Enemy enemy)) return;
 
-        Debug.Log($"{this.name} IS PARRIED");
         enemy.attack.Parried();
     }
 }

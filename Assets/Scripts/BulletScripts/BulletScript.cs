@@ -88,7 +88,7 @@ public class BulletScript : MonoBehaviour
         }
         else if (player.attack.isAttacking)
         {
-            if (player.attack.AttackIsEnhanced()) bulletEvents.onParried?.Invoke();
+            if (player.attack.AttackIsEnhanced()) bulletEvents.onEnhancedAttacked?.Invoke();
             else return false;
         }
         else
