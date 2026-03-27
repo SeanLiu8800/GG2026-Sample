@@ -45,12 +45,18 @@ public class PlayerAttack : PlayerComponent
     }
     void AttackStarts()
     {
+        isAttacking = true;
+        attackStartTime = Time.time;
         currAttackID = AttackIDGenerator();
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.swordSwingSoundEffect);
     }
     void AttackEnds()
     {
+        isAttacking = false;
+        attackIsEnhanced = false;
+        currDamage = baseDamage;
 
+        attackArea.DisableAttack();
     }
     void FixedUpdate()
     {
@@ -61,11 +67,12 @@ public class PlayerAttack : PlayerComponent
     {
         if (!player.canAttack || Time.time - attackStartTime < attackDuration + 0.1f) return;
 
-        EnableAttackArea();
+        attackArea.EnableAttack();
+        attackArea.transform.rotation = Quaternion.LookRotation(Vector3.forward, player.movement.lastMovementDirection);
         // No target to attack
         if (!CheckAttackArea())
         {
-            DisableAttackArea();
+            attackArea.DisableAttack();
             return;
         }
 
@@ -98,25 +105,11 @@ public class PlayerAttack : PlayerComponent
         //Debug.LogWarning($"{totalHits.Count}, {totalHits.Count >= 1}");
         return totalHits.Count >= 1;
     }
-    private void EnableAttackArea()
-    {
-        isAttacking = true;
-        attackArea.EnableAttack();
-        attackStartTime = Time.time;
-
-        attackArea.transform.rotation = Quaternion.LookRotation(Vector3.forward, player.movement.lastMovementDirection);
-    }
     private void UpdateAttackArea()
     {
         if (!isAttacking || Time.time - attackStartTime < attackDuration) return;
-        DisableAttackArea();
-    }
-    private void DisableAttackArea()
-    {
-        isAttacking = false;
-        attackArea.DisableAttack();
-        attackIsEnhanced = false;
-        currDamage = baseDamage;
+        player.playerEvents.attackEnds?.Invoke();
+        
     }
    
     public bool AttackIsEnhanced() { return attackIsEnhanced; }

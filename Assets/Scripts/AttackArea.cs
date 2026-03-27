@@ -18,11 +18,17 @@ public class AttackArea : MonoBehaviour
 
     public SpriteRenderer GetSpriteRenderer() { return spriteRenderer; }
     public Collider2D GetCollider2D() { return attackCollider; }
+    /// <summary>
+    /// Enable this AttackArea's SpriteRenderer AND Collider2D
+    /// </summary>
     public void EnableAttack()
     {
         if (spriteRenderer != null) spriteRenderer.enabled = true;
         if (attackCollider != null) attackCollider.enabled = true;
     }
+    /// <summary>
+    /// Disables this AttackArea's SpriteRenderer AND Collider2D
+    /// </summary>
     public void DisableAttack()
     {
         if (spriteRenderer != null && !spriteAlwaysOn) spriteRenderer.enabled = false;

@@ -16,4 +16,7 @@ public struct PlayerEvents
 
     public Action healthChanges;
     public Action playerDies;
+
+    public Action invincibilityStarts;
+    public Action invincibilityEnds;
 }
