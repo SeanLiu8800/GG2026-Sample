@@ -1237,11 +1237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   audioSource: {fileID: 1379630734}
-  <dashSoundEffect>k__BackingField: {fileID: 8300000, guid: 5f9cef3b2b4fb5c40af367ca6780ef95, type: 3}
-  <perfectDashSoundEffect>k__BackingField: {fileID: 8300000, guid: 2d32094691e28994bb22f31f12bea6a7, type: 3}
-  <imperfectDashSoundEffect>k__BackingField: {fileID: 8300000, guid: 3a5338d5285b1224284f766af771ca42, type: 3}
-  <dashFailsSoundEffect>k__BackingField: {fileID: 8300000, guid: e3f8aa88b7c2c1b4fb1c8410f11bbf64, type: 3}
-  <swordSwingSoundEffect>k__BackingField: {fileID: 8300000, guid: a445e1e7e16e12a4a9761062e5ef3713, type: 3}
+  <soundEffects>k__BackingField: {fileID: 11400000, guid: aa5d1c9490dc11845abe87a52de142dc, type: 2}
 --- !u!4 &1379630736
 Transform:
   m_ObjectHideFlags: 0

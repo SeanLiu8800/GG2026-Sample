@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff3b2ae630904924ea31105f25babd56, type: 3}
   m_Name: TempSoundEffects
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffects
-  <playerDash>k__BackingField: {fileID: 0}
-  <perfectDash>k__BackingField: {fileID: 0}
-  <imperfectDash>k__BackingField: {fileID: 0}
+  <playerDash>k__BackingField: {fileID: 8300000, guid: 5f9cef3b2b4fb5c40af367ca6780ef95, type: 3}
+  <playerEnhancesAttack>k__BackingField: {fileID: 0}
+  <perfectDash>k__BackingField: {fileID: 8300000, guid: 00d5bd4d3d7d70a478dd8d3b64e82094, type: 3}
+  <imperfectDash>k__BackingField: {fileID: 8300000, guid: fa9d23cc7acb17e449abf72c81a32d25, type: 3}
   <playerDashFails>k__BackingField: {fileID: 0}
-  <playerAttack>k__BackingField: {fileID: 0}
-  <enemyHurts>k__BackingField: {fileID: 0}
+  <playerAttack>k__BackingField: {fileID: 8300000, guid: a445e1e7e16e12a4a9761062e5ef3713, type: 3}
+  <playerAttackEnhanced>k__BackingField: {fileID: 0}
+  <playerHurts>k__BackingField: {fileID: 8300000, guid: e3f8aa88b7c2c1b4fb1c8410f11bbf64, type: 3}
+  <enemyHurts>k__BackingField: {fileID: 8300000, guid: e3f8aa88b7c2c1b4fb1c8410f11bbf64, type: 3}
   <playerParries>k__BackingField: {fileID: 0}
-  <enemyParried>k__BackingField: {fileID: 0}
+  <enemyParried>k__BackingField: {fileID: 8300000, guid: 2d32094691e28994bb22f31f12bea6a7, type: 3}

@@ -80,10 +80,12 @@ public class PlayerMovement : PlayerComponent
         dashStartTime = Time.time;
         dashDirection = (movementInput == Vector3.zero) ? lastMovementDirection : movementInput.normalized;
         currDashVelocity = dashDirection * 20;  // Dash is hard coded to be 20 units
+        thisDashEnhancedAttack = false;
     }
     void EnhanceAttack()
     {
         willLunge = true;
+        thisDashEnhancedAttack = true;
     }
     void DashEnds()
     {
@@ -182,7 +184,7 @@ public class PlayerMovement : PlayerComponent
 
         currDashTime = Time.time - dashStartTime;
         // Enables Attack Lunging if player Dashes for the minimum amount of time
-        if (currDashTime >= minDashEnhanceAttack) player.playerEvents.enhanceAttack?.Invoke();
+        if (!thisDashEnhancedAttack && currDashTime >= minDashEnhanceAttack) player.playerEvents.enhanceAttack?.Invoke();
         if (currDashTime >= dashTime)
         {
             StopDash(new InputAction.CallbackContext());
@@ -206,6 +208,7 @@ public class PlayerMovement : PlayerComponent
     [field : Header("Attack Lunge Variables")]
     [field: SerializeField, ReadOnly] public bool willLunge { get; private set; } = false;
     [field : SerializeField, ReadOnly] public bool isLunging { get; private set; } = false;
+    private bool thisDashEnhancedAttack = false;
     [Tooltip("The minimum amount of time to dash to enhance Attack")]
     [SerializeField, Range(0.0f, 0.5f)] private float minDashEnhanceAttack = 0.2f;
     [SerializeField, Range(0.0f, 0.5f)] private float lungeDuration = 0.2f;
