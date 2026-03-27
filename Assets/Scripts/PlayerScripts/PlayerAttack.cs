@@ -42,6 +42,7 @@ public class PlayerAttack : PlayerComponent
     void EnhanceAttack()
     {
         attackIsEnhanced = true;
+        attackArea.GetSpriteRenderer().SetColor(Color.cyan.r, Color.cyan.g, Color.cyan.b, -1.0f);
     }
     void AttackStarts()
     {
@@ -55,7 +56,7 @@ public class PlayerAttack : PlayerComponent
         isAttacking = false;
         attackIsEnhanced = false;
         currDamage = baseDamage;
-
+        attackArea.GetSpriteRenderer().SetColor(Color.white.r, Color.white.g, Color.white.b, -1.0f);
         attackArea.DisableAttack();
     }
     void FixedUpdate()

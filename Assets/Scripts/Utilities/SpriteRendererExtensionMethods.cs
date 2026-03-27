@@ -23,9 +23,9 @@ public static class SpriteRendererExtensionMethods
         )
     {
         if (newRed >= 0.0f) spriteRenderer.SetRed(newRed);
-        if (newGreen >= 0.0f) spriteRenderer.SetRed(newGreen);
-        if (newBlue >= 0.0f) spriteRenderer.SetRed(newBlue);
-        if (newAlpha >= 0.0f) spriteRenderer.SetRed(newAlpha);
+        if (newGreen >= 0.0f) spriteRenderer.SetGreen(newGreen);
+        if (newBlue >= 0.0f) spriteRenderer.SetBlue(newBlue);
+        if (newAlpha >= 0.0f) spriteRenderer.SetAlpha(newAlpha);
     }
     /// <summary>
     /// Sets the R field of the Color field of a given Sprite Renderer to newRed
