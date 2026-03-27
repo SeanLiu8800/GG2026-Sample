@@ -72,7 +72,7 @@ public class PlayerMovement : PlayerComponent
     }
     void DashStarts()
     {
-        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.dashSoundEffect);
+        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerDash);
         willLunge = false;
         isDashing = true;
         player.playerCollider.enabled = false;
@@ -95,13 +95,13 @@ public class PlayerMovement : PlayerComponent
     {
         currMoveSpeed = Mathf.Clamp(currMoveSpeed * 1.5f, 0.0f, maxMoveSpeed);
         dashStartTime = Time.time - (dashCooldown / 2.0f);
-        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.perfectDashSoundEffect);
+        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.perfectDash);
     }
     void ImperfectDash()
     {
         currMoveSpeed = Mathf.Clamp(currMoveSpeed - 5.0f, moveSpeed * 0.5f, maxMoveSpeed);
         dashStartTime = Time.time;
-        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.imperfectDashSoundEffect);
+        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.imperfectDash);
     }
     void LungeStarts()
     {
@@ -170,7 +170,7 @@ public class PlayerMovement : PlayerComponent
         // Player is Lunging or Dash still on Cooldown
         if (isLunging || Time.time - dashStartTime < dashCooldown)
         {
-            AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.dashFailsSoundEffect);
+            AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerDashFails);
             return;
         }
 

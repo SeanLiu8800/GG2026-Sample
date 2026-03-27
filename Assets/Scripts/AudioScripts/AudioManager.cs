@@ -4,11 +4,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
     [SerializeField] private AudioSource audioSource;
-    [field : SerializeField] public AudioClip dashSoundEffect { get; private set; }
-    [field : SerializeField] public AudioClip perfectDashSoundEffect { get; private set; }
-    [field : SerializeField] public AudioClip imperfectDashSoundEffect { get; private set; }
-    [field : SerializeField] public AudioClip dashFailsSoundEffect { get; private set; }
-    [field : SerializeField] public AudioClip swordSwingSoundEffect { get; private set; }
+    public SoundEffects soundEffects { get; private set; }
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -23,6 +19,15 @@ public class AudioManager : MonoBehaviour
     
     public void PlaySoundOneShot(AudioClip audioClip)
     {
+        if (AudioClipIsNull(audioClip)) return;
+
         audioSource.PlayOneShot(audioClip);
+    }
+    private bool AudioClipIsNull(AudioClip audioClip)
+    {
+        if (audioClip != null) return true;
+
+        Debug.LogError($"{audioClip.name} is null/ unassigned!");
+        return false;
     }
 }

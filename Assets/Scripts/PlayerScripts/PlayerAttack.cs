@@ -49,7 +49,7 @@ public class PlayerAttack : PlayerComponent
         isAttacking = true;
         attackStartTime = Time.time;
         currAttackID = AttackIDGenerator();
-        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.swordSwingSoundEffect);
+        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
     }
     void AttackEnds()
     {
