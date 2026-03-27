@@ -12,4 +12,6 @@ public class Player : MonoBehaviour
     public bool canDash = true;
     public bool canAttack = true;
     public bool canLunge = true;
+
+    public PlayerEvents playerEvents;
 }

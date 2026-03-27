@@ -1,0 +1,19 @@
+using System;
+
+public struct PlayerEvents
+{
+    public Action dashStarts;
+    public Action dashEnds;
+    public Action perfectDash;
+    public Action imperfectDash;
+
+    public Action lungeStarts;
+    public Action lungeEnds;
+
+    public Action enhanceAttack;
+    public Action attackStarts;
+    public Action attackEnds;
+
+    public Action healthChanges;
+    public Action playerDies;
+}

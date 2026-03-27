@@ -24,10 +24,30 @@ public class PlayerAttack : PlayerComponent
     void OnEnable()
     {
         attackAction.canceled += Attack;
+
+        player.playerEvents.enhanceAttack += EnhanceAttack;
+        player.playerEvents.attackStarts += AttackStarts;
+        player.playerEvents.attackEnds += AttackEnds;
     }
     void OnDisable()
     {
         attackAction.canceled -= Attack;
+
+        player.playerEvents.enhanceAttack -= EnhanceAttack;
+        player.playerEvents.attackStarts -= AttackStarts;
+        player.playerEvents.attackEnds -= AttackEnds;
+    }
+    void EnhanceAttack()
+    {
+        attackIsEnhanced = true;
+    }
+    void AttackStarts()
+    {
+
+    }
+    void AttackEnds()
+    {
+
     }
     void FixedUpdate()
     {
@@ -75,7 +95,7 @@ public class PlayerAttack : PlayerComponent
             currPos = Vector3.MoveTowards(currPos, finalPos, 1.0f);
         }
         while (currPos != finalPos);
-        Debug.LogWarning($"{totalHits.Count}, {totalHits.Count >= 1}");
+        //Debug.LogWarning($"{totalHits.Count}, {totalHits.Count >= 1}");
         return totalHits.Count >= 1;
     }
     private void EnableAttackArea()
@@ -98,11 +118,7 @@ public class PlayerAttack : PlayerComponent
         attackIsEnhanced = false;
         currDamage = baseDamage;
     }
-    
-    public void EnhanceAttack()
-    {
-        attackIsEnhanced = true;
-    }
+   
     public bool AttackIsEnhanced() { return attackIsEnhanced; }
     public void Empower(int input = 1)
     {

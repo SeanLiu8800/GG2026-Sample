@@ -20,7 +20,7 @@ public class PlayerMovement : PlayerComponent
 
     [field : Header("Dash Variables")]
     [field : SerializeField, ReadOnly] public bool isDashing { get; private set; } = false;
-    private float dashStartTime = 0.0f;
+    private float dashStartTime = -99.9f;
     private Vector3 currDashVelocity;
     [SerializeField, ReadOnly] private float currDashTime = 0.0f;
     [SerializeField, Range(0.0f, 1.5f)] private float dashTime = 2.0f;
@@ -42,11 +42,73 @@ public class PlayerMovement : PlayerComponent
     {
         dashAction.started += StartDash;
         dashAction.canceled += StopDash;
+
+        player.playerEvents.dashStarts += DashStarts;
+        player.playerEvents.enhanceAttack += EnhanceAttack;
+        player.playerEvents.dashEnds += DashEnds;
+        player.playerEvents.perfectDash += PerfectDash;
+        player.playerEvents.imperfectDash += ImperfectDash;
+
+        player.playerEvents.lungeStarts += LungeStarts;
+        player.playerEvents.lungeEnds += LungeEnds;
     }
     void OnDisable()
     {
         dashAction.started -= StartDash;
         dashAction.canceled -= StopDash;
+
+        player.playerEvents.dashStarts -= DashStarts;
+        player.playerEvents.enhanceAttack -= EnhanceAttack;
+        player.playerEvents.dashEnds -= DashEnds;
+        player.playerEvents.perfectDash -= PerfectDash;
+        player.playerEvents.imperfectDash -= ImperfectDash;
+
+        player.playerEvents.lungeStarts -= LungeStarts;
+        player.playerEvents.lungeEnds -= LungeEnds;
+    }
+    void DashStarts()
+    {
+        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.dashSoundEffect);
+        willLunge = false;
+        isDashing = true;
+        player.playerCollider.enabled = false;
+        dashCollider.enabled = true;
+        dashStartTime = Time.time;
+        dashDirection = (movementInput == Vector3.zero) ? lastMovementDirection : movementInput.normalized;
+        currDashVelocity = dashDirection * 20;  // Dash is hard coded to be 20 units
+    }
+    void EnhanceAttack()
+    {
+        willLunge = true;
+    }
+    void DashEnds()
+    {
+        isDashing = false;
+        player.playerCollider.enabled = true;
+        dashCollider.enabled = false;
+    }
+    void PerfectDash()
+    {
+        currMoveSpeed = Mathf.Clamp(currMoveSpeed * 1.5f, 0.0f, maxMoveSpeed);
+        dashStartTime = Time.time - (dashCooldown / 2.0f);
+        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.perfectDashSoundEffect);
+    }
+    void ImperfectDash()
+    {
+        currMoveSpeed = Mathf.Clamp(currMoveSpeed - 5.0f, moveSpeed * 0.5f, maxMoveSpeed);
+        dashStartTime = Time.time;
+        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.imperfectDashSoundEffect);
+    }
+    void LungeStarts()
+    {
+        isLunging = true;
+        willLunge = false;
+        lungeStartTime = Time.time;
+        currLungeVelocity = lastMovementDirection * Mathf.Max(currMoveSpeed * 1.5f, 15.0f);
+    }
+    void LungeEnds()
+    {
+        isLunging = false;
     }
     void Update()
     {
@@ -103,14 +165,7 @@ public class PlayerMovement : PlayerComponent
             return;
         }
 
-        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.dashSoundEffect);
-        willLunge = false;
-        isDashing = true;
-        player.playerCollider.enabled = false;
-        dashCollider.enabled = true;
-        dashStartTime = Time.time;
-        dashDirection = (movementInput == Vector3.zero) ? lastMovementDirection : movementInput.normalized;
-        currDashVelocity = dashDirection * 20;  // Dash is hard coded to be 20 units
+        player.playerEvents.dashStarts?.Invoke();
     }
     private void Dash()
     {
@@ -118,7 +173,7 @@ public class PlayerMovement : PlayerComponent
 
         currDashTime = Time.time - dashStartTime;
         // Enables Attack Lunging if player Dashes for the minimum amount of time
-        if (currDashTime >= minDashEnhanceAttack) EnhanceAttack();
+        if (currDashTime >= minDashEnhanceAttack) player.playerEvents.enhanceAttack?.Invoke();
         if (currDashTime >= dashTime)
         {
             StopDash(new InputAction.CallbackContext());
@@ -132,28 +187,12 @@ public class PlayerMovement : PlayerComponent
     {
         if (!isDashing) return;
 
-        isDashing = false;
-        player.playerCollider.enabled = true;
-        dashCollider.enabled = false;
+        player.playerEvents.dashEnds?.Invoke();
+        
         // Perfect Dash
-        if (Mathf.Abs(0.5f*dashTime - currDashTime) <= perfectDashLeniency)
-        {
-            currMoveSpeed = Mathf.Clamp(currMoveSpeed * 1.5f, 0.0f, maxMoveSpeed);
-            dashStartTime = Time.time - (dashCooldown / 2.0f);
-            AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.perfectDashSoundEffect);
-        }
+        if (Mathf.Abs(0.5f*dashTime - currDashTime) <= perfectDashLeniency) player.playerEvents.perfectDash?.Invoke();
         // Imperfect Dash
-        else
-        {
-            currMoveSpeed = Mathf.Clamp(currMoveSpeed - 5.0f, moveSpeed * 0.5f, maxMoveSpeed);
-            dashStartTime = Time.time;
-            AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.imperfectDashSoundEffect);
-        }
-    }
-    private void EnhanceAttack()
-    {
-        willLunge = true;
-        player.attack.EnhanceAttack();
+        else player.playerEvents.imperfectDash?.Invoke();
     }
     [field : Header("Attack Lunge Variables")]
     [field: SerializeField, ReadOnly] public bool willLunge { get; private set; } = false;
@@ -169,10 +208,7 @@ public class PlayerMovement : PlayerComponent
         if (!player.canLunge) willLunge = false;
         if (!willLunge) return;
 
-        isLunging = true;
-        willLunge = false;
-        lungeStartTime = Time.time;
-        currLungeVelocity = lastMovementDirection * Mathf.Max(currMoveSpeed * 1.5f, 15.0f);
+        player.playerEvents.lungeStarts?.Invoke();
     }
     private void AttackLunge()
     {
@@ -192,7 +228,7 @@ public class PlayerMovement : PlayerComponent
     {
         if (!isLunging) return;
 
-        isLunging = false;
+        player.playerEvents.lungeEnds?.Invoke();
     }
     
     private void OnDrawGizmos()
