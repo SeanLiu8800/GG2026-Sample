@@ -43,13 +43,15 @@ public class PlayerAttack : PlayerComponent
     {
         attackIsEnhanced = true;
         attackArea.GetSpriteRenderer().SetColor(Color.cyan.r, Color.cyan.g, Color.cyan.b, -1.0f);
+        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerEnhancesAttack);
     }
     void AttackStarts()
     {
         isAttacking = true;
         attackStartTime = Time.time;
         currAttackID = AttackIDGenerator();
-        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
+        if (attackIsEnhanced) AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttackEnhanced);
+        else AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
     }
     void AttackEnds()
     {

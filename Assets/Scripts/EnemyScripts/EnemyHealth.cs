@@ -16,6 +16,7 @@ public class EnemyHealth : EnemyComponent, IDamageable
 
         Debug.Log("Enemy Takes Damage");
         currHealth = Mathf.Clamp(currHealth - damage, 0, maxHealth);
+        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.enemyHurts);
         if (currHealth <= 0) Die();
 
         return;

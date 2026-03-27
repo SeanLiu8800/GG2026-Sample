@@ -4,7 +4,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
     [SerializeField] private AudioSource audioSource;
-    public SoundEffects soundEffects { get; private set; }
+    [field : SerializeField] public SoundEffects soundEffects { get; private set; }
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -25,9 +25,9 @@ public class AudioManager : MonoBehaviour
     }
     private bool AudioClipIsNull(AudioClip audioClip)
     {
-        if (audioClip != null) return true;
+        if (audioClip != null) return false;
 
-        Debug.LogError($"{audioClip.name} is null/ unassigned!");
-        return false;
+        Debug.LogError($"This Audio Clip is null/ unassigned!");
+        return true;
     }
 }

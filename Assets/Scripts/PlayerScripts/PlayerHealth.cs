@@ -44,6 +44,7 @@ public class PlayerHealth : PlayerComponent, IDamageable
 
         Debug.Log("Player Takes Damage");
         currHealth = Mathf.Clamp(currHealth - damage, 0, maxHealth);
+        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerHurts);
         player.playerEvents.healthChanges?.Invoke();
         if (currHealth <= 0) Die();
 
