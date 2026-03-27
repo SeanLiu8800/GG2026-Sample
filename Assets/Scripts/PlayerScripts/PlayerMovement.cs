@@ -170,11 +170,7 @@ public class PlayerMovement : PlayerComponent
     {
         if (!player.canDash) return;
         // Player is Lunging or Dash still on Cooldown
-        if (isLunging || Time.time - dashStartTime < dashCooldown)
-        {
-            AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerDashFails);
-            return;
-        }
+        if (isLunging || Time.time - dashStartTime < dashCooldown) return;
 
         player.playerEvents.dashStarts?.Invoke();
     }
