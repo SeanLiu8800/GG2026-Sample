@@ -175,11 +175,10 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 264
-  owner: {fileID: 0}
-  target: {fileID: 0}
+  <owner>k__BackingField: {fileID: 0}
+  <target>k__BackingField: {fileID: 0}
   damage: 1
   empowerRate: 1
-  isParriable: 1
 --- !u!114 &-8867143272021663871
 MonoBehaviour:
   m_ObjectHideFlags: 0

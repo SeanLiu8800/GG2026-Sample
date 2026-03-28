@@ -8,10 +8,10 @@ public abstract class Bullet_OnEnhancedAttacked_BehaviorBase : BulletComponent
     {
         bullet.bulletEvents.onEnhancedAttacked -= OnEnhancedAttacked;
     }
-    protected void OnEnhancedAttacked()
+    protected void OnEnhancedAttacked(Player player)
     {
         bullet.bulletEvents.onEnhancedAttacked -= OnEnhancedAttacked;
-        OnEnhancedAttackedBehavior();
+        OnEnhancedAttackedBehavior(player);
     }
-    protected abstract void OnEnhancedAttackedBehavior();
+    protected abstract void OnEnhancedAttackedBehavior(Player player);
 }

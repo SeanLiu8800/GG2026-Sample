@@ -12,9 +12,8 @@ public struct PlayerEvents
     public Action lungeEnds;
 
     public Action attackStarts;
+    public Action onParry;
     public Action attackEnds;
-
-    public Action playerParries;
 
     public Action healthChanges;
     public Action playerDies;

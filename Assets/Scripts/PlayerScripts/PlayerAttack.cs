@@ -10,6 +10,7 @@ public class PlayerAttack : PlayerComponent
     [field : Header("Attack Variables")]
     [field: SerializeField, ReadOnly] public bool isAttacking { get; private set; } = false;
     [field: SerializeField, ReadOnly] public bool attackIsEnhanced { get; private set; } = false;
+    [field: SerializeField, ReadOnly] private bool attackParries = false;
     [SerializeField, Range(0, 5)] private int baseDamage = 1;
     [field: SerializeField, Range(0, 5), ReadOnly] public int currDamage { get; private set; } = 1;
     [SerializeField, Range(0.0f, 1.0f)] private float attackDuration = 0.2f;
@@ -28,6 +29,7 @@ public class PlayerAttack : PlayerComponent
         player.playerEvents.enhanceAttack += EnhanceAttack;
 
         player.playerEvents.attackStarts += AttackStarts;
+        player.playerEvents.onParry += OnParry;
         player.playerEvents.attackEnds += AttackEnds;
     }
     void OnDisable()
@@ -37,8 +39,11 @@ public class PlayerAttack : PlayerComponent
         player.playerEvents.enhanceAttack -= EnhanceAttack;
 
         player.playerEvents.attackStarts -= AttackStarts;
+        player.playerEvents.onParry -= OnParry;
         player.playerEvents.attackEnds -= AttackEnds;
     }
+    
+    #region Event Functions
     void EnhanceAttack()
     {
         attackIsEnhanced = true;
@@ -50,22 +55,33 @@ public class PlayerAttack : PlayerComponent
         isAttacking = true;
         attackStartTime = Time.time;
         currAttackID = AttackIDGenerator();
+        attackParries = false;
         if (attackIsEnhanced) AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttackEnhanced);
         else AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
+    }
+    void OnParry()
+    {
+        attackParries = true;
     }
     void AttackEnds()
     {
         isAttacking = false;
-        attackIsEnhanced = false;
         currDamage = baseDamage;
-        attackArea.GetSpriteRenderer().SetColor(Color.white.r, Color.white.g, Color.white.b, -1.0f);
         attackArea.DisableAttack();
+        if (!attackParries) // Unenhance attack if player DOES NOT parry
+        {
+            attackParries = false;
+            attackIsEnhanced = false;
+            attackArea.GetSpriteRenderer().SetColor(Color.white.r, Color.white.g, Color.white.b, -1.0f);
+        }
     }
+    #endregion
+
     void FixedUpdate()
     {
         UpdateAttackArea();
     }
-
+    
     private void Attack(InputAction.CallbackContext context)
     {
         if (!player.canAttack || Time.time - attackStartTime < attackDuration + 0.1f) return;

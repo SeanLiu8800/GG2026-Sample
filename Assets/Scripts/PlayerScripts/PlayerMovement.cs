@@ -70,6 +70,8 @@ public class PlayerMovement : PlayerComponent
 
         player.playerEvents.attackStarts -= AttackStarts;
     }
+    
+    #region Event Functions
     void DashStarts()
     {
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerDash);
@@ -121,6 +123,8 @@ public class PlayerMovement : PlayerComponent
         if (!willLunge) MultiplyMoveSpeed(0.5f);
         else StartAttackLunge();
     }
+    #endregion
+    
     void Update()
     {
         MoveCharacter();
