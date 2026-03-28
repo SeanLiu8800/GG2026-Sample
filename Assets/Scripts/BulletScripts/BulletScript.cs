@@ -80,13 +80,7 @@ public class BulletScript : MonoBehaviour
     private bool PlayerCollision(Player player)
     {
         Debug.Log("Player Collision!");
-        if (player.movement.isDashing)
-        {
-            if (bulletRigidbody.linearVelocity == Vector2.zero ||
-            Vector3.Dot(bulletRigidbody.linearVelocity.normalized, player.movement.dashDirection) < -0.7f)
-                bulletEvents.onDashedInto?.Invoke(player);
-            else return false;
-        }
+        if (player.movement.isDashing) bulletEvents.onDashedInto?.Invoke(player);
         else if (player.attack.isAttacking)
         {
             if (player.attack.AttackIsEnhanced()) bulletEvents.onEnhancedAttacked?.Invoke(player);
