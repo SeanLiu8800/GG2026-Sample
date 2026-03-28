@@ -9,8 +9,8 @@ public class BulletScript : MonoBehaviour
     [field : Header("Bullet Variables")]
     [field : SerializeField, ReadOnly] public GameObject owner { get; private set; }
     [field : SerializeField, ReadOnly] public GameObject target { get; private set; }
-    [SerializeField, Range(0, 5)] private int damage = 1;
-    [SerializeField, Range(0, 5)] private int empowerRate = 1;
+    [SerializeField, Range(0, 5)] public int damage = 1;
+    [SerializeField, Range(0, 5)] public int empowerRate = 1;
 
     public BulletEvents bulletEvents;
     void Awake()
@@ -84,7 +84,8 @@ public class BulletScript : MonoBehaviour
         {
             if (bulletRigidbody.linearVelocity == Vector2.zero ||
             Vector3.Dot(bulletRigidbody.linearVelocity.normalized, player.movement.dashDirection) < -0.7f)
-                player.attack.Empower(empowerRate);
+                bulletEvents.onDashedInto?.Invoke(player);
+            else return false;
         }
         else if (player.attack.isAttacking)
         {
