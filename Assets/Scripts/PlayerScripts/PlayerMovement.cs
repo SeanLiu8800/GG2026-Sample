@@ -172,7 +172,7 @@ public class PlayerMovement : PlayerComponent
 
     private void StartDash(InputAction.CallbackContext context)
     {
-        if (!player.canDash) return;
+        if (!player.dashIsAvailable) return;
         // Player is Lunging or Dash still on Cooldown
         if (isLunging || Time.time - dashStartTime < dashCooldown) return;
 
@@ -205,6 +205,7 @@ public class PlayerMovement : PlayerComponent
         // Imperfect Dash
         else player.playerEvents.imperfectDash?.Invoke();
     }
+    
     [field : Header("Attack Lunge Variables")]
     [field: SerializeField, ReadOnly] public bool willLunge { get; private set; } = false;
     [field : SerializeField, ReadOnly] public bool isLunging { get; private set; } = false;
@@ -217,7 +218,7 @@ public class PlayerMovement : PlayerComponent
     private Vector3 currLungeVelocity;
     public void StartAttackLunge()
     {
-        if (!player.canLunge) willLunge = false;
+        if (!player.lungeIsAvailable) willLunge = false;
         if (!willLunge) return;
 
         player.playerEvents.lungeStarts?.Invoke();

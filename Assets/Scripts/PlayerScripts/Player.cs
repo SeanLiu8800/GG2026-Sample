@@ -9,9 +9,9 @@ public class Player : MonoBehaviour
     [field : SerializeField] public SpriteRenderer spriteRenderer { get; private set; }
 
     [Header("Ability Toggles")]
-    public bool canDash = true;
-    public bool canAttack = true;
-    public bool canLunge = true;
+    public bool dashIsAvailable = true;
+    public bool attackIsAvailable = true;
+    public bool lungeIsAvailable = true;
 
     public PlayerEvents playerEvents;
 }
