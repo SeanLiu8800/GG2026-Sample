@@ -19,6 +19,8 @@ public class PlayerHealth : PlayerComponent, IDamageable
         player.playerEvents.invincibilityStarts -= InvincibilityStarts;
         player.playerEvents.invincibilityEnds -= InvincibilityEnds;
     }
+
+    #region ----- Event Functions -----
     void InvincibilityStarts()
     {
         isInvincible = true;
@@ -29,6 +31,7 @@ public class PlayerHealth : PlayerComponent, IDamageable
         isInvincible = false;
         player.spriteRenderer.SetAlpha(1.0f);
     }
+    #endregion
     void Update()
     {
         UpdateInvincibility();

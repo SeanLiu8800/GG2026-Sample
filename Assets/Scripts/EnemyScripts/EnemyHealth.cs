@@ -16,6 +16,7 @@ public class EnemyHealth : EnemyComponent, IDamageable
 
         Debug.Log("Enemy Takes Damage");
         currHealth = Mathf.Clamp(currHealth - damage, 0, maxHealth);
+        enemy.enemyEvents.onHealthChange?.Invoke();
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.enemyHurts);
         if (currHealth <= 0) Die();
 
@@ -31,6 +32,7 @@ public class EnemyHealth : EnemyComponent, IDamageable
 
         Debug.Log("Enemy Heals");
         currHealth = Mathf.Clamp(currHealth + heal, 0, maxHealth);
+        enemy.enemyEvents.onHealthChange?.Invoke();
 
         return;
     }
@@ -38,6 +40,7 @@ public class EnemyHealth : EnemyComponent, IDamageable
     {
         enemy.spriteRenderer.enabled = false;
         enemy.enemyCollider.enabled = false;
+        enemy.enemyEvents.onEnemyDies?.Invoke();
         Invoke(nameof(Respawn), 1.0f);
     }
     private void Respawn()

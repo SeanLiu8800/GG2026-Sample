@@ -43,7 +43,7 @@ public class PlayerAttack : PlayerComponent
         player.playerEvents.attackEnds -= AttackEnds;
     }
     
-    #region Event Functions
+    #region ----- Event Functions -----
     void EnhanceAttack()
     {
         attackIsEnhanced = true;

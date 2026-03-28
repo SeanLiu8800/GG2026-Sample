@@ -6,6 +6,21 @@ public class EnemyAttack : EnemyComponent
     [SerializeField] private GameObject target; 
     [SerializeField] private GameObject attack;
     [SerializeField] private GameObject meleeAttack;
+    void OnEnable()
+    {
+        enemy.enemyEvents.onParried += OnParried;
+    }
+    void OnDisable()
+    {
+        enemy.enemyEvents.onParried -= OnParried;
+    }
+    #region ----- Event Functions -----
+    void OnParried(GameObject parrier)
+    {
+        Vector3 knockbackDirection = (this.transform.position - parrier.transform.position).normalized;
+        Debug.Log($"{this.name} WAS PARRIED, Knockback Vector is {knockbackDirection}");
+    }
+    #endregion
     void Update()
     {
         if (Keyboard.current.tKey.wasPressedThisFrame) StartCoroutine(Shoot());
@@ -42,9 +57,5 @@ public class EnemyAttack : EnemyComponent
         {
             currBulletScript.Initialize(this.gameObject, target);
         }
-    }
-    public void Parried()
-    {
-        Debug.Log($"{this.name} WAS PARRIED");
     }
 }

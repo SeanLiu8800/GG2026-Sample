@@ -70,8 +70,8 @@ public class PlayerMovement : PlayerComponent
 
         player.playerEvents.attackStarts -= AttackStarts;
     }
-    
-    #region Event Functions
+
+    #region ----- Event Functions -----
     void DashStarts()
     {
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerDash);

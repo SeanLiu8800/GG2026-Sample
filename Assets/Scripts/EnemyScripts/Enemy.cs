@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     [field : SerializeField] public SpriteRenderer spriteRenderer { get; private set; }
     [field : SerializeField] public Collider2D enemyCollider { get; private set; }
 
+    public EnemyEvents enemyEvents;
     void Awake()
     {
         if (!TryGetComponent<EnemyHealth>(out EnemyHealth _health))

@@ -8,6 +8,6 @@ public class Bullet_OnEnhancedAttacked_BeParried : Bullet_OnEnhancedAttacked_Beh
 
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.enemyParried);
         player.playerEvents.onParry?.Invoke();
-        enemy.attack.Parried();
+        enemy.enemyEvents.onParried?.Invoke(player.gameObject);
     }
 }
