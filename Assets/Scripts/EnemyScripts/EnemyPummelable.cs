@@ -20,14 +20,11 @@ public class EnemyPummelable : EnemyComponent
         enemy.enemyEvents.pummelStarts -= PummelStarts;
         enemy.enemyEvents.pummelEnds -= PummelEnds;
     }
-    #region
+    #region ----- Event Functions -----
     protected virtual void PummelStarts(GameObject pummeler)
     {
         enemy.isBeingPummeled = true;
         this.pummeler = pummeler;
-        // Set pummeler's position to the closest Latch Point
-        if (pummeler.transform.position.x < transform.position.x) pummeler.transform.position = GetLeftLatchPointPosition();
-        else pummeler.transform.position = GetRightLatchPointPosition();
         pummelStartTime = Time.time;
     }
     protected virtual void PummelEnds()
@@ -40,7 +37,11 @@ public class EnemyPummelable : EnemyComponent
     public GameObject PUMMELTEST;
     void Update()
     {
-        if (Keyboard.current.rKey.wasPressedThisFrame) enemy.enemyEvents.pummelStarts(PUMMELTEST);
+        if (Keyboard.current.rKey.wasPressedThisFrame)
+        {
+            PUMMELTEST.GetComponent<Player>().playerEvents.pummelStarts?.Invoke(this.gameObject);
+            enemy.enemyEvents.pummelStarts(PUMMELTEST);
+        }
         UpdatePummel();
     }
 
@@ -65,6 +66,7 @@ public class EnemyPummelable : EnemyComponent
             player.movement.AddImpulse(direction * 10.0f);
         }
 
+        player.playerEvents.pummelEnds?.Invoke();
         enemy.enemyEvents.pummelEnds?.Invoke();
     }
     public Vector3 GetLeftLatchPointPosition()

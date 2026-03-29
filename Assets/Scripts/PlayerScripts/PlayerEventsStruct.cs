@@ -1,3 +1,4 @@
+using UnityEngine;
 using System;
 
 public struct PlayerEvents
@@ -8,6 +9,11 @@ public struct PlayerEvents
     public Action perfectDash;
     public Action imperfectDash;
     public Action dashCooldownEnds;
+
+    public Action<GameObject> pummelStarts;
+    public Action pummelEnds;
+    public Action pummelReleased;
+    public Action pummelEjected;
 
     public Action lungeStarts;
     public Action lungeEnds;

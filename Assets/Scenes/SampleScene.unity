@@ -692,6 +692,7 @@ GameObject:
   - component: {fileID: 993337296}
   - component: {fileID: 993337302}
   - component: {fileID: 993337304}
+  - component: {fileID: 993337305}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -718,6 +719,7 @@ MonoBehaviour:
   maxMoveSpeed: 20
   speedRestoreRate: 5
   speedDecayRate: 5
+  canDash: 1
   <isDashing>k__BackingField: 0
   currDashTime: 0
   dashTime: 1
@@ -742,6 +744,7 @@ MonoBehaviour:
   <movement>k__BackingField: {fileID: 993337296}
   <attack>k__BackingField: {fileID: 993337302}
   <health>k__BackingField: {fileID: 993337304}
+  <pummel>k__BackingField: {fileID: 993337305}
   <playerCollider>k__BackingField: {fileID: 993337299}
   <spriteRenderer>k__BackingField: {fileID: 993337300}
   dashIsAvailable: 1
@@ -981,6 +984,20 @@ MonoBehaviour:
   <currHealth>k__BackingField: 5
   <isInvincible>k__BackingField: 0
   invincibilityDuration: 1
+--- !u!114 &993337305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993337295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5350c50e6c7a24f49918e82ac0458be2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  pummelTarget: {fileID: 0}
+  <isPummeling>k__BackingField: 0
 --- !u!1 &1351050882
 GameObject:
   m_ObjectHideFlags: 0
@@ -1742,10 +1759,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   latchPoints: {fileID: 1454445759}
   pummeler: {fileID: 0}
-  pummelDuration: 5
+  pummelDuration: 1
   currentPummelDuration: 0
   ejectPummelerDamage: 0
-  TESTONLY: {fileID: 993337295}
+  PUMMELTEST: {fileID: 993337295}
 --- !u!1 &2010581680
 GameObject:
   m_ObjectHideFlags: 0

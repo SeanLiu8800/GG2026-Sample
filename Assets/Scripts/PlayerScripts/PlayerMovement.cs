@@ -19,7 +19,7 @@ public class PlayerMovement : PlayerComponent
     private Vector3 movementInput;
 
     [Header("Dash Variables")]
-    private bool canDash = true;
+    [SerializeField, ReadOnly] private bool canDash = true;
     [field : SerializeField, ReadOnly] public bool isDashing { get; private set; } = false;
     private float dashStartTime = -99.9f;
     private Vector3 currDashVelocity;
@@ -52,6 +52,11 @@ public class PlayerMovement : PlayerComponent
         player.playerEvents.imperfectDash += ImperfectDash;
         player.playerEvents.dashCooldownEnds += DashCooldownEnds;
 
+        player.playerEvents.pummelStarts += PummelStarts;
+        player.playerEvents.pummelEnds += PummelEnds;
+        player.playerEvents.pummelReleased += PummelReleased;
+        player.playerEvents.pummelEjected += PummelEjected;
+
         player.playerEvents.lungeStarts += LungeStarts;
         player.playerEvents.lungeEnds += LungeEnds;
 
@@ -68,6 +73,11 @@ public class PlayerMovement : PlayerComponent
         player.playerEvents.perfectDash -= PerfectDash;
         player.playerEvents.imperfectDash -= ImperfectDash;
         player.playerEvents.dashCooldownEnds -= DashCooldownEnds;
+        player.playerEvents.pummelReleased -= PummelReleased;
+        player.playerEvents.pummelEjected -= PummelEjected;
+
+        player.playerEvents.pummelStarts -= PummelStarts;
+        player.playerEvents.pummelEnds -= PummelEnds;
 
         player.playerEvents.lungeStarts -= LungeStarts;
         player.playerEvents.lungeEnds -= LungeEnds;
@@ -118,6 +128,24 @@ public class PlayerMovement : PlayerComponent
         canDash = true;
         player.spriteRenderer.SetColor(Color.red.r, Color.red.g, Color.red.b, -1.0f); 
     }
+    void PummelStarts(GameObject pummelTarget)
+    {
+        player.playerEvents.dashEnds?.Invoke();
+        player.playerCollider.enabled = false;
+        playerRigidbody.linearVelocity = Vector2.zero;
+    }
+    void PummelEnds()
+    {
+                
+    }
+    void PummelReleased()
+    {
+        player.playerEvents.dashStarts?.Invoke();
+    }
+    void PummelEjected()
+    {
+
+    }
     void LungeStarts()
     {
         isLunging = true;
@@ -143,7 +171,8 @@ public class PlayerMovement : PlayerComponent
     }
     void FixedUpdate()
     {
-        if (!isDashing) playerRigidbody.linearVelocity = movementInput * CorrectedMoveSpeed();
+        if (!isDashing && !isLunging && !player.pummel.isPummeling) 
+            playerRigidbody.linearVelocity = movementInput * CorrectedMoveSpeed();
         Dash();
         AttackLunge();
     }
@@ -189,8 +218,8 @@ public class PlayerMovement : PlayerComponent
     private void StartDash(InputAction.CallbackContext context)
     {
         if (!player.dashIsAvailable) return;
-        // Player is Lunging or Dash still on Cooldown
-        if (isLunging || Time.time - dashCooldownStartTime < dashCooldown) return;
+        // Player is Lunging or Dash still on Cooldown or is pummeling
+        if (isLunging || !canDash || player.pummel.isPummeling) return;
 
         player.playerEvents.dashStarts?.Invoke();
     }
