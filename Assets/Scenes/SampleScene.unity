@@ -1408,6 +1408,7 @@ GameObject:
   - component: {fileID: 1620073971}
   - component: {fileID: 1620073973}
   - component: {fileID: 1620073974}
+  - component: {fileID: 1620073975}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -1593,10 +1594,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   <health>k__BackingField: {fileID: 1620073971}
   <attack>k__BackingField: {fileID: 1620073973}
+  <parry>k__BackingField: {fileID: 0}
+  <pummel>k__BackingField: {fileID: 0}
   <spriteRenderer>k__BackingField: {fileID: 1620073969}
   <enemyCollider>k__BackingField: {fileID: 1620073968}
   <enemyRigidbody>k__BackingField: {fileID: 1620073967}
   target: {fileID: 993337295}
+  isParryStunned: 0
+  isBeingPummeled: 0
 --- !u!114 &1620073973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1626,8 +1631,19 @@ MonoBehaviour:
   parryProgress: 0
   parryDecayRate: 0
   parryTarget: 3
-  isParryStunned: 0
   parryStunDuration: 3
+--- !u!114 &1620073975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620073966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63861edc2ea7b2442b960f38fe2e6a5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &2010581680
 GameObject:
   m_ObjectHideFlags: 0

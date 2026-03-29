@@ -8,7 +8,6 @@ public class EnemyParry : EnemyComponent
     [SerializeField, Range(1.0f, 5.0f)] private float parryTarget = 3.0f;
 
     [Header("Parry Stun Variables")]
-    [SerializeField, ReadOnly] private bool isParryStunned = false;
     private float parryStunStartTime = -99.0f;
     [SerializeField, Range(0.0f, 5.0f)] private float parryStunDuration = 3.0f;
 
@@ -28,7 +27,7 @@ public class EnemyParry : EnemyComponent
     #region ----- Event Functions -----
     protected void OnParried(GameObject parrier)
     {
-        if (isParryStunned) return;
+        if (enemy.isParryStunned) return;
 
         parryProgress += 1.0f;
         Vector3 knockbackDirection = (this.transform.position - parrier.transform.position).normalized;
@@ -38,14 +37,14 @@ public class EnemyParry : EnemyComponent
     }
     protected void ParryStunStarts()
     {
-        isParryStunned = true;
+        enemy.isParryStunned = true;
         parryProgress = 0;
         parryStunStartTime = Time.time;
         enemy.spriteRenderer.SetAlpha(0.5f);
     }
     protected void ParryStunEnds()
     {
-        isParryStunned = false;
+        enemy.isParryStunned = false;
         enemy.spriteRenderer.SetAlpha(1.0f);
     }
     #endregion
@@ -61,7 +60,7 @@ public class EnemyParry : EnemyComponent
     }
     private void UpdateParryStun()
     {
-        if (!isParryStunned || Time.time - parryStunStartTime < parryStunDuration) return;
+        if (!enemy.isParryStunned || Time.time - parryStunStartTime < parryStunDuration) return;
 
         enemy.enemyEvents.parryStunEnds?.Invoke();
     }

@@ -8,5 +8,8 @@ public struct EnemyEvents
     public Action parryStunEnds;
 
     public Action onHealthChange;
-    public Action onEnemyDies;  
+    public Action onEnemyDies;
+
+    public Action onPummelStart;
+    public Action onPummelEnd;
 }
