@@ -18,12 +18,14 @@ public class PlayerMovement : PlayerComponent
     public Vector3 lastMovementDirection { get; private set; } = Vector3.up;
     private Vector3 movementInput;
 
-    [field : Header("Dash Variables")]
+    [Header("Dash Variables")]
+    private bool canDash = true;
     [field : SerializeField, ReadOnly] public bool isDashing { get; private set; } = false;
     private float dashStartTime = -99.9f;
     private Vector3 currDashVelocity;
     [SerializeField, ReadOnly] private float currDashTime = 0.0f;
     [SerializeField, Range(0.0f, 1.5f)] private float dashTime = 2.0f;
+    private float dashCooldownStartTime = -99.9f;
     [SerializeField, Range(0.0f, 2.0f)] private float dashCooldown = 0.5f;
     [SerializeField, Range(0.0f, 0.5f)] private float perfectDashLeniency = 0.05f;
     public Vector3 dashDirection { get; private set; }
@@ -75,7 +77,9 @@ public class PlayerMovement : PlayerComponent
     void DashStarts()
     {
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerDash);
+        player.spriteRenderer.SetColor(Color.brown.r, Color.brown.g, Color.brown.b, -1.0f);
         willLunge = false;
+        canDash = false;
         isDashing = true;
         player.playerCollider.enabled = false;
         dashCollider.enabled = true;
@@ -98,13 +102,13 @@ public class PlayerMovement : PlayerComponent
     void PerfectDash()
     {
         currMoveSpeed = Mathf.Clamp(currMoveSpeed * 1.5f, 0.0f, maxMoveSpeed);
-        dashStartTime = Time.time - (dashCooldown / 2.0f);
+        dashCooldownStartTime = Time.time - (dashCooldown * 0.5f);
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.perfectDash);
     }
     void ImperfectDash()
     {
         currMoveSpeed = Mathf.Clamp(currMoveSpeed - 5.0f, moveSpeed * 0.5f, maxMoveSpeed);
-        dashStartTime = Time.time;
+        dashCooldownStartTime = Time.time;
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.imperfectDash);
     }
     void LungeStarts()
@@ -128,6 +132,7 @@ public class PlayerMovement : PlayerComponent
     void Update()
     {
         MoveCharacter();
+        UpdateDashCooldown();
     }
     void FixedUpdate()
     {
@@ -174,7 +179,7 @@ public class PlayerMovement : PlayerComponent
     {
         if (!player.dashIsAvailable) return;
         // Player is Lunging or Dash still on Cooldown
-        if (isLunging || Time.time - dashStartTime < dashCooldown) return;
+        if (isLunging || Time.time - dashCooldownStartTime < dashCooldown) return;
 
         player.playerEvents.dashStarts?.Invoke();
     }
@@ -205,7 +210,15 @@ public class PlayerMovement : PlayerComponent
         // Imperfect Dash
         else player.playerEvents.imperfectDash?.Invoke();
     }
-    
+    private void UpdateDashCooldown()
+    {
+        if (isDashing || Time.time - dashCooldownStartTime < dashCooldown) return;
+
+        //player.playerEvents.dashCooldownEnds?.Invoke();
+        player.spriteRenderer.SetColor(Color.red.r, Color.red.g, Color.red.b, -1.0f);
+        canDash = true;
+    }
+
     [field : Header("Attack Lunge Variables")]
     [field: SerializeField, ReadOnly] public bool willLunge { get; private set; } = false;
     [field : SerializeField, ReadOnly] public bool isLunging { get; private set; } = false;
