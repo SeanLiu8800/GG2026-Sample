@@ -1407,6 +1407,7 @@ GameObject:
   - component: {fileID: 1620073972}
   - component: {fileID: 1620073971}
   - component: {fileID: 1620073973}
+  - component: {fileID: 1620073974}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -1594,6 +1595,7 @@ MonoBehaviour:
   <attack>k__BackingField: {fileID: 1620073973}
   <spriteRenderer>k__BackingField: {fileID: 1620073969}
   <enemyCollider>k__BackingField: {fileID: 1620073968}
+  <enemyRigidbody>k__BackingField: {fileID: 1620073967}
   target: {fileID: 993337295}
 --- !u!114 &1620073973
 MonoBehaviour:
@@ -1609,6 +1611,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
   attack: {fileID: 8827905931808526965, guid: 465e389e586ddb04fbcdfcaa10e0cadb, type: 3}
   meleeAttack: {fileID: 8827905931808526965, guid: 465e389e586ddb04fbcdfcaa10e0cadb, type: 3}
+--- !u!114 &1620073974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620073966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e4d06fa11c549844a1ed5b1b00a0a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyParry
+  parryProgress: 0
+  parryDecayRate: 0
+  parryTarget: 3
+  isParryStunned: 0
+  parryStunDuration: 3
 --- !u!1 &2010581680
 GameObject:
   m_ObjectHideFlags: 0

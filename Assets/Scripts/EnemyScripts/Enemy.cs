@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
     [field : SerializeField] public EnemyAttack attack { get; private set; }
     [field : SerializeField] public SpriteRenderer spriteRenderer { get; private set; }
     [field : SerializeField] public Collider2D enemyCollider { get; private set; }
+    [field: SerializeField] public Rigidbody2D enemyRigidbody { get; private set; }
 
     public EnemyEvents enemyEvents;
 
