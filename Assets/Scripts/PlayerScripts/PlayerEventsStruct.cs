@@ -7,6 +7,7 @@ public struct PlayerEvents
     public Action dashEnds;
     public Action perfectDash;
     public Action imperfectDash;
+    public Action dashCooldownEnds;
 
     public Action lungeStarts;
     public Action lungeEnds;

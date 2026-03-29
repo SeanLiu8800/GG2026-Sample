@@ -50,6 +50,7 @@ public class PlayerMovement : PlayerComponent
         player.playerEvents.dashEnds += DashEnds;
         player.playerEvents.perfectDash += PerfectDash;
         player.playerEvents.imperfectDash += ImperfectDash;
+        player.playerEvents.dashCooldownEnds += DashCooldownEnds;
 
         player.playerEvents.lungeStarts += LungeStarts;
         player.playerEvents.lungeEnds += LungeEnds;
@@ -66,6 +67,7 @@ public class PlayerMovement : PlayerComponent
         player.playerEvents.dashEnds -= DashEnds;
         player.playerEvents.perfectDash -= PerfectDash;
         player.playerEvents.imperfectDash -= ImperfectDash;
+        player.playerEvents.dashCooldownEnds -= DashCooldownEnds;
 
         player.playerEvents.lungeStarts -= LungeStarts;
         player.playerEvents.lungeEnds -= LungeEnds;
@@ -110,6 +112,11 @@ public class PlayerMovement : PlayerComponent
         currMoveSpeed = Mathf.Clamp(currMoveSpeed - 5.0f, moveSpeed * 0.5f, maxMoveSpeed);
         dashCooldownStartTime = Time.time;
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.imperfectDash);
+    }
+    void DashCooldownEnds()
+    {
+        canDash = true;
+        player.spriteRenderer.SetColor(Color.red.r, Color.red.g, Color.red.b, -1.0f); 
     }
     void LungeStarts()
     {
@@ -214,9 +221,7 @@ public class PlayerMovement : PlayerComponent
     {
         if (isDashing || Time.time - dashCooldownStartTime < dashCooldown) return;
 
-        //player.playerEvents.dashCooldownEnds?.Invoke();
-        player.spriteRenderer.SetColor(Color.red.r, Color.red.g, Color.red.b, -1.0f);
-        canDash = true;
+        player.playerEvents.dashCooldownEnds?.Invoke();
     }
 
     [field : Header("Attack Lunge Variables")]
