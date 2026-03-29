@@ -5,6 +5,7 @@ public class PlayerPummel : PlayerComponent
     private InputAction moveAction;
     [SerializeField, ReadOnly] private GameObject pummelTarget;
     [SerializeField, ReadOnly] private Vector2 movementInput = Vector2.up;
+    [SerializeField, ReadOnly] private Vector3 latchPosition;
 
     [field : Header("Pummel Variables")]
     [field : SerializeField, ReadOnly] public bool isPummeling { get; private set; } = false;
@@ -37,8 +38,8 @@ public class PlayerPummel : PlayerComponent
         if (pummelTarget.TryGetComponent<EnemyPummel>(out EnemyPummel pummel))
         {
             if (transform.position.x < pummelTarget.transform.position.x) 
-                transform.position = pummel.GetLeftLatchPointPosition();
-            else transform.position = pummel.GetRightLatchPointPosition();
+                latchPosition = pummel.GetLeftLatchPointPosition();
+            else latchPosition = pummel.GetRightLatchPointPosition();
         }
         player.playerCollider.enabled = false;
     }
@@ -62,7 +63,11 @@ public class PlayerPummel : PlayerComponent
         movementInput = moveAction.ReadValue<Vector2>();
         if (Keyboard.current.spaceKey.wasPressedThisFrame) DecideAction();
     }
-    
+    void FixedUpdate()
+    {
+        MoveToLatchPosition();
+    }
+
     private void DecideAction()
     {
         if (!isPummeling || pummelTarget == null) return;
@@ -94,6 +99,12 @@ public class PlayerPummel : PlayerComponent
         player.playerEvents.pummelReleased?.Invoke();
     }
 
+    private void MoveToLatchPosition()
+    {
+        if (!isPummeling) return;
+        transform.position = Vector3.Lerp(transform.position, latchPosition, 10.0f * Time.fixedDeltaTime);
+    }
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!player.movement.isDashing) return;

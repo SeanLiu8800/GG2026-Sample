@@ -998,6 +998,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   pummelTarget: {fileID: 0}
   movementInput: {x: 0, y: 1}
+  latchPosition: {x: 0, y: 0, z: 0}
   <isPummeling>k__BackingField: 0
 --- !u!1 &1351050882
 GameObject:
@@ -1760,10 +1761,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   latchPoints: {fileID: 1454445759}
   pummeler: {fileID: 0}
-  pummelDuration: 1
+  pummelDuration: 3
   currentPummelDuration: 0
   ejectPummelerDamage: 0
-  PUMMELTEST: {fileID: 993337295}
 --- !u!1 &2010581680
 GameObject:
   m_ObjectHideFlags: 0
