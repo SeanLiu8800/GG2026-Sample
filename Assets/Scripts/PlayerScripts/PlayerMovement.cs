@@ -93,7 +93,7 @@ public class PlayerMovement : PlayerComponent
         willLunge = false;
         canDash = false;
         isDashing = true;
-        player.playerCollider.enabled = false;
+        player.playerCollider.isTrigger = true;
         dashCollider.enabled = true;
         dashStartTime = Time.time;
         dashDirection = (movementInput == Vector3.zero) ? lastMovementDirection : movementInput.normalized;
@@ -108,7 +108,7 @@ public class PlayerMovement : PlayerComponent
     void DashEnds()
     {
         isDashing = false;
-        player.playerCollider.enabled = true;
+        player.playerCollider.isTrigger = false;
         dashCollider.enabled = false;
     }
     void PerfectDash()

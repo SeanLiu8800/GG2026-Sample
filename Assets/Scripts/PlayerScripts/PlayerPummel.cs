@@ -4,7 +4,7 @@ public class PlayerPummel : PlayerComponent
 {
     private InputAction moveAction;
     [SerializeField, ReadOnly] private GameObject pummelTarget;
-    public Vector2 movementInput = Vector2.up;
+    [SerializeField, ReadOnly] private Vector2 movementInput = Vector2.up;
 
     [field : Header("Pummel Variables")]
     [field : SerializeField, ReadOnly] public bool isPummeling { get; private set; } = false;
@@ -93,10 +93,14 @@ public class PlayerPummel : PlayerComponent
         player.playerEvents.pummelEnds?.Invoke();
         player.playerEvents.pummelReleased?.Invoke();
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.TryGetComponent<Enemy>(out Enemy enemy)) return;
         if (!player.movement.isDashing) return;
+        if (!collision.TryGetComponent<Enemy>(out Enemy enemy)) return;
+        if (!enemy.isParryStunned || enemy.isBeingPummeled) return;
+
         player.playerEvents.pummelStarts(enemy.gameObject);
+        enemy.enemyEvents.pummelStarts(this.gameObject);
     }
 }

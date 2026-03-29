@@ -34,14 +34,8 @@ public class EnemyPummelable : EnemyComponent
     }
     #endregion
 
-    public GameObject PUMMELTEST;
     void Update()
     {
-        if (Keyboard.current.rKey.wasPressedThisFrame)
-        {
-            PUMMELTEST.GetComponent<Player>().playerEvents.pummelStarts?.Invoke(this.gameObject);
-            enemy.enemyEvents.pummelStarts(PUMMELTEST);
-        }
         UpdatePummel();
     }
 
