@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 using System.Collections;
 public class EnemyAttack : EnemyComponent
 {
-    [SerializeField] private GameObject target; 
     [SerializeField] private GameObject attack;
     [SerializeField] private GameObject meleeAttack;
     void OnEnable()
@@ -37,8 +36,8 @@ public class EnemyAttack : EnemyComponent
                 currBulletScript.Initialize
                     (
                         this.gameObject, 
-                        target, 
-                        (target.transform.position - transform.position).normalized * 3
+                        enemy.target, 
+                        (enemy.target.transform.position - transform.position).normalized * 3
                     );
             }
             yield return new WaitForSeconds(0.2f);
@@ -50,12 +49,12 @@ public class EnemyAttack : EnemyComponent
         GameObject currMeleeAttack = Instantiate
             (
                 meleeAttack,
-                transform.position + (target.transform.position - transform.position).normalized,
+                transform.position + (enemy.target.transform.position - transform.position).normalized,
                 transform.rotation
             );
         if (currMeleeAttack.TryGetComponent<BulletScript>(out BulletScript currBulletScript))
         {
-            currBulletScript.Initialize(this.gameObject, target);
+            currBulletScript.Initialize(this.gameObject, enemy.target);
         }
     }
 }

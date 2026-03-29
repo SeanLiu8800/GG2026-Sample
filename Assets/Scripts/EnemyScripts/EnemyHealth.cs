@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyHealth : EnemyComponent, IDamageable
 {
-    [SerializeField] private LayerMask layerMask;
+    [SerializeField] private LayerMask damageLayer;
     [field: SerializeField] public int maxHealth { get; private set; } = 5;
     [field: SerializeField] public int currHealth { get; private set; } = 5;
     
@@ -14,7 +14,6 @@ public class EnemyHealth : EnemyComponent, IDamageable
             return;
         }
 
-        Debug.Log("Enemy Takes Damage");
         currHealth = Mathf.Clamp(currHealth - damage, 0, maxHealth);
         enemy.enemyEvents.onHealthChange?.Invoke();
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.enemyHurts);
@@ -30,7 +29,6 @@ public class EnemyHealth : EnemyComponent, IDamageable
             return;
         }
 
-        Debug.Log("Enemy Heals");
         currHealth = Mathf.Clamp(currHealth + heal, 0, maxHealth);
         enemy.enemyEvents.onHealthChange?.Invoke();
 
@@ -54,7 +52,7 @@ public class EnemyHealth : EnemyComponent, IDamageable
     private int lastAttackID = 0;
     private void OnTriggerStay2D(Collider2D collision)
     {   // Should only collide with player's Attack Area Collider because this it is a Trigger Collider
-        if (((1 << collision.gameObject.layer) & layerMask) == 0) return;
+        if (((1 << collision.gameObject.layer) & damageLayer) == 0) return;
 
         Player player = collision.gameObject.GetComponentInParent<Player>();
         if (player == null) return;

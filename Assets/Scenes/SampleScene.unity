@@ -682,9 +682,9 @@ MonoBehaviour:
   <health>k__BackingField: {fileID: 993337304}
   <playerCollider>k__BackingField: {fileID: 993337299}
   <spriteRenderer>k__BackingField: {fileID: 993337300}
-  canDash: 1
-  canAttack: 1
-  canLunge: 1
+  dashIsAvailable: 1
+  attackIsAvailable: 1
+  lungeIsAvailable: 1
 --- !u!50 &993337298
 Rigidbody2D:
   serializedVersion: 5
@@ -852,6 +852,7 @@ MonoBehaviour:
     maxNormalAngle: 0
   <isAttacking>k__BackingField: 0
   <attackIsEnhanced>k__BackingField: 0
+  attackParries: 0
   baseDamage: 1
   <currDamage>k__BackingField: 1
   attackDuration: 0.2
@@ -1572,7 +1573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f7b9e81f69e16442addf74c5bcec550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  layerMask:
+  damageLayer:
     serializedVersion: 2
     m_Bits: 8
   <maxHealth>k__BackingField: 5
@@ -1593,6 +1594,7 @@ MonoBehaviour:
   <attack>k__BackingField: {fileID: 1620073973}
   <spriteRenderer>k__BackingField: {fileID: 1620073969}
   <enemyCollider>k__BackingField: {fileID: 1620073968}
+  target: {fileID: 993337295}
 --- !u!114 &1620073973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1605,7 +1607,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a6e18cdc6352894eb8cb03e6d62260b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
-  target: {fileID: 993337295}
   attack: {fileID: 8827905931808526965, guid: 465e389e586ddb04fbcdfcaa10e0cadb, type: 3}
   meleeAttack: {fileID: 8827905931808526965, guid: 465e389e586ddb04fbcdfcaa10e0cadb, type: 3}
 --- !u!1 &2010581680
