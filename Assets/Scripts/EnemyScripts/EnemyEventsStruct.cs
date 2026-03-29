@@ -10,6 +10,6 @@ public struct EnemyEvents
     public Action onHealthChange;
     public Action onEnemyDies;
 
-    public Action onPummelStart;
-    public Action onPummelEnd;
+    public Action<GameObject> pummelStarts;
+    public Action pummelEnds;
 }

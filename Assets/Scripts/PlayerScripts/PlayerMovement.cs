@@ -181,6 +181,10 @@ public class PlayerMovement : PlayerComponent
     {
         currMoveSpeed = Mathf.Max(multiplier * currMoveSpeed, 0.0f);
     }
+    public void AddImpulse(Vector3 impulse)
+    {
+        playerRigidbody.AddForce(impulse, ForceMode2D.Impulse);
+    }
 
     private void StartDash(InputAction.CallbackContext context)
     {
