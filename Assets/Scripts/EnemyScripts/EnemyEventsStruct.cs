@@ -7,4 +7,5 @@ public struct EnemyEvents
     public Action onEnemyDies;
 
     public Action<GameObject> onParried;
+    public Action onParryStun;
 }
