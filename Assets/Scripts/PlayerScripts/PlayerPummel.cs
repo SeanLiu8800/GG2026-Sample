@@ -34,7 +34,7 @@ public class PlayerPummel : PlayerComponent
         isPummeling = true;
         this.pummelTarget = pummelTarget;
         // Set Player's position to the closest Enemy Latch Point
-        if (pummelTarget.TryGetComponent<EnemyPummelable>(out EnemyPummelable pummel))
+        if (pummelTarget.TryGetComponent<EnemyPummel>(out EnemyPummel pummel))
         {
             if (transform.position.x < pummelTarget.transform.position.x) 
                 transform.position = pummel.GetLeftLatchPointPosition();

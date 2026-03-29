@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-public class EnemyPummelable : EnemyComponent
+
+public class EnemyPummel : EnemyComponent
 {
     [SerializeField] private GameObject latchPoints;
 
