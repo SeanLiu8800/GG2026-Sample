@@ -72,10 +72,12 @@ public class PlayerPummel : PlayerComponent
         Vector2 toTarget = pummelTarget.transform.position - transform.position;
         if (Vector2.Dot(toTarget.normalized, movementInput.normalized) < -0.6)
         {
+            Debug.LogWarning($"Releasing {pummelTarget.name}");
             ReleaseTarget();
         }
         else
         {
+            Debug.LogWarning($"Pummeling {pummelTarget.name}");
             Pummel();
         }
     }    
@@ -86,7 +88,6 @@ public class PlayerPummel : PlayerComponent
     }
     private void ReleaseTarget()
     {
-        Debug.LogWarning($"Releasing {pummelTarget.name}");
         pummelTarget.enemyEvents.pummelEnds?.Invoke();
         player.playerEvents.pummelEnds?.Invoke();
         player.playerEvents.pummelReleased?.Invoke();
@@ -108,7 +109,7 @@ public class PlayerPummel : PlayerComponent
     {
         if (!player.movement.isDashing) return;
         if (!collision.TryGetComponent<Enemy>(out Enemy enemy)) return;
-        if (!enemy.isParryStunned || enemy.isBeingPummeled) return;
+        if (!enemy.isParryStunned || enemy.isBeingPummeled || !enemy.pummel.canBePummeled) return;
 
         player.playerEvents.pummelStarts(enemy);
         enemy.enemyEvents.pummelStarts(player);

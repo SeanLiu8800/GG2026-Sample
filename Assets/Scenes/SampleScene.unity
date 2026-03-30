@@ -1764,6 +1764,8 @@ MonoBehaviour:
   pummelDuration: 3
   currentPummelDuration: 0
   ejectPummelerDamage: 0
+  canBePummeled: 1
+  pummelCooldown: 1
 --- !u!1 &2010581680
 GameObject:
   m_ObjectHideFlags: 0
