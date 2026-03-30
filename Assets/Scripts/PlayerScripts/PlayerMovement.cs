@@ -128,7 +128,7 @@ public class PlayerMovement : PlayerComponent
         canDash = true;
         player.spriteRenderer.SetColor(Color.red.r, Color.red.g, Color.red.b, -1.0f); 
     }
-    void PummelStarts(GameObject pummelTarget)
+    void PummelStarts(Enemy enemy)
     {
         player.playerEvents.dashEnds?.Invoke();
         player.playerCollider.enabled = false;

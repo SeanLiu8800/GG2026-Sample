@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 public class PlayerPummel : PlayerComponent
 {
     private InputAction moveAction;
-    [SerializeField, ReadOnly] private GameObject pummelTarget;
+    [SerializeField, ReadOnly] private Enemy pummelTarget;
     [SerializeField, ReadOnly] private Vector2 movementInput = Vector2.up;
     [SerializeField, ReadOnly] private Vector3 latchPosition;
 
@@ -30,17 +30,15 @@ public class PlayerPummel : PlayerComponent
         player.playerEvents.pummelEjected -= PummelEjected;
     }
     #region ----- Event Functions -----
-    void PummelStarts(GameObject pummelTarget)
+    void PummelStarts(Enemy enemy)
     {
         isPummeling = true;
-        this.pummelTarget = pummelTarget;
+        pummelTarget = enemy;
         // Set Player's position to the closest Enemy Latch Point
-        if (pummelTarget.TryGetComponent<EnemyPummel>(out EnemyPummel pummel))
-        {
-            if (transform.position.x < pummelTarget.transform.position.x) 
-                latchPosition = pummel.GetLeftLatchPointPosition();
-            else latchPosition = pummel.GetRightLatchPointPosition();
-        }
+        if (transform.position.x < pummelTarget.transform.position.x) 
+            latchPosition = pummelTarget.pummel.GetLeftLatchPointPosition();
+        else latchPosition = pummelTarget.pummel.GetRightLatchPointPosition();
+
         player.playerCollider.enabled = false;
     }
     void PummelEnds()
@@ -72,7 +70,7 @@ public class PlayerPummel : PlayerComponent
     {
         if (!isPummeling || pummelTarget == null) return;
         Vector2 toTarget = pummelTarget.transform.position - transform.position;
-        if (Vector2.Dot(toTarget.normalized, movementInput.normalized) < -0.8)
+        if (Vector2.Dot(toTarget.normalized, movementInput.normalized) < -0.6)
         {
             ReleaseTarget();
         }
@@ -83,18 +81,13 @@ public class PlayerPummel : PlayerComponent
     }    
     private void Pummel()
     {
-        if (!pummelTarget.TryGetComponent<IDamageable>(out IDamageable damage))
-        {
-            Debug.LogError($"{pummelTarget.name} DOES NOT have an IDamageable Component!");
-        }
-        else
-        {
-            damage.Damage(1);
-        }
+        pummelTarget.health.Damage(1);
+        if (pummelTarget.health.currHealth <= 0) ReleaseTarget();
     }
     private void ReleaseTarget()
     {
-        pummelTarget.GetComponent<Enemy>().enemyEvents.pummelEnds?.Invoke();
+        Debug.LogWarning($"Releasing {pummelTarget.name}");
+        pummelTarget.enemyEvents.pummelEnds?.Invoke();
         player.playerEvents.pummelEnds?.Invoke();
         player.playerEvents.pummelReleased?.Invoke();
     }
@@ -105,13 +98,19 @@ public class PlayerPummel : PlayerComponent
         transform.position = Vector3.Lerp(transform.position, latchPosition, 10.0f * Time.fixedDeltaTime);
     }
     
+    public void EjectedByPummelTarget()
+    {
+        player.playerEvents.pummelEnds?.Invoke();
+        player.playerEvents.pummelEjected?.Invoke();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!player.movement.isDashing) return;
         if (!collision.TryGetComponent<Enemy>(out Enemy enemy)) return;
         if (!enemy.isParryStunned || enemy.isBeingPummeled) return;
 
-        player.playerEvents.pummelStarts(enemy.gameObject);
-        enemy.enemyEvents.pummelStarts(this.gameObject);
+        player.playerEvents.pummelStarts(enemy);
+        enemy.enemyEvents.pummelStarts(player);
     }
 }

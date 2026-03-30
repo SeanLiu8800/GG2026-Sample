@@ -5,7 +5,7 @@ public class EnemyPummel : EnemyComponent
     [SerializeField] private GameObject latchPoints;
 
     [field : Header("Pummel Variables")]
-    [SerializeField, ReadOnly] private GameObject pummeler;
+    [SerializeField, ReadOnly] private Player pummeler;
     [SerializeField, Range(0.0f, 6.0f)] private float pummelDuration = 5.0f;
     private float pummelStartTime = -99.0f;
     [SerializeField, ReadOnly] private float currentPummelDuration = 0.0f;
@@ -21,10 +21,10 @@ public class EnemyPummel : EnemyComponent
         enemy.enemyEvents.pummelEnds -= PummelEnds;
     }
     #region ----- Event Functions -----
-    protected virtual void PummelStarts(GameObject pummeler)
+    protected virtual void PummelStarts(Player player)
     {
         enemy.isBeingPummeled = true;
-        this.pummeler = pummeler;
+        pummeler = player;
         pummelStartTime = Time.time;
     }
     protected virtual void PummelEnds()
@@ -47,20 +47,11 @@ public class EnemyPummel : EnemyComponent
     }
     private void EjectPummeler()
     {
-        if (!pummeler.TryGetComponent<IDamageable>(out IDamageable damage))
-        {
-            Debug.Log($"{pummeler.name} DOES NOT have a IDamageable Component!");
-        }
-        else damage.Damage(ejectPummelerDamage);
-        
-        // Knockback
-        if (pummeler.TryGetComponent<Player>(out Player player))
-        {
-            Vector3 direction = (pummeler.transform.position - transform.position).normalized;
-            player.movement.AddImpulse(direction * 10.0f);
-        }
+        pummeler.health.Damage(1);
+        Vector3 direction = (pummeler.transform.position - transform.position).normalized;
+        pummeler.movement.AddImpulse(direction * 10.0f);
 
-        player.playerEvents.pummelEnds?.Invoke();
+        pummeler.pummel.EjectedByPummelTarget();
         enemy.enemyEvents.pummelEnds?.Invoke();
     }
     public Vector3 GetLeftLatchPointPosition()

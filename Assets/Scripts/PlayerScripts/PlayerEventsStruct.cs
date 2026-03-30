@@ -10,7 +10,7 @@ public struct PlayerEvents
     public Action imperfectDash;
     public Action dashCooldownEnds;
 
-    public Action<GameObject> pummelStarts;
+    public Action<Enemy> pummelStarts;
     public Action pummelEnds;
     public Action pummelReleased;
     public Action pummelEjected;

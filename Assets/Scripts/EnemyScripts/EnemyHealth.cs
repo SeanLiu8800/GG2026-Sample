@@ -51,11 +51,11 @@ public class EnemyHealth : EnemyComponent, IDamageable
 
     private int lastAttackID = 0;
     private void OnTriggerStay2D(Collider2D collision)
-    {   // Should only collide with player's Attack Area Collider because this it is a Trigger Collider
+    {
         if (((1 << collision.gameObject.layer) & damageLayer) == 0) return;
 
         Player player = collision.gameObject.GetComponentInParent<Player>();
-        if (player == null) return;
+        if (player == null || !player.attack.isAttacking) return;
         if (lastAttackID == player.attack.currAttackID) return;
         
         lastAttackID = player.attack.currAttackID;
