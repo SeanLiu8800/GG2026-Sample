@@ -17,12 +17,15 @@ public class EnemyParry : EnemyComponent
         enemy.enemyEvents.parryStunStarts += ParryStunStarts;
         enemy.enemyEvents.parryStunEnds += ParryStunEnds;
 
+        enemy.enemyEvents.pummelStarts += PummelStarts;
     }
     void OnDisable()
     {
         enemy.enemyEvents.onParried -= OnParried;
         enemy.enemyEvents.parryStunStarts -= ParryStunStarts;
         enemy.enemyEvents.parryStunEnds -= ParryStunEnds;
+
+        enemy.enemyEvents.pummelStarts -= PummelStarts;
     }
     #region ----- Event Functions -----
     protected void OnParried(GameObject parrier)
@@ -46,6 +49,10 @@ public class EnemyParry : EnemyComponent
     {
         enemy.isParryStunned = false;
         enemy.spriteRenderer.SetAlpha(1.0f);
+    }
+    protected void PummelStarts(Player player)
+    {
+        ParryStunEnds();
     }
     #endregion
     void Update()

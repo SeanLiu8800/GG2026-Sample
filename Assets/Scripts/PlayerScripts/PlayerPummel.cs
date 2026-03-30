@@ -109,7 +109,7 @@ public class PlayerPummel : PlayerComponent
     {
         if (!player.movement.isDashing) return;
         if (!collision.TryGetComponent<Enemy>(out Enemy enemy)) return;
-        if (!enemy.isParryStunned || enemy.isBeingPummeled || !enemy.pummel.canBePummeled) return;
+        if (!enemy.isParryStunned || enemy.isBeingPummeled) return;
 
         player.playerEvents.pummelStarts(enemy);
         enemy.enemyEvents.pummelStarts(player);
