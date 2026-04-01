@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using System.Collections;
 public class PlayerMovement : PlayerComponent
 {
     [SerializeField] private Collider2D dashCollider;
@@ -172,7 +172,7 @@ public class PlayerMovement : PlayerComponent
     }
     void FixedUpdate()
     {
-        if (!isDashing && !isLunging && !player.pummel.isPummeling) 
+        if (!isDashing && !isLunging && !player.pummel.isPummeling && !isKnockbacked) 
             playerRigidbody.linearVelocity = movementInput * CorrectedMoveSpeed();
         Dash();
         AttackLunge();
@@ -294,11 +294,37 @@ public class PlayerMovement : PlayerComponent
 
 
     [Header("Knockback Variables")]
+    private bool isKnockbacked = false;
     private float knockbackStrength = 5.0f;
-    public void KnockBack(Vector3 direction, float knockbackForce)
+    public void KnockBack(Vector3 direction, float knockbackVelocity)
     {
         Debug.Log("Knockbacked Player!");
+        moveTowardsCoroutine = StartCoroutine(MoveTowards(direction * knockbackVelocity, 0.5f, 6.0f));
     }
+    private Coroutine moveTowardsCoroutine;
+    private Vector3 currMoveTowardsVelocity = Vector3.zero;
+    private float currMoveTowardsTime = 0.0f;
+    private IEnumerator MoveTowards(Vector3 startingVelocity, float duration, float lerpCoefficient)
+    {
+        Debug.Log("Start CO!");
+        isKnockbacked = true;
+        currMoveTowardsVelocity = startingVelocity;
+        float moveTowardsStartTime = Time.time;
+        currMoveTowardsTime = 0.0f;
+
+        while (Time.time - moveTowardsStartTime < duration)
+        {
+            playerRigidbody.linearVelocity = currMoveTowardsVelocity;
+            currMoveTowardsVelocity = Vector3.Lerp(currMoveTowardsVelocity, Vector3.zero, Time.deltaTime * lerpCoefficient);
+            currMoveTowardsTime = Time.time - moveTowardsStartTime;
+
+            yield return null;
+        }
+        isKnockbacked = false;
+        Debug.Log("End CO!");
+        yield break;
+    }
+
     private void OnDrawGizmos()
     {
         if (!Application.isPlaying) return;
