@@ -23,7 +23,7 @@ public class EnemyAttack : EnemyComponent
                     (
                         this.gameObject, 
                         enemy.target, 
-                        (enemy.target.transform.position - transform.position).normalized * 3
+                        (enemy.target.transform.position - transform.position).normalized * 7.0f
                     );
             }
             yield return new WaitForSeconds(0.2f);

@@ -23,7 +23,7 @@ public class EnemyMovement : EnemyComponent
         if (currDistance > strafeRadius)
         {
             float diff = Mathf.Abs(currDistance - strafeRadius);
-            float ratio = Mathf.Clamp(diff / strafingThreshold, 0.0f, 1.0f);
+            float ratio = Mathf.Clamp(diff / strafingThreshold, 0.0f, 0.95f);
 
             Vector3 resultVec = ratio * toTargetVector + (1 - ratio) * strafeVector;
             float moveSpeed = ratio * normalMoveSpeed + (1 - ratio) * strafeMoveSpeed;
@@ -32,11 +32,16 @@ public class EnemyMovement : EnemyComponent
         else
         {
             float diff = Mathf.Abs(currDistance - strafeRadius);
-            float ratio = Mathf.Clamp(diff / strafingThreshold, 0.0f, 1.0f);
+            float ratio = Mathf.Clamp(diff / strafingThreshold, 0.0f, 0.95f);
 
             Vector3 resultVec = ratio * -toTargetVector + (1 - ratio) * strafeVector;
             float moveSpeed = ratio * normalMoveSpeed + (1 - ratio) * strafeMoveSpeed;
             enemy.enemyRigidbody.AddForce(resultVec.normalized * moveSpeed);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        strafeClockwise = !strafeClockwise;
     }
 }
