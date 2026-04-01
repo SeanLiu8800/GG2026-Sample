@@ -13,11 +13,15 @@ public class PlayerHealth : PlayerComponent, IDamageable
     {
         player.playerEvents.invincibilityStarts += InvincibilityStarts;
         player.playerEvents.invincibilityEnds += InvincibilityEnds;
+
+        player.playerEvents.pummelReleased += PummelRelease;
     }
     void OnDisable()
     {
         player.playerEvents.invincibilityStarts -= InvincibilityStarts;
         player.playerEvents.invincibilityEnds -= InvincibilityEnds;
+
+        player.playerEvents.pummelReleased -= PummelRelease;
     }
 
     #region ----- Event Functions -----
@@ -30,6 +34,10 @@ public class PlayerHealth : PlayerComponent, IDamageable
     {
         isInvincible = false;
         player.spriteRenderer.SetAlpha(1.0f);
+    }
+    void PummelRelease()
+    {
+        StartInvincibility();
     }
     #endregion
     void Update()

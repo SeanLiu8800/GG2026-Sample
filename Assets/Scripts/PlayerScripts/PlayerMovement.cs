@@ -140,7 +140,8 @@ public class PlayerMovement : PlayerComponent
     }
     void PummelReleased()
     {
-        player.playerEvents.dashStarts?.Invoke();
+        StartDash(new InputAction.CallbackContext());
+        //player.playerEvents.dashStarts?.Invoke();
     }
     void PummelEjected()
     {

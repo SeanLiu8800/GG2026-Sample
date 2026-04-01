@@ -130,8 +130,7 @@ public class PlayerAttack : PlayerComponent
         if (!isAttacking || Time.time - attackStartTime < attackDuration) return;
         player.playerEvents.attackEnds?.Invoke();
     }
-   
-    public bool AttackIsEnhanced() { return attackIsEnhanced; }
+
     public void Empower(int input = 1)
     {
         Debug.Log("Empowering Player's Attack!");

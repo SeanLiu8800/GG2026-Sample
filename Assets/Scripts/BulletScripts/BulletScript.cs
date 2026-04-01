@@ -83,7 +83,7 @@ public class BulletScript : MonoBehaviour
         if (player.movement.isDashing) bulletEvents.onDashedInto?.Invoke(player);
         else if (player.attack.isAttacking)
         {
-            if (player.attack.AttackIsEnhanced()) bulletEvents.onEnhancedAttacked?.Invoke(player);
+            if (player.attack.attackIsEnhanced) bulletEvents.onEnhancedAttacked?.Invoke(player);
             else return false;
         }
         else

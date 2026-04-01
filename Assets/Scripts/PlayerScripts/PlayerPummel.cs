@@ -1,13 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 public class PlayerPummel : PlayerComponent
 {
     private InputAction moveAction;
+    private InputAction pummelAction;
 
     [field: Header("Pummel Variables")]
     [field: SerializeField, ReadOnly] public bool isPummeling { get; private set; } = false;
     [SerializeField, ReadOnly] private Enemy pummelTarget;
-    [SerializeField, ReadOnly] private Vector2 movementInput = Vector2.up;
     [SerializeField, ReadOnly] private Vector3 latchPosition;
     
     protected override void Awake()
@@ -15,9 +16,12 @@ public class PlayerPummel : PlayerComponent
         base.Awake();
 
         moveAction = InputSystem.actions.FindAction("Move");
+        pummelAction = InputSystem.actions.FindAction("PlayerPummelControls/Pummel");
     }
     private void OnEnable()
     {
+        pummelAction.started += DecideAction;
+
         player.playerEvents.pummelStarts += PummelStarts;
         player.playerEvents.pummelEnds += PummelEnds;
         player.playerEvents.pummelReleased += PummelReleased;
@@ -25,6 +29,8 @@ public class PlayerPummel : PlayerComponent
     }
     private void OnDisable()
     {
+        pummelAction.started -= DecideAction;
+
         player.playerEvents.pummelStarts -= PummelStarts;
         player.playerEvents.pummelEnds -= PummelEnds;
         player.playerEvents.pummelReleased -= PummelReleased;
@@ -57,21 +63,17 @@ public class PlayerPummel : PlayerComponent
 
     }
     #endregion
-    void Update()
-    {
-        movementInput = moveAction.ReadValue<Vector2>();
-        if (Keyboard.current.spaceKey.wasPressedThisFrame) DecideAction();
-    }
     void FixedUpdate()
     {
         MoveToLatchPosition();
     }
 
-    private void DecideAction()
+    private void DecideAction(InputAction.CallbackContext context)
     {
         if (!isPummeling || pummelTarget == null) return;
         Vector2 toTarget = pummelTarget.transform.position - transform.position;
-        if (Vector2.Dot(toTarget.normalized, movementInput.normalized) < -0.6)
+        Vector3 directionInput = moveAction.ReadValue<Vector2>();
+        if (Vector2.Dot(toTarget.normalized, directionInput.normalized) < -0.6)
         {
             Debug.LogWarning($"Releasing {pummelTarget.name}");
             ReleaseTarget();
@@ -85,7 +87,7 @@ public class PlayerPummel : PlayerComponent
     private void Pummel()
     {
         pummelTarget.health.Damage(1);
-        if (pummelTarget.health.currHealth <= 0) ReleaseTarget();
+        if (pummelTarget.health.currHealth <= 0) StartCoroutine(PummelDismount());
     }
     private void ReleaseTarget()
     {
@@ -94,9 +96,26 @@ public class PlayerPummel : PlayerComponent
         player.playerEvents.pummelReleased?.Invoke();
     }
 
+    private IEnumerator PummelDismount()
+    {
+        pummelTarget.enemyEvents.pummelEnds?.Invoke();
+        pummelTarget = null;
+
+        float dismountDuration = 0.5f;
+        float dismountStartTime = Time.time;
+        Vector3 dismountEndPosition = Vector3.zero;
+        while (Time.time - dismountStartTime < dismountDuration)
+        {
+            transform.position = Vector3.Lerp(transform.position, dismountEndPosition, 5.0f*Time.deltaTime);
+            yield return null;
+        }
+
+        player.playerEvents.pummelReleased?.Invoke();
+        player.playerEvents.pummelEnds?.Invoke();
+    }
     private void MoveToLatchPosition()
     {
-        if (!isPummeling) return;
+        if (!isPummeling || pummelTarget == null) return;
         transform.position = Vector3.Lerp(transform.position, latchPosition, 10.0f * Time.fixedDeltaTime);
     }
     
