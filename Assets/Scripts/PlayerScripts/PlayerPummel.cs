@@ -3,12 +3,13 @@ using UnityEngine.InputSystem;
 public class PlayerPummel : PlayerComponent
 {
     private InputAction moveAction;
+
+    [field: Header("Pummel Variables")]
+    [field: SerializeField, ReadOnly] public bool isPummeling { get; private set; } = false;
     [SerializeField, ReadOnly] private Enemy pummelTarget;
     [SerializeField, ReadOnly] private Vector2 movementInput = Vector2.up;
     [SerializeField, ReadOnly] private Vector3 latchPosition;
-
-    [field : Header("Pummel Variables")]
-    [field : SerializeField, ReadOnly] public bool isPummeling { get; private set; } = false;
+    
     protected override void Awake()
     {
         base.Awake();

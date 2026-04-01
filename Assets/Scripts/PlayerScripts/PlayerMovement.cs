@@ -10,21 +10,21 @@ public class PlayerMovement : PlayerComponent
     private InputAction dashAction;
 
     [Header("Movement Variables")]
-    [SerializeField, Range(5.0f, 15.0f)] private float moveSpeed = 5.0f;
+    [SerializeField, Range(5.0f, 15.0f)] private float moveSpeed = 10.0f;
     [SerializeField, ReadOnly, Range(0.0f, 60.0f)] private float currMoveSpeed = 0.0f;
-    [SerializeField, Range(5.0f, 60.0f)] private float maxMoveSpeed = 30.0f;
-    [Range(0.0f, 5.0f)] public float speedRestoreRate = 1.0f;
-    [Range(0.0f, 5.0f)] public float speedDecayRate = 1.0f;
+    [SerializeField, Range(5.0f, 60.0f)] private float maxMoveSpeed = 20.0f;
+    [Range(0.0f, 10.0f)] public float speedRestoreRate = 5.0f;
+    [Range(0.0f, 10.0f)] public float speedDecayRate = 5.0f;
     public Vector3 lastMovementDirection { get; private set; } = Vector3.up;
     private Vector3 movementInput;
 
     [Header("Dash Variables")]
     [SerializeField, ReadOnly] private bool canDash = true;
-    [field : SerializeField, ReadOnly] public bool isDashing { get; private set; } = false;
+    [field: SerializeField, ReadOnly] public bool isDashing { get; private set; } = false;
     private float dashStartTime = -99.9f;
     private Vector3 currDashVelocity;
     [SerializeField, ReadOnly] private float currDashTime = 0.0f;
-    [SerializeField, Range(0.0f, 1.5f)] private float dashTime = 2.0f;
+    [SerializeField, Range(0.0f, 1.5f)] private float dashTime = 1.0f;
     private float dashCooldownStartTime = -99.9f;
     [SerializeField, Range(0.0f, 2.0f)] private float dashCooldown = 0.5f;
     [SerializeField, Range(0.0f, 0.5f)] private float perfectDashLeniency = 0.05f;
@@ -257,9 +257,9 @@ public class PlayerMovement : PlayerComponent
         player.playerEvents.dashCooldownEnds?.Invoke();
     }
 
-    [field : Header("Attack Lunge Variables")]
+    [field: Header("Attack Lunge Variables")]
     [field: SerializeField, ReadOnly] public bool willLunge { get; private set; } = false;
-    [field : SerializeField, ReadOnly] public bool isLunging { get; private set; } = false;
+    [field: SerializeField, ReadOnly] public bool isLunging { get; private set; } = false;
     private bool thisDashEnhancedAttack = false;
     [Tooltip("The minimum amount of time to dash to enhance Attack")]
     [SerializeField, Range(0.0f, 0.5f)] private float minDashEnhanceAttack = 0.2f;

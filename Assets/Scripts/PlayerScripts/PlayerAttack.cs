@@ -7,15 +7,15 @@ public class PlayerAttack : PlayerComponent
     [SerializeField] private AttackArea attackArea;
     [SerializeField] private ContactFilter2D attackTargetFilter;
 
-    [field : Header("Attack Variables")]
-    [field : SerializeField, ReadOnly] public bool isAttacking { get; private set; } = false;
-    [field : SerializeField, ReadOnly] public bool attackIsEnhanced { get; private set; } = false;
+    [field: Header("Attack Variables")]
+    [field: SerializeField, ReadOnly] public bool isAttacking { get; private set; } = false;
+    [field: SerializeField, ReadOnly] public bool attackIsEnhanced { get; private set; } = false;
     [SerializeField, ReadOnly] private bool attackParries = false;
     [SerializeField, Range(0, 5)] private int baseDamage = 1;
-    [field : SerializeField, Range(0, 5), ReadOnly] public int currDamage { get; private set; } = 1;
+    [field: SerializeField, Range(0, 5), ReadOnly] public int currDamage { get; private set; } = 1;
     [SerializeField, Range(0.0f, 1.0f)] private float attackDuration = 0.2f;
     private float attackStartTime = 0.0f;
-    [field : SerializeField, ReadOnly] public int currAttackID { get; private set; } = 0;
+    [field: SerializeField, ReadOnly] public int currAttackID { get; private set; } = 0;
     protected override void Awake()
     {
         base.Awake();

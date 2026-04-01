@@ -3,9 +3,9 @@ using UnityEngine;
 public class PlayerHealth : PlayerComponent, IDamageable
 {
     [field: Header("Health Variables")]
-    [field : SerializeField] public int maxHealth { get; private set; } = 5;
-    [field : SerializeField] public int currHealth { get; private set; } = 5;
-    [field : Header("Invincibility Variables")]
+    [field: SerializeField] public int maxHealth { get; private set; } = 5;
+    [field: SerializeField] public int currHealth { get; private set; } = 5;
+    [field: Header("Invincibility Variables")]
     [field: SerializeField, ReadOnly] public bool isInvincible { get; private set; } = false;
     [SerializeField, Range(0.0f, 2.0f)] private float invincibilityDuration = 1.0f;
     private float invincibilityEndTime = 0.0f;
@@ -38,6 +38,7 @@ public class PlayerHealth : PlayerComponent, IDamageable
     }
     public void Damage(int damage = 1)
     {
+        if (!player.canTakeDamage) return;
         if (isInvincible) return;
         if (damage < 0)
         {
@@ -56,6 +57,7 @@ public class PlayerHealth : PlayerComponent, IDamageable
     }
     public void Heal(int heal = 1)
     {
+        if (!player.canHeal) return;
         if (heal < 0)
         {
             Damage(-heal);

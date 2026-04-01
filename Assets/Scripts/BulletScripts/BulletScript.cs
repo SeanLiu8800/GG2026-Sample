@@ -6,9 +6,9 @@ public class BulletScript : MonoBehaviour
     [SerializeField, ReadOnly] private Rigidbody2D bulletRigidbody;
     [SerializeField] private LayerMask layerMask;
 
-    [field : Header("Bullet Variables")]
-    [field : SerializeField, ReadOnly] public GameObject owner { get; private set; }
-    [field : SerializeField, ReadOnly] public GameObject target { get; private set; }
+    [field: Header("Bullet Variables")]
+    [field: SerializeField, ReadOnly] public GameObject owner { get; private set; }
+    [field: SerializeField, ReadOnly] public GameObject target { get; private set; }
     [SerializeField, Range(0, 5)] public int damage = 1;
     [SerializeField, Range(0, 5)] public int empowerRate = 1;
 
