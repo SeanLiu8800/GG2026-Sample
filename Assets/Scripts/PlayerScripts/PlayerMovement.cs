@@ -211,10 +211,6 @@ public class PlayerMovement : PlayerComponent
     {
         currMoveSpeed = Mathf.Max(multiplier * currMoveSpeed, 0.0f);
     }
-    public void AddImpulse(Vector3 impulse)
-    {
-        playerRigidbody.AddForce(impulse, ForceMode2D.Impulse);
-    }
 
     private void StartDash(InputAction.CallbackContext context)
     {
@@ -295,7 +291,14 @@ public class PlayerMovement : PlayerComponent
 
         player.playerEvents.lungeEnds?.Invoke();
     }
-    
+
+
+    [Header("Knockback Variables")]
+    private float knockbackStrength = 5.0f;
+    public void KnockBack(Vector3 direction, float knockbackForce)
+    {
+        Debug.Log("Knockbacked Player!");
+    }
     private void OnDrawGizmos()
     {
         if (!Application.isPlaying) return;

@@ -10,13 +10,13 @@ public class EnemyMovement : EnemyComponent
     [SerializeField, Range(0.0f, 5.0f)] private float strafingThreshold = 2.0f;
     void Update()
     {
-        MaintainDistance();
+        ChaseThenStrafe();
     }
     
     /// <summary>
     /// Movement Behavior that allows movement towards strafeRadius units away from Player, then strafe in a circle
     /// </summary>
-    private void MaintainDistance()
+    private void ChaseThenStrafe()
     {
         if (enemy.target == null) return;
 
