@@ -94,7 +94,7 @@ public class PlayerMovement : PlayerComponent
         dashCollider.enabled = true;
         dashDirection = (movementInput == Vector3.zero) ? lastMovementDirection : movementInput.normalized;
         thisDashEnhancedAttack = false;
-        MoveTowards(dashDirection * 20, dashDuration, 3.0f); // initial Dash Velocity is hard coded to be 20 units
+        LaunchTowards(dashDirection * 20, dashDuration, 3.0f); // initial Dash Velocity is hard coded to be 20 units
     }
     void EnhanceAttack()
     {
@@ -106,7 +106,7 @@ public class PlayerMovement : PlayerComponent
         isDashing = false;
         player.playerCollider.isTrigger = false;
         dashCollider.enabled = false;
-        StopMoveTowardsCoroutine();
+        StopLaunchTowards();
     }
     void PerfectDash()
     {
@@ -148,12 +148,12 @@ public class PlayerMovement : PlayerComponent
     {
         isLunging = true;
         willLunge = false;
-        lungeStartTime = Time.time;
-        currLungeVelocity = lastMovementDirection * Mathf.Max(currMoveSpeed * 1.5f, 15.0f);
+        LaunchTowards(lastMovementDirection * Mathf.Max(currMoveSpeed * 1.5f, 15.0f), lungeDuration, 6.0f);
     }
     void LungeEnds()
     {
         isLunging = false;
+        StopLaunchTowards();
     }
     void AttackStarts()
     {
@@ -220,8 +220,7 @@ public class PlayerMovement : PlayerComponent
     private void Dash()
     {
         if (!isDashing) return;
-
-        // Enables Attack Lunging if player Dashes for the minimum amount of time
+        // Enhance Attack if player Dashes for the minimum amount of time
         if (!thisDashEnhancedAttack && currMoveTowardsTime >= minDashEnhanceAttack) player.playerEvents.enhanceAttack?.Invoke();
         if (currMoveTowardsTime >= dashDuration)
         {
@@ -254,9 +253,6 @@ public class PlayerMovement : PlayerComponent
     [Tooltip("The minimum amount of time to dash to enhance Attack")]
     [SerializeField, Range(0.0f, 0.5f)] private float minDashEnhanceAttack = 0.2f;
     [SerializeField, Range(0.0f, 0.5f)] private float lungeDuration = 0.2f;
-    private float lungeStartTime = 0.0f;
-    private float currLungeTime = 0.0f;
-    private Vector3 currLungeVelocity;
     public void StartAttackLunge()
     {
         if (!player.lungeIsAvailable) willLunge = false;
@@ -267,16 +263,11 @@ public class PlayerMovement : PlayerComponent
     private void AttackLunge()
     {
         if (!isLunging) return;
-
-        currLungeTime = Time.time - lungeStartTime;
-        if (currLungeTime >= lungeDuration)
+        if (currMoveTowardsTime >= lungeDuration)
         {
             StopAttackLunge();
             return;
         }
-
-        playerRigidbody.linearVelocity = currLungeVelocity;
-        currLungeVelocity = Vector3.Lerp(currLungeVelocity, Vector3.zero, Time.fixedDeltaTime * 6.0f);
     }
     private void StopAttackLunge()
     {
@@ -292,22 +283,22 @@ public class PlayerMovement : PlayerComponent
     public void KnockBack(Vector3 initialVelocity)
     {
         Debug.Log("Knockbacked Player!");
-        MoveTowards(initialVelocity, 0.5f, 6.0f);
+        LaunchTowards(initialVelocity, 0.5f, 6.0f);
     }
-    private void MoveTowards(Vector3 startingVelocity, float duration = 0.5f, float lerpCoefficient = 6.0f)
+    private void LaunchTowards(Vector3 startingVelocity, float duration = 0.5f, float lerpCoefficient = 6.0f)
     {
         // Ensure only 1 instances of this coroutine occurs!
-        StopMoveTowardsCoroutine();
-        moveTowardsCoroutine = StartCoroutine(MoveTowardsCoroutine(startingVelocity, duration, lerpCoefficient));
+        StopLaunchTowards();
+        moveTowardsCoroutine = StartCoroutine(LaunchTowardsCoroutine(startingVelocity, duration, lerpCoefficient));
     }
-    private void StopMoveTowardsCoroutine()
+    private void StopLaunchTowards()
     {
         if (moveTowardsCoroutine != null) StopCoroutine(moveTowardsCoroutine);
     }
     private Coroutine moveTowardsCoroutine;
     private Vector3 currMoveTowardsVelocity = Vector3.zero;
     private float currMoveTowardsTime = 0.0f;
-    private IEnumerator MoveTowardsCoroutine(Vector3 startingVelocity, float duration = 0.5f, float lerpCoefficient = 3.0f)
+    private IEnumerator LaunchTowardsCoroutine(Vector3 startingVelocity, float duration = 0.5f, float lerpCoefficient = 3.0f)
     {
         if (duration < 0.0f) duration = 0.0f;
         Debug.Log("Start CO!");
