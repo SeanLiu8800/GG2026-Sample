@@ -1000,7 +1000,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   <isPummeling>k__BackingField: 0
   pummelTarget: {fileID: 0}
-  latchPosition: {x: 0, y: 0, z: 0}
+  latchPositionIndex: 0
 --- !u!1 &1351050882
 GameObject:
   m_ObjectHideFlags: 0
@@ -1779,9 +1779,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52820412ebd62c4d8ac847c5c923547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  distanceToTarget: 2
-  movementDirection: {x: 0, y: 0, z: 0}
-  closingDistance: 10
+  strafeRadius: 3
+  normalMoveSpeed: 3.5
+  strafeMoveSpeed: 1
+  strafeClockwise: 1
+  strafingThreshold: 2.5
 --- !u!1 &2010581680
 GameObject:
   m_ObjectHideFlags: 0

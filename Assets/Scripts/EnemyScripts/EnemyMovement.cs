@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class EnemyMovement : EnemyComponent
 {
-    [SerializeField, Range(1.0f, 10.0f)] private float distanceToTarget = 3.5f;
-    [SerializeField, Range(0.0f, 10.0f)] private float moveSpeed = 5.0f;
-    [SerializeField, Range(1.0f, 10.0f)] private float strafingThreshold = 5.0f;
+    [SerializeField, Range(1.0f, 10.0f)] private float strafeRadius = 3.5f;
+    [SerializeField, Range(0.0f, 10.0f)] private float normalMoveSpeed = 3.5f;
+    [SerializeField, Range(0.0f, 10.0f)] private float strafeMoveSpeed = 1.0f;
+    [SerializeField] private bool strafeClockwise = true;
+    [Tooltip("How many units within strafeRadius in which strafing starts occuring")]
+    [SerializeField, Range(0.0f, 5.0f)] private float strafingThreshold = 2.0f;
     void Update()
     {
         MaintainDistance();
@@ -14,16 +17,25 @@ public class EnemyMovement : EnemyComponent
         if (enemy.target == null) return;
 
         Vector3 toTargetVector = enemy.target.transform.position - transform.position;
-        Vector3 strafeVector = Quaternion.Euler(new Vector3(0, 0, 90)) * toTargetVector;
-        float currDistance = Vector3.Magnitude(toTargetVector);
-        if (currDistance > distanceToTarget)
+        Vector3 strafeVector = Quaternion.Euler(new Vector3(0, 0, (strafeClockwise ? 1 : -1) * 90)) * toTargetVector;
+        float currDistance = toTargetVector.magnitude;
+
+        if (currDistance > strafeRadius)
         {
-            Vector3 resultVec = toTargetVector + strafeVector;
+            float diff = Mathf.Abs(currDistance - strafeRadius);
+            float ratio = Mathf.Clamp(diff / strafingThreshold, 0.0f, 1.0f);
+
+            Vector3 resultVec = ratio * toTargetVector + (1 - ratio) * strafeVector;
+            float moveSpeed = ratio * normalMoveSpeed + (1 - ratio) * strafeMoveSpeed;
             enemy.enemyRigidbody.AddForce(resultVec.normalized * moveSpeed);
         }
         else
         {
-            Vector3 resultVec = -1.0f * toTargetVector + strafeVector;
+            float diff = Mathf.Abs(currDistance - strafeRadius);
+            float ratio = Mathf.Clamp(diff / strafingThreshold, 0.0f, 1.0f);
+
+            Vector3 resultVec = ratio * -toTargetVector + (1 - ratio) * strafeVector;
+            float moveSpeed = ratio * normalMoveSpeed + (1 - ratio) * strafeMoveSpeed;
             enemy.enemyRigidbody.AddForce(resultVec.normalized * moveSpeed);
         }
     }
