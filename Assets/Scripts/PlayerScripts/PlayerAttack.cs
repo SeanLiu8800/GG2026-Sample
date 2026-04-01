@@ -8,11 +8,11 @@ public class PlayerAttack : PlayerComponent
     [SerializeField] private ContactFilter2D attackTargetFilter;
 
     [field : Header("Attack Variables")]
-    [field: SerializeField, ReadOnly] public bool isAttacking { get; private set; } = false;
-    [field: SerializeField, ReadOnly] public bool attackIsEnhanced { get; private set; } = false;
-    [field: SerializeField, ReadOnly] private bool attackParries = false;
+    [field : SerializeField, ReadOnly] public bool isAttacking { get; private set; } = false;
+    [field : SerializeField, ReadOnly] public bool attackIsEnhanced { get; private set; } = false;
+    [SerializeField, ReadOnly] private bool attackParries = false;
     [SerializeField, Range(0, 5)] private int baseDamage = 1;
-    [field: SerializeField, Range(0, 5), ReadOnly] public int currDamage { get; private set; } = 1;
+    [field : SerializeField, Range(0, 5), ReadOnly] public int currDamage { get; private set; } = 1;
     [SerializeField, Range(0.0f, 1.0f)] private float attackDuration = 0.2f;
     private float attackStartTime = 0.0f;
     [field : SerializeField, ReadOnly] public int currAttackID { get; private set; } = 0;
@@ -117,6 +117,7 @@ public class PlayerAttack : PlayerComponent
         do
         {
             attackArea.GetCollider2D().Overlap(currPos, angleDeg, attackTargetFilter, currHits);
+            if (currHits.Count >= 1) return true;
             totalHits.UnionWith(currHits);
             currPos = Vector3.MoveTowards(currPos, finalPos, 1.0f);
         }
@@ -128,7 +129,6 @@ public class PlayerAttack : PlayerComponent
     {
         if (!isAttacking || Time.time - attackStartTime < attackDuration) return;
         player.playerEvents.attackEnds?.Invoke();
-        
     }
    
     public bool AttackIsEnhanced() { return attackIsEnhanced; }

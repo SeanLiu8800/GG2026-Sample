@@ -686,10 +686,10 @@ GameObject:
   - component: {fileID: 993337301}
   - component: {fileID: 993337300}
   - component: {fileID: 993337299}
-  - component: {fileID: 993337303}
   - component: {fileID: 993337298}
   - component: {fileID: 993337297}
   - component: {fileID: 993337296}
+  - component: {fileID: 993337303}
   - component: {fileID: 993337302}
   - component: {fileID: 993337304}
   - component: {fileID: 993337305}
@@ -1764,8 +1764,6 @@ MonoBehaviour:
   pummelDuration: 3
   currentPummelDuration: 0
   ejectPummelerDamage: 0
-  canBePummeled: 1
-  pummelCooldown: 1
 --- !u!1 &2010581680
 GameObject:
   m_ObjectHideFlags: 0

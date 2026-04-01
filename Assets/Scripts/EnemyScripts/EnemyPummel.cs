@@ -20,6 +20,7 @@ public class EnemyPummel : EnemyComponent
         enemy.enemyEvents.pummelStarts -= PummelStarts;
         enemy.enemyEvents.pummelEnds -= PummelEnds;
     }
+
     #region ----- Event Functions -----
     protected virtual void PummelStarts(Player player)
     {
@@ -47,7 +48,7 @@ public class EnemyPummel : EnemyComponent
     }
     private void EjectPummeler()
     {
-        pummeler.health.Damage(1);
+        pummeler.health.Damage(ejectPummelerDamage);
         Vector3 direction = (pummeler.transform.position - transform.position).normalized;
         pummeler.movement.AddImpulse(direction * 10.0f);
 
