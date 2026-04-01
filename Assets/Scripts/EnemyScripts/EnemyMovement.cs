@@ -12,6 +12,10 @@ public class EnemyMovement : EnemyComponent
     {
         MaintainDistance();
     }
+    
+    /// <summary>
+    /// Movement Behavior that allows movement towards strafeRadius units away from Player, then strafe in a circle
+    /// </summary>
     private void MaintainDistance()
     {
         if (enemy.target == null) return;
@@ -19,21 +23,18 @@ public class EnemyMovement : EnemyComponent
         Vector3 toTargetVector = enemy.target.transform.position - transform.position;
         Vector3 strafeVector = Quaternion.Euler(new Vector3(0, 0, (strafeClockwise ? 1 : -1) * 90)) * toTargetVector;
         float currDistance = toTargetVector.magnitude;
-
+        float diff = Mathf.Abs(currDistance - strafeRadius);
+        float ratio = Mathf.Clamp(diff / strafingThreshold, 0.0f, 0.95f);
+        // Go towards Player
         if (currDistance > strafeRadius)
         {
-            float diff = Mathf.Abs(currDistance - strafeRadius);
-            float ratio = Mathf.Clamp(diff / strafingThreshold, 0.0f, 0.95f);
-
             Vector3 resultVec = ratio * toTargetVector + (1 - ratio) * strafeVector;
             float moveSpeed = ratio * normalMoveSpeed + (1 - ratio) * strafeMoveSpeed;
             enemy.enemyRigidbody.AddForce(resultVec.normalized * moveSpeed);
         }
+        // Go away from Player
         else
         {
-            float diff = Mathf.Abs(currDistance - strafeRadius);
-            float ratio = Mathf.Clamp(diff / strafingThreshold, 0.0f, 0.95f);
-
             Vector3 resultVec = ratio * -toTargetVector + (1 - ratio) * strafeVector;
             float moveSpeed = ratio * normalMoveSpeed + (1 - ratio) * strafeMoveSpeed;
             enemy.enemyRigidbody.AddForce(resultVec.normalized * moveSpeed);

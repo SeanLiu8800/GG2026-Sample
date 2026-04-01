@@ -86,6 +86,10 @@ public class PlayerPummel : PlayerComponent
     private void Pummel()
     {
         pummelTarget.health.Damage(1);
+        pummelTarget.enemyRigidbody.AddForce(
+            (pummelTarget.transform.position - transform.position).normalized * 4.0f, 
+            ForceMode2D.Impulse
+        );
         if (pummelTarget.health.currHealth <= 0) StartCoroutine(PummelDismount());
     }
     private void ReleaseTarget()
