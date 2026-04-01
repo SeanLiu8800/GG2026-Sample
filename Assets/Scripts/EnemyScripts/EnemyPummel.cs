@@ -57,14 +57,10 @@ public class EnemyPummel : EnemyComponent
         enemy.enemyEvents.pummelEnds?.Invoke();
     }
 
-    public Vector3 GetLeftLatchPointPosition()
+    public Vector3 GetLatchPosition(int latchIndex)
     {
-        if (latchPoints == null || latchPoints.transform.GetChild(0) == null) return transform.position;
-        return latchPoints.transform.GetChild(0).position;
-    }
-    public Vector3 GetRightLatchPointPosition()
-    {
-        if (latchPoints == null || latchPoints.transform.GetChild(1) == null) return transform.position;
-        return latchPoints.transform.GetChild(1).position;
+        latchIndex = Mathf.Max(0, latchIndex);
+        if (latchPoints == null || latchIndex >= latchPoints.transform.childCount) return transform.position;
+        return latchPoints.transform.GetChild(latchIndex).position;
     }
 }

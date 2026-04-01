@@ -750,6 +750,8 @@ MonoBehaviour:
   dashIsAvailable: 1
   attackIsAvailable: 1
   lungeIsAvailable: 1
+  canTakeDamage: 1
+  canHeal: 1
 --- !u!50 &993337298
 Rigidbody2D:
   serializedVersion: 5
@@ -996,10 +998,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5350c50e6c7a24f49918e82ac0458be2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  pummelTarget: {fileID: 0}
-  movementInput: {x: 0, y: 1}
-  latchPosition: {x: 0, y: 0, z: 0}
   <isPummeling>k__BackingField: 0
+  pummelTarget: {fileID: 0}
+  latchPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1351050882
 GameObject:
   m_ObjectHideFlags: 0
@@ -1519,6 +1520,7 @@ GameObject:
   - component: {fileID: 1620073968}
   - component: {fileID: 1620073967}
   - component: {fileID: 1620073972}
+  - component: {fileID: 1620073976}
   - component: {fileID: 1620073971}
   - component: {fileID: 1620073973}
   - component: {fileID: 1620073974}
@@ -1707,6 +1709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8234a677fb51ce94cac8758c773556a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  <move>k__BackingField: {fileID: 1620073976}
   <health>k__BackingField: {fileID: 1620073971}
   <attack>k__BackingField: {fileID: 1620073973}
   <parry>k__BackingField: {fileID: 1620073974}
@@ -1764,6 +1767,21 @@ MonoBehaviour:
   pummelDuration: 3
   currentPummelDuration: 0
   ejectPummelerDamage: 0
+--- !u!114 &1620073976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620073966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d52820412ebd62c4d8ac847c5c923547, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  distanceToTarget: 2
+  movementDirection: {x: 0, y: 0, z: 0}
+  closingDistance: 10
 --- !u!1 &2010581680
 GameObject:
   m_ObjectHideFlags: 0

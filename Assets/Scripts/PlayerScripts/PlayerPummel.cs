@@ -9,7 +9,7 @@ public class PlayerPummel : PlayerComponent
     [field: Header("Pummel Variables")]
     [field: SerializeField, ReadOnly] public bool isPummeling { get; private set; } = false;
     [SerializeField, ReadOnly] private Enemy pummelTarget;
-    [SerializeField, ReadOnly] private Vector3 latchPosition;
+    [SerializeField, ReadOnly] private int latchPositionIndex = 0;
     
     protected override void Awake()
     {
@@ -42,9 +42,8 @@ public class PlayerPummel : PlayerComponent
         isPummeling = true;
         pummelTarget = enemy;
         // Set Player's position to the closest Enemy Latch Point
-        if (transform.position.x < pummelTarget.transform.position.x) 
-            latchPosition = pummelTarget.pummel.GetLeftLatchPointPosition();
-        else latchPosition = pummelTarget.pummel.GetRightLatchPointPosition();
+        if (transform.position.x < pummelTarget.transform.position.x) latchPositionIndex = 0;
+        else latchPositionIndex = 1;
 
         player.playerCollider.enabled = false;
     }
@@ -116,6 +115,8 @@ public class PlayerPummel : PlayerComponent
     private void MoveToLatchPosition()
     {
         if (!isPummeling || pummelTarget == null) return;
+
+        Vector3 latchPosition = pummelTarget.pummel.GetLatchPosition(latchPositionIndex);
         transform.position = Vector3.Lerp(transform.position, latchPosition, 10.0f * Time.fixedDeltaTime);
     }
     

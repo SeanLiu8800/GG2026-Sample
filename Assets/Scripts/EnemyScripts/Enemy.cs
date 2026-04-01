@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [field : SerializeField] public EnemyHealth health { get; private set; }
-    [field : SerializeField] public EnemyAttack attack { get; private set; }
+    [field: SerializeField] public EnemyMovement move { get; private set; }
+    [field: SerializeField] public EnemyHealth health { get; private set; }
+    [field: SerializeField] public EnemyAttack attack { get; private set; }
     [field: SerializeField] public EnemyParry parry { get; private set; }
     [field: SerializeField] public EnemyPummel pummel { get; private set; }
-    [field : SerializeField] public SpriteRenderer spriteRenderer { get; private set; }
-    [field : SerializeField] public Collider2D enemyCollider { get; private set; }
+    [field: SerializeField] public SpriteRenderer spriteRenderer { get; private set; }
+    [field: SerializeField] public Collider2D enemyCollider { get; private set; }
     [field: SerializeField] public Rigidbody2D enemyRigidbody { get; private set; }
 
     public EnemyEvents enemyEvents;
