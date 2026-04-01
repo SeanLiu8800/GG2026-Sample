@@ -4,7 +4,7 @@ public class EnemyPummel : EnemyComponent
 {
     [SerializeField] private GameObject latchPoints;
 
-    [field : Header("Pummel Variables")]
+    [field: Header("Pummel Variables")]
     [SerializeField, ReadOnly] private Player pummeler;
     [SerializeField, Range(0.0f, 6.0f)] private float pummelDuration = 5.0f;
     private float pummelStartTime = -99.0f;
@@ -42,12 +42,13 @@ public class EnemyPummel : EnemyComponent
 
     private void UpdatePummel()
     {
-        if (!enemy.isBeingPummeled) return;
+        if (!enemy.isBeingPummeled || pummeler == null) return;
         currentPummelDuration = Time.time - pummelStartTime;
         if (currentPummelDuration >= pummelDuration) EjectPummeler();
     }
     private void EjectPummeler()
     {
+        if (!enemy.isBeingPummeled || pummeler == null) return;
         pummeler.health.Damage(ejectPummelerDamage);
         Vector3 direction = (pummeler.transform.position - transform.position).normalized;
         pummeler.movement.AddImpulse(direction * 10.0f);
