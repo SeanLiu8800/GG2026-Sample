@@ -21,10 +21,7 @@ public class PlayerMovement : PlayerComponent
     [Header("Dash Variables")]
     [SerializeField, ReadOnly] private bool canDash = true;
     [field: SerializeField, ReadOnly] public bool isDashing { get; private set; } = false;
-    private float dashStartTime = -99.9f;
-    private Vector3 currDashVelocity;
-    [SerializeField, ReadOnly] private float currDashTime = 0.0f;
-    [SerializeField, Range(0.0f, 1.5f)] private float dashTime = 1.0f;
+    [SerializeField, Range(0.0f, 1.5f)] private float dashDuration = 1.0f;
     private float dashCooldownStartTime = -99.9f;
     [SerializeField, Range(0.0f, 2.0f)] private float dashCooldown = 0.5f;
     [SerializeField, Range(0.0f, 0.5f)] private float perfectDashLeniency = 0.05f;
@@ -95,10 +92,9 @@ public class PlayerMovement : PlayerComponent
         isDashing = true;
         player.playerCollider.isTrigger = true;
         dashCollider.enabled = true;
-        dashStartTime = Time.time;
         dashDirection = (movementInput == Vector3.zero) ? lastMovementDirection : movementInput.normalized;
-        currDashVelocity = dashDirection * 20;  // Dash is hard coded to be 20 units
         thisDashEnhancedAttack = false;
+        MoveTowards(dashDirection * 20, dashDuration, 3.0f); // initial Dash Velocity is hard coded to be 20 units
     }
     void EnhanceAttack()
     {
@@ -110,6 +106,7 @@ public class PlayerMovement : PlayerComponent
         isDashing = false;
         player.playerCollider.isTrigger = false;
         dashCollider.enabled = false;
+        StopMoveTowardsCoroutine();
     }
     void PerfectDash()
     {
@@ -224,17 +221,13 @@ public class PlayerMovement : PlayerComponent
     {
         if (!isDashing) return;
 
-        currDashTime = Time.time - dashStartTime;
         // Enables Attack Lunging if player Dashes for the minimum amount of time
-        if (!thisDashEnhancedAttack && currDashTime >= minDashEnhanceAttack) player.playerEvents.enhanceAttack?.Invoke();
-        if (currDashTime >= dashTime)
+        if (!thisDashEnhancedAttack && currMoveTowardsTime >= minDashEnhanceAttack) player.playerEvents.enhanceAttack?.Invoke();
+        if (currMoveTowardsTime >= dashDuration)
         {
             StopDash(new InputAction.CallbackContext());
             return;
         }
-
-        playerRigidbody.linearVelocity = currDashVelocity;
-        currDashVelocity = Vector3.Lerp(currDashVelocity, Vector3.zero, Time.fixedDeltaTime * 3.0f);
     }
     private void StopDash(InputAction.CallbackContext context)
     {
@@ -243,7 +236,7 @@ public class PlayerMovement : PlayerComponent
         player.playerEvents.dashEnds?.Invoke();
         
         // Perfect Dash
-        if (Mathf.Abs(0.5f*dashTime - currDashTime) <= perfectDashLeniency) player.playerEvents.perfectDash?.Invoke();
+        if (Mathf.Abs(0.5f*dashDuration - currMoveTowardsTime) <= perfectDashLeniency) player.playerEvents.perfectDash?.Invoke();
         // Imperfect Dash
         else player.playerEvents.imperfectDash?.Invoke();
     }
@@ -304,8 +297,12 @@ public class PlayerMovement : PlayerComponent
     private void MoveTowards(Vector3 startingVelocity, float duration = 0.5f, float lerpCoefficient = 6.0f)
     {
         // Ensure only 1 instances of this coroutine occurs!
-        if (moveTowardsCoroutine != null) StopCoroutine(moveTowardsCoroutine);
+        StopMoveTowardsCoroutine();
         moveTowardsCoroutine = StartCoroutine(MoveTowardsCoroutine(startingVelocity, duration, lerpCoefficient));
+    }
+    private void StopMoveTowardsCoroutine()
+    {
+        if (moveTowardsCoroutine != null) StopCoroutine(moveTowardsCoroutine);
     }
     private Coroutine moveTowardsCoroutine;
     private Vector3 currMoveTowardsVelocity = Vector3.zero;
@@ -314,12 +311,11 @@ public class PlayerMovement : PlayerComponent
     {
         if (duration < 0.0f) duration = 0.0f;
         Debug.Log("Start CO!");
-        isKnockbacked = true;
         currMoveTowardsVelocity = startingVelocity;
         float moveTowardsStartTime = Time.time;
         currMoveTowardsTime = 0.0f;
 
-        while (Time.time - moveTowardsStartTime < duration)
+        while (currMoveTowardsTime <= duration)
         {
             playerRigidbody.linearVelocity = currMoveTowardsVelocity;
             currMoveTowardsVelocity = Vector3.Lerp(currMoveTowardsVelocity, Vector3.zero, Time.deltaTime * lerpCoefficient);
@@ -327,7 +323,6 @@ public class PlayerMovement : PlayerComponent
 
             yield return null;
         }
-        isKnockbacked = false;
         Debug.Log("End CO!");
         yield break;
     }
