@@ -113,6 +113,11 @@ public class PlayerMovement : PlayerComponent
         player.playerCollider.isTrigger = false;
         dashCollider.enabled = false;
         StopLaunchTowards();
+        // Perfect Dash
+        if (Mathf.Abs(0.5f * dashDuration - currLaunchTowardsTime) <= perfectDashLeniency) 
+            player.playerEvents.perfectDash?.Invoke();
+        // Imperfect Dash
+        else player.playerEvents.imperfectDash?.Invoke();
     }
     void PerfectDash()
     {
@@ -134,6 +139,7 @@ public class PlayerMovement : PlayerComponent
     void PummelStarts(Enemy enemy)
     {
         player.playerEvents.dashEnds?.Invoke();
+        player.playerEvents.dashCooldownEnds?.Invoke();
         player.playerCollider.enabled = false;
         playerRigidbody.linearVelocity = Vector2.zero;
     }
@@ -249,11 +255,6 @@ public class PlayerMovement : PlayerComponent
         if (!isDashing) return;
 
         player.playerEvents.dashEnds?.Invoke();
-        
-        // Perfect Dash
-        if (Mathf.Abs(0.5f*dashDuration - currLaunchTowardsTime) <= perfectDashLeniency) player.playerEvents.perfectDash?.Invoke();
-        // Imperfect Dash
-        else player.playerEvents.imperfectDash?.Invoke();
     }
     private void UpdateDashCooldown()
     {
@@ -279,13 +280,7 @@ public class PlayerMovement : PlayerComponent
     private void AttackLunge()
     {
         if (!isLunging) return;
-        if (currLaunchTowardsTime >= lungeDuration) StopAttackLunge();
-    }
-    private void StopAttackLunge()
-    {
-        if (!isLunging) return;
-
-        player.playerEvents.lungeEnds?.Invoke();
+        if (currLaunchTowardsTime >= lungeDuration) player.playerEvents.lungeEnds?.Invoke();
     }
 
     [Header("Knockback Variables")]
@@ -300,11 +295,7 @@ public class PlayerMovement : PlayerComponent
     {
         if (!isKnockbacked) return;
         currKnockbackTime = currLaunchTowardsTime;
-        if (currKnockbackTime >= knockbackDuration) StopKnockback();
-    }
-    private void StopKnockback()
-    {
-        player.playerEvents.knockbackEnds?.Invoke();
+        if (currKnockbackTime >= knockbackDuration) player.playerEvents.knockbackEnds?.Invoke();
     }
     private void LaunchTowards(Vector3 startingVelocity, float duration = 0.5f, float lerpCoefficient = 6.0f)
     {
@@ -322,7 +313,6 @@ public class PlayerMovement : PlayerComponent
     private IEnumerator LaunchTowardsCoroutine(Vector3 startingVelocity, float duration = 0.5f, float lerpCoefficient = 3.0f)
     {
         if (duration < 0.0f) duration = 0.0f;
-        Debug.Log("Start CO!");
         currLaunchTowardsVelocity = startingVelocity;
         float moveTowardsStartTime = Time.time;
         currLaunchTowardsTime = 0.0f;
@@ -335,7 +325,6 @@ public class PlayerMovement : PlayerComponent
 
             yield return null;
         }
-        Debug.Log("End CO!");
         yield break;
     }
 
