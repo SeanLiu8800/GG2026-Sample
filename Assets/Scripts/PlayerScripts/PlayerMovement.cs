@@ -57,6 +57,9 @@ public class PlayerMovement : PlayerComponent
         player.playerEvents.lungeStarts += LungeStarts;
         player.playerEvents.lungeEnds += LungeEnds;
 
+        player.playerEvents.knockbackStarts += KnockbackStarts;
+        player.playerEvents.knockbackEnds += KnockbackEnds;
+
         player.playerEvents.attackStarts += AttackStarts;
     }
     void OnDisable()
@@ -78,6 +81,9 @@ public class PlayerMovement : PlayerComponent
 
         player.playerEvents.lungeStarts -= LungeStarts;
         player.playerEvents.lungeEnds -= LungeEnds;
+
+        player.playerEvents.knockbackStarts -= KnockbackStarts;
+        player.playerEvents.knockbackEnds -= KnockbackEnds;
 
         player.playerEvents.attackStarts -= AttackStarts;
     }
@@ -155,6 +161,19 @@ public class PlayerMovement : PlayerComponent
         isLunging = false;
         StopLaunchTowards();
     }
+    void KnockbackStarts(Vector3 initialVelocity, float duration = 0.5f)
+    {
+        player.playerEvents.dashEnds?.Invoke();
+        player.playerEvents.lungeEnds?.Invoke();
+        isKnockbacked = true;
+        knockbackDuration = duration;
+        LaunchTowards(initialVelocity, duration, 6.0f);
+    }
+    void KnockbackEnds()
+    {
+        isKnockbacked = false;
+        StopLaunchTowards();
+    }
     void AttackStarts()
     {
         if (!willLunge) MultiplyMoveSpeed(0.5f);
@@ -222,8 +241,8 @@ public class PlayerMovement : PlayerComponent
     {
         if (!isDashing) return;
         // Enhance Attack if player Dashes for the minimum amount of time
-        if (!thisDashEnhancedAttack && currMoveTowardsTime >= minDashEnhanceAttack) player.playerEvents.enhanceAttack?.Invoke();
-        if (currMoveTowardsTime >= dashDuration) StopDash(new InputAction.CallbackContext());
+        if (!thisDashEnhancedAttack && currLaunchTowardsTime >= minDashEnhanceAttack) player.playerEvents.enhanceAttack?.Invoke();
+        if (currLaunchTowardsTime >= dashDuration) StopDash(new InputAction.CallbackContext());
     }
     private void StopDash(InputAction.CallbackContext context)
     {
@@ -232,7 +251,7 @@ public class PlayerMovement : PlayerComponent
         player.playerEvents.dashEnds?.Invoke();
         
         // Perfect Dash
-        if (Mathf.Abs(0.5f*dashDuration - currMoveTowardsTime) <= perfectDashLeniency) player.playerEvents.perfectDash?.Invoke();
+        if (Mathf.Abs(0.5f*dashDuration - currLaunchTowardsTime) <= perfectDashLeniency) player.playerEvents.perfectDash?.Invoke();
         // Imperfect Dash
         else player.playerEvents.imperfectDash?.Invoke();
     }
@@ -260,7 +279,7 @@ public class PlayerMovement : PlayerComponent
     private void AttackLunge()
     {
         if (!isLunging) return;
-        if (currMoveTowardsTime >= lungeDuration) StopAttackLunge();
+        if (currLaunchTowardsTime >= lungeDuration) StopAttackLunge();
     }
     private void StopAttackLunge()
     {
@@ -275,50 +294,44 @@ public class PlayerMovement : PlayerComponent
     private float knockbackDuration = 0.5f;
     public void KnockBack(Vector3 initialVelocity, float duration = 0.5f)
     {
-        Debug.Log("Knockbacked Player!");
-        player.playerEvents.dashEnds?.Invoke();
-        player.playerEvents.lungeEnds?.Invoke();
-        isKnockbacked = true;
-        knockbackDuration = duration;
-        LaunchTowards(initialVelocity, duration, 6.0f);
+        player.playerEvents.knockbackStarts?.Invoke(initialVelocity, duration);
     }
     private void UpdateKnockback()
     {
         if (!isKnockbacked) return;
-        currKnockbackTime = currMoveTowardsTime;
-        if (currKnockbackTime >= knockbackDuration) KnockbackEnds();
+        currKnockbackTime = currLaunchTowardsTime;
+        if (currKnockbackTime >= knockbackDuration) StopKnockback();
     }
-    private void KnockbackEnds()
+    private void StopKnockback()
     {
-        isKnockbacked = false;
-        StopLaunchTowards();
+        player.playerEvents.knockbackEnds?.Invoke();
     }
     private void LaunchTowards(Vector3 startingVelocity, float duration = 0.5f, float lerpCoefficient = 6.0f)
     {
         // Ensure only 1 instances of this coroutine occurs!
         StopLaunchTowards();
-        moveTowardsCoroutine = StartCoroutine(LaunchTowardsCoroutine(startingVelocity, duration, lerpCoefficient));
+        launchTowardsCoroutine = StartCoroutine(LaunchTowardsCoroutine(startingVelocity, duration, lerpCoefficient));
     }
     private void StopLaunchTowards()
     {
-        if (moveTowardsCoroutine != null) StopCoroutine(moveTowardsCoroutine);
+        if (launchTowardsCoroutine != null) StopCoroutine(launchTowardsCoroutine);
     }
-    private Coroutine moveTowardsCoroutine;
-    private Vector3 currMoveTowardsVelocity = Vector3.zero;
-    private float currMoveTowardsTime = 0.0f;
+    private Coroutine launchTowardsCoroutine;
+    private Vector3 currLaunchTowardsVelocity = Vector3.zero;
+    private float currLaunchTowardsTime = 0.0f;
     private IEnumerator LaunchTowardsCoroutine(Vector3 startingVelocity, float duration = 0.5f, float lerpCoefficient = 3.0f)
     {
         if (duration < 0.0f) duration = 0.0f;
         Debug.Log("Start CO!");
-        currMoveTowardsVelocity = startingVelocity;
+        currLaunchTowardsVelocity = startingVelocity;
         float moveTowardsStartTime = Time.time;
-        currMoveTowardsTime = 0.0f;
+        currLaunchTowardsTime = 0.0f;
 
-        while (currMoveTowardsTime <= duration)
+        while (currLaunchTowardsTime <= duration)
         {
-            playerRigidbody.linearVelocity = currMoveTowardsVelocity;
-            currMoveTowardsVelocity = Vector3.Lerp(currMoveTowardsVelocity, Vector3.zero, Time.deltaTime * lerpCoefficient);
-            currMoveTowardsTime = Time.time - moveTowardsStartTime;
+            playerRigidbody.linearVelocity = currLaunchTowardsVelocity;
+            currLaunchTowardsVelocity = Vector3.Lerp(currLaunchTowardsVelocity, Vector3.zero, Time.deltaTime * lerpCoefficient);
+            currLaunchTowardsTime = Time.time - moveTowardsStartTime;
 
             yield return null;
         }
