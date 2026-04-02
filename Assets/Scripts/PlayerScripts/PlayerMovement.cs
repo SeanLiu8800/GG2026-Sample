@@ -166,6 +166,7 @@ public class PlayerMovement : PlayerComponent
     {
         MoveCharacter();
         UpdateDashCooldown();
+        UpdateKnockback();
     }
     void FixedUpdate()
     {
@@ -213,7 +214,7 @@ public class PlayerMovement : PlayerComponent
     {
         if (!player.dashIsAvailable) return;
         // Player is Lunging or Dash still on Cooldown or is pummeling
-        if (isLunging || !canDash || player.pummel.isPummeling) return;
+        if (isLunging || !canDash || player.pummel.isPummeling || isKnockbacked) return;
 
         player.playerEvents.dashStarts?.Invoke();
     }
@@ -222,11 +223,7 @@ public class PlayerMovement : PlayerComponent
         if (!isDashing) return;
         // Enhance Attack if player Dashes for the minimum amount of time
         if (!thisDashEnhancedAttack && currMoveTowardsTime >= minDashEnhanceAttack) player.playerEvents.enhanceAttack?.Invoke();
-        if (currMoveTowardsTime >= dashDuration)
-        {
-            StopDash(new InputAction.CallbackContext());
-            return;
-        }
+        if (currMoveTowardsTime >= dashDuration) StopDash(new InputAction.CallbackContext());
     }
     private void StopDash(InputAction.CallbackContext context)
     {
@@ -263,11 +260,7 @@ public class PlayerMovement : PlayerComponent
     private void AttackLunge()
     {
         if (!isLunging) return;
-        if (currMoveTowardsTime >= lungeDuration)
-        {
-            StopAttackLunge();
-            return;
-        }
+        if (currMoveTowardsTime >= lungeDuration) StopAttackLunge();
     }
     private void StopAttackLunge()
     {
@@ -276,14 +269,29 @@ public class PlayerMovement : PlayerComponent
         player.playerEvents.lungeEnds?.Invoke();
     }
 
-
     [Header("Knockback Variables")]
-    private bool isKnockbacked = false;
-    private float knockbackStrength = 5.0f;
-    public void KnockBack(Vector3 initialVelocity)
+    [field: SerializeField] public bool isKnockbacked { get; private set; } = false;
+    private float currKnockbackTime = -90.0f;
+    private float knockbackDuration = 0.5f;
+    public void KnockBack(Vector3 initialVelocity, float duration = 0.5f)
     {
         Debug.Log("Knockbacked Player!");
-        LaunchTowards(initialVelocity, 0.5f, 6.0f);
+        player.playerEvents.dashEnds?.Invoke();
+        player.playerEvents.lungeEnds?.Invoke();
+        isKnockbacked = true;
+        knockbackDuration = duration;
+        LaunchTowards(initialVelocity, duration, 6.0f);
+    }
+    private void UpdateKnockback()
+    {
+        if (!isKnockbacked) return;
+        currKnockbackTime = currMoveTowardsTime;
+        if (currKnockbackTime >= knockbackDuration) KnockbackEnds();
+    }
+    private void KnockbackEnds()
+    {
+        isKnockbacked = false;
+        StopLaunchTowards();
     }
     private void LaunchTowards(Vector3 startingVelocity, float duration = 0.5f, float lerpCoefficient = 6.0f)
     {

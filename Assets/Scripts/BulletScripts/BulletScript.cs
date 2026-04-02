@@ -89,7 +89,12 @@ public class BulletScript : MonoBehaviour
         else
         {
             if (player.health.isInvincible) return false;
-            else player.health.Damage(damage);
+            else
+            {
+                player.health.Damage(damage);
+                //Vector3 direction = (player.transform.position - transform.position).normalized;
+                //player.movement.KnockBack(direction * 7.0f);
+            }
         }
         return true;
     }
