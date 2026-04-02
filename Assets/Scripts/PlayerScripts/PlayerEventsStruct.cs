@@ -1,3 +1,4 @@
+using UnityEngine;
 using System;
 
 public struct PlayerEvents
@@ -16,6 +17,9 @@ public struct PlayerEvents
 
     public Action lungeStarts;
     public Action lungeEnds;
+
+    public Action<Vector3, float> knockbackStarts;
+    public Action knockbackEnds;
 
     public Action attackStarts;
     public Action onParry;

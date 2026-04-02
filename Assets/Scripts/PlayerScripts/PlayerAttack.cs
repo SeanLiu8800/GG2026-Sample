@@ -85,7 +85,7 @@ public class PlayerAttack : PlayerComponent
     private void Attack(InputAction.CallbackContext context)
     {
         if (!player.attackIsAvailable || Time.time - attackStartTime < attackDuration + 0.1f) return;
-        if (player.pummel.isPummeling) return;
+        if (player.pummel.isPummeling || player.movement.isKnockbacked) return;
         attackArea.EnableAttack();
         attackArea.transform.rotation = Quaternion.LookRotation(Vector3.forward, player.movement.lastMovementDirection);
         // No target to attack

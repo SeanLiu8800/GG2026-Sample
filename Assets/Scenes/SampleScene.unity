@@ -1764,7 +1764,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   latchPoints: {fileID: 1454445759}
   pummeler: {fileID: 0}
-  pummelDuration: 3
+  pummelDuration: 0.54
   currentPummelDuration: 0
   ejectPummelerDamage: 0
 --- !u!114 &1620073976
@@ -1780,8 +1780,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   strafeRadius: 3
-  normalMoveSpeed: 3.5
-  strafeMoveSpeed: 1
+  normalMoveSpeed: 0
+  strafeMoveSpeed: 0
   strafeClockwise: 1
   strafingThreshold: 2.5
 --- !u!1 &2010581680
