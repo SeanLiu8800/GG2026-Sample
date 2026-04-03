@@ -14,7 +14,23 @@ public class Enemy : MonoBehaviour
     public EnemyEvents enemyEvents;
 
     public GameObject target;
-
+    public float distanceToTarget 
+    { 
+        get 
+        {
+            if (target == null) return 0;
+            return Vector3.Magnitude(target.transform.position - transform.position);
+        }
+    }
+    public float distanceToTargetSquared
+    {
+        get
+        {
+            if (target == null) return 0;
+            return Vector3.SqrMagnitude(target.transform.position - transform.position);
+        }
+    }
+    
     [Header("States")]
     [ReadOnly] public bool canMove = true;
     [ReadOnly] public bool canAttack = false;
@@ -41,5 +57,12 @@ public class Enemy : MonoBehaviour
             return;
         }
         enemyCollider = _collider2D;
+    }
+
+    public bool IsTargetWithinDistance(float distance)
+    {
+        if (target == null) return false;
+        if (distanceToTargetSquared < distance * distance) return true;
+        return false;
     }
 }
