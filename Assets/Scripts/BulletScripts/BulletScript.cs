@@ -4,7 +4,6 @@ public class BulletScript : MonoBehaviour
 {
     [SerializeField, ReadOnly] private Collider2D bulletCollider;
     [SerializeField, ReadOnly] private Rigidbody2D bulletRigidbody;
-    [SerializeField] private LayerMask layerMask;
 
     [field: Header("Bullet Variables")]
     [field: SerializeField, ReadOnly] public GameObject owner { get; private set; }
@@ -42,68 +41,5 @@ public class BulletScript : MonoBehaviour
     public void SetLinearVelocity(Vector3 input)
     {
         bulletRigidbody.linearVelocity = input;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (((1 << collision.gameObject.layer) & layerMask) == 0) return;
-
-        // If Bullet hits Player or Player's Attack area
-        if (TryCheckIfPlayerCollider(collision, out Player player))
-        {
-            if (PlayerCollision(player)) Destroy(this.gameObject);
-        }
-        else if (collision.TryGetComponent(out IDamageable iDamageable))
-        {
-            iDamageable.Damage(damage);
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }        
-    }
-    /// <summary>
-    /// Checks whether input Collider2D is from the Player
-    /// </summary>
-    /// <param name="collision">The Collider2D to check</param>
-    /// <param name="player">The corresponding Player script from the Collider</param>
-    /// <returns>
-    /// Returns True and the corresponding Player script if the Collider2D is from the Player<br/>
-    /// Returns False otherwise
-    /// </returns>
-    private bool TryCheckIfPlayerCollider(Collider2D collision, out Player player)
-    {
-        // If collider is directly from Player GameObject
-        if (collision.TryGetComponent<Player>(out player)) return true;
-        // If collider is from Player's Attack Area
-        else if (collision.transform.parent != null && collision.transform.parent.TryGetComponent<Player>(out player)) return true;
-        else return false;
-    }
-    /// <summary>
-    /// Performs logic when Player collides with this bullet
-    /// </summary>
-    /// <param name="player">Player to attack</param>
-    /// <returns>Returns True if the bullet interacts with Player, False otherwise (like if Player is Invincible)</returns>
-    private bool PlayerCollision(Player player)
-    {
-        Debug.Log("Player Collision!");
-        if (player.movement.isDashing) bulletEvents.onDashedInto?.Invoke(player);
-        else if (player.attack.isAttacking)
-        {
-            if (player.attack.attackIsEnhanced) bulletEvents.onEnhancedAttacked?.Invoke(player);
-            else return false;
-        }
-        else
-        {
-            if (player.health.isInvincible) return false;
-            else
-            {
-                player.health.Damage(damage);
-                //Vector3 direction = (player.transform.position - transform.position).normalized;
-                //player.movement.KnockBack(direction * 7.0f);
-            }
-        }
-        return true;
     }
 }
