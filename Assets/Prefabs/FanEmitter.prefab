@@ -13,15 +13,10 @@ GameObject:
   - component: {fileID: 7457468284515171231}
   - component: {fileID: 7157295741879915963}
   - component: {fileID: 5476034631633967730}
-  - component: {fileID: 5823736750661533162}
   - component: {fileID: -9054533698057080689}
-  - component: {fileID: 505186917497150784}
-  - component: {fileID: -8867143272021663871}
-  - component: {fileID: 128513230372407838}
-  - component: {fileID: -223621541423900768}
-  - component: {fileID: 8955815773037303832}
+  - component: {fileID: -6427596239673836629}
   m_Layer: 7
-  m_Name: Bullet
+  m_Name: FanEmitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,7 +86,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 0.4886256, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,7 +94,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!50 &7457468284515171231
 Rigidbody2D:
@@ -135,7 +130,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8827905931808526965}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -187,18 +182,6 @@ MonoBehaviour:
   <lookDirection>k__BackingField: {x: 0, y: 0, z: 0}
   damage: 1
   empowerRate: 1
---- !u!114 &5823736750661533162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8827905931808526965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da6551300c4de4c4ca505162f653c6bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BulletCollision
 --- !u!114 &-9054533698057080689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,8 +194,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba23d89df0dde13499b79d72a60ef9b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletLifespan
-  lifespan: 3
---- !u!114 &505186917497150784
+  lifespan: 1
+--- !u!114 &-6427596239673836629
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,54 +204,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8827905931808526965}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 989f2a4e5f030e94395f53ab9e95fa93, type: 3}
+  m_Script: {fileID: 11500000, guid: 48032f5f39ca8544ca38d661db6f1df5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Bullet_OnDamagePlayer_Destroy
---- !u!114 &-8867143272021663871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8827905931808526965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b41fb9f500cfd2458473666f2587983, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
---- !u!114 &128513230372407838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8827905931808526965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7c134b1f19a44845a5c5165b17c118e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Bullet_OnEnhancedAttacked_Destroy
---- !u!114 &-223621541423900768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8827905931808526965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29e929a44b6d15b48a1aac1a2816253b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Bullet_OnDashedInto_EmpowerPlayer
---- !u!114 &8955815773037303832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8827905931808526965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de33e38a3499f754891bc01c4ee5d5ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Bullet_OnDashedInto_Destroy
+  m_EditorClassIdentifier: Assembly-CSharp::Bullet_OnInterval_EmitFan
+  initialActionDelay: 0
+  actionCount: 1
+  actionInterval: 0.2
+  fanEmissionRadius: 120
+  emissionCount: 5
+  spawnClockwise: 1
+  emissionDelay: 0
+  bulletToEmit: {fileID: 8827905931808526965, guid: 465e389e586ddb04fbcdfcaa10e0cadb, type: 3}

@@ -4,6 +4,7 @@ public class Bullet_OnEnhancedAttacked_Destroy : Bullet_OnEnhancedAttacked_Behav
 {
     protected override void OnEnhancedAttackedBehavior(Player player)
     {
+        Debug.LogWarning("Destroying");
         Destroy(this.gameObject);
     }
 }

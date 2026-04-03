@@ -10,6 +10,8 @@ public class BulletScript : MonoBehaviour
     [field: Header("Bullet Variables")]
     [field: SerializeField, ReadOnly] public GameObject owner { get; private set; }
     [field: SerializeField, ReadOnly] public GameObject target { get; private set; }
+    [field: SerializeField, ReadOnly] public Vector3 initialLinearVelocity { get; private set; }
+    [field: SerializeField, ReadOnly] public Vector3 lookDirection { get; private set; }
     [SerializeField, Range(0, 5)] public int damage = 1;
     [SerializeField, Range(0, 5)] public int empowerRate = 1;
 
@@ -38,6 +40,8 @@ public class BulletScript : MonoBehaviour
     {
         this.owner = owner;
         this.target = target;
+        this.initialLinearVelocity = initialLinearVelocity;
+        this.lookDirection = lookDirection;
         SetLinearVelocity(initialLinearVelocity);
         float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
