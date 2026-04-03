@@ -2,11 +2,14 @@ using UnityEngine;
 
 public class BulletCollision : BulletComponent
 {
-    [SerializeField] private LayerMask layerMask;
-
+    private void Start()
+    {
+        if (bullet.layerMask == 0) Debug.LogWarning($"{this.name}'s layerMask is set to Nothing! Should you set this to something?");
+    }
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (((1 << collision.gameObject.layer) & layerMask) == 0) return;
+        if (((1 << collision.gameObject.layer) & bullet.layerMask) == 0) return;
 
         // If Bullet hits Player or Player's Attack area
         if (TryCheckIfPlayerCollider(collision, out Player player))

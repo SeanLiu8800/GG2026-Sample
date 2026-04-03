@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 5476034631633967730}
   - component: {fileID: 5823736750661533162}
   - component: {fileID: -9054533698057080689}
+  - component: {fileID: 505186917497150784}
   - component: {fileID: -8867143272021663871}
   - component: {fileID: 128513230372407838}
   - component: {fileID: -223621541423900768}
@@ -269,6 +270,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   bulletCollider: {fileID: 7157295741879915963}
   bulletRigidbody: {fileID: 7457468284515171231}
+  <layerMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 264
   <owner>k__BackingField: {fileID: 0}
   <target>k__BackingField: {fileID: 0}
   damage: 1
@@ -285,9 +289,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da6551300c4de4c4ca505162f653c6bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletCollision
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 264
 --- !u!114 &-9054533698057080689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,6 +302,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletLifespan
   lifespan: 3
+--- !u!114 &505186917497150784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8827905931808526965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 989f2a4e5f030e94395f53ab9e95fa93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Bullet_OnDamagePlayer_Destroy
 --- !u!114 &-8867143272021663871
 MonoBehaviour:
   m_ObjectHideFlags: 0

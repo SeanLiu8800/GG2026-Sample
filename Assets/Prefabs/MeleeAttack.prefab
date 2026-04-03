@@ -107,6 +107,7 @@ GameObject:
   - component: {fileID: -4070128488187521795}
   - component: {fileID: 3699263169848525622}
   - component: {fileID: -8867143272021663871}
+  - component: {fileID: 8690491014012096111}
   m_Layer: 7
   m_Name: MeleeAttack
   m_TagString: Untagged
@@ -282,6 +283,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   bulletCollider: {fileID: 0}
   bulletRigidbody: {fileID: 7457468284515171231}
+  <layerMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
   <owner>k__BackingField: {fileID: 0}
   <target>k__BackingField: {fileID: 0}
   damage: 1
@@ -298,9 +302,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da6551300c4de4c4ca505162f653c6bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletCollision
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!114 &3699263169848525622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,5 +325,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b41fb9f500cfd2458473666f2587983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+--- !u!114 &8690491014012096111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8827905931808526965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af0c2e513ce46aa47a6489a030ee22ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'

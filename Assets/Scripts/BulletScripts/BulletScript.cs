@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    [SerializeField, ReadOnly] private Collider2D bulletCollider;
-    [SerializeField, ReadOnly] private Rigidbody2D bulletRigidbody;
+    [field: SerializeField, ReadOnly] public Collider2D bulletCollider { get; private set; }
+    [field: SerializeField, ReadOnly] public Rigidbody2D bulletRigidbody { get; private set; }
+    [field: Tooltip("Decides what Layer this bullet with interact with")]
+    [field: SerializeField] public LayerMask layerMask { get; private set; }
 
     [field: Header("Bullet Variables")]
     [field: SerializeField, ReadOnly] public GameObject owner { get; private set; }
@@ -14,14 +16,16 @@ public class BulletScript : MonoBehaviour
     public BulletEvents bulletEvents;
     void Awake()
     {
-        if (!TryGetComponent<Collider2D>(out bulletCollider))
+        if (!TryGetComponent<Collider2D>(out Collider2D _bulletCollider))
         {
             Debug.LogError($"{this.name} DOES NOT have a Collider2D component!");
         }
-        if (!TryGetComponent<Rigidbody2D>(out bulletRigidbody))
+        bulletCollider = _bulletCollider;
+        if (!TryGetComponent<Rigidbody2D>(out Rigidbody2D _bulletRigidbody))
         {
             Debug.LogError($"{this.name} DOES NOT have a Rigidbody2D component!");
         }
+        bulletRigidbody = _bulletRigidbody;
     }
 
     public void Initialize
