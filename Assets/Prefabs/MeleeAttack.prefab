@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 7457468284515171231}
   - component: {fileID: 5307707042594207317}
   - component: {fileID: 5476034631633967730}
+  - component: {fileID: -7986148878376013430}
   - component: {fileID: -4070128488187521795}
   - component: {fileID: 3699263169848525622}
   - component: {fileID: -8867143272021663871}
@@ -281,15 +282,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df5da9ae21aaa6e4d85875e2385c888e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  bulletCollider: {fileID: 0}
-  bulletRigidbody: {fileID: 7457468284515171231}
+  <bulletCollider>k__BackingField: {fileID: 0}
+  <bulletRigidbody>k__BackingField: {fileID: 0}
   <layerMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 8
   <owner>k__BackingField: {fileID: 0}
   <target>k__BackingField: {fileID: 0}
+  <initialLinearVelocity>k__BackingField: {x: 0, y: 0, z: 0}
+  <lookDirection>k__BackingField: {x: 0, y: 0, z: 0}
   damage: 1
   empowerRate: 1
+--- !u!114 &-7986148878376013430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8827905931808526965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac85ec39bd2845a4c8495dc8f528ac40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BulletLockToOwner
 --- !u!114 &-4070128488187521795
 MonoBehaviour:
   m_ObjectHideFlags: 0
