@@ -25,11 +25,19 @@ public class BulletScript : MonoBehaviour
         }
     }
 
-    public void Initialize(GameObject owner, GameObject target, Vector3 initialLinearVelocity = default)
+    public void Initialize
+    (
+        GameObject owner, 
+        GameObject target, 
+        Vector3 initialLinearVelocity = default, 
+        Vector3 lookDirection = default
+    )
     {
         this.owner = owner;
         this.target = target;
         SetLinearVelocity(initialLinearVelocity);
+        float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
     public void SetLinearVelocity(Vector3 input)
     {

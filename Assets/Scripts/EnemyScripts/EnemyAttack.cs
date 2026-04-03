@@ -23,7 +23,8 @@ public class EnemyAttack : EnemyComponent
                     (
                         this.gameObject, 
                         enemy.target, 
-                        (enemy.target.transform.position - transform.position).normalized * 7.0f
+                        (enemy.target.transform.position - transform.position).normalized * 7.0f,
+                        enemy.target.transform.position - transform.position
                     );
             }
             yield return new WaitForSeconds(0.2f);
@@ -40,7 +41,7 @@ public class EnemyAttack : EnemyComponent
             );
         if (currMeleeAttack.TryGetComponent<BulletScript>(out BulletScript currBulletScript))
         {
-            currBulletScript.Initialize(this.gameObject, enemy.target);
+            currBulletScript.Initialize(this.gameObject, enemy.target, default, enemy.target.transform.position - transform.position);
         }
     }
 }
