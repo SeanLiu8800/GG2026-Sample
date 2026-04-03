@@ -33,10 +33,11 @@ public class EnemyAttack : EnemyComponent
     }
     private void MeleeAttack()
     {
+        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
         GameObject currMeleeAttack = Instantiate
             (
                 meleeAttack,
-                transform.position + (enemy.target.transform.position - transform.position).normalized,
+                transform.position,
                 transform.rotation
             );
         if (currMeleeAttack.TryGetComponent<BulletScript>(out BulletScript currBulletScript))

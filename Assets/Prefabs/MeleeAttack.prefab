@@ -283,7 +283,7 @@ MonoBehaviour:
   bulletRigidbody: {fileID: 7457468284515171231}
   layerMask:
     serializedVersion: 2
-    m_Bits: 264
+    m_Bits: 8
   <owner>k__BackingField: {fileID: 0}
   <target>k__BackingField: {fileID: 0}
   damage: 1
