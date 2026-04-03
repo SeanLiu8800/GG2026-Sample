@@ -16,7 +16,8 @@ public class Enemy : MonoBehaviour
     public GameObject target;
 
     [Header("States")]
-    //public bool canMove = true;
+    [ReadOnly] public bool canMove = true;
+    [ReadOnly] public bool canAttack = false;
     [ReadOnly] public bool isParryStunned = false;
     [ReadOnly] public bool isBeingPummeled = false;
 

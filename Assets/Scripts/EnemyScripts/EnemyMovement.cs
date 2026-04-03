@@ -18,7 +18,7 @@ public class EnemyMovement : EnemyComponent
     /// </summary>
     private void ChaseThenStrafe()
     {
-        if (enemy.target == null) return;
+        if (!enemy.canMove || enemy.target == null) return;
 
         Vector3 toTargetVector = enemy.target.transform.position - transform.position;
         Vector3 strafeVector = Quaternion.Euler(new Vector3(0, 0, (strafeClockwise ? 1 : -1) * 90)) * toTargetVector;
