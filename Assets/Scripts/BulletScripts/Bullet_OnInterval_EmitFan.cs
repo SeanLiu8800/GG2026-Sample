@@ -17,6 +17,11 @@ public class Bullet_OnInterval_EmitFan : Bullet_OnIntervalBehaviorBase
             Debug.LogError($"{this.name}'s Fan Emit Component doesn't have an bullet to Emit!");
             return;
         }
+        if (emissionCount <= 0)
+        {
+            Debug.LogError($"{this.name}'s emissionCount is 0 or Neagtive! It won't Emit!");
+            return;
+        }
         base.Start();
     }
     protected override void IntervalAction()
