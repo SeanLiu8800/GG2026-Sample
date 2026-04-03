@@ -66,22 +66,23 @@ public class EnemyAttack : EnemyComponent
             if (enemy.IsTargetWithinDistance(2.0f))
             {
                 Debug.Log("Enemy close enough to target");
+                enemy.enemyRigidbody.linearVelocity = Vector2.zero;
                 break;
             }
             yield return null;
         }
-        enemy.enemyRigidbody.linearVelocity = Vector2.zero;
+        
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
         SpawnAttack(meleeAttack, enemy.target, default, direction);
         enemy.enemyRigidbody.AddForce(direction * 10.0f, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.3f);
-        enemy.enemyRigidbody.linearVelocity = Vector2.zero;
+        //enemy.enemyRigidbody.linearVelocity = Vector2.zero;
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
         SpawnAttack(meleeAttack, enemy.target, default, direction);
         enemy.enemyRigidbody.AddForce(direction * 10.0f, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.6f);
 
-        enemy.enemyRigidbody.linearVelocity = Vector2.zero;
+        //enemy.enemyRigidbody.linearVelocity = Vector2.zero;
         enemy.enemyRigidbody.AddForce(direction * 20.0f, ForceMode2D.Impulse);
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
         SpawnAttack(meleeAttack, enemy.target, default, direction);
