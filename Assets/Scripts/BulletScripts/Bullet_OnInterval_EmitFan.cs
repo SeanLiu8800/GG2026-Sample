@@ -28,7 +28,7 @@ public class Bullet_OnInterval_EmitFan : Bullet_OnIntervalBehaviorBase
         float startingDegree = 0.0f;
         float degreeDifference = 0.0f;
         Vector2 spawnVelocity =
-            bullet.bulletRigidbody.linearVelocity == Vector2.zero ? Vector2.up : bullet.bulletRigidbody.linearVelocity;
+            bullet.bulletRigidbody.linearVelocity == Vector2.zero ? bullet.initialLinearVelocity : bullet.bulletRigidbody.linearVelocity;
         if (emissionCount > 1)
         {
             startingDegree = (spawnClockwise ? 1 : -1) * fanEmissionRadius / 2.0f;

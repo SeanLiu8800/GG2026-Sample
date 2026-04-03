@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7457468284515171231}
   - component: {fileID: 7157295741879915963}
   - component: {fileID: 5476034631633967730}
+  - component: {fileID: -6415505467108294467}
   - component: {fileID: 5823736750661533162}
   - component: {fileID: -9054533698057080689}
   - component: {fileID: 505186917497150784}
@@ -187,6 +188,18 @@ MonoBehaviour:
   <lookDirection>k__BackingField: {x: 0, y: 0, z: 0}
   damage: 1
   empowerRate: 1
+--- !u!114 &-6415505467108294467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8827905931808526965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce4b1b9be0e257e4e99fee048a0950da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BulletMovement
 --- !u!114 &5823736750661533162
 MonoBehaviour:
   m_ObjectHideFlags: 0

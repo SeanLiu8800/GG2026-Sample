@@ -18,7 +18,7 @@ GameObject:
   m_Layer: 7
   m_Name: FanEmitter
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -211,7 +211,7 @@ MonoBehaviour:
   actionCount: 1
   actionInterval: 0.2
   fanEmissionRadius: 120
-  emissionCount: 5
+  emissionCount: 4
   spawnClockwise: 1
   emissionDelay: 0
   bulletToEmit: {fileID: 8827905931808526965, guid: 465e389e586ddb04fbcdfcaa10e0cadb, type: 3}

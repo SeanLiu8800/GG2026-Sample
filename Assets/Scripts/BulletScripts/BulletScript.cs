@@ -42,12 +42,7 @@ public class BulletScript : MonoBehaviour
         this.target = target;
         this.initialLinearVelocity = initialLinearVelocity;
         this.lookDirection = lookDirection;
-        SetLinearVelocity(initialLinearVelocity);
         float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-    }
-    public void SetLinearVelocity(Vector3 input)
-    {
-        bulletRigidbody.linearVelocity = input;
     }
 }
