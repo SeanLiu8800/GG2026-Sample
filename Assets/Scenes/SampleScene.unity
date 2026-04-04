@@ -1940,8 +1940,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e28287311e156346a9216fe3cedd915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  visionArea: {fileID: 1620073978}
-  layerToDetect:
+  visionRadius: 5
+  detectionLayerMask:
     serializedVersion: 2
     m_Bits: 8
   lineOfSightLayermask:
@@ -1955,7 +1955,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1620073966}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}

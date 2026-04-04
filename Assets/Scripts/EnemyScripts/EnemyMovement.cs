@@ -25,20 +25,11 @@ public class EnemyMovement : EnemyComponent
         float currDistance = toTargetVector.magnitude;
         float diff = Mathf.Abs(currDistance - strafeRadius);
         float ratio = Mathf.Clamp(diff / strafingThreshold, 0.0f, 0.95f);
-        // Go towards Player
-        if (currDistance > strafeRadius)
-        {
-            Vector3 resultVec = ratio * toTargetVector + (1 - ratio) * strafeVector;
-            float moveSpeed = ratio * normalMoveSpeed + (1 - ratio) * strafeMoveSpeed;
-            enemy.enemyRigidbody.AddForce(resultVec.normalized * moveSpeed);
-        }
-        // Go away from Player
-        else
-        {
-            Vector3 resultVec = ratio * -toTargetVector + (1 - ratio) * strafeVector;
-            float moveSpeed = ratio * normalMoveSpeed + (1 - ratio) * strafeMoveSpeed;
-            enemy.enemyRigidbody.AddForce(resultVec.normalized * moveSpeed);
-        }
+        int towardsTarget = (currDistance > strafeRadius ? 1 : -1);
+
+        Vector3 resultVec = ratio * towardsTarget * toTargetVector + (1 - ratio) * strafeVector;
+        float moveSpeed = ratio * normalMoveSpeed + (1 - ratio) * strafeMoveSpeed;
+        enemy.enemyRigidbody.AddForce(resultVec.normalized * moveSpeed);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -1,45 +1,33 @@
 using UnityEngine;
-
+using System.Collections.Generic;
 public class EnemyVision : EnemyComponent
 {
-    [SerializeField] private Collider2D visionArea;
-    [SerializeField] private LayerMask layerToDetect;
+    [SerializeField, Range(0.0f, 5.0f)] private float visionRadius = 5.0f;
+    [SerializeField] private LayerMask detectionLayerMask;
     [SerializeField] private LayerMask lineOfSightLayermask;
 
     [SerializeField, Range(0.0f, 2.0f)] private float loseTargetTime = 1.0f;
     private void Start()
     {
-        if (enemy.target != null) EnableVision();
-        else DisableVision();
-
-        if (layerToDetect == 0) Debug.LogWarning($"{this.name}'s layerMask is set to Nothing! Should you set it to something?");
+        if (detectionLayerMask == 0) Debug.LogWarning($"{this.name}'s layerMask is set to Nothing! Should you set it to something?");
         if (lineOfSightLayermask == 0) Debug.LogWarning($"{this.name}'s Line of Sight layerMask is set to Nothing! Should you set it to something?");
     }
     private void Update()
     {
         if (enemy.target != null) CheckLineOfSight();
-        if (!visionArea.enabled && enemy.target == null) EnableVision();
+        if (enemy.target == null) SearchForTarget();
     }
-    private void OnTriggerStay2D(Collider2D collision)
+    private void SearchForTarget()
     {
-        if (((1 << collision.gameObject.layer) & layerToDetect) == 0) return;
+        Collider2D collider = Physics2D.OverlapCircle(transform.position, visionRadius, detectionLayerMask);
+        if (collider == null) return;
 
-        RaycastHit2D hit = Physics2D.Linecast(transform.position, collision.transform.position, lineOfSightLayermask);
-        if (!CheckIsTarget(hit.transform, collision.gameObject)) return;
+        RaycastHit2D hit = Physics2D.Linecast(transform.position, collider.transform.position, lineOfSightLayermask);
+        if (!CheckIsTarget(hit.transform, collider.gameObject)) return;
 
-        enemy.target = collision.gameObject;
-        DisableVision();
+        enemy.target = collider.gameObject;
     }
 
-    private void EnableVision()
-    {
-        visionArea.enabled = true;
-    }
-    private void DisableVision()
-    {
-        visionArea.enabled = false;
-    }
-    
     private float lastSeenTargetTime = -90.0f;
     private void CheckLineOfSight()
     {
@@ -74,5 +62,13 @@ public class EnemyVision : EnemyComponent
         }
 
         return false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!Application.isPlaying) return;
+
+        Gizmos.color = new Color(Color.green.r, Color.green.g, Color.green.b, 0.2f);
+        Gizmos.DrawSphere(transform.position, visionRadius);
     }
 }

@@ -137,6 +137,6 @@ public class PlayerPummel : PlayerComponent
         if (!enemy.isParryStunned || enemy.isBeingPummeled) return;
 
         player.playerEvents.pummelStarts(enemy);
-        enemy.enemyEvents.pummelStarts(player);
+        enemy.enemyEvents.pummelStarts?.Invoke(player);
     }
 }
