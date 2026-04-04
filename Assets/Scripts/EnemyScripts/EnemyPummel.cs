@@ -50,8 +50,7 @@ public class EnemyPummel : EnemyComponent
     {
         if (!enemy.isBeingPummeled || pummeler == null) return;
         pummeler.health.Damage(ejectPummelerDamage);
-        Vector3 direction = (pummeler.transform.position - transform.position).normalized;
-        pummeler.movement.KnockBack(direction * 10.0f);
+        pummeler.movement.KnockBack(-enemy.toTargetDirection * 10.0f);
 
         pummeler.pummel.EjectedByPummelTarget();
         enemy.enemyEvents.pummelEnds?.Invoke();

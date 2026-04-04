@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using System.Collections;
 public class EnemyAttack : EnemyComponent
 {
+    [SerializeField] private Collider2D attackArea;
     [Header("Attack Variables")]
     [SerializeField] private GameObject attack;
     [SerializeField] private GameObject meleeAttack;
@@ -28,11 +29,12 @@ public class EnemyAttack : EnemyComponent
     {
         Attack();
         if (Keyboard.current.tKey.wasPressedThisFrame) StartCoroutine(Shoot());
-        if (Keyboard.current.gKey.wasPressedThisFrame) MeleeAttack();
+        if (Keyboard.current.gKey.wasPressedThisFrame) StartCoroutine(MeleeAttack());
     }
 
     private void Attack()
     {
+        if (!enemy.allowAttack) return;
         if (!enemy.canAttack || enemy.target == null) return;
         if (Random.Range(0, 2) == 0) StartCoroutine(Shoot());
         else StartCoroutine(MeleeAttack());

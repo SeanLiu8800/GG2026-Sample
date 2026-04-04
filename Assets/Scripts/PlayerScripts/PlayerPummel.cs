@@ -36,6 +36,7 @@ public class PlayerPummel : PlayerComponent
         player.playerEvents.pummelReleased -= PummelReleased;
         player.playerEvents.pummelEjected -= PummelEjected;
     }
+    
     #region ----- Event Functions -----
     void PummelStarts(Enemy enemy)
     {
@@ -62,6 +63,7 @@ public class PlayerPummel : PlayerComponent
 
     }
     #endregion
+    
     void FixedUpdate()
     {
         MoveToLatchPosition();
@@ -134,7 +136,7 @@ public class PlayerPummel : PlayerComponent
     {
         if (!player.movement.isDashing) return;
         if (!collision.TryGetComponent<Enemy>(out Enemy enemy)) return;
-        if (!enemy.isParryStunned || enemy.isBeingPummeled) return;
+        if (!enemy.allowInstantPummel && (!enemy.isParryStunned || enemy.isBeingPummeled)) return;
 
         player.playerEvents.pummelStarts(enemy);
         enemy.enemyEvents.pummelStarts?.Invoke(player);

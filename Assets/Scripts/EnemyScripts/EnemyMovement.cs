@@ -18,6 +18,7 @@ public class EnemyMovement : EnemyComponent
     /// </summary>
     private void ChaseThenStrafe()
     {
+        if (!enemy.allowMove) return;
         if (!enemy.canMove || enemy.target == null) return;
 
         Vector3 toTargetVector = enemy.target.transform.position - transform.position;
