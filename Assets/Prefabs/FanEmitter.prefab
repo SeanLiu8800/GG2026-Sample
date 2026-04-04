@@ -211,7 +211,7 @@ MonoBehaviour:
   actionCount: 1
   actionInterval: 0.2
   fanEmissionRadius: 120
-  emissionCount: 4
+  emissionCount: 3
   spawnClockwise: 1
   emissionDelay: 0
   bulletToEmit: {fileID: 8827905931808526965, guid: 465e389e586ddb04fbcdfcaa10e0cadb, type: 3}

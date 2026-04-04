@@ -8,7 +8,22 @@ public class EnemyAttack : EnemyComponent
     [SerializeField] private GameObject meleeAttack;
 
     [SerializeField, Range(0.0f, 5.0f)] private float attackCooldown = 1.0f;
+    protected virtual void OnEnable()
+    {
+        enemy.enemyEvents.onEnemyDies += OnEnemyDies;
+    }
+    protected virtual void OnDisable()
+    {
+        enemy.enemyEvents.onEnemyDies -= OnEnemyDies;
+    }
 
+    #region ----- Event Functions -----
+    protected virtual void OnEnemyDies()
+    {
+        StopAllAttacks();
+    }
+    #endregion
+    
     void Update()
     {
         Attack();
@@ -36,6 +51,11 @@ public class EnemyAttack : EnemyComponent
         enemy.canAttack = true;
         yield break;
     }
+    private void StopAllAttacks()
+    {
+        StopAllCoroutines();
+        AttackCooldown();
+    }    
     private IEnumerator Shoot()
     {
         enemy.canAttack = false;
