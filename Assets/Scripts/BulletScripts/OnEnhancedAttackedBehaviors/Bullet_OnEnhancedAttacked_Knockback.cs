@@ -10,6 +10,7 @@ public class Bullet_OnEnhancedAttacked_Knockback : Bullet_OnEnhancedAttacked_Beh
     }
     protected override void OnEnhancedAttackedBehavior(Player player)
     {
+        if (bullet.owner == null) return;
         if (!bullet.owner.TryGetComponent<Enemy>(out Enemy enemy))
         {
             Debug.LogError($"{bullet.owner.name} DOES NOT have an Enemy Component!");

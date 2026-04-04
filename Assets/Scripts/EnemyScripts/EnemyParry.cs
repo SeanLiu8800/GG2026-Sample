@@ -34,9 +34,6 @@ public class EnemyParry : EnemyComponent
         if (enemy.isParryStunned) return;
 
         parryProgress += 1.0f;
-        Vector3 knockbackDirection = (this.transform.position - parrier.transform.position).normalized;
-        enemy.enemyRigidbody.AddForce(knockbackDirection * 5.0f, ForceMode2D.Impulse);
-        Debug.Log($"{this.name} WAS PARRIED, Knockback Vector is {knockbackDirection}");
         if (parryProgress >= parryTarget) enemy.enemyEvents.parryStunStarts?.Invoke();
     }
     protected void ParryStunStarts()
