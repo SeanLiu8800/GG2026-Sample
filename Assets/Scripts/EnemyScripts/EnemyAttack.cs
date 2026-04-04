@@ -58,7 +58,7 @@ public class EnemyAttack : EnemyComponent
     {
         enemy.canAttack = false;
         enemy.canMove = false;
-        Vector3 direction = (enemy.target.transform.position - transform.position).normalized;
+        Vector3 direction = enemy.toTargetDirection;
         yield return new WaitForSeconds(0.2f);
         enemy.enemyRigidbody.AddForce(direction * 30.0f, ForceMode2D.Impulse);
         float dashStartTime = Time.time;
@@ -77,13 +77,12 @@ public class EnemyAttack : EnemyComponent
         SpawnAttack(meleeAttack, enemy.target, default, direction);
         enemy.enemyRigidbody.AddForce(direction * 10.0f, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.3f);
-        //enemy.enemyRigidbody.linearVelocity = Vector2.zero;
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
         SpawnAttack(meleeAttack, enemy.target, default, direction);
         enemy.enemyRigidbody.AddForce(direction * 10.0f, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.6f);
 
-        //enemy.enemyRigidbody.linearVelocity = Vector2.zero;
+        direction = enemy.toTargetDirection;
         enemy.enemyRigidbody.AddForce(direction * 20.0f, ForceMode2D.Impulse);
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
         SpawnAttack(meleeAttack, enemy.target, default, direction);

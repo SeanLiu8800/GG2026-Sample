@@ -14,6 +14,21 @@ public class Enemy : MonoBehaviour
     public EnemyEvents enemyEvents;
 
     [field: SerializeField] public GameObject target { get; private set; }
+    public Vector3 toTargetVector 
+    { 
+        get
+        {
+            if (target == null) return Vector3.zero;
+            return target.transform.position - transform.position;
+        }
+    }
+    public Vector3 toTargetDirection
+    {
+        get
+        {
+            return toTargetVector.normalized;
+        }
+    }
     public float distanceToTarget 
     { 
         get 
