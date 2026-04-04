@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
 
     public EnemyEvents enemyEvents;
 
-    public GameObject target;
+    [field: SerializeField] public GameObject target { get; private set; }
     public float distanceToTarget 
     { 
         get 
@@ -64,5 +64,16 @@ public class Enemy : MonoBehaviour
         if (target == null) return false;
         if (distanceToTargetSquared < distance * distance) return true;
         return false;
+    }
+    public void AssignTarget(GameObject input)
+    {
+        if (input == null) return;
+        // Get Root GameObject of the hierarchy
+        while (input.transform.parent != null) input = input.transform.parent.gameObject;
+        target = input;
+    }
+    public void UnassignTarget()
+    {
+        target = null;
     }
 }

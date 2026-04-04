@@ -9,8 +9,8 @@ public class EnemyVision : EnemyComponent
     [SerializeField, Range(0.0f, 2.0f)] private float loseTargetTime = 1.0f;
     private void Start()
     {
-        if (detectionLayerMask == 0) Debug.LogWarning($"{this.name}'s layerMask is set to Nothing! Should you set it to something?");
-        if (lineOfSightLayermask == 0) Debug.LogWarning($"{this.name}'s Line of Sight layerMask is set to Nothing! Should you set it to something?");
+        if (detectionLayerMask == 0) Debug.LogWarning($"{this.name}'s detectionLayerMask is set to Nothing! Should you set it to something?");
+        if (lineOfSightLayermask == 0) Debug.LogWarning($"{this.name}'s lineOfSightLayermask is set to Nothing! Should you set it to something?");
     }
     private void Update()
     {
@@ -20,12 +20,14 @@ public class EnemyVision : EnemyComponent
     private void SearchForTarget()
     {
         Collider2D collider = Physics2D.OverlapCircle(transform.position, visionRadius, detectionLayerMask);
+        // No targets within Overlap Circle
         if (collider == null) return;
-
+        
         RaycastHit2D hit = Physics2D.Linecast(transform.position, collider.transform.position, lineOfSightLayermask);
+        // Direct Line of Sight is blocked
         if (!CheckIsTarget(hit.transform, collider.gameObject)) return;
 
-        enemy.target = collider.gameObject;
+        enemy.AssignTarget(collider.gameObject);
     }
 
     private float lastSeenTargetTime = -90.0f;
@@ -42,7 +44,7 @@ public class EnemyVision : EnemyComponent
         if (Time.time - lastSeenTargetTime >= loseTargetTime)
         {
             Debug.Log("Lost sight of target");
-            enemy.target = null;
+            enemy.UnassignTarget();
         }
     }
     /// <summary>
