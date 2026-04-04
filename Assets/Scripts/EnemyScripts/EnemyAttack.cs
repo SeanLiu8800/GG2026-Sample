@@ -39,13 +39,14 @@ public class EnemyAttack : EnemyComponent
     private IEnumerator Shoot()
     {
         enemy.canAttack = false;
+        GameObject shootTarget = enemy.target;
         for (int i = 0; i < 5; i++)
         {
             SpawnAttack(
                 attack,
-                enemy.target,
-                (enemy.target.transform.position - transform.position).normalized * 7.0f,
-                enemy.target.transform.position - transform.position
+                shootTarget,
+                (shootTarget.transform.position - transform.position).normalized * 7.0f,
+                shootTarget.transform.position - transform.position
             );
             yield return new WaitForSeconds(0.2f);
         }
@@ -57,8 +58,8 @@ public class EnemyAttack : EnemyComponent
     {
         enemy.canAttack = false;
         enemy.canMove = false;
-        yield return new WaitForSeconds(0.2f);
         Vector3 direction = (enemy.target.transform.position - transform.position).normalized;
+        yield return new WaitForSeconds(0.2f);
         enemy.enemyRigidbody.AddForce(direction * 30.0f, ForceMode2D.Impulse);
         float dashStartTime = Time.time;
         while (Time.time - dashStartTime <= 0.5)

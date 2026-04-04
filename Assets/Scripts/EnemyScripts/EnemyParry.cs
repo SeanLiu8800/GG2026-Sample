@@ -27,6 +27,7 @@ public class EnemyParry : EnemyComponent
 
         enemy.enemyEvents.pummelStarts -= PummelStarts;
     }
+
     #region ----- Event Functions -----
     protected void OnParried(GameObject parrier)
     {
@@ -55,6 +56,7 @@ public class EnemyParry : EnemyComponent
         ParryStunEnds();
     }
     #endregion
+    
     void Update()
     {
         DecayParryProgress();
