@@ -6,6 +6,7 @@ public class AttackZoneManager : MonoBehaviour
 {
     static public AttackZoneManager Instance;
     private GameObject attackZonesContainer;
+    [SerializeField, Range(0, 6)] private int initialZoneNumber = 3;
     [SerializeField, Range(0, 15)] private int attackZoneNumberLimit = 10;
 
     [SerializeField] private string attackZoneLayer;
@@ -32,13 +33,14 @@ public class AttackZoneManager : MonoBehaviour
     {
         attackZonesContainer = new GameObject("AttackZoneContainer");
         attackZonesContainer.transform.parent = this.transform;
+        attackZonesContainer.isStatic = true;
         squareAttackZones = new List<BoxCollider2D>();
         squareAttackZonesIsAvailable = new List<bool>();
 
         circleAttackZones = new List<CircleCollider2D>();
         circleAttackZonesIsAvailable = new List<bool>();
-        for (int i = 0; i < 5; i++) AddSquareAttackZone();
-        for (int i = 0; i < 5; i++) AddCircleAttackZone();
+        for (int i = 0; i < initialZoneNumber; i++) AddSquareAttackZone();
+        for (int i = 0; i < initialZoneNumber; i++) AddCircleAttackZone();
     }
     private bool AddSquareAttackZone()
     {
@@ -51,10 +53,11 @@ public class AttackZoneManager : MonoBehaviour
         GameObject newAttackZone = new GameObject($"SquareAttackZone_{squareAttackZones.Count}");
         newAttackZone.layer = LayerMask.NameToLayer(attackZoneLayer);
         newAttackZone.transform.parent = attackZonesContainer.transform;
-        newAttackZone.SetActive(false);
+        newAttackZone.isStatic = true;
 
         BoxCollider2D newCollider = newAttackZone.AddComponent<BoxCollider2D>();
         newCollider.isTrigger = true;
+        newCollider.enabled = false;
         squareAttackZones.Add(newCollider);
 
         squareAttackZonesIsAvailable.Add(true);
@@ -71,10 +74,11 @@ public class AttackZoneManager : MonoBehaviour
         GameObject newAttackZone = new GameObject($"CircleAttackZone_{circleAttackZones.Count}");
         newAttackZone.layer = LayerMask.NameToLayer(attackZoneLayer);
         newAttackZone.transform.parent = attackZonesContainer.transform;
-        newAttackZone.SetActive(false);
+        newAttackZone.isStatic = true;
 
         CircleCollider2D newCollider = newAttackZone.AddComponent<CircleCollider2D>();
         newCollider.isTrigger = true;
+        newCollider.enabled = false;
         circleAttackZones.Add(newCollider);
 
         circleAttackZonesIsAvailable.Add(true);
@@ -83,7 +87,6 @@ public class AttackZoneManager : MonoBehaviour
 
     public void SetSquareAttackZone(Vector3 position, Vector3 direction, float length, float height, float time)
     {
-        Debug.Log("putting down square");
         int index = squareAttackZonesIsAvailable.FindIndex(x => x);
         if (index <= -1)
         {
@@ -103,7 +106,6 @@ public class AttackZoneManager : MonoBehaviour
 
     public void SetCircleAttackZone(Vector3 position, float radius, float time)
     {
-        Debug.Log("putting down circle");
         int index = circleAttackZonesIsAvailable.FindIndex(x => x);
         if (index <= -1)
         {
@@ -121,16 +123,16 @@ public class AttackZoneManager : MonoBehaviour
 
     private IEnumerator SquareSetActive(int index, float duration)
     {
-        squareAttackZones[index].gameObject.SetActive(true);
+        squareAttackZones[index].enabled = true;
         yield return new WaitForSeconds(duration);
-        squareAttackZones[index].gameObject.SetActive(false);
+        squareAttackZones[index].enabled = false;
         squareAttackZonesIsAvailable[index] = true;
     }
     private IEnumerator CircleSetActive(int index, float duration)
     {
-        circleAttackZones[index].gameObject.SetActive(true);
+        circleAttackZones[index].enabled = true;
         yield return new WaitForSeconds(duration);
-        circleAttackZones[index].gameObject.SetActive(false);
+        circleAttackZones[index].enabled = false;
         circleAttackZonesIsAvailable[index] = true;
     }
 }

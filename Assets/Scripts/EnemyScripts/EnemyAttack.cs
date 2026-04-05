@@ -83,10 +83,10 @@ public class EnemyAttack : EnemyComponent
         Vector3 direction = enemy.toTargetDirection;
         yield return new WaitForSeconds(0.2f);
         AttackZoneManager.Instance.SetSquareAttackZone(
-            transform.position + direction * 5.0f,
+            transform.position + direction * 4.5f,
             direction,
-            2.5f,
-            5.0f,
+            3.0f,
+            6.0f,
             1.2f
         );
         enemy.enemyRigidbody.AddForce(direction * 30.0f, ForceMode2D.Impulse);
