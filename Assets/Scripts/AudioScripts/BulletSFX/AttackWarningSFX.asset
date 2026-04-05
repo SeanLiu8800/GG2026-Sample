@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1cf899fc0ab29a46a13d0619ecc634f, type: 3}
   m_Name: AttackWarningSFX
   m_EditorClassIdentifier: Assembly-CSharp::BulletSFX
-  firingSound: {fileID: 0}
+  firingSound: {fileID: 8300000, guid: 5a0dc8c4cd1c67648972cac61ce8e389, type: 3}
   travelSound: {fileID: 0}
   hitSound: {fileID: 0}
   dashedIntoSound: {fileID: 0}
