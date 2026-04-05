@@ -42,8 +42,10 @@ public class EnemyAttack : EnemyAttackBase
     {
         enemy.canMove = false;
         Vector3 direction = enemy.toTargetDirection;
+        SpawnAttack(attackWarning, enemy.target, default, default);
         yield return new WaitForSeconds(0.2f);
         SpawnAttack(attackWarning, enemy.target, default, default);
+
         float dist = enemy.move.DistanceFromImpulse(30.0f);
         AttackZoneManager.Instance.SetSquareAttackZone(
             transform.position + direction * dist,
@@ -58,7 +60,7 @@ public class EnemyAttack : EnemyAttackBase
         SpawnAttack(meleeAttack, enemy.target, default, direction);
         enemy.enemyRigidbody.AddForce(direction * 10.0f, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.15f);
-        SpawnAttack(attackWarning, enemy.target, default, default);
+
         yield return new WaitForSeconds(0.15f);
 
         SpawnAttack(meleeAttack, enemy.target, default, direction);
