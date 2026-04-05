@@ -31,7 +31,6 @@ public class EnemyAttack : EnemyComponent
         if (Keyboard.current.tKey.wasPressedThisFrame) StartCoroutine(Shoot());
         if (Keyboard.current.gKey.wasPressedThisFrame) StartCoroutine(MeleeAttack());
     }
-
     private void Attack()
     {
         if (!enemy.allowAttack) return;

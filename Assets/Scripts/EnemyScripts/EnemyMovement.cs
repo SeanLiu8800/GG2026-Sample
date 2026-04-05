@@ -14,6 +14,17 @@ public class EnemyMovement : EnemyComponent
     }
     
     /// <summary>
+    /// Returns the estimated distance traveled from a given impulseStrength<br/>
+    /// This assumes traveling will be unimpeded, except by Linear Drag
+    /// </summary>
+    /// <param name="impulseStrength">Strength of Impulse</param>
+    /// <returns>The predicted Distance traveled</returns>
+    public float DistanceFromImpulse(float impulseStrength)
+    {
+        float v0 = impulseStrength / enemy.enemyRigidbody.mass;
+        return v0 / enemy.enemyRigidbody.linearDamping;
+    }
+    /// <summary>
     /// Movement Behavior that allows movement towards strafeRadius units away from Player, then strafe in a circle
     /// </summary>
     private void ChaseThenStrafe()
