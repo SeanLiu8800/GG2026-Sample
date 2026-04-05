@@ -81,7 +81,6 @@ public class Enemy : MonoBehaviour
     public bool IsTargetWithinDistance(float distance)
     {
         if (target == null) return false;
-        Debug.Log($"{distanceToTargetSquared}, {distance * distance}");
         if (distanceToTargetSquared < distance * distance) return true;
         return false;
     }

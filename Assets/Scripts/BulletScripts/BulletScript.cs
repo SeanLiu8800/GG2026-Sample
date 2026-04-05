@@ -6,6 +6,7 @@ public class BulletScript : MonoBehaviour
     [field: SerializeField, ReadOnly] public Rigidbody2D bulletRigidbody { get; private set; }
     [field: Tooltip("Decides what Layer this bullet with interact with")]
     [field: SerializeField] public LayerMask layerMask { get; private set; }
+    [field: SerializeField] public BulletSFX bulletSFX { get; private set; }
 
     [field: Header("Bullet Variables")]
     [field: SerializeField, ReadOnly] public GameObject owner { get; private set; }

@@ -5,6 +5,7 @@ public class EnemyAttack : EnemyComponent
 {
     [SerializeField] private Collider2D attackArea;
     [Header("Attack Variables")]
+    [SerializeField] private GameObject attackWarning;
     [SerializeField] private GameObject attack;
     [SerializeField] private GameObject meleeAttack;
 
@@ -81,7 +82,7 @@ public class EnemyAttack : EnemyComponent
         enemy.canMove = false;
         Vector3 direction = enemy.toTargetDirection;
         yield return new WaitForSeconds(0.2f);
-
+        SpawnAttack(attackWarning, enemy.target, default, default);
         float dist = enemy.move.DistanceFromImpulse(30.0f);
         AttackZoneManager.Instance.SetSquareAttackZone(
             transform.position + direction * dist,
@@ -103,11 +104,13 @@ public class EnemyAttack : EnemyComponent
             yield return null;
         }
 
-        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
+        //AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
         SpawnAttack(meleeAttack, enemy.target, default, direction);
         enemy.enemyRigidbody.AddForce(direction * 10.0f, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(0.3f);
-        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
+        yield return new WaitForSeconds(0.15f);
+        SpawnAttack(attackWarning, enemy.target, default, default);
+        yield return new WaitForSeconds(0.15f);
+        //AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
         SpawnAttack(meleeAttack, enemy.target, default, direction);
         enemy.enemyRigidbody.AddForce(direction * 10.0f, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.2f);
@@ -128,7 +131,7 @@ public class EnemyAttack : EnemyComponent
         enemy.canMove = false;
 
         yield return new WaitForSeconds(0.25f);
-
+        SpawnAttack(attackWarning, enemy.target, default, default);
         Vector3 direction = enemy.toTargetDirection;
         AttackZoneManager.Instance.SetCircleAttackZone(
             transform.position + direction * enemy.move.DistanceFromImpulse(20.0f),
@@ -137,7 +140,7 @@ public class EnemyAttack : EnemyComponent
         );
         yield return new WaitForSeconds(0.15f);
         enemy.enemyRigidbody.AddForce(direction * 20.0f, ForceMode2D.Impulse);
-        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
+        //AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
         SpawnAttack(meleeAttack, enemy.target, default, direction);
         yield return new WaitForSeconds(0.1f);
 

@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 7457468284515171231}
   - component: {fileID: 5307707042594207317}
   - component: {fileID: 5476034631633967730}
+  - component: {fileID: 7049995139362423018}
   - component: {fileID: -7986148878376013430}
   - component: {fileID: -4070128488187521795}
   - component: {fileID: 3699263169848525622}
@@ -288,12 +289,25 @@ MonoBehaviour:
   <layerMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 8
+  <bulletSFX>k__BackingField: {fileID: 11400000, guid: 54dc6d9671c0b5e40910ee0a04d07140, type: 2}
   <owner>k__BackingField: {fileID: 0}
   <target>k__BackingField: {fileID: 0}
   <initialLinearVelocity>k__BackingField: {x: 0, y: 0, z: 0}
   <lookDirection>k__BackingField: {x: 0, y: 0, z: 0}
   damage: 1
   empowerRate: 1
+--- !u!114 &7049995139362423018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8827905931808526965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1ac4e10faa24c248a9aa22fe37143aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BulletSound
 --- !u!114 &-7986148878376013430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,6 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac85ec39bd2845a4c8495dc8f528ac40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletLockToOwner
+  offset: {x: 0, y: 0, z: 0}
 --- !u!114 &-4070128488187521795
 MonoBehaviour:
   m_ObjectHideFlags: 0
