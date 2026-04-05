@@ -9,8 +9,11 @@ public class AttackZoneManager : MonoBehaviour
     [SerializeField, Range(0, 15)] private int attackZoneNumberLimit = 10;
 
     [SerializeField] private string attackZoneLayer;
-    [SerializeField, ReadOnly] private List<BoxCollider2D> attackZones;
-    [SerializeField, ReadOnly] private List<bool> attackZonesIsAvailable;
+    [SerializeField, ReadOnly] private List<BoxCollider2D> squareAttackZones;
+    [SerializeField, ReadOnly] private List<bool> squareAttackZonesIsAvailable;
+
+    [SerializeField, ReadOnly] private List<CircleCollider2D> circleAttackZones;
+    [SerializeField, ReadOnly] private List<bool> circleAttackZonesIsAvailable;
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -29,56 +32,105 @@ public class AttackZoneManager : MonoBehaviour
     {
         attackZonesContainer = new GameObject("AttackZoneContainer");
         attackZonesContainer.transform.parent = this.transform;
-        attackZones = new List<BoxCollider2D>();
-        attackZonesIsAvailable = new List<bool>();
+        squareAttackZones = new List<BoxCollider2D>();
+        squareAttackZonesIsAvailable = new List<bool>();
 
-        for (int i = 0; i < 5; i++) AddAttackZone();
+        circleAttackZones = new List<CircleCollider2D>();
+        circleAttackZonesIsAvailable = new List<bool>();
+        for (int i = 0; i < 5; i++) AddSquareAttackZone();
+        for (int i = 0; i < 5; i++) AddCircleAttackZone();
     }
-    private bool AddAttackZone()
+    private bool AddSquareAttackZone()
     {
-        if (attackZones.Count >= attackZoneNumberLimit)
+        if (squareAttackZones.Count >= attackZoneNumberLimit)
         {
-            Debug.LogWarning($"Already generated {attackZones.Count} Attack Zones, which reached/ exceeded the limit!");
+            Debug.LogWarning($"Already generated {squareAttackZones.Count} Attack Zones, which reached/ exceeded the limit!");
             return false;
         }
-        Debug.Log("Generating new Attack Zone");
-        GameObject newAttackZone = new GameObject($"AttackZone_{attackZones.Count}");
+        Debug.Log("Generating new Square Attack Zone");
+        GameObject newAttackZone = new GameObject($"SquareAttackZone_{squareAttackZones.Count}");
         newAttackZone.layer = LayerMask.NameToLayer(attackZoneLayer);
         newAttackZone.transform.parent = attackZonesContainer.transform;
         newAttackZone.SetActive(false);
 
         BoxCollider2D newCollider = newAttackZone.AddComponent<BoxCollider2D>();
         newCollider.isTrigger = true;
-        attackZones.Add(newCollider);
+        squareAttackZones.Add(newCollider);
 
-        attackZonesIsAvailable.Add(true);
+        squareAttackZonesIsAvailable.Add(true);
+        return true;
+    }
+    private bool AddCircleAttackZone()
+    {
+        if (circleAttackZones.Count >= attackZoneNumberLimit)
+        {
+            Debug.LogWarning($"Already generated {circleAttackZones.Count} Attack Zones, which reached/ exceeded the limit!");
+            return false;
+        }
+        Debug.Log("Generating new Circle Attack Zone");
+        GameObject newAttackZone = new GameObject($"CircleAttackZone_{circleAttackZones.Count}");
+        newAttackZone.layer = LayerMask.NameToLayer(attackZoneLayer);
+        newAttackZone.transform.parent = attackZonesContainer.transform;
+        newAttackZone.SetActive(false);
+
+        CircleCollider2D newCollider = newAttackZone.AddComponent<CircleCollider2D>();
+        newCollider.isTrigger = true;
+        circleAttackZones.Add(newCollider);
+
+        circleAttackZonesIsAvailable.Add(true);
         return true;
     }
 
-    public void SetAttackZone(Vector3 position, Vector3 direction, float length, float height, float time)
+    public void SetSquareAttackZone(Vector3 position, Vector3 direction, float length, float height, float time)
     {
-        int index = attackZonesIsAvailable.FindIndex(x => x);
+        Debug.Log("putting down square");
+        int index = squareAttackZonesIsAvailable.FindIndex(x => x);
         if (index <= -1)
         {
-            if (AddAttackZone()) SetAttackZone(position, direction, length, height, time);
+            if (AddSquareAttackZone()) SetSquareAttackZone(position, direction, length, height, time);
             return;
         }
 
-        BoxCollider2D collider = attackZones[index];
-        attackZonesIsAvailable[index] = false;
+        BoxCollider2D collider = squareAttackZones[index];
+        squareAttackZonesIsAvailable[index] = false;
 
         collider.transform.position = position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         collider.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         collider.size = new Vector2(height, length);
-        StartCoroutine(SetActive(index, time));
+        StartCoroutine(SquareSetActive(index, time));
     }
 
-    private IEnumerator SetActive(int index, float duration)
+    public void SetCircleAttackZone(Vector3 position, float radius, float time)
     {
-        attackZones[index].gameObject.SetActive(true);
+        Debug.Log("putting down circle");
+        int index = circleAttackZonesIsAvailable.FindIndex(x => x);
+        if (index <= -1)
+        {
+            if (AddCircleAttackZone()) SetCircleAttackZone(position, radius, time);
+            return;
+        }
+
+        CircleCollider2D collider = circleAttackZones[index];
+        circleAttackZonesIsAvailable[index] = false;
+
+        collider.transform.position = position;
+        collider.radius = radius;
+        StartCoroutine(CircleSetActive(index, time));
+    }
+
+    private IEnumerator SquareSetActive(int index, float duration)
+    {
+        squareAttackZones[index].gameObject.SetActive(true);
         yield return new WaitForSeconds(duration);
-        attackZones[index].gameObject.SetActive(false);
-        attackZonesIsAvailable[index] = true;
+        squareAttackZones[index].gameObject.SetActive(false);
+        squareAttackZonesIsAvailable[index] = true;
+    }
+    private IEnumerator CircleSetActive(int index, float duration)
+    {
+        circleAttackZones[index].gameObject.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        circleAttackZones[index].gameObject.SetActive(false);
+        circleAttackZonesIsAvailable[index] = true;
     }
 }

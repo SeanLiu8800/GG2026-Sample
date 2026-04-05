@@ -1454,8 +1454,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   attackZoneNumberLimit: 10
   attackZoneLayer: Enemy
-  attackZones: []
-  attackZonesIsAvailable: 
+  squareAttackZones: []
+  squareAttackZonesIsAvailable: 
+  circleAttackZones: []
+  circleAttackZonesIsAvailable: 
 --- !u!1 &1772786635
 GameObject:
   m_ObjectHideFlags: 0

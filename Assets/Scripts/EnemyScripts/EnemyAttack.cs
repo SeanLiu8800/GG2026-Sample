@@ -82,7 +82,7 @@ public class EnemyAttack : EnemyComponent
         enemy.canMove = false;
         Vector3 direction = enemy.toTargetDirection;
         yield return new WaitForSeconds(0.2f);
-        AttackZoneManager.Instance.SetAttackZone(
+        AttackZoneManager.Instance.SetSquareAttackZone(
             transform.position + direction * 5.0f,
             direction,
             2.5f,
@@ -91,7 +91,7 @@ public class EnemyAttack : EnemyComponent
         );
         enemy.enemyRigidbody.AddForce(direction * 30.0f, ForceMode2D.Impulse);
         float dashStartTime = Time.time;
-        while (Time.time - dashStartTime <= 0.5)
+        while (Time.time - dashStartTime <= 0.3)
         {
             if (enemy.IsTargetWithinDistance(2.0f))
             {
@@ -109,16 +109,15 @@ public class EnemyAttack : EnemyComponent
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
         SpawnAttack(meleeAttack, enemy.target, default, direction);
         enemy.enemyRigidbody.AddForce(direction * 10.0f, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.5f);
 
         direction = enemy.toTargetDirection;
-        AttackZoneManager.Instance.SetAttackZone(
-            transform.position + direction * 3.0f,
-            direction,
-            2.5f,
-            5.0f,
+        AttackZoneManager.Instance.SetCircleAttackZone(
+            transform.position + direction * 2.0f,
+            2.0f,
             0.6f
         );
+        yield return new WaitForSeconds(0.1f);
         enemy.enemyRigidbody.AddForce(direction * 20.0f, ForceMode2D.Impulse);
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
         SpawnAttack(meleeAttack, enemy.target, default, direction);
