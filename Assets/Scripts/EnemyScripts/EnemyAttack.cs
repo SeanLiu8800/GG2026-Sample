@@ -110,19 +110,37 @@ public class EnemyAttack : EnemyComponent
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
         SpawnAttack(meleeAttack, enemy.target, default, direction);
         enemy.enemyRigidbody.AddForce(direction * 10.0f, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
+        
+        if (enemy.IsTargetWithinDistance(5.0f))
+        {
+            StartCoroutine(MeleeAttackFollowup());
+        }
+        else
+        {
+            enemy.canMove = true;
+            AttackCooldown();
+        }
+    }
+    private IEnumerator MeleeAttackFollowup()
+    {
+        enemy.canAttack = false;
+        enemy.canMove = false;
 
-        direction = enemy.toTargetDirection;
+        yield return new WaitForSeconds(0.25f);
+
+        Vector3 direction = enemy.toTargetDirection;
         AttackZoneManager.Instance.SetCircleAttackZone(
-            transform.position + direction * 2.0f,
+            transform.position + direction * enemy.move.DistanceFromImpulse(20.0f),
             2.0f,
             0.6f
         );
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.15f);
         enemy.enemyRigidbody.AddForce(direction * 20.0f, ForceMode2D.Impulse);
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
         SpawnAttack(meleeAttack, enemy.target, default, direction);
         yield return new WaitForSeconds(0.1f);
+
         enemy.canMove = true;
         AttackCooldown();
     }
