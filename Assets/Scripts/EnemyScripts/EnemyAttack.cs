@@ -36,6 +36,8 @@ public class EnemyAttack : EnemyComponent
     {
         if (!enemy.allowAttack) return;
         if (!enemy.canAttack || enemy.target == null) return;
+
+        enemy.canAttack = false;
         if (Random.Range(0, 2) == 0) StartCoroutine(Shoot());
         else StartCoroutine(MeleeAttack());
     }
@@ -60,7 +62,6 @@ public class EnemyAttack : EnemyComponent
     }    
     private IEnumerator Shoot()
     {
-        enemy.canAttack = false;
         GameObject shootTarget = enemy.target;
         for (int i = 0; i < 5; i++)
         {
@@ -78,7 +79,6 @@ public class EnemyAttack : EnemyComponent
     }
     private IEnumerator MeleeAttack()
     {
-        enemy.canAttack = false;
         enemy.canMove = false;
         Vector3 direction = enemy.toTargetDirection;
         yield return new WaitForSeconds(0.2f);
@@ -104,13 +104,12 @@ public class EnemyAttack : EnemyComponent
             yield return null;
         }
 
-        //AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
         SpawnAttack(meleeAttack, enemy.target, default, direction);
         enemy.enemyRigidbody.AddForce(direction * 10.0f, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.15f);
         SpawnAttack(attackWarning, enemy.target, default, default);
         yield return new WaitForSeconds(0.15f);
-        //AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
+
         SpawnAttack(meleeAttack, enemy.target, default, direction);
         enemy.enemyRigidbody.AddForce(direction * 10.0f, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.2f);
@@ -127,7 +126,6 @@ public class EnemyAttack : EnemyComponent
     }
     private IEnumerator MeleeAttackFollowup()
     {
-        enemy.canAttack = false;
         enemy.canMove = false;
 
         yield return new WaitForSeconds(0.25f);
@@ -140,7 +138,6 @@ public class EnemyAttack : EnemyComponent
         );
         yield return new WaitForSeconds(0.15f);
         enemy.enemyRigidbody.AddForce(direction * 20.0f, ForceMode2D.Impulse);
-        //AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
         SpawnAttack(meleeAttack, enemy.target, default, direction);
         yield return new WaitForSeconds(0.1f);
 
