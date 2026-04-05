@@ -42,9 +42,9 @@ public class EnemyAttack : EnemyAttackBase
     {
         enemy.canMove = false;
         Vector3 direction = enemy.toTargetDirection;
-        SpawnAttack(attackWarning, enemy.target, default, default);
+        SpawnWarning();
         yield return new WaitForSeconds(0.2f);
-        SpawnAttack(attackWarning, enemy.target, default, default);
+        SpawnWarning();
 
         float dist = enemy.move.DistanceFromImpulse(30.0f);
         AttackZoneManager.Instance.SetSquareAttackZone(
@@ -82,17 +82,22 @@ public class EnemyAttack : EnemyAttackBase
         enemy.canMove = false;
 
         yield return new WaitForSeconds(0.25f);
-        SpawnAttack(attackWarning, enemy.target, default, default);
-        Vector3 direction = enemy.toTargetDirection;
-        AttackZoneManager.Instance.SetCircleAttackZone(
-            transform.position + direction * enemy.move.DistanceFromImpulse(20.0f),
-            2.0f,
-            0.6f
-        );
-        yield return new WaitForSeconds(0.15f);
-        enemy.enemyRigidbody.AddForce(direction * 20.0f, ForceMode2D.Impulse);
-        SpawnAttack(meleeAttack, enemy.target, default, direction);
-        yield return new WaitForSeconds(0.1f);
+
+        for (int i = 0; i < 2; i ++)
+        {
+            SpawnWarning();
+            Vector3 direction = enemy.toTargetDirection;
+            AttackZoneManager.Instance.SetCircleAttackZone(
+                transform.position + direction * enemy.move.DistanceFromImpulse(20.0f),
+                2.0f,
+                0.6f
+            );
+            yield return new WaitForSeconds(0.3f);
+            enemy.enemyRigidbody.linearVelocity = Vector2.zero;
+            enemy.enemyRigidbody.AddForce(direction * 20.0f, ForceMode2D.Impulse);
+            SpawnAttack(meleeAttack, enemy.target, default, direction);
+            yield return new WaitForSeconds(0.2f);
+        }
 
         enemy.canMove = true;
         AttackCooldown();

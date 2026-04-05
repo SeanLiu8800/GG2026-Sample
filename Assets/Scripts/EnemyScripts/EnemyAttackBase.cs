@@ -99,4 +99,8 @@ public abstract class EnemyAttackBase : EnemyComponent
             );
         }
     }
+    protected void SpawnWarning()
+    {
+        SpawnAttack(attackWarning, enemy.target, default, default);
+    }
 }
