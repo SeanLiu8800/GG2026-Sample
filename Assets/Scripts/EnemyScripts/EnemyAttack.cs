@@ -81,16 +81,18 @@ public class EnemyAttack : EnemyComponent
         enemy.canMove = false;
         Vector3 direction = enemy.toTargetDirection;
         yield return new WaitForSeconds(0.2f);
+
+        float dist = enemy.move.DistanceFromImpulse(30.0f);
         AttackZoneManager.Instance.SetSquareAttackZone(
-            transform.position + direction * 4.5f,
+            transform.position + direction * dist,
             direction,
             3.0f,
-            6.0f,
-            1.2f
+            2.0f * dist,
+            1.0f
         );
         enemy.enemyRigidbody.AddForce(direction * 30.0f, ForceMode2D.Impulse);
         float dashStartTime = Time.time;
-        while (Time.time - dashStartTime <= 0.3)
+        while (Time.time - dashStartTime <= 0.3f)
         {
             if (enemy.IsTargetWithinDistance(2.0f))
             {
@@ -100,7 +102,7 @@ public class EnemyAttack : EnemyComponent
             }
             yield return null;
         }
-        
+
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
         SpawnAttack(meleeAttack, enemy.target, default, direction);
         enemy.enemyRigidbody.AddForce(direction * 10.0f, ForceMode2D.Impulse);

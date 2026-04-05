@@ -49,7 +49,6 @@ public class AttackZoneManager : MonoBehaviour
             Debug.LogWarning($"Already generated {squareAttackZones.Count} Attack Zones, which reached/ exceeded the limit!");
             return false;
         }
-        Debug.Log("Generating new Square Attack Zone");
         GameObject newAttackZone = new GameObject($"SquareAttackZone_{squareAttackZones.Count}");
         newAttackZone.layer = LayerMask.NameToLayer(attackZoneLayer);
         newAttackZone.transform.parent = attackZonesContainer.transform;
@@ -70,7 +69,6 @@ public class AttackZoneManager : MonoBehaviour
             Debug.LogWarning($"Already generated {circleAttackZones.Count} Attack Zones, which reached/ exceeded the limit!");
             return false;
         }
-        Debug.Log("Generating new Circle Attack Zone");
         GameObject newAttackZone = new GameObject($"CircleAttackZone_{circleAttackZones.Count}");
         newAttackZone.layer = LayerMask.NameToLayer(attackZoneLayer);
         newAttackZone.transform.parent = attackZonesContainer.transform;
