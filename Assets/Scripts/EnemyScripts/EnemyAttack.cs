@@ -82,6 +82,13 @@ public class EnemyAttack : EnemyComponent
         enemy.canMove = false;
         Vector3 direction = enemy.toTargetDirection;
         yield return new WaitForSeconds(0.2f);
+        AttackZoneManager.Instance.SetAttackZone(
+            transform.position + direction * 5.0f,
+            direction,
+            2.5f,
+            5.0f,
+            1.2f
+        );
         enemy.enemyRigidbody.AddForce(direction * 30.0f, ForceMode2D.Impulse);
         float dashStartTime = Time.time;
         while (Time.time - dashStartTime <= 0.5)
@@ -104,6 +111,13 @@ public class EnemyAttack : EnemyComponent
         enemy.enemyRigidbody.AddForce(direction * 10.0f, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.6f);
 
+        AttackZoneManager.Instance.SetAttackZone(
+            transform.position + direction * 3.0f,
+            direction,
+            2.5f,
+            5.0f,
+            0.6f
+        );
         direction = enemy.toTargetDirection;
         enemy.enemyRigidbody.AddForce(direction * 20.0f, ForceMode2D.Impulse);
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
