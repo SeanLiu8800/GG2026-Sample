@@ -1315,8 +1315,8 @@ MonoBehaviour:
   <enemyCollider>k__BackingField: {fileID: 1620073968}
   <enemyRigidbody>k__BackingField: {fileID: 1620073967}
   <target>k__BackingField: {fileID: 0}
-  <allowMove>k__BackingField: 1
-  <allowAttack>k__BackingField: 1
+  <allowMove>k__BackingField: 0
+  <allowAttack>k__BackingField: 0
   <allowInstantPummel>k__BackingField: 0
   canMove: 1
   canAttack: 1

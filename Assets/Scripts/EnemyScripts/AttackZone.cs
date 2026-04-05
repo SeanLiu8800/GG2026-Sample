@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 public class AttackZoneManager : MonoBehaviour
 {
     static public AttackZoneManager Instance;
@@ -23,12 +24,15 @@ public class AttackZoneManager : MonoBehaviour
             Initialize();
         }
     }
+
     private void Initialize()
     {
         attackZonesContainer = new GameObject("AttackZoneContainer");
         attackZonesContainer.transform.parent = this.transform;
         attackZones = new List<BoxCollider2D>();
         attackZonesIsAvailable = new List<bool>();
+
+        for (int i = 0; i < 5; i++) AddAttackZone();
     }
     private bool AddAttackZone()
     {
