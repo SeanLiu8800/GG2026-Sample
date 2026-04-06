@@ -134,7 +134,7 @@ public class PlayerPummel : PlayerComponent
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!player.movement.isDashing) return;
+        if (!player.move.isDashing) return;
         if (!collision.TryGetComponent<Enemy>(out Enemy enemy)) return;
         if (!enemy.allowInstantPummel && (!enemy.isParryStunned || enemy.isBeingPummeled)) return;
 

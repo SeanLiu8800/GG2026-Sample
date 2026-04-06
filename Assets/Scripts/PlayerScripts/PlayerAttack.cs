@@ -85,9 +85,9 @@ public class PlayerAttack : PlayerComponent
     private void Attack(InputAction.CallbackContext context)
     {
         if (!player.attackIsAvailable || (isAttacking && !attackParries)) return;
-        if (player.pummel.isPummeling || player.movement.isKnockbacked) return;
+        if (player.pummel.isPummeling || player.move.isKnockbacked) return;
         attackArea.EnableAttack();
-        attackArea.transform.rotation = Quaternion.LookRotation(Vector3.forward, player.movement.lastMovementDirection);
+        attackArea.transform.rotation = Quaternion.LookRotation(Vector3.forward, player.move.lastMovementDirection);
         // No target to attack
         if (!CheckAttackArea())
         {
@@ -107,7 +107,7 @@ public class PlayerAttack : PlayerComponent
         HashSet<Collider2D> totalHits = new HashSet<Collider2D>();
         Vector3 currPos = transform.position;
         Vector3 finalPos = transform.position;
-        if (player.movement.willLunge) finalPos = currPos + player.movement.lastMovementDirection * player.movement.lungeDistance;
+        if (player.move.willLunge) finalPos = currPos + player.move.lastMovementDirection * player.move.lungeDistance;
 
         // Angle assumes Collider's Default position, so must calculate it's orientation
         float angleDeg = (attackArea.transform.eulerAngles.z - 360) % 360;

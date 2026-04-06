@@ -51,7 +51,7 @@ public class BulletCollision : BulletComponent
     private void PlayerCollision(Player player)
     {
         Debug.Log("Player Collision!");
-        if (player.movement.isDashing) bullet.bulletEvents.onDashedInto?.Invoke(player);
+        if (player.move.isDashing) bullet.bulletEvents.onDashedInto?.Invoke(player);
         else if (player.attack.isAttacking)
         {
             if (player.attack.attackIsEnhanced) bullet.bulletEvents.onEnhancedAttacked?.Invoke(player);
