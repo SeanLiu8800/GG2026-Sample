@@ -184,6 +184,8 @@ public class PlayerMovement : PlayerComponent
     {
         if (player.autoLunge) willLunge = true;
         if (!player.allowLunge) willLunge = false;
+        if (player.autoLunge && !player.allowLunge)
+            Debug.LogWarning("Player autoLunge is set to True while allowLunge is set to False! allowLunge overrides autoLunge!");
         if (!willLunge) MultiplyMoveSpeed(0.5f);
         else StartAttackLunge();
     }

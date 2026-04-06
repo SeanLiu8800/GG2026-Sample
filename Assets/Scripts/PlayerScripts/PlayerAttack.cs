@@ -56,6 +56,7 @@ public class PlayerAttack : PlayerComponent
         attackStartTime = Time.time;
         currAttackID = AttackIDGenerator();
         attackParries = false;
+        if (player.autoEnhance) player.playerEvents.enhanceAttack?.Invoke();
         if (attackIsEnhanced) AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttackEnhanced);
         else AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
     }
