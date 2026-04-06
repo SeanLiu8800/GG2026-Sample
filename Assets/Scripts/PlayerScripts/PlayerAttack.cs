@@ -109,19 +109,16 @@ public class PlayerAttack : PlayerComponent
         Vector3 finalPos = transform.position;
         if (player.movement.willLunge) // Determine finalPos of sliding area checking
         {
-            if (player.movement.GetMoveSpeed() > 15.0f) finalPos += (player.movement.lastMovementDirection * 3.0f);
-            else finalPos += (player.movement.lastMovementDirection * 2.0f);
+            finalPos = currPos + player.movement.lastMovementDirection * 0.12f * Mathf.Max(player.movement.GetMoveSpeed() * 1.5f, 15.0f);
         }
         // Angle assumes Collider's Default position, so must calculate it's orientation
         float angleDeg = (attackArea.transform.eulerAngles.z - 360) % 360;
-        do
+        for (float coeff = 0.0f; coeff <= 1.0; coeff += 0.25f)
         {
-            attackArea.GetCollider2D().Overlap(currPos, angleDeg, attackTargetFilter, currHits);
+            attackArea.GetCollider2D().Overlap(Vector3.Lerp(currPos, finalPos, coeff), angleDeg, attackTargetFilter, currHits);
             if (currHits.Count >= 1) return true;
             totalHits.UnionWith(currHits);
-            currPos = Vector3.MoveTowards(currPos, finalPos, 1.0f);
         }
-        while (currPos != finalPos);
         //Debug.LogWarning($"{totalHits.Count}, {totalHits.Count >= 1}");
         return totalHits.Count >= 1;
     }
