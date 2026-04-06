@@ -12,9 +12,12 @@ public class Player : MonoBehaviour
     public PlayerEvents playerEvents;
 
     [Header("Movement Ability Toggles")]
-    public bool dashIsAvailable = true;
-    public bool attackIsAvailable = true;
-    public bool lungeIsAvailable = true;
+    public bool allowDash = true;
+    public bool allowAttack = true;
+    public bool allowLunge = true;
+    public bool autoEnhance = false;
+    public bool autoLunge = false;
+
     [Header("Health Toggles")]
     public bool canTakeDamage = true;
     public bool canHeal = true;

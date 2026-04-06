@@ -444,15 +444,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 169fb73f72bb4cf4db399590c1bb68fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  <movement>k__BackingField: {fileID: 993337296}
+  <move>k__BackingField: {fileID: 993337296}
   <attack>k__BackingField: {fileID: 993337302}
   <health>k__BackingField: {fileID: 993337304}
   <pummel>k__BackingField: {fileID: 993337305}
   <playerCollider>k__BackingField: {fileID: 993337299}
   <spriteRenderer>k__BackingField: {fileID: 993337300}
-  dashIsAvailable: 1
-  attackIsAvailable: 1
-  lungeIsAvailable: 1
+  allowDash: 1
+  allowAttack: 1
+  allowLunge: 1
+  autoEnhance: 0
+  autoLunge: 0
   canTakeDamage: 1
   canHeal: 1
 --- !u!50 &993337298

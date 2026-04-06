@@ -182,6 +182,8 @@ public class PlayerMovement : PlayerComponent
     }
     void AttackStarts()
     {
+        if (player.autoLunge) willLunge = true;
+        if (!player.allowLunge) willLunge = false;
         if (!willLunge) MultiplyMoveSpeed(0.5f);
         else StartAttackLunge();
     }
@@ -237,7 +239,7 @@ public class PlayerMovement : PlayerComponent
 
     private void StartDash(InputAction.CallbackContext context)
     {
-        if (!player.dashIsAvailable) return;
+        if (!player.allowDash) return;
         // Player is Lunging or Dash still on Cooldown or is pummeling
         if (isLunging || !canDash || player.pummel.isPummeling || isKnockbacked) return;
 
@@ -247,7 +249,8 @@ public class PlayerMovement : PlayerComponent
     {
         if (!isDashing) return;
         // Enhance Attack if player Dashes for the minimum amount of time
-        if (!thisDashEnhancedAttack && currLaunchTowardsTime >= minDashEnhanceAttack) player.playerEvents.enhanceAttack?.Invoke();
+        if (!thisDashEnhancedAttack && (player.autoEnhance || currLaunchTowardsTime >= minDashEnhanceAttack)) 
+            player.playerEvents.enhanceAttack?.Invoke();
         if (currLaunchTowardsTime >= dashDuration) StopDash(new InputAction.CallbackContext());
     }
     private void StopDash(InputAction.CallbackContext context)
@@ -272,11 +275,8 @@ public class PlayerMovement : PlayerComponent
     [SerializeField, Range(0.0f, 0.5f)] private float lungeDuration = 0.2f;
     public float lungeInitialSpeed { get { return Mathf.Max(currMoveSpeed * 1.5f, 15.0f); } }
     public float lungeDistance { get { return 0.115f * lungeInitialSpeed; } }
-    public void StartAttackLunge()
+    private void StartAttackLunge()
     {
-        if (!player.lungeIsAvailable) willLunge = false;
-        if (!willLunge) return;
-
         player.playerEvents.lungeStarts?.Invoke();
     }
     private void AttackLunge()
