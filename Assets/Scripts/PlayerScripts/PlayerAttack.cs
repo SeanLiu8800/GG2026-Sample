@@ -107,17 +107,20 @@ public class PlayerAttack : PlayerComponent
         HashSet<Collider2D> totalHits = new HashSet<Collider2D>();
         Vector3 currPos = transform.position;
         Vector3 finalPos = transform.position;
-        if (player.movement.willLunge) finalPos = currPos + player.movement.lastMovementDirection * 0.12f * player.movement.lungeInitialVelocity;
+        if (player.movement.willLunge) finalPos = currPos + player.movement.lastMovementDirection * player.movement.lungeDistance;
 
         // Angle assumes Collider's Default position, so must calculate it's orientation
         float angleDeg = (attackArea.transform.eulerAngles.z - 360) % 360;
-        for (float coeff = 0.0f; coeff <= 1.0; coeff += 0.25f)
+        // Slide Player Attack Area towards finalPos, with increments of 0.5f units
+        // It should be using a While loop, but I used a for loop to limit how many times it runs
+        for (int i = 0; i < 10; i ++)
         {
-            attackArea.GetCollider2D().Overlap(Vector3.Lerp(currPos, finalPos, coeff), angleDeg, attackTargetFilter, currHits);
-            if (currHits.Count >= 1) return true;
+            attackArea.GetCollider2D().Overlap(currPos, angleDeg, attackTargetFilter, currHits);
             totalHits.UnionWith(currHits);
+            if (currHits.Count >= 1) return true;
+            if (currPos == finalPos) break;
+            currPos = Vector3.MoveTowards(currPos, finalPos, 0.5f);
         }
-        //Debug.LogWarning($"{totalHits.Count}, {totalHits.Count >= 1}");
         return totalHits.Count >= 1;
     }
     private void UpdateAttackArea()
