@@ -107,10 +107,8 @@ public class PlayerAttack : PlayerComponent
         HashSet<Collider2D> totalHits = new HashSet<Collider2D>();
         Vector3 currPos = transform.position;
         Vector3 finalPos = transform.position;
-        if (player.movement.willLunge) // Determine finalPos of sliding area checking
-        {
-            finalPos = currPos + player.movement.lastMovementDirection * 0.12f * Mathf.Max(player.movement.GetMoveSpeed() * 1.5f, 15.0f);
-        }
+        if (player.movement.willLunge) finalPos = currPos + player.movement.lastMovementDirection * 0.12f * player.movement.lungeInitialVelocity;
+
         // Angle assumes Collider's Default position, so must calculate it's orientation
         float angleDeg = (attackArea.transform.eulerAngles.z - 360) % 360;
         for (float coeff = 0.0f; coeff <= 1.0; coeff += 0.25f)

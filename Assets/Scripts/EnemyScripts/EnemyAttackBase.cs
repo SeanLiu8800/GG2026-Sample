@@ -9,14 +9,20 @@ public abstract class EnemyAttackBase : EnemyComponent
     protected virtual void OnEnable()
     {
         enemy.enemyEvents.onEnemyDies += OnEnemyDies;
+        enemy.enemyEvents.parryStunStarts += ParryStunStarts;
     }
     protected virtual void OnDisable()
     {
         enemy.enemyEvents.onEnemyDies -= OnEnemyDies;
+        enemy.enemyEvents.parryStunStarts -= ParryStunStarts;
     }
 
     #region ----- Event Functions -----
     protected virtual void OnEnemyDies()
+    {
+        StopAllAttacks();
+    }
+    protected virtual void ParryStunStarts()
     {
         StopAllAttacks();
     }

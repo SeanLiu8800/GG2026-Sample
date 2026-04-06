@@ -160,7 +160,7 @@ public class PlayerMovement : PlayerComponent
     {
         isLunging = true;
         willLunge = false;
-        LaunchTowards(lastMovementDirection * Mathf.Max(currMoveSpeed * 1.5f, 15.0f), lungeDuration, 6.0f);
+        LaunchTowards(lastMovementDirection * lungeInitialVelocity, lungeDuration, 6.0f);
     }
     void LungeEnds()
     {
@@ -270,6 +270,7 @@ public class PlayerMovement : PlayerComponent
     [Tooltip("The minimum amount of time to dash to enhance Attack")]
     [SerializeField, Range(0.0f, 0.5f)] private float minDashEnhanceAttack = 0.2f;
     [SerializeField, Range(0.0f, 0.5f)] private float lungeDuration = 0.2f;
+    public float lungeInitialVelocity { get { return Mathf.Max(currMoveSpeed * 1.5f, 15.0f); } }
     public void StartAttackLunge()
     {
         if (!player.lungeIsAvailable) willLunge = false;
