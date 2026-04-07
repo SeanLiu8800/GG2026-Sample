@@ -3,6 +3,7 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     public WaveSpawner waveSpawner { get; private set; }
+
     public RoomEventsStruct roomEvents;
 
     private void Awake()

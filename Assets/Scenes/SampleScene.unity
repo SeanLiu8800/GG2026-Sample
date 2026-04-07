@@ -119,38 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &447444641
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 447444642}
-  m_Layer: 0
-  m_Name: RoomManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!4 &447444642
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 447444641}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1720677826}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -828,7 +796,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomTriggers
   roomStartTrigger: {fileID: 1150230244}
-  roomEndTrigger: {fileID: 0}
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -1223,13 +1190,14 @@ GameObject:
   - component: {fileID: 1454490720}
   - component: {fileID: 1454490722}
   - component: {fileID: 1454490721}
+  - component: {fileID: 1454490723}
   m_Layer: 0
   m_Name: RoomEndTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1454490720
 Transform:
   m_ObjectHideFlags: 0
@@ -1350,6 +1318,22 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1454490723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454490719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf7a45aba5d587347b84f0a8da232be4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  roomEndTrigger: {fileID: 0}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &1720677825
 GameObject:
   m_ObjectHideFlags: 0
@@ -1376,14 +1360,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1720677825}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1150230243}
   - {fileID: 1454490720}
-  m_Father: {fileID: 447444642}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1720677827
 MonoBehaviour:
@@ -1397,7 +1381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc05c93604bbdd46988eafd9a9ea018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveSpawner
-  <spawnImmediately>k__BackingField: 0
+  <spawnImmediately>k__BackingField: 1
   enemyWaves:
   - enemies:
     - enemy: {fileID: 4705485784247206799, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
@@ -2784,4 +2768,4 @@ SceneRoots:
   - {fileID: 2010581682}
   - {fileID: 1733474024}
   - {fileID: 1308790815}
-  - {fileID: 447444642}
+  - {fileID: 1720677826}
