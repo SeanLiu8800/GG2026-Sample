@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 5823736750661533162}
   - component: {fileID: -9054533698057080689}
   - component: {fileID: 505186917497150784}
-  - component: {fileID: -8867143272021663871}
   - component: {fileID: 128513230372407838}
   - component: {fileID: -223621541423900768}
   - component: {fileID: 8955815773037303832}
@@ -238,18 +237,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 989f2a4e5f030e94395f53ab9e95fa93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet_OnDamagePlayer_Destroy
---- !u!114 &-8867143272021663871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8827905931808526965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b41fb9f500cfd2458473666f2587983, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!114 &128513230372407838
 MonoBehaviour:
   m_ObjectHideFlags: 0
