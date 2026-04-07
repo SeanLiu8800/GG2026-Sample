@@ -55,9 +55,17 @@ public class WaveSpawner : RoomComponent
             }
             for (int i = 0; i < enemyUnit.enemyCount; i ++)
             {
-                GameObject currEnemyGameObject = Instantiate(enemyUnit.enemy, Vector3.zero, transform.rotation);
-                if (!currEnemyGameObject.TryGetComponent<Enemy>(out Enemy enemy)) Debug.LogError("Spawned Enemy DOES NOT have an Enemy Component!");
-                else currWaveEnemies.Add(enemy);
+                GameObject currEnemyGameObject = Instantiate(enemyUnit.enemy, new Vector2(4.5f, 0.0f), transform.rotation);
+                if (!currEnemyGameObject.TryGetComponent<Enemy>(out Enemy enemy))
+                {
+                    Debug.LogError("Spawned Enemy DOES NOT have an Enemy Component!");
+                    Destroy(currEnemyGameObject);
+                }
+                else
+                {
+                    currEnemyGameObject.transform.parent = room.roomEnemyContainer.transform;
+                    currWaveEnemies.Add(enemy);
+                }
             }
         }
         // Track when each enemy Dies
