@@ -22,19 +22,19 @@ public class WaveSpawner : RoomComponent
     }
     private void OnEnable()
     {
-        room.roomEvents.encounterStarts += EncounterStarts;
+        room.roomEvents.roomStarts += RoomStarts;
         room.roomEvents.waveCompleted += WaveCompleted;
         room.roomEvents.allWavesCompleted += AllWavesCompleted;
     }
     private void OnDisable()
     {
-        room.roomEvents.encounterStarts -= EncounterStarts;
+        room.roomEvents.roomStarts -= RoomStarts;
         room.roomEvents.waveCompleted -= WaveCompleted;
         room.roomEvents.allWavesCompleted -= AllWavesCompleted;
     }
 
     #region ----- Event Functions -----
-    void EncounterStarts()
+    void RoomStarts()
     {
         if (spawnImmediately)
         {

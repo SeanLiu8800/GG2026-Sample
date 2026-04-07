@@ -2,7 +2,10 @@ using UnityEngine;
 using System;
 public struct RoomEventsStruct
 {
-    public Action encounterStarts;
+    public Action roomStarts;
+    
     public Action waveCompleted;
     public Action allWavesCompleted;
+
+    public Action roomEnds;
 }
