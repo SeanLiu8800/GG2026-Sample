@@ -50,7 +50,6 @@ public class BulletCollision : BulletComponent
     /// <returns>Returns True if the bullet interacts with Player, False otherwise (like if Player is Invincible)</returns>
     private void PlayerCollision(Player player)
     {
-        Debug.Log("Player Collision!");
         if (player.move.isDashing) bullet.bulletEvents.onDashedInto?.Invoke(player);
         else if (player.attack.isAttacking)
         {

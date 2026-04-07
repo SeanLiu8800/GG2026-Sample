@@ -5,7 +5,24 @@ public class EnemyHealth : EnemyComponent, IDamageable
     [SerializeField] private LayerMask damageLayer;
     [field: SerializeField] public int maxHealth { get; private set; } = 5;
     [field: SerializeField] public int currHealth { get; private set; } = 5;
-    
+
+    protected virtual void OnEnable()
+    {
+        enemy.enemyEvents.onEnemyDies += OnEnemyDies;
+    }
+    protected virtual void OnDisable()
+    {
+        enemy.enemyEvents.onEnemyDies -= OnEnemyDies;
+    }
+
+    #region ----- Event Functions -----
+    protected virtual void OnEnemyDies()
+    {
+        Destroy(this.gameObject);
+        //Invoke(nameof(Respawn), 1.0f);
+    }
+    #endregion
+
     public void Damage(int damage = 1)
     {
         if (damage < 1)
@@ -39,7 +56,6 @@ public class EnemyHealth : EnemyComponent, IDamageable
         enemy.spriteRenderer.enabled = false;
         enemy.enemyCollider.enabled = false;
         enemy.enemyEvents.onEnemyDies?.Invoke();
-        Invoke(nameof(Respawn), 1.0f);
     }
     private void Respawn()
     {

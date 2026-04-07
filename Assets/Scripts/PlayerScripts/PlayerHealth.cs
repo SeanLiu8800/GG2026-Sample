@@ -44,6 +44,7 @@ public class PlayerHealth : PlayerComponent, IDamageable
     {
         UpdateInvincibility();
     }
+    
     public void Damage(int damage = 1)
     {
         if (!player.canTakeDamage) return;
@@ -54,7 +55,6 @@ public class PlayerHealth : PlayerComponent, IDamageable
             return;
         }
 
-        Debug.Log("Player Takes Damage");
         currHealth = Mathf.Clamp(currHealth - damage, 0, maxHealth);
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerHurts);
         player.playerEvents.healthChanges?.Invoke();
@@ -72,7 +72,6 @@ public class PlayerHealth : PlayerComponent, IDamageable
             return;
         }
 
-        Debug.Log("Player Heals");
         currHealth = Mathf.Clamp(currHealth + heal, 0, maxHealth);
         player.playerEvents.healthChanges?.Invoke();
 
