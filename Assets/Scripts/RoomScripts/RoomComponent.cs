@@ -6,7 +6,7 @@ public abstract class RoomComponent : MonoBehaviour
     
     protected virtual void Awake()
     {
-        if (!TryGetComponent<Room>(out Room _room)) Debug.LogError($"{this.name} DOES NOT have a Room Component!");
-        room = _room;
+        room = GetComponentInParent<Room>();
+        if (room == null) Debug.LogError($"{this.name} or it's parents DOES NOT have a Room Component!");
     }
 }

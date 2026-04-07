@@ -2,13 +2,16 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-    public GameObject roomEnemyContainer { get; private set; }
+    public WaveSpawner waveSpawner { get; private set; }
     public RoomEventsStruct roomEvents;
 
     private void Awake()
     {
-        roomEnemyContainer = new GameObject("EnemyContainer");
-        roomEnemyContainer.transform.parent = this.transform;
-        roomEnemyContainer.isStatic = true;
+        if (!TryGetComponent<WaveSpawner>(out WaveSpawner _waveSpawner))
+        {
+            Debug.LogError($"{this.name} DOES NOT have a Wave Spawner Component!");
+        }
+
+        waveSpawner = _waveSpawner;
     }
 }

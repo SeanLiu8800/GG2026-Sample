@@ -2,23 +2,50 @@ using UnityEngine;
 using System.Collections.Generic;
 public class WaveSpawner : RoomComponent
 {
+    [field: Tooltip("Determines whether to spawn wave 1 immediately, or wait for StartEncounter. \nSets itself to False after spawning immediately.")]
+    [field: SerializeField] public bool spawnImmediately { get; private set; } = false;
     [SerializeField] private EnemyWave[] enemyWaves;
     [SerializeField, ReadOnly] int currWaveNumber = 0;
 
+    [HideInInspector] public GameObject enemyContainer { get; private set; }
     [SerializeField, ReadOnly] private List<Enemy> currWaveEnemies;
     [SerializeField, ReadOnly] private int defeatedEnemies = 0;
+
+    public bool noEnemyWaves { get { return enemyWaves.Length <= 0; } }
+    protected override void Awake()
+    {
+        base.Awake();
+
+        enemyContainer = new GameObject("EnemyContainer");
+        enemyContainer.transform.parent = this.transform;
+        enemyContainer.isStatic = true;
+    }
     private void OnEnable()
     {
+        room.roomEvents.encounterStarts += EncounterStarts;
         room.roomEvents.waveCompleted += WaveCompleted;
         room.roomEvents.allWavesCompleted += AllWavesCompleted;
     }
     private void OnDisable()
     {
+        room.roomEvents.encounterStarts -= EncounterStarts;
         room.roomEvents.waveCompleted -= WaveCompleted;
         room.roomEvents.allWavesCompleted -= AllWavesCompleted;
     }
 
     #region ----- Event Functions -----
+    void EncounterStarts()
+    {
+        if (spawnImmediately)
+        {
+            spawnImmediately = false; // Purely if we want to spawn the same encounter again
+            return;
+        }
+
+        DeleteEnemies();
+        currWaveNumber = 0;
+        SpawnWave();
+    }
     void WaveCompleted()
     {
         if (++currWaveNumber >= enemyWaves.Length) room.roomEvents.allWavesCompleted?.Invoke();
@@ -43,7 +70,11 @@ public class WaveSpawner : RoomComponent
             return;
         }
         currWaveEnemies = new List<Enemy>();
-        SpawnWave();
+        if (spawnImmediately)
+        {
+            spawnImmediately = false;
+            SpawnWave();
+        }
     }
     private void SpawnWave()
     {
@@ -72,13 +103,17 @@ public class WaveSpawner : RoomComponent
                 }
                 else
                 {
-                    currEnemyGameObject.transform.parent = room.roomEnemyContainer.transform;
+                    currEnemyGameObject.transform.parent = enemyContainer.transform;
                     currWaveEnemies.Add(enemy);
                 }
             }
         }
         // Track when each enemy Dies
         foreach (Enemy enemy in currWaveEnemies) enemy.enemyEvents.onEnemyDies += OnEnemyDies;
+    }
+    private void DeleteEnemies()
+    {
+        foreach (Transform childTransform in enemyContainer.transform) Destroy(childTransform.gameObject);
     }
 }
 [System.Serializable]
