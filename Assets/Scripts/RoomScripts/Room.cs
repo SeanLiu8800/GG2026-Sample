@@ -9,5 +9,6 @@ public class Room : MonoBehaviour
     {
         roomEnemyContainer = new GameObject("EnemyContainer");
         roomEnemyContainer.transform.parent = this.transform;
+        roomEnemyContainer.isStatic = true;
     }
 }

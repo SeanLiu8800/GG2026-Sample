@@ -37,12 +37,21 @@ public class WaveSpawner : RoomComponent
     
     private void Start()
     {
-        if (enemyWaves.Length == 0) room.roomEvents.allWavesCompleted?.Invoke();
+        if (enemyWaves.Length == 0)
+        {
+            room.roomEvents.allWavesCompleted?.Invoke();
+            return;
+        }
         currWaveEnemies = new List<Enemy>();
         SpawnWave();
     }
     private void SpawnWave()
     {
+        if (currWaveNumber >= enemyWaves.Length)
+        {
+            Debug.LogError("No more Enemy Waves to Spawn!");
+            return;
+        }
         defeatedEnemies = 0;
         currWaveEnemies.Clear();
         EnemyWave currWave = enemyWaves[currWaveNumber];
@@ -50,7 +59,7 @@ public class WaveSpawner : RoomComponent
         {
             if (enemyUnit.enemy == null)
             {
-                Debug.LogError($"{this.name} has a NULL value for a enemy unit!");
+                Debug.LogError($"{this.name} has an Unset enemy unit!");
                 continue;
             }
             for (int i = 0; i < enemyUnit.enemyCount; i ++)
