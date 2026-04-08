@@ -77,6 +77,22 @@ public class Enemy : MonoBehaviour
         enemyCollider = _collider2D;
         enemyRigidbody = _rigidbody;
     }
+    void OnEnable()
+    {
+        enemyEvents.onEnemyDies += OnEnemyDies;
+    }
+    void OnDisable()
+    {
+        enemyEvents.onEnemyDies -= OnEnemyDies;
+    }
+
+    #region ----- Event Function -----
+    void OnEnemyDies()
+    {
+        allowMove = false;
+        allowAttack = false;
+    }
+    #endregion
 
     public bool IsTargetWithinDistance(float distance)
     {

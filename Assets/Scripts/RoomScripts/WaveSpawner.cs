@@ -4,7 +4,7 @@ public class WaveSpawner : RoomComponent
 {
     [field: Tooltip("Determines whether to spawn wave 1 immediately, or wait for StartEncounter")]
     [field: SerializeField] public bool spawnImmediately { get; private set; } = false;
-    private bool firstWaveSuppressed = false;
+    private bool suppressFirstWave = false;
     [SerializeField] private EnemyWave[] enemyWaves;
     [SerializeField, ReadOnly] int currWaveNumber = 0;
 
@@ -37,10 +37,10 @@ public class WaveSpawner : RoomComponent
     #region ----- Event Functions -----
     void RoomStarts()
     {
-        if (spawnImmediately && firstWaveSuppressed)
+        if (spawnImmediately && suppressFirstWave)
         {
             Debug.Log("Spawn suppressed!");
-            firstWaveSuppressed = false;
+            suppressFirstWave = false;
             return;
         }
 
@@ -74,7 +74,7 @@ public class WaveSpawner : RoomComponent
         currWaveEnemies = new List<Enemy>();
         if (spawnImmediately)
         {
-            firstWaveSuppressed = true;
+            suppressFirstWave = true;
             SpawnWave();
         }
     }
@@ -114,11 +114,16 @@ public class WaveSpawner : RoomComponent
         // Track when each enemy Dies
         foreach (Enemy enemy in currWaveEnemies) enemy.enemyEvents.onEnemyDies += OnEnemyDies;
     }
-    private void DeleteEnemies()
+    public void DeleteEnemies()
     {
         foreach (Transform childTransform in enemyContainer.transform) Destroy(childTransform.gameObject);
     }
+    public void KillCurrentEnemies()
+    {
+        for (int i = 0; i < currWaveEnemies.Count; i ++) currWaveEnemies[i].enemyEvents.onEnemyDies?.Invoke();
+    }
 }
+
 [System.Serializable]
 public struct EnemyWave
 {

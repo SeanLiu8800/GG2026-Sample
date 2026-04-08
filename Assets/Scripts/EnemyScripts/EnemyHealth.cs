@@ -18,7 +18,10 @@ public class EnemyHealth : EnemyComponent, IDamageable
     #region ----- Event Functions -----
     protected virtual void OnEnemyDies()
     {
-        Destroy(this.gameObject);
+        enemy.spriteRenderer.color = Color.white;
+        enemy.spriteRenderer.SetAlpha(0.2f);
+        enemy.enemyCollider.enabled = false;
+        //Destroy(this.gameObject);
         //Invoke(nameof(Respawn), 1.0f);
     }
     #endregion
@@ -53,8 +56,6 @@ public class EnemyHealth : EnemyComponent, IDamageable
     }
     public void Die()
     {
-        enemy.spriteRenderer.enabled = false;
-        enemy.enemyCollider.enabled = false;
         enemy.enemyEvents.onEnemyDies?.Invoke();
     }
     private void Respawn()
