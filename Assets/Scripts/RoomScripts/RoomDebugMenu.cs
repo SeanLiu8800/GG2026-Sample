@@ -11,6 +11,15 @@ public class RoomDebugMenu : RoomComponent
     {
         if (Keyboard.current.backquoteKey.wasPressedThisFrame) Toggle();
     }
+
+    public void StartRoom()
+    {
+        room.roomEvents.roomStarts?.Invoke();
+    }
+    public void EndRoom()
+    {
+        room.roomEvents.roomEnds?.Invoke();
+    }
     public void KillAllEnemies()
     {
         room.waveSpawner.KillCurrentEnemies();
