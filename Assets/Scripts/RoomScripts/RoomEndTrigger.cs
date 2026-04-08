@@ -12,6 +12,7 @@ public class RoomEndTrigger : RoomComponent
         {
             Debug.LogError($"{this.name} DOES NOT have a Collider2D component!");
         }
+
         roomEndTrigger = _trigger;
 
         this.gameObject.SetActive(false);
@@ -22,7 +23,7 @@ public class RoomEndTrigger : RoomComponent
     }
     protected void OnDisable()
     {
-        room.roomEvents.allWavesCompleted += AllWavesCompleted;
+        room.roomEvents.allWavesCompleted -= AllWavesCompleted;
     }
 
     #region ----- Event Functions -----

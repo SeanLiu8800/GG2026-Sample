@@ -827,6 +827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomTriggers
   roomStartTrigger: {fileID: 1150230244}
+  triggerSprite: {fileID: 0}
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -1457,6 +1458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   roomEndTrigger: {fileID: 0}
+  triggerSprite: {fileID: 0}
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -1548,7 +1550,7 @@ MonoBehaviour:
       enemyCount: 1
   - enemies:
     - enemy: {fileID: 4705485784247206799, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
-      enemyCount: 2
+      enemyCount: 1
   currWaveNumber: 0
   currWaveEnemies:
   - {fileID: 0}
@@ -1578,7 +1580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomSpawnPoints
   playerSpawnPoint: {fileID: 328447979}
-  enemySpawnPoints: {fileID: 1911926483}
+  enemySpawnPointCollection: {fileID: 1911926483}
 --- !u!1 &1733474023
 GameObject:
   m_ObjectHideFlags: 0

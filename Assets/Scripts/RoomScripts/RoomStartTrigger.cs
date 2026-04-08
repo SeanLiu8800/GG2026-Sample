@@ -12,6 +12,7 @@ public class RoomStartTrigger : RoomComponent
         {
             Debug.LogError($"{this.name} DOES NOT have a Collider2D component!");
         }
+
         roomStartTrigger = _trigger;
 
         this.gameObject.SetActive(true);
@@ -22,7 +23,7 @@ public class RoomStartTrigger : RoomComponent
     }
     protected void OnDisable()
     {
-        room.roomEvents.roomStarts = RoomStarts;
+        room.roomEvents.roomStarts -= RoomStarts;
     }
 
     #region ----- Event Functions -----
@@ -31,6 +32,7 @@ public class RoomStartTrigger : RoomComponent
         this.gameObject.SetActive(false);
     }
     #endregion
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

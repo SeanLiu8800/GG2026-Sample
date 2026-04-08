@@ -104,6 +104,7 @@ public class WaveSpawner : RoomComponent
                 else
                 {
                     currEnemyGameObject.transform.parent = enemyContainer.transform;
+                    currEnemyGameObject.transform.position = room.spawnPoints.GetEnemySpawnPoint();
                     currWaveEnemies.Add(enemy);
                 }
             }
