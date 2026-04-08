@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
     public EnemyMovement move { get; private set; }
     public EnemyAttack attack { get; private set; }
     public EnemyHealth health { get; private set; }
+    public EnemyVision vision { get; private set; }
     public EnemyParry parry { get; private set; }
     public EnemyPummel pummel { get; private set; }
     public SpriteRenderer spriteRenderer { get; private set; }
@@ -50,7 +51,9 @@ public class Enemy : MonoBehaviour
     [field: Header("Toggles")]
     [field: SerializeField] public bool allowMove { get; private set; } = true;
     [field: SerializeField] public bool allowAttack { get; private set; } = true;
+    [field: SerializeField] public bool allowVision { get; private set; } = true;
     [field: SerializeField] public bool allowInstantPummel { get; private set; } = false;
+
     [Header("States")]
     [ReadOnly] public bool canMove = true;
     [ReadOnly] public bool canAttack = false;
@@ -62,6 +65,7 @@ public class Enemy : MonoBehaviour
         if (!TryGetComponent<EnemyMovement>(out EnemyMovement _move)) Debug.LogError($"{this.name} DOES NOT have an EnemyHealth Component!");
         if (!TryGetComponent<EnemyAttack>(out EnemyAttack _attack)) Debug.LogError($"{this.name} DOES NOT have an EnemyAttack Component!");
         if (!TryGetComponent<EnemyHealth>(out EnemyHealth _health)) Debug.LogError($"{this.name} DOES NOT have an EnemyHealth Component!");
+        if (!TryGetComponent<EnemyVision>(out EnemyVision _vision)) Debug.LogError($"{this.name} DOES NOT have an EnemyVision Component!");
         if (!TryGetComponent<EnemyParry>(out EnemyParry _parry)) Debug.LogError($"{this.name} DOES NOT have an EnemyParry Component!");
         if (!TryGetComponent<EnemyPummel>(out EnemyPummel _pummel)) Debug.LogError($"{this.name} DOES NOT have an EnemyPummel Component!");
         if (!TryGetComponent<SpriteRenderer>(out SpriteRenderer _spriteRenderer)) Debug.LogError($"{this.name} DOES NOT have an SpriteRenderer Component!");
@@ -71,6 +75,7 @@ public class Enemy : MonoBehaviour
         move = _move;
         attack = _attack;
         health = _health;
+        vision = _vision;
         parry = _parry;
         pummel = _pummel;
         spriteRenderer = _spriteRenderer;
@@ -91,6 +96,7 @@ public class Enemy : MonoBehaviour
     {
         allowMove = false;
         allowAttack = false;
+        allowVision = false;
     }
     #endregion
 

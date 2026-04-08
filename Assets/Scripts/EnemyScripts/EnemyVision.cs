@@ -14,6 +14,7 @@ public class EnemyVision : EnemyComponent
     }
     private void Update()
     {
+        if (!enemy.allowVision) return;
         if (enemy.target != null) CheckLineOfSight();
         if (enemy.target == null) SearchForTarget();
     }
@@ -69,7 +70,7 @@ public class EnemyVision : EnemyComponent
     private void OnDrawGizmos()
     {
         if (!Application.isPlaying) return;
-        if (enemy.target != null) return;
+        if (!enemy.allowVision || enemy.target != null) return;
 
         Gizmos.color = new Color(Color.green.r, Color.green.g, Color.green.b, 0.2f);
         Gizmos.DrawSphere(transform.position, visionRadius);
