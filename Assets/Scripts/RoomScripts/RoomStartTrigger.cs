@@ -3,6 +3,7 @@ using UnityEngine;
 public class RoomStartTrigger : RoomComponent
 {
     [SerializeField] private Collider2D roomStartTrigger;
+    [SerializeField] private SpriteRenderer triggerSprite;
     [SerializeField] private LayerMask playerLayer;
 
     protected override void Awake()
@@ -12,10 +13,15 @@ public class RoomStartTrigger : RoomComponent
         {
             Debug.LogError($"{this.name} DOES NOT have a Collider2D component!");
         }
-
+        if (!TryGetComponent<SpriteRenderer>(out SpriteRenderer _triggerSprite))
+        {
+            Debug.LogError($"{this.name} DOES NOT have a SpriteRenderer component!");
+        }
+        
         roomStartTrigger = _trigger;
+        triggerSprite = _triggerSprite;
 
-        this.gameObject.SetActive(true);
+        SetActive(true);
     }
     protected void OnEnable()
     {
@@ -29,11 +35,15 @@ public class RoomStartTrigger : RoomComponent
     #region ----- Event Functions -----
     void RoomStarts()
     {
-        this.gameObject.SetActive(false);
+        SetActive(false);
     }
     #endregion
 
-
+    private void SetActive(bool input)
+    {
+        roomStartTrigger.enabled = input;
+        triggerSprite.enabled = input;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (((1 << collision.gameObject.layer) & playerLayer) == 0) return;

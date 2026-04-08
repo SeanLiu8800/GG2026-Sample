@@ -2,8 +2,9 @@ using UnityEngine;
 using System.Collections.Generic;
 public class WaveSpawner : RoomComponent
 {
-    [field: Tooltip("Determines whether to spawn wave 1 immediately, or wait for StartEncounter. \nSets itself to False after spawning immediately.")]
+    [field: Tooltip("Determines whether to spawn wave 1 immediately, or wait for StartEncounter")]
     [field: SerializeField] public bool spawnImmediately { get; private set; } = false;
+    private bool firstWaveSuppressed = false;
     [SerializeField] private EnemyWave[] enemyWaves;
     [SerializeField, ReadOnly] int currWaveNumber = 0;
 
@@ -36,9 +37,10 @@ public class WaveSpawner : RoomComponent
     #region ----- Event Functions -----
     void RoomStarts()
     {
-        if (spawnImmediately)
+        if (spawnImmediately && firstWaveSuppressed)
         {
-            spawnImmediately = false; // Purely if we want to spawn the same encounter again
+            Debug.Log("Spawn suppressed!");
+            firstWaveSuppressed = false;
             return;
         }
 
@@ -72,7 +74,7 @@ public class WaveSpawner : RoomComponent
         currWaveEnemies = new List<Enemy>();
         if (spawnImmediately)
         {
-            spawnImmediately = false;
+            firstWaveSuppressed = true;
             SpawnWave();
         }
     }
