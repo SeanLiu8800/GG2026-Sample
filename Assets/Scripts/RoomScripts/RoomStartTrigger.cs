@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class RoomStartTrigger : RoomComponent
 {
-    [SerializeField] private Collider2D roomStartTrigger;
-    [SerializeField] private SpriteRenderer triggerSprite;
+    private Collider2D roomStartTrigger;
+    private SpriteRenderer triggerSprite;
     [SerializeField] private LayerMask playerLayer;
 
     protected override void Awake()

@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class RoomEndTrigger : RoomComponent
 {
-    [SerializeField] private Collider2D roomEndTrigger;
-    [SerializeField] private SpriteRenderer triggerSprite;
+    private Collider2D roomEndTrigger;
+    private SpriteRenderer triggerSprite;
     [SerializeField] private LayerMask playerLayer;
-    [SerializeField] private GameObject wallGameObject;
-    private Enemy wallEnemy;
+    [SerializeField] private GameObject breakableWallGameObject;
+    private Enemy breakableWall;
 
     protected override void Awake()
     {
@@ -28,48 +28,80 @@ public class RoomEndTrigger : RoomComponent
     protected void OnEnable()
     {
         room.roomEvents.allWavesCompleted += AllWavesCompleted;
+        room.roomEvents.roomStarts += RoomStarts;
     }
     protected void OnDisable()
     {
         room.roomEvents.allWavesCompleted -= AllWavesCompleted;
+        room.roomEvents.roomStarts -= RoomStarts;
     }
+    
+    #region ----- Event Functions -----
+    void RoomStarts()
+    {
+        SetActive(false);
+        DisableWall();
+    }
+    void AllWavesCompleted()
+    {
+        SetActive(true);
+        EnableWall();
+    }
+    #endregion
+
     private void Start()
     {
-        wallGameObject =
+        breakableWallGameObject =
             Instantiate(
-                wallGameObject,
+                breakableWallGameObject,
                 room.spawnPoints.GetDoorSpawn().transform.position,
                 room.spawnPoints.GetDoorSpawn().transform.rotation
             );
-        wallGameObject.transform.parent = this.transform;
+        breakableWallGameObject.transform.parent = this.transform;
 
-        if (!wallGameObject.TryGetComponent<Enemy>(out wallEnemy))
+        if (!breakableWallGameObject.TryGetComponent<Enemy>(out breakableWall))
         {
             Debug.LogError("Door GameObject DOES NOT have an Enemy Component!");
         }
         else
         {
-            wallEnemy.allowInstantPummel = false;
-            // Disallow player to interact with it
-            wallEnemy.allowDamage = false;
-            wallEnemy.enemyCollider.layerOverridePriority = 1;
+            DisableWall();
         }
     }
-    #region ----- Event Functions -----
-    void AllWavesCompleted()
-    {
-        SetActive(true);
-        wallEnemy.allowInstantPummel = true;
-        // Allow player to interact with it
-        wallEnemy.allowDamage = true;
-        wallEnemy.enemyCollider.layerOverridePriority = -1;
-    }
-    #endregion
-
+ 
     private void SetActive(bool input)
     {
         roomEndTrigger.enabled = input;
         triggerSprite.enabled = input;
+    }
+    /// <summary>
+    /// Function that enables player interaction with enemyWall
+    /// </summary>
+    public void EnableWall()
+    {
+        if (breakableWall == null)
+        {
+            Debug.LogError($"{this.name}'s breakable wall is NULL!");
+            return;
+        }
+        breakableWall.allowInstantPummel = true;
+        breakableWall.allowDamage = true;
+        breakableWall.enemyCollider.layerOverridePriority = -1;
+    }
+    /// <summary>
+    /// Function that disables player interaction with Wall
+    /// </summary>
+    public void DisableWall()
+    {
+        if (breakableWall == null)
+        {
+            Debug.LogError($"{this.name}'s breakable wall is NULL!");
+            return;
+        }
+        breakableWall.allowInstantPummel = false;
+        breakableWall.allowDamage = false;
+        breakableWall.enemyCollider.layerOverridePriority = 1;
+        breakableWall.enemyCollider.includeLayers += playerLayer;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
