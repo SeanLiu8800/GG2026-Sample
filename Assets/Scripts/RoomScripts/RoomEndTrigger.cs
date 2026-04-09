@@ -57,6 +57,7 @@ public class RoomEndTrigger : RoomComponent
     {
         SetActive(true);
         wallEnemy.allowInstantPummel = true;
+        // Allow player to interact with it
         wallEnemy.enemyCollider.layerOverridePriority = 0;
     }
     #endregion

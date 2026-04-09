@@ -132,7 +132,7 @@ public class PlayerPummel : PlayerComponent
         player.playerEvents.pummelEjected?.Invoke();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (!player.move.isDashing) return;
         if (!collision.TryGetComponent<Enemy>(out Enemy enemy)) return;

@@ -329,6 +329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   latchPoints: {fileID: 6438934494947225700}
   pummeler: {fileID: 0}
+  pummelIndefinitely: 0
   pummelDuration: 3
   currentPummelDuration: 0
   ejectPummelerDamage: 0

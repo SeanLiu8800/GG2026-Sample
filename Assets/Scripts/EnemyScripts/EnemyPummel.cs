@@ -6,6 +6,7 @@ public class EnemyPummel : EnemyComponent
 
     [field: Header("Pummel Variables")]
     [SerializeField, ReadOnly] private Player pummeler;
+    [SerializeField] private bool pummelIndefinitely = false;
     [SerializeField, Range(0.0f, 6.0f)] private float pummelDuration = 5.0f;
     private float pummelStartTime = -99.0f;
     [SerializeField, ReadOnly] private float currentPummelDuration = 0.0f;
@@ -44,7 +45,7 @@ public class EnemyPummel : EnemyComponent
     {
         if (!enemy.isBeingPummeled || pummeler == null) return;
         currentPummelDuration = Time.time - pummelStartTime;
-        if (currentPummelDuration >= pummelDuration) EjectPummeler();
+        if (!pummelIndefinitely && currentPummelDuration >= pummelDuration) EjectPummeler();
     }
     private void EjectPummeler()
     {

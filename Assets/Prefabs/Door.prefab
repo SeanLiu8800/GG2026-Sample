@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 751284021734562927}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 0.5, z: 0}
+  m_LocalPosition: {x: -0.5, y: 0.125, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -67,7 +67,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.5, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4937717495058666526}
@@ -277,8 +277,8 @@ MonoBehaviour:
   damageLayer:
     serializedVersion: 2
     m_Bits: 8
-  <maxHealth>k__BackingField: 24
-  <currHealth>k__BackingField: 24
+  <maxHealth>k__BackingField: 10
+  <currHealth>k__BackingField: 10
 --- !u!114 &6475756978650275598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,6 +329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   latchPoints: {fileID: 6438934494947225700}
   pummeler: {fileID: 0}
+  pummelIndefinitely: 1
   pummelDuration: 3
   currentPummelDuration: 0
   ejectPummelerDamage: 0
@@ -390,7 +391,7 @@ Transform:
   m_GameObject: {fileID: 7076988709684748977}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.125, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
