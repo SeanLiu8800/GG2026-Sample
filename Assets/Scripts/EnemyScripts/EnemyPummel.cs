@@ -57,10 +57,20 @@ public class EnemyPummel : EnemyComponent
         enemy.enemyEvents.pummelEnds?.Invoke();
     }
 
-    public Vector3 GetLatchPosition(int latchIndex)
+    public Vector3 GetClosestLatchPoint(Vector3 inputPosition)
     {
-        latchIndex = Mathf.Max(0, latchIndex);
-        if (latchPoints == null || latchIndex >= latchPoints.transform.childCount) return transform.position;
-        return latchPoints.transform.GetChild(latchIndex).position;
+        float minDistance = float.PositiveInfinity;
+        Vector3 returnPoint = transform.position;
+        foreach (Transform childTransform in latchPoints.transform)
+        {
+            float currDistance = Vector3.SqrMagnitude(childTransform.transform.position - inputPosition);
+            if (currDistance < minDistance)
+            {
+                minDistance = currDistance;
+                returnPoint = childTransform.position;
+            }
+        }
+
+        return returnPoint;
     }
 }
