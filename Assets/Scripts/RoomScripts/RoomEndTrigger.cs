@@ -5,8 +5,8 @@ public class RoomEndTrigger : RoomComponent
     private Collider2D roomEndTrigger;
     private SpriteRenderer triggerSprite;
     [SerializeField] private LayerMask playerLayer;
-    [SerializeField] private GameObject breakableWallGameObject;
-    private Enemy breakableWall;
+    [SerializeField] private GameObject exitDoorGameObject;
+    private Enemy exitDoor;
 
     protected override void Awake()
     {
@@ -51,15 +51,15 @@ public class RoomEndTrigger : RoomComponent
 
     private void Start()
     {
-        breakableWallGameObject =
+        exitDoorGameObject =
             Instantiate(
-                breakableWallGameObject,
+                exitDoorGameObject,
                 room.spawnPoints.GetDoorSpawn().transform.position,
                 room.spawnPoints.GetDoorSpawn().transform.rotation
             );
-        breakableWallGameObject.transform.parent = this.transform;
+        exitDoorGameObject.transform.parent = this.transform;
 
-        if (!breakableWallGameObject.TryGetComponent<Enemy>(out breakableWall))
+        if (!exitDoorGameObject.TryGetComponent<Enemy>(out exitDoor))
         {
             Debug.LogError("Door GameObject DOES NOT have an Enemy Component!");
         }
@@ -79,29 +79,29 @@ public class RoomEndTrigger : RoomComponent
     /// </summary>
     public void EnableWall()
     {
-        if (breakableWall == null)
+        if (exitDoor == null)
         {
             Debug.LogError($"{this.name}'s breakable wall is NULL!");
             return;
         }
-        breakableWall.allowInstantPummel = true;
-        breakableWall.allowDamage = true;
-        breakableWall.enemyCollider.layerOverridePriority = -1;
+        exitDoor.allowInstantPummel = true;
+        exitDoor.allowDamage = true;
+        exitDoor.enemyCollider.layerOverridePriority = -1;
     }
     /// <summary>
     /// Function that disables player interaction with Wall
     /// </summary>
     public void DisableWall()
     {
-        if (breakableWall == null)
+        if (exitDoor == null)
         {
             Debug.LogError($"{this.name}'s breakable wall is NULL!");
             return;
         }
-        breakableWall.allowInstantPummel = false;
-        breakableWall.allowDamage = false;
-        breakableWall.enemyCollider.layerOverridePriority = 1;
-        breakableWall.enemyCollider.includeLayers += playerLayer;
+        exitDoor.allowInstantPummel = false;
+        exitDoor.allowDamage = false;
+        exitDoor.enemyCollider.layerOverridePriority = 1;
+        exitDoor.enemyCollider.includeLayers = playerLayer;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

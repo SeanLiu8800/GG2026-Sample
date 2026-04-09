@@ -2546,7 +2546,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
-  breakableWallGameObject: {fileID: 4705485784247206799, guid: 9b5a0231c4889c5418d363db630e281a, type: 3}
+  exitDoorGameObject: {fileID: 4705485784247206799, guid: 9b5a0231c4889c5418d363db630e281a, type: 3}
 --- !u!1 &1696049741
 GameObject:
   m_ObjectHideFlags: 0
