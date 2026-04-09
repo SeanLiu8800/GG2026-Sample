@@ -9,6 +9,7 @@ public class PlayerPummel : PlayerComponent
     [field: Header("Pummel Variables")]
     [field: SerializeField, ReadOnly] public bool isPummeling { get; private set; } = false;
     [SerializeField, ReadOnly] private Enemy pummelTarget;
+    [SerializeField, ReadOnly] private Vector3 pummelDismountLocation = Vector3.zero;
     
     protected override void Awake()
     {
@@ -21,6 +22,8 @@ public class PlayerPummel : PlayerComponent
     {
         pummelAction.started += DecideAction;
 
+        player.playerEvents.dashStarts += DashStarts;
+
         player.playerEvents.pummelStarts += PummelStarts;
         player.playerEvents.pummelEnds += PummelEnds;
         player.playerEvents.pummelReleased += PummelReleased;
@@ -30,6 +33,8 @@ public class PlayerPummel : PlayerComponent
     {
         pummelAction.started -= DecideAction;
 
+        player.playerEvents.dashStarts -= DashStarts;
+
         player.playerEvents.pummelStarts -= PummelStarts;
         player.playerEvents.pummelEnds -= PummelEnds;
         player.playerEvents.pummelReleased -= PummelReleased;
@@ -37,6 +42,10 @@ public class PlayerPummel : PlayerComponent
     }
     
     #region ----- Event Functions -----
+    void DashStarts()
+    {
+        pummelDismountLocation = transform.position;
+    }
     void PummelStarts(Enemy enemy)
     {
         isPummeling = true;
@@ -104,7 +113,7 @@ public class PlayerPummel : PlayerComponent
 
         float dismountDuration = 0.5f;
         float dismountStartTime = Time.time;
-        Vector3 dismountEndPosition = Vector3.zero;
+        Vector3 dismountEndPosition = pummelDismountLocation;
         while (Time.time - dismountStartTime < dismountDuration)
         {
             transform.position = Vector3.Lerp(transform.position, dismountEndPosition, 5.0f*Time.deltaTime);
@@ -136,5 +145,12 @@ public class PlayerPummel : PlayerComponent
 
         player.playerEvents.pummelStarts(enemy);
         enemy.enemyEvents.pummelStarts?.Invoke(player);
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!Application.isPlaying) return;
+
+        Gizmos.DrawSphere(pummelDismountLocation, 0.2f);
     }
 }
