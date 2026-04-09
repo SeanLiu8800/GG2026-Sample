@@ -105,7 +105,6 @@ public class PlayerAttack : PlayerComponent
     private bool CheckAttackArea()
     {
         List<Collider2D> currHits = new List<Collider2D>();
-        HashSet<Collider2D> totalHits = new HashSet<Collider2D>();
         Vector3 currPos = transform.position;
         Vector3 finalPos = transform.position;
         if (player.allowLunge && (player.move.willLunge || player.autoLunge)) 
@@ -118,12 +117,28 @@ public class PlayerAttack : PlayerComponent
         for (int i = 0; i < 10; i ++)
         {
             attackArea.GetCollider2D().Overlap(currPos, angleDeg, attackTargetFilter, currHits);
-            totalHits.UnionWith(currHits);
-            if (currHits.Count >= 1) return true;
+            if (CountValidColliders(currHits) >= 1) return true;
             if (currPos == finalPos) break;
             currPos = Vector3.MoveTowards(currPos, finalPos, 0.5f);
         }
-        return totalHits.Count >= 1;
+        return false;
+    }
+    /// <summary>
+    /// Function that returns the number of colliders in the List input that should be attacked by the player
+    /// </summary>
+    /// <param name="input">Input List of Colliders</param>
+    /// <returns>The number of Colliders the player should attack</returns>
+    private int CountValidColliders(List<Collider2D> input)
+    {
+        int count = 0;
+        for (int i = 0; i < input.Count; i ++)
+        {
+            // Probably an authorized attackArea
+            if (!input[i].TryGetComponent<Enemy>(out Enemy currEnemy)) count++;
+            // Normal Enemy
+            else if (currEnemy.health.currHealth > 0) count++;
+        }
+        return count;
     }
     private void UpdateAttackArea()
     {

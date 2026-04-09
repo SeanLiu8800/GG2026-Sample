@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     public EnemyEvents enemyEvents;
     #endregion
     [field: SerializeField] public GameObject target { get; private set; }
-    [SerializeField] private LayerMask playerLayer;
+    [field: SerializeField] public LayerMask playerLayer { get; private set; }
     public Vector3 toTargetVector 
     { 
         get

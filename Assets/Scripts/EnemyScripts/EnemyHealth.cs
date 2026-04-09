@@ -20,7 +20,8 @@ public class EnemyHealth : EnemyComponent, IDamageable
     {
         enemy.spriteRenderer.color = Color.white;
         enemy.spriteRenderer.SetAlpha(0.2f);
-        enemy.enemyCollider.enabled = false;
+        enemy.enemyCollider.excludeLayers = enemy.playerLayer;
+        //enemy.enemyCollider.enabled = false;
         //Destroy(this.gameObject);
         //Invoke(nameof(Respawn), 1.0f);
     }
