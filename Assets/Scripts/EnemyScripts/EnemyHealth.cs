@@ -69,7 +69,7 @@ public class EnemyHealth : EnemyComponent, IDamageable
     private int lastAttackID = 0;
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (((1 << collision.gameObject.layer) & damageLayer) == 0) return;
+        if (!enemy.allowDamage || ((1 << collision.gameObject.layer) & damageLayer) == 0) return;
 
         Player player = collision.gameObject.GetComponentInParent<Player>();
         if (player == null || !player.attack.isAttacking) return;

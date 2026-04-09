@@ -50,6 +50,9 @@ public class RoomEndTrigger : RoomComponent
         else
         {
             wallEnemy.allowInstantPummel = false;
+            // Disallow player to interact with it
+            wallEnemy.allowDamage = false;
+            wallEnemy.enemyCollider.layerOverridePriority = 1;
         }
     }
     #region ----- Event Functions -----
@@ -58,7 +61,8 @@ public class RoomEndTrigger : RoomComponent
         SetActive(true);
         wallEnemy.allowInstantPummel = true;
         // Allow player to interact with it
-        wallEnemy.enemyCollider.layerOverridePriority = 0;
+        wallEnemy.allowDamage = true;
+        wallEnemy.enemyCollider.layerOverridePriority = -1;
     }
     #endregion
 

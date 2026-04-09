@@ -51,6 +51,7 @@ public class Enemy : MonoBehaviour
     [field: Header("Toggles")]
     [field: SerializeField] public bool allowMove { get; private set; } = true;
     [field: SerializeField] public bool allowAttack { get; private set; } = true;
+    [field: SerializeField] public bool allowDamage { get; set; } = true;
     [field: SerializeField] public bool allowVision { get; private set; } = true;
     [field: SerializeField] public bool allowInstantPummel { get; set; } = false;
 
