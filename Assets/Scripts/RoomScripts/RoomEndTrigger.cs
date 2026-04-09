@@ -5,6 +5,8 @@ public class RoomEndTrigger : RoomComponent
     [SerializeField] private Collider2D roomEndTrigger;
     [SerializeField] private SpriteRenderer triggerSprite;
     [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private GameObject wallGameObject;
+    private Enemy wallEnemy;
 
     protected override void Awake()
     {
@@ -31,11 +33,31 @@ public class RoomEndTrigger : RoomComponent
     {
         room.roomEvents.allWavesCompleted -= AllWavesCompleted;
     }
+    private void Start()
+    {
+        wallGameObject =
+            Instantiate(
+                wallGameObject,
+                room.spawnPoints.GetDoorSpawn().transform.position,
+                room.spawnPoints.GetDoorSpawn().transform.rotation
+            );
+        wallGameObject.transform.parent = this.transform;
 
+        if (!wallGameObject.TryGetComponent<Enemy>(out wallEnemy))
+        {
+            Debug.LogError("Door GameObject DOES NOT have an Enemy Component!");
+        }
+        else
+        {
+            wallEnemy.allowInstantPummel = false;
+        }
+    }
     #region ----- Event Functions -----
     void AllWavesCompleted()
     {
         SetActive(true);
+        wallEnemy.allowInstantPummel = true;
+        wallEnemy.enemyCollider.layerOverridePriority = 0;
     }
     #endregion
 

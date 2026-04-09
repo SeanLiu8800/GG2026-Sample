@@ -12,7 +12,6 @@ public class RoomCamera : RoomComponent
     [SerializeField] private GameObject boundsLower;
     [SerializeField] private GameObject boundsUpper;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         mainCamera = Camera.main;
@@ -21,7 +20,6 @@ public class RoomCamera : RoomComponent
         SanitizeBounds();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!isActive) return;
@@ -37,7 +35,7 @@ public class RoomCamera : RoomComponent
             finalPos.y = Mathf.Clamp(finalPos.y, boundsLower.transform.position.y, boundsUpper.transform.position.y);
         }
 
-        mainCamera.transform.position = finalPos;
+        mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, finalPos, 3.0f * Time.deltaTime);
     }
 
     private void SanitizeBounds()

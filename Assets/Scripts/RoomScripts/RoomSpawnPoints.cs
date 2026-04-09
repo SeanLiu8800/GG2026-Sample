@@ -4,7 +4,7 @@ public class RoomSpawnPoints : RoomComponent
 {
     [SerializeField] private GameObject playerSpawnPoint;
     [SerializeField] private GameObject enemySpawnPointCollection;
-
+    [SerializeField] private GameObject doorSpawnPoint;
     private void Start()
     {
         if (playerSpawnPoint == null) Debug.LogError($"{this.name}'s playerSpawnPoint is NULL! Set something to it!");
@@ -32,5 +32,18 @@ public class RoomSpawnPoints : RoomComponent
         Vector3 spawnPoint = enemySpawnPointCollection.transform.GetChild(enemySpawnPointIndex).position;
         enemySpawnPointIndex = (enemySpawnPointIndex + 1) % enemySpawnPointCollection.transform.childCount;
         return spawnPoint;
+    }
+    public Vector3 GetDoorSpawnPoint()
+    {
+        if (doorSpawnPoint == null)
+        {
+            Debug.LogWarning($"doorSpawnPoint is NULL! falling back to this room's position!");
+            return transform.position;
+        }
+        return doorSpawnPoint.transform.position;
+    }
+    public GameObject GetDoorSpawn()
+    {
+        return doorSpawnPoint;
     }
 }

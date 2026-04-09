@@ -52,7 +52,7 @@ public class Enemy : MonoBehaviour
     [field: SerializeField] public bool allowMove { get; private set; } = true;
     [field: SerializeField] public bool allowAttack { get; private set; } = true;
     [field: SerializeField] public bool allowVision { get; private set; } = true;
-    [field: SerializeField] public bool allowInstantPummel { get; private set; } = false;
+    [field: SerializeField] public bool allowInstantPummel { get; set; } = false;
 
     [Header("States")]
     [ReadOnly] public bool canMove = true;
