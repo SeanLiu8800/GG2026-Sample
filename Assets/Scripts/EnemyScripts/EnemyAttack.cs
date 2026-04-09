@@ -15,6 +15,7 @@ public class EnemyAttack : EnemyAttackBase
     protected override void Attack()
     {
         if (!enemy.allowAttack) return;
+        if (enemy.isBeingPummeled) return;
         if (!enemy.canAttack || enemy.target == null) return;
         enemy.canAttack = false;
 
@@ -42,9 +43,9 @@ public class EnemyAttack : EnemyAttackBase
     {
         enemy.canMove = false;
         Vector3 direction = enemy.toTargetDirection;
-        SpawnWarning();
+        AttackWarning();
         yield return new WaitForSeconds(0.2f);
-        SpawnWarning();
+        AttackWarning();
 
         float dist = enemy.move.DistanceFromImpulse(30.0f);
         AttackZoneManager.Instance.SetSquareAttackZone(
@@ -85,7 +86,7 @@ public class EnemyAttack : EnemyAttackBase
 
         for (int i = 0; i < 2; i ++)
         {
-            SpawnWarning();
+            AttackWarning();
             Vector3 direction = enemy.toTargetDirection;
             AttackZoneManager.Instance.SetCircleAttackZone(
                 transform.position + direction * enemy.move.DistanceFromImpulse(20.0f),

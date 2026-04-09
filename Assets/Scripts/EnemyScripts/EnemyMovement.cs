@@ -32,7 +32,7 @@ public class EnemyMovement : EnemyComponent
         if (!enemy.allowMove) return;
         if (!enemy.canMove || enemy.target == null) return;
 
-        Vector3 toTargetVector = enemy.target.transform.position - transform.position;
+        Vector3 toTargetVector = enemy.toTargetVector;
         Vector3 strafeVector = Quaternion.Euler(new Vector3(0, 0, (strafeClockwise ? 1 : -1) * 90)) * toTargetVector;
         float currDistance = toTargetVector.magnitude;
         float diff = Mathf.Abs(currDistance - strafeRadius);

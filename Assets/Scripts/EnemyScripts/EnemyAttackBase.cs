@@ -10,11 +10,13 @@ public abstract class EnemyAttackBase : EnemyComponent
     {
         enemy.enemyEvents.onEnemyDies += OnEnemyDies;
         enemy.enemyEvents.parryStunStarts += ParryStunStarts;
+        enemy.enemyEvents.pummelStarts += PummelStarts;
     }
     protected virtual void OnDisable()
     {
         enemy.enemyEvents.onEnemyDies -= OnEnemyDies;
         enemy.enemyEvents.parryStunStarts -= ParryStunStarts;
+        enemy.enemyEvents.pummelStarts -= PummelStarts;
     }
 
     #region ----- Event Functions -----
@@ -23,6 +25,10 @@ public abstract class EnemyAttackBase : EnemyComponent
         StopAllAttacks();
     }
     protected virtual void ParryStunStarts()
+    {
+        StopAllAttacks();
+    }
+    protected virtual void PummelStarts(Player player)
     {
         StopAllAttacks();
     }
@@ -105,7 +111,7 @@ public abstract class EnemyAttackBase : EnemyComponent
             );
         }
     }
-    protected void SpawnWarning()
+    protected void AttackWarning()
     {
         SpawnAttack(attackWarning, enemy.target, default, default);
     }

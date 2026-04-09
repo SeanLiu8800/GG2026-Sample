@@ -124,7 +124,7 @@ public class PlayerAttack : PlayerComponent
         return false;
     }
     /// <summary>
-    /// Function that returns the number of colliders in the List input that should be attacked by the player
+    /// Returns the number of colliders in the List input that should be attacked by the player
     /// </summary>
     /// <param name="input">Input List of Colliders</param>
     /// <returns>The number of Colliders the player should attack</returns>
@@ -148,7 +148,7 @@ public class PlayerAttack : PlayerComponent
 
     public void Empower(int input = 1)
     {
-        Debug.Log("Empowering Player's Attack!");
+        //Debug.Log("Empowering Player's Attack!");
         currDamage += input;
     }
     private int AttackIDGenerator()
