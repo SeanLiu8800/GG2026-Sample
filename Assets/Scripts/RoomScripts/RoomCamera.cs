@@ -25,11 +25,11 @@ public class RoomCamera : RoomComponent
     void Update()
     {
         if (!isActive) return;
-        Vector3 finalPos = player.transform.position;
+        Vector3 finalPos = mainCamera.transform.position;
 
         if (followPlayer)
         {
-            finalPos = player.transform.position;
+            finalPos = new Vector3(player.transform.position.x, player.transform.position.y, -10.0f);
         }
         if (stayInBounds)
         {
@@ -58,7 +58,7 @@ public class RoomCamera : RoomComponent
         float higherX = boundsUpper.transform.position.x;
         float higherY = boundsUpper.transform.position.y;
 
-        boundsLower.transform.position = new Vector3(Mathf.Min(lowerX, higherX), Mathf.Min(lowerY, higherY), 0.0f);
-        boundsUpper.transform.position = new Vector3(Mathf.Max(lowerX, higherX), Mathf.Max(lowerY, higherY), 0.0f);
+        boundsLower.transform.position = new Vector3(Mathf.Min(lowerX, higherX), Mathf.Min(lowerY, higherY), -10.0f);
+        boundsUpper.transform.position = new Vector3(Mathf.Max(lowerX, higherX), Mathf.Max(lowerY, higherY), -10.0f);
     }
 }
