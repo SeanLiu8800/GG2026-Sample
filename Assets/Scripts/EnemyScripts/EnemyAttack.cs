@@ -114,8 +114,8 @@ public class EnemyAttack : EnemyAttackBase
     private IEnumerator MeleeSwipes()
     {
         enemy.canMove = false;
-        GameObject shootTarget = enemy.target;
-        if (shootTarget == null)
+        GameObject target = enemy.target;
+        if (target == null)
         {
             AttackCooldown();
             yield break;
@@ -125,8 +125,10 @@ public class EnemyAttack : EnemyAttackBase
         syncToDirRoulette = StartCoroutine(SyncToDirRoulette());
         for (int i = 0; i < 4; i++)
         {
-            SpawnAttack(meleeSwipe, shootTarget);
-            yield return new WaitForSeconds(0.8f);
+            SpawnAttack(meleeSwipe, target);
+            yield return new WaitForSeconds(0.25f);
+            AttackWarning();
+            yield return new WaitForSeconds(0.55f);
         }
         StopCoroutine(syncToDirRoulette);
         enemy.canMove = true;

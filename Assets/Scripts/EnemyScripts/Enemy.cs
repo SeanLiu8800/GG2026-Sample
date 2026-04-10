@@ -4,7 +4,7 @@ public class Enemy : MonoBehaviour
 {
     #region ----- Core Enemy Components -----
     public EnemyMovement move { get; private set; }
-    public EnemyAttack attack { get; private set; }
+    public EnemyAttackBase attack { get; private set; }
     public EnemyHealth health { get; private set; }
     public EnemyVision vision { get; private set; }
     public EnemyParry parry { get; private set; }
@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour
     { 
         get 
         {
-            if (target == null) return 0;
+            if (target == null) return 0.0f;
             return Vector3.Magnitude(target.transform.position - transform.position);
         }
     }
@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
     {
         get
         {
-            if (target == null) return 0;
+            if (target == null) return 0.0f;
             return Vector3.SqrMagnitude(target.transform.position - transform.position);
         }
     }
@@ -64,7 +64,7 @@ public class Enemy : MonoBehaviour
     void Awake()
     {
         if (!TryGetComponent<EnemyMovement>(out EnemyMovement _move)) Debug.LogError($"{this.name} DOES NOT have an EnemyHealth Component!");
-        if (!TryGetComponent<EnemyAttack>(out EnemyAttack _attack)) Debug.LogError($"{this.name} DOES NOT have an EnemyAttack Component!");
+        if (!TryGetComponent<EnemyAttackBase>(out EnemyAttackBase _attack)) Debug.LogError($"{this.name} DOES NOT have an EnemyAttack Component!");
         if (!TryGetComponent<EnemyHealth>(out EnemyHealth _health)) Debug.LogError($"{this.name} DOES NOT have an EnemyHealth Component!");
         if (!TryGetComponent<EnemyVision>(out EnemyVision _vision)) Debug.LogError($"{this.name} DOES NOT have an EnemyVision Component!");
         if (!TryGetComponent<EnemyParry>(out EnemyParry _parry)) Debug.LogError($"{this.name} DOES NOT have an EnemyParry Component!");
