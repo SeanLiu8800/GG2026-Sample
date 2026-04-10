@@ -207,10 +207,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d15354274ebf0e409b1b92830cdd9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  initialActionDelay: 0.2
+  initialActionDelay: 1
   actionCount: 1
-  actionInterval: 0.2
+  actionInterval: 0
   bulletToEmit: {fileID: 8827905931808526965, guid: 465e389e586ddb04fbcdfcaa10e0cadb, type: 3}
   emissionCount: 1
+  stopSpinOnEmit: 1
   emitDirection: {x: 0, y: 1, z: 0}
-  spinRate: 720
+  spinRate: 2

@@ -5,8 +5,11 @@ public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
     [Header("Emission Variables")]
     [SerializeField] private GameObject bulletToEmit;
     [SerializeField, Range(1, 5)] private int emissionCount = 1;
-    [SerializeField] private Vector3 emitDirection = Vector3.up;
-    [SerializeField, Range(-720.0f, 720.0f)] private float spinRate = 360f;
+    [SerializeField] private bool stopSpinOnEmit = true;
+    [SerializeField, Range(1.0f, 3.0f)] private float distanceFromTarget = 3.0f;
+    [Header("Direction Roulette Variables")]
+    [SerializeField, ReadOnly] private Vector3 emitDirection = Vector3.up;
+    [SerializeField, Range(-2.0f, 2.0f)] private float spinRate = 1;
     protected override void Start()
     {
         if (bulletToEmit == null)
@@ -23,10 +26,12 @@ public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
     }
     protected override void IntervalAction()
     {
+        if (stopSpinOnEmit) StopSpinning();
+
         GameObject emittedBullet = 
             Instantiate(
                 bulletToEmit, 
-                transform.position - emitDirection*5.0f, 
+                transform.position - emitDirection * distanceFromTarget, 
                 transform.rotation
             );
         if (!emittedBullet.TryGetComponent<BulletScript>(out BulletScript currBulletScript))
@@ -42,6 +47,7 @@ public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
                 );
         }
     }
+    
     private void StartSpinning()
     {
         if (SpinCoroutine != null) StopCoroutine(SpinCoroutine);
@@ -56,7 +62,7 @@ public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
     {
         while (true)
         {
-            emitDirection = Quaternion.AngleAxis(spinRate * Time.deltaTime, Vector3.forward) * emitDirection;
+            emitDirection = Quaternion.AngleAxis(spinRate * 360.0f * Time.deltaTime, Vector3.forward) * emitDirection;
             yield return null;
         }
     }
