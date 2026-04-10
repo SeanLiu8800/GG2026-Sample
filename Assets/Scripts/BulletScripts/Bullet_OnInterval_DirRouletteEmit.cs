@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
 {
+    private static Vector3 previousDirection = Vector3.up;
+
     [Header("Emission Variables")]
     [SerializeField] private GameObject bulletToEmit;
     [SerializeField, Range(1, 5)] private int emissionCount = 1;
@@ -27,8 +29,7 @@ public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
         if (emissionCount <= 0) Debug.LogError($"{this.name}'s emissionCount is 0 or Neagtive! It won't Emit!");
 
         base.Start();
-        emitDirection = Quaternion.AngleAxis(Random.Range(0, 360), Vector3.forward) * emitDirection;
-        if (arrow != null) arrow.transform.rotation = Quaternion.Euler(0.0f, 0.0f, Mathf.Atan2(emitDirection.y, emitDirection.x) * Mathf.Rad2Deg);
+        DetermineInitialDirection();
         StartSpinning();
         DeactivateArrowCollider();
         Invoke(nameof(ActivateArrowCollider), Mathf.Max(initialActionDelay - activateTimeDiff, 0));
@@ -55,9 +56,16 @@ public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
         }
     }
     
+    private void DetermineInitialDirection()
+    {
+        emitDirection = Quaternion.AngleAxis(Random.Range(45, 225), Vector3.forward) * previousDirection;
+        previousDirection = emitDirection;
+
+        if (arrow != null) arrow.transform.rotation = Quaternion.Euler(0.0f, 0.0f, Mathf.Atan2(emitDirection.y, emitDirection.x) * Mathf.Rad2Deg);
+    }
+
     private void ActivateArrowCollider()
     {
-        Debug.Log("Activate");
         if (stopSpinUponActivation) StopSpinning();
         if (arrow != null)
         {
@@ -67,7 +75,6 @@ public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
     }
     private void DeactivateArrowCollider()
     {
-        Debug.Log("Deactivate");
         if (arrow != null)
         {
             Collider2D arrowCollider = arrow.GetComponentInChildren<Collider2D>();
@@ -94,10 +101,4 @@ public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
             yield return null;
         }
     }
-
-    //private void OnDrawGizmos()
-    //{
-    //    if (!Application.isPlaying) return;
-    //    Gizmos.DrawLine(transform.position, transform.position + emitDirection);
-    //}
 }
