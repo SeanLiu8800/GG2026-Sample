@@ -18,11 +18,17 @@ public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
         if (emissionCount <= 0) Debug.LogError($"{this.name}'s emissionCount is 0 or Neagtive! It won't Emit!");
 
         base.Start();
+        emitDirection = Quaternion.AngleAxis(Random.Range(0, 360), Vector3.forward) * emitDirection;
         StartSpinning();
     }
     protected override void IntervalAction()
     {
-        GameObject emittedBullet = Instantiate(bulletToEmit, this.transform.position, this.transform.rotation);
+        GameObject emittedBullet = 
+            Instantiate(
+                bulletToEmit, 
+                transform.position - emitDirection*5.0f, 
+                transform.rotation
+            );
         if (!emittedBullet.TryGetComponent<BulletScript>(out BulletScript currBulletScript))
             Debug.LogError("Emitted Bullet DOES NOT have an BulletScript Component!");
         else
@@ -31,7 +37,7 @@ public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
                 (
                     bullet.owner,
                     bullet.target,
-                    bullet.initialLinearVelocity,
+                    emitDirection * bullet.initialLinearVelocity.magnitude,
                     emitDirection
                 );
         }

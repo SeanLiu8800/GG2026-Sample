@@ -1312,6 +1312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   <isPummeling>k__BackingField: 0
   pummelTarget: {fileID: 0}
+  pummelDismountLocation: {x: 0, y: 0, z: 0}
 --- !u!1 &1006417189
 GameObject:
   m_ObjectHideFlags: 0

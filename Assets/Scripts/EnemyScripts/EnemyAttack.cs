@@ -25,7 +25,12 @@ public class EnemyAttack : EnemyAttackBase
     private IEnumerator Shoot()
     {
         GameObject shootTarget = enemy.target;
-        for (int i = 0; i < 5; i++)
+        if (shootTarget == null)
+        {
+            AttackCooldown();
+            yield break;
+        }
+        for (int i = 0; i < 1; i++)
         {
             SpawnAttack(
                 attack,
