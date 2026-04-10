@@ -5,11 +5,13 @@ public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
     [Header("Emission Variables")]
     [SerializeField] private GameObject bulletToEmit;
     [SerializeField, Range(1, 5)] private int emissionCount = 1;
-    [SerializeField] private bool stopSpinOnEmit = true;
     [SerializeField, Range(1.0f, 20.0f)] private float distanceFromTarget = 3.0f;
+
     [Header("Direction Roulette Variables")]
+    [SerializeField] private GameObject arrow;
     [SerializeField, ReadOnly] private Vector3 emitDirection = Vector3.up;
     [SerializeField, Range(-2.0f, 2.0f)] private float spinRate = 1;
+    [SerializeField, Range(0.0f, 10.0f)] private float stopSpinTime = 0.75f;
     protected override void Start()
     {
         if (bulletToEmit == null)
@@ -23,11 +25,10 @@ public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
         base.Start();
         emitDirection = Quaternion.AngleAxis(Random.Range(0, 360), Vector3.forward) * emitDirection;
         StartSpinning();
+        Invoke(nameof(StopSpinning), stopSpinTime);
     }
     protected override void IntervalAction()
     {
-        if (stopSpinOnEmit) StopSpinning();
-
         GameObject emittedBullet = 
             Instantiate(
                 bulletToEmit, 
@@ -63,6 +64,7 @@ public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
         while (true)
         {
             emitDirection = Quaternion.AngleAxis(spinRate * 360.0f * Time.deltaTime, Vector3.forward) * emitDirection;
+            if (arrow != null) arrow.transform.rotation = Quaternion.Euler(0.0f, 0.0f, Mathf.Atan2(emitDirection.y, emitDirection.x) * Mathf.Rad2Deg);
             yield return null;
         }
     }
