@@ -11,7 +11,11 @@ public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
     [SerializeField] private GameObject arrow;
     [SerializeField, ReadOnly] private Vector3 emitDirection = Vector3.up;
     [SerializeField, Range(-2.0f, 2.0f)] private float spinRate = 1;
-    [SerializeField, Range(0.0f, 10.0f)] private float stopSpinTime = 0.75f;
+
+    [Header("Arrow Activation Variables")]
+    [Tooltip("The time to activate the Spinning Pointer Arrow. Activation occurs activateTimeDiff seconds before initialActionDelay!")]
+    [SerializeField, Range(0.0f, 10.0f)] private float activateTimeDiff = 0.25f;
+    [SerializeField] private bool stopSpinUponActivation = true;
     protected override void Start()
     {
         if (bulletToEmit == null)
@@ -24,8 +28,10 @@ public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
 
         base.Start();
         emitDirection = Quaternion.AngleAxis(Random.Range(0, 360), Vector3.forward) * emitDirection;
+        if (arrow != null) arrow.transform.rotation = Quaternion.Euler(0.0f, 0.0f, Mathf.Atan2(emitDirection.y, emitDirection.x) * Mathf.Rad2Deg);
         StartSpinning();
-        Invoke(nameof(StopSpinning), stopSpinTime);
+        DeactivateArrowCollider();
+        Invoke(nameof(ActivateArrowCollider), Mathf.Max(initialActionDelay - activateTimeDiff, 0));
     }
     protected override void IntervalAction()
     {
@@ -49,6 +55,26 @@ public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
         }
     }
     
+    private void ActivateArrowCollider()
+    {
+        Debug.Log("Activate");
+        if (stopSpinUponActivation) StopSpinning();
+        if (arrow != null)
+        {
+            Collider2D arrowCollider = arrow.GetComponentInChildren<Collider2D>();
+            if (arrowCollider != null) arrowCollider.enabled = true;
+        }
+    }
+    private void DeactivateArrowCollider()
+    {
+        Debug.Log("Deactivate");
+        if (arrow != null)
+        {
+            Collider2D arrowCollider = arrow.GetComponentInChildren<Collider2D>();
+            if (arrowCollider != null) arrowCollider.enabled = false;
+        }
+    }
+
     private void StartSpinning()
     {
         if (SpinCoroutine != null) StopCoroutine(SpinCoroutine);
@@ -69,10 +95,9 @@ public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        if (!Application.isPlaying) return;
-
-        Gizmos.DrawLine(transform.position, transform.position + emitDirection);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    if (!Application.isPlaying) return;
+    //    Gizmos.DrawLine(transform.position, transform.position + emitDirection);
+    //}
 }

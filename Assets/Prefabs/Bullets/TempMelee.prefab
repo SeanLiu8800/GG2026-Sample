@@ -110,7 +110,6 @@ GameObject:
   - component: {fileID: -8867143272021663871}
   - component: {fileID: -4092543142711184226}
   - component: {fileID: 8690491014012096111}
-  - component: {fileID: -9147791187695919614}
   m_Layer: 7
   m_Name: TempMelee
   m_TagString: Untagged
@@ -355,18 +354,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af0c2e513ce46aa47a6489a030ee22ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
---- !u!114 &-9147791187695919614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8827905931808526965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed5533bf22458854380a27d9e048bb54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  length: 2
-  height: 9
-  duration: 0.2

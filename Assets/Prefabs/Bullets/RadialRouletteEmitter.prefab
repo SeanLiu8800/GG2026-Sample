@@ -228,7 +228,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8827905931808526965}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba23d89df0dde13499b79d72a60ef9b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletLifespan
-  lifespan: 3
+  lifespan: 1.25
 --- !u!114 &2437537805536494438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,7 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d15354274ebf0e409b1b92830cdd9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  initialActionDelay: 1
+  initialActionDelay: 0.5
   actionCount: 1
   actionInterval: 0
   bulletToEmit: {fileID: 8827905931808526965, guid: 18a2c5556a04098438faab00c0d7357b, type: 3}
@@ -327,8 +327,9 @@ MonoBehaviour:
   distanceFromTarget: 10
   arrow: {fileID: 166808752149593907}
   emitDirection: {x: 0, y: 1, z: 0}
-  spinRate: 1
-  stopSpinTime: 0.75
+  spinRate: 0
+  activateTimeDiff: 0.25
+  stopSpinUponActivation: 1
 --- !u!1 &8911779585258410627
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,7 +341,7 @@ GameObject:
   - component: {fileID: 5041388894201102374}
   - component: {fileID: 6660462080563419823}
   m_Layer: 6
-  m_Name: GameObject
+  m_Name: AttackArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
