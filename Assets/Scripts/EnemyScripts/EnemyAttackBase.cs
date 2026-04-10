@@ -5,6 +5,7 @@ public abstract class EnemyAttackBase : EnemyComponent
     [Header("Enemy Attack Base Variables")]
     [SerializeField] protected GameObject attackWarning;
     [SerializeField, Range(0.0f, 5.0f)] protected float attackCooldown = 1.0f;
+    [SerializeField, ReadOnly] protected bool isOffscreen = false;
 
     protected virtual void OnEnable()
     {
@@ -79,6 +80,7 @@ public abstract class EnemyAttackBase : EnemyComponent
     protected void StopAllAttacks()
     {
         StopAllCoroutines();
+        SetInteractible(true);
         AttackCooldown();
     }    
         /// <summary>
@@ -114,5 +116,11 @@ public abstract class EnemyAttackBase : EnemyComponent
     protected void AttackWarning()
     {
         SpawnAttack(attackWarning, enemy.target, default, default);
+    }
+    protected void SetInteractible(bool input)
+    {
+        isOffscreen = !input;
+        enemy.enemyCollider.enabled = input;
+        enemy.spriteRenderer.enabled = input;
     }
 }

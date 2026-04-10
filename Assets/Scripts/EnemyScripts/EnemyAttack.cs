@@ -114,20 +114,33 @@ public class EnemyAttack : EnemyAttackBase
     private IEnumerator MeleeSwipes()
     {
         enemy.canMove = false;
-
         GameObject shootTarget = enemy.target;
         if (shootTarget == null)
         {
             AttackCooldown();
             yield break;
         }
+        yield return new WaitForSeconds(0.3f);
+        SetInteractible(false);
+        syncToDirRoulette = StartCoroutine(SyncToDirRoulette());
         for (int i = 0; i < 4; i++)
         {
             SpawnAttack(meleeSwipe, shootTarget);
             yield return new WaitForSeconds(0.8f);
         }
-
+        StopCoroutine(syncToDirRoulette);
         enemy.canMove = true;
+        SetInteractible(true);
         AttackCooldown();
+    }
+    private Coroutine syncToDirRoulette;
+    private IEnumerator SyncToDirRoulette()
+    {
+        while(true)
+        {
+            transform.position =
+            enemy.target.transform.position - Bullet_OnInterval_DirRouletteEmit.previousDirection * 2.0f;
+            yield return null;
+        }
     }
 }

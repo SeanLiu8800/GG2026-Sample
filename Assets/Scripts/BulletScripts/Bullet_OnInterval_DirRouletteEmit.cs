@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
 {
-    private static Vector3 previousDirection = Vector3.up;
+    public static Vector3 previousDirection = Vector3.up;
 
     [Header("Emission Variables")]
     [SerializeField] private GameObject bulletToEmit;
@@ -96,6 +96,7 @@ public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
         while (true)
         {
             emitDirection = Quaternion.AngleAxis(spinRate * 360.0f * Time.deltaTime, Vector3.forward) * emitDirection;
+            previousDirection = emitDirection;
             if (arrow != null) arrow.transform.rotation = Quaternion.Euler(0.0f, 0.0f, Mathf.Atan2(emitDirection.y, emitDirection.x) * Mathf.Rad2Deg);
             yield return null;
         }
