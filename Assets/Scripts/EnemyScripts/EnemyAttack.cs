@@ -6,11 +6,13 @@ public class EnemyAttack : EnemyAttackBase
     [Header("Attack Variables")]
     [SerializeField] private GameObject attack;
     [SerializeField] private GameObject meleeAttack;
+    [SerializeField] private GameObject meleeSwipe;
     protected void Update()
     {
         Attack();
-        if (Keyboard.current.tKey.wasPressedThisFrame) StartCoroutine(Shoot());
-        if (Keyboard.current.gKey.wasPressedThisFrame) StartCoroutine(MeleeAttack());
+        if (Keyboard.current.rKey.wasPressedThisFrame) StartCoroutine(Shoot());
+        if (Keyboard.current.tKey.wasPressedThisFrame) StartCoroutine(MeleeAttack());
+        if (Keyboard.current.gKey.wasPressedThisFrame) StartCoroutine(MeleeSwipes());
     }
     protected override void Attack()
     {
@@ -30,12 +32,12 @@ public class EnemyAttack : EnemyAttackBase
             AttackCooldown();
             yield break;
         }
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 5; i++)
         {
             SpawnAttack(
                 attack,
                 shootTarget,
-                (shootTarget.transform.position - transform.position).normalized * 7.0f,
+                (shootTarget.transform.position - transform.position).normalized,
                 shootTarget.transform.position - transform.position
             );
             yield return new WaitForSeconds(0.2f);
@@ -103,6 +105,26 @@ public class EnemyAttack : EnemyAttackBase
             enemy.enemyRigidbody.AddForce(direction * 20.0f, ForceMode2D.Impulse);
             SpawnAttack(meleeAttack, enemy.target, default, direction);
             yield return new WaitForSeconds(0.2f);
+        }
+
+        enemy.canMove = true;
+        AttackCooldown();
+    }
+
+    private IEnumerator MeleeSwipes()
+    {
+        enemy.canMove = false;
+
+        GameObject shootTarget = enemy.target;
+        if (shootTarget == null)
+        {
+            AttackCooldown();
+            yield break;
+        }
+        for (int i = 0; i < 4; i++)
+        {
+            SpawnAttack(meleeSwipe, shootTarget);
+            yield return new WaitForSeconds(0.8f);
         }
 
         enemy.canMove = true;

@@ -228,7 +228,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8827905931808526965}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba23d89df0dde13499b79d72a60ef9b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletLifespan
-  lifespan: 1.25
+  lifespan: 0.8
 --- !u!114 &2437537805536494438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,11 +323,10 @@ MonoBehaviour:
   actionCount: 1
   actionInterval: 0
   bulletToEmit: {fileID: 8827905931808526965, guid: 18a2c5556a04098438faab00c0d7357b, type: 3}
-  emissionCount: 1
   distanceFromTarget: 10
   arrow: {fileID: 166808752149593907}
   emitDirection: {x: 0, y: 1, z: 0}
-  spinRate: 0
+  spinRate: 2
   activateTimeDiff: 0.25
   stopSpinUponActivation: 1
 --- !u!1 &8911779585258410627
@@ -406,5 +405,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 3, y: 2}
+  m_Size: {x: 3, y: 0.5}
   m_EdgeRadius: 0
