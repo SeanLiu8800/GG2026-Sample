@@ -6,7 +6,7 @@ public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
     [SerializeField] private GameObject bulletToEmit;
     [SerializeField, Range(1, 5)] private int emissionCount = 1;
     [SerializeField] private bool stopSpinOnEmit = true;
-    [SerializeField, Range(1.0f, 3.0f)] private float distanceFromTarget = 3.0f;
+    [SerializeField, Range(1.0f, 8.0f)] private float distanceFromTarget = 3.0f;
     [Header("Direction Roulette Variables")]
     [SerializeField, ReadOnly] private Vector3 emitDirection = Vector3.up;
     [SerializeField, Range(-2.0f, 2.0f)] private float spinRate = 1;
