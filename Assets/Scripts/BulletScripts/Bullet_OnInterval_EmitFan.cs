@@ -30,14 +30,13 @@ public class Bullet_OnInterval_EmitFan : Bullet_OnIntervalBehaviorBase
     {
         float startingDegree = 0.0f;
         float degreeDifference = 0.0f;
-        Vector2 spawnVelocity =
-            bullet.bulletRigidbody.linearVelocity == Vector2.zero ? bullet.initialLinearVelocity : bullet.bulletRigidbody.linearVelocity;
+        Vector2 spawnDirection = bullet.moveDirection;
         if (emissionCount > 1)
         {
             startingDegree = (spawnClockwise ? 1 : -1) * fanEmissionRadius / 2.0f;
             degreeDifference = (spawnClockwise ? -1 : 1) * fanEmissionRadius / (emissionCount - 1);
         }
-        spawnVelocity = Quaternion.Euler(0, 0, startingDegree) * spawnVelocity;
+        spawnDirection = Quaternion.Euler(0, 0, startingDegree) * spawnDirection;
         for (int i = 0; i < emissionCount; i++)
         {
             GameObject emittedBullet = Instantiate(bulletToEmit, this.transform.position, this.transform.rotation);
@@ -49,11 +48,11 @@ public class Bullet_OnInterval_EmitFan : Bullet_OnIntervalBehaviorBase
                     (
                         bullet.owner,
                         bullet.target,
-                        spawnVelocity,
-                        spawnVelocity
+                        spawnDirection,
+                        spawnDirection
                     );
             }
-            spawnVelocity = Quaternion.Euler(0, 0, degreeDifference) * spawnVelocity;
+            spawnDirection = Quaternion.Euler(0, 0, degreeDifference) * spawnDirection;
             yield return new WaitForSeconds(emissionDelay);
         }
     }

@@ -92,7 +92,7 @@ public abstract class EnemyAttackBase : EnemyComponent
     (
         GameObject attack, 
         GameObject target, 
-        Vector3 initialLinearVelocity = default(Vector3), 
+        Vector3 initialMoveDirection = default(Vector3), 
         Vector3 lookDirection = default(Vector3)
     )
     {
@@ -106,7 +106,7 @@ public abstract class EnemyAttackBase : EnemyComponent
             currBulletScript.Initialize(
                 this.gameObject,
                 target,
-                initialLinearVelocity,
+                initialMoveDirection,
                 lookDirection
             );
         }

@@ -37,7 +37,7 @@ public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
                 (
                     bullet.owner,
                     bullet.target,
-                    emitDirection * bullet.initialLinearVelocity.magnitude,
+                    emitDirection,
                     emitDirection
                 );
         }

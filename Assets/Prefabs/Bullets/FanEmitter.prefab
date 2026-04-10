@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1265701074003027832}
   - component: {fileID: 6452316627612785655}
-  - component: {fileID: 7457468284515171231}
   - component: {fileID: 7157295741879915963}
   - component: {fileID: 5476034631633967730}
   - component: {fileID: -9054533698057080689}
@@ -96,33 +95,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
---- !u!50 &7457468284515171231
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8827905931808526965}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 1
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 4
 --- !u!58 &7157295741879915963
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -172,13 +144,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   <bulletCollider>k__BackingField: {fileID: 0}
-  <bulletRigidbody>k__BackingField: {fileID: 0}
   <layerMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 264
+  <bulletSFX>k__BackingField: {fileID: 0}
   <owner>k__BackingField: {fileID: 0}
   <target>k__BackingField: {fileID: 0}
-  <initialLinearVelocity>k__BackingField: {x: 0, y: 0, z: 0}
+  <moveDirection>k__BackingField: {x: 0, y: 1, z: 0}
+  <moveSpeed>k__BackingField: 5
   <lookDirection>k__BackingField: {x: 0, y: 0, z: 0}
   damage: 1
   empowerRate: 1

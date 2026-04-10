@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class BulletMovement : BulletComponent
 {
-    private void Start()
+    private void Update()
     {
-        bullet.bulletRigidbody.linearVelocity = bullet.initialLinearVelocity;
+        transform.position += bullet.moveDirection * bullet.moveSpeed * Time.deltaTime;
     }
 }
