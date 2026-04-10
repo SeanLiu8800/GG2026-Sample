@@ -9,6 +9,6 @@ public class BulletLockToOwner : BulletComponent
     }
     void Update()
     {
-        if (bullet.owner != null) this.transform.position = bullet.owner.transform.position + offset;
+        if (bullet.owner != null) transform.position = bullet.owner.transform.position + offset;
     }
 }
