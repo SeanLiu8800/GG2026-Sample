@@ -6,12 +6,12 @@ public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
 
     [Header("Emission Variables")]
     [SerializeField] private GameObject bulletToEmit;
-    [SerializeField, Range(1, 5)] private int emissionCount = 1;
     [SerializeField, Range(1.0f, 20.0f)] private float distanceFromTarget = 3.0f;
 
     [Header("Direction Roulette Variables")]
     [SerializeField] private GameObject arrow;
     [SerializeField, ReadOnly] private Vector3 emitDirection = Vector3.up;
+    [Tooltip("How many rotations per second the roulette spins")]
     [SerializeField, Range(-2.0f, 2.0f)] private float spinRate = 1;
 
     [Header("Arrow Activation Variables")]
@@ -26,7 +26,6 @@ public class Bullet_OnInterval_DirRouletteEmit : Bullet_OnIntervalBehaviorBase
             Destroy(this);
             return;
         }
-        if (emissionCount <= 0) Debug.LogError($"{this.name}'s emissionCount is 0 or Neagtive! It won't Emit!");
 
         base.Start();
         DetermineInitialDirection();
