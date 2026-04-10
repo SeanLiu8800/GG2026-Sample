@@ -5,13 +5,15 @@ public class RoomSpawnPoints : RoomComponent
     [SerializeField] private GameObject playerSpawnPoint;
     [SerializeField] private GameObject enemySpawnPointCollection;
     [SerializeField] private GameObject doorSpawnPoint;
+    [SerializeField] private GameObject defaultPoint;
     private void Start()
     {
         if (playerSpawnPoint == null) Debug.LogError($"{this.name}'s playerSpawnPoint is NULL! Set something to it!");
         if (enemySpawnPointCollection == null) Debug.LogError($"{this.name}'s enemySpawnPoints is NULL! Set something to it!");
         if (enemySpawnPointCollection.transform.childCount <= 0) Debug.LogError($"{this.name}'s enemySpawnPointCollection is EMPTY! Give it some Values!");
+        if (defaultPoint == null) Debug.LogError($"{this.name}'s defaultPoint is NULL! Set something to it!");
     }
-    
+
     public Vector3 GetPlayerSpawnPoint()
     {
         if (playerSpawnPoint == null)
@@ -45,5 +47,14 @@ public class RoomSpawnPoints : RoomComponent
     public GameObject GetDoorSpawn()
     {
         return doorSpawnPoint;
+    }
+    public Vector3 GetDefaultPoint()
+    {
+        if (defaultPoint == null)
+        {
+            Debug.LogWarning($"defaultPoint is NULL! falling back to this room's position!");
+            return transform.position;
+        }
+        return defaultPoint.transform.position;
     }
 }
