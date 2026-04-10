@@ -1,16 +1,19 @@
 using UnityEngine;
 
-public class Bullet_SpawnAttackArea : MonoBehaviour
+public class Bullet_SpawnAttackArea : BulletComponent
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [Header("Attack Area Variables")]
+    [SerializeField, Range(0.0f, 5.0f)] private float length = 2.0f;
+    [SerializeField, Range(0.0f, 20.0f)] private float height = 2.0f;
+    [SerializeField, Range(0.0f, 5.0f)] private float duration = 2.0f;
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        AttackZoneManager.Instance.SetSquareAttackZone(
+            transform.position + bullet.moveDirection * (height * 0.5f),
+            bullet.moveDirection,
+            length,
+            height,
+            duration
+        );
     }
 }

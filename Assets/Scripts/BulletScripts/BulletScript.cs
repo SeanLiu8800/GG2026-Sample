@@ -11,7 +11,7 @@ public class BulletScript : MonoBehaviour
     [field: SerializeField, ReadOnly] public GameObject owner { get; private set; }
     [field: SerializeField, ReadOnly] public GameObject target { get; private set; }
     [field: SerializeField, ReadOnly] public Vector3 moveDirection { get; private set; } = Vector3.up;
-    [field: SerializeField, Range(0.0f, 20.0f)] public float moveSpeed { get; private set; } = 5.0f;
+    [field: SerializeField, Range(0.0f, 60.0f)] public float moveSpeed { get; private set; } = 5.0f;
     [field: SerializeField, ReadOnly] public Vector3 lookDirection { get; private set; }
     [SerializeField, Range(0, 5)] public int damage = 1;
     [SerializeField, Range(0, 5)] public int empowerRate = 1;

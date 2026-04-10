@@ -213,6 +213,6 @@ MonoBehaviour:
   bulletToEmit: {fileID: 8827905931808526965, guid: 18a2c5556a04098438faab00c0d7357b, type: 3}
   emissionCount: 1
   stopSpinOnEmit: 1
-  distanceFromTarget: 5
+  distanceFromTarget: 10
   emitDirection: {x: 0, y: 1, z: 0}
   spinRate: 2

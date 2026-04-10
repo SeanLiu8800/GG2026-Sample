@@ -265,7 +265,7 @@ MonoBehaviour:
   <owner>k__BackingField: {fileID: 0}
   <target>k__BackingField: {fileID: 0}
   <moveDirection>k__BackingField: {x: 0, y: 1, z: 0}
-  <moveSpeed>k__BackingField: 20
+  <moveSpeed>k__BackingField: 60
   <lookDirection>k__BackingField: {x: 0, y: 0, z: 0}
   damage: 1
   empowerRate: 1
@@ -367,3 +367,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed5533bf22458854380a27d9e048bb54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  length: 2
+  height: 9
+  duration: 0.2
