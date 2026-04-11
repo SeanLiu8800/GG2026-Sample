@@ -24,6 +24,11 @@ public class EnemyMovement : EnemyComponent
         float v0 = impulseStrength / enemy.enemyRigidbody.mass;
         return v0 / enemy.enemyRigidbody.linearDamping;
     }
+    public float ImpulseFromDistance(float distanceToTravel)
+    {
+        float impulse = distanceToTravel * enemy.enemyRigidbody.linearDamping * enemy.enemyRigidbody.mass;
+        return impulse;
+    }
     /// <summary>
     /// Movement Behavior that allows movement towards strafeRadius units away from Player, then strafe in a circle
     /// </summary>

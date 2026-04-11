@@ -12,6 +12,8 @@ public class BulletLifespan : BulletComponent
     {
         if (lifespan <= 0.0) Debug.LogWarning($"{this.name}'s lifespan is 0.0! Bullet will be destroyed immediately!");
 
+        StartCoroutine(FadeSpriteHelper.FadeCoroutine(bullet.spriteRenderer, 0, lifespan));
+
         float spawnTime = Time.time;
         while (Time.time - spawnTime < lifespan) yield return null;
 

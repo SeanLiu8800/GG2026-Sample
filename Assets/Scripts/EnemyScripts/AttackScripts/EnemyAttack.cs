@@ -7,12 +7,14 @@ public class EnemyAttack : EnemyAttackBase
     [SerializeField] private GameObject attack;
     [SerializeField] private GameObject meleeAttack;
     [SerializeField] private GameObject meleeSwipe;
+    [SerializeField] private GameObject meleeCircleSweep;
     protected void Update()
     {
         Attack();
         if (Keyboard.current.rKey.wasPressedThisFrame) StartCoroutine(Shoot());
         if (Keyboard.current.tKey.wasPressedThisFrame) StartCoroutine(MeleeAttack());
         if (Keyboard.current.gKey.wasPressedThisFrame) StartCoroutine(MeleeSwipes());
+        if (Keyboard.current.vKey.wasPressedThisFrame) StartCoroutine(MeleeCircleSweep());
     }
     protected override void Attack()
     {
@@ -144,5 +146,37 @@ public class EnemyAttack : EnemyAttackBase
             enemy.target.transform.position - Bullet_OnInterval_DirRouletteEmit.previousDirection * 2.0f;
             yield return null;
         }
+    }
+
+    private IEnumerator MeleeCircleSweep()
+    {
+        enemy.canMove = false;
+        for (int i = 0; i < 4; i ++)
+        {
+            Vector3 direction = enemy.toTargetDirection;
+            float dist = Mathf.Min(enemy.distanceToTarget, 4.0f);
+            float impulse = enemy.move.ImpulseFromDistance(dist);
+
+            AttackWarning();
+            yield return new WaitForSeconds(0.2f);
+            AttackWarning();
+            yield return new WaitForSeconds(0.2f);
+
+            AttackZoneManager.Instance.SetCircleAttackZone(
+                transform.position + direction * dist,
+                3.0f,
+                1.0f
+            );
+            yield return new WaitForSeconds(0.2f);
+
+            enemy.enemyRigidbody.AddForce(direction * impulse, ForceMode2D.Impulse);
+            SpawnAttack(meleeCircleSweep, enemy.target, default, direction);
+            yield return new WaitForSeconds(0.3f);
+            SpawnAttack(meleeCircleSweep, enemy.target, default, direction);
+            yield return new WaitForSeconds(0.3f);
+        }
+        
+        enemy.canMove = true;
+        AttackCooldown();
     }
 }
