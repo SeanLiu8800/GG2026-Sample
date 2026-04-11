@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    [field: SerializeField, ReadOnly] public Collider2D bulletCollider { get; private set; }
+    public Collider2D bulletCollider { get; private set; }
+    public SpriteRenderer spriteRenderer { get; private set; }
     [field: Tooltip("Decides what Layer this bullet with interact with")]
     [field: SerializeField] public LayerMask layerMask { get; private set; }
     [field: SerializeField] public BulletSFX bulletSFX { get; private set; }
@@ -23,7 +24,12 @@ public class BulletScript : MonoBehaviour
         {
             Debug.LogError($"{this.name} DOES NOT have a Collider2D component!");
         }
+        if (!TryGetComponent<SpriteRenderer>(out SpriteRenderer _spriteRenderer))
+        {
+            Debug.LogError($"{this.name} DOES NOT have a SpriteRenderer component!");
+        }
         bulletCollider = _bulletCollider;
+        spriteRenderer = _spriteRenderer;
     }
 
     public void Initialize
