@@ -19,12 +19,29 @@ public class EnemyAttack : EnemyAttackBase
     protected override void Attack()
     {
         if (!enemy.allowAttack) return;
-        if (enemy.isBeingPummeled) return;
+        if (enemy.isBeingPummeled || enemy.isParryStunned) return;
         if (!enemy.canAttack || enemy.target == null) return;
         enemy.canAttack = false;
 
+        switch (Random.Range(0, 4))
+        {
+            case 0:
+                StartCoroutine(Shoot());
+                break;
+            case 1:
+                StartCoroutine(MeleeAttack());
+                break;
+            case 2:
+                StartCoroutine(MeleeSwipes());
+                break;
+            case 3:
+                StartCoroutine(MeleeCircleSweep());
+                break;
+            default:
+                StartCoroutine(Shoot());
+                break;
+        }
         if (Random.Range(0, 2) == 1) StartCoroutine(Shoot());
-        else StartCoroutine(MeleeAttack());
     }
     private IEnumerator Shoot()
     {
@@ -52,11 +69,12 @@ public class EnemyAttack : EnemyAttackBase
     {
         enemy.canMove = false;
         Vector3 direction = enemy.toTargetDirection;
+        float dist = enemy.move.DistanceFromImpulse(30.0f);
+
         AttackWarning();
         yield return new WaitForSeconds(0.2f);
         AttackWarning();
 
-        float dist = enemy.move.DistanceFromImpulse(30.0f);
         AttackZoneManager.Instance.SetSquareAttackZone(
             transform.position + direction * dist,
             direction,
@@ -65,13 +83,12 @@ public class EnemyAttack : EnemyAttackBase
             1.0f
         );
         enemy.enemyRigidbody.AddForce(direction * 30.0f, ForceMode2D.Impulse);
+
         yield return StartCoroutine(TrackDistanceToTarget(2.0f, 0.3f));
 
         SpawnAttack(meleeAttack, enemy.target, default, direction);
         enemy.enemyRigidbody.AddForce(direction * 10.0f, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(0.15f);
-
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSeconds(0.3f);
 
         SpawnAttack(meleeAttack, enemy.target, default, direction);
         enemy.enemyRigidbody.AddForce(direction * 10.0f, ForceMode2D.Impulse);
