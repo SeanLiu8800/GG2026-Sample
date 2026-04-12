@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: debc7688a5a699d4d95fbf667f457627, type: 3}
   m_Name: TempSoundtrack
   m_EditorClassIdentifier: Assembly-CSharp::Soundtrack
-  intro: {fileID: 0}
-  mainLoop: {fileID: 0}
-  interlude: {fileID: 0}
-  outro: {fileID: 0}
+  intro: {fileID: 8300000, guid: f66db6acba53aa14b9dd351e8111f7da, type: 3}
+  mainLoop: {fileID: 8300000, guid: 3e47e9eb6fffb4f4e9de7f08ced8a368, type: 3}
+  interlude: {fileID: 8300000, guid: 4a00bd5ea30eb22479a2404b3aababb7, type: 3}
+  outro: {fileID: 8300000, guid: f66db6acba53aa14b9dd351e8111f7da, type: 3}
