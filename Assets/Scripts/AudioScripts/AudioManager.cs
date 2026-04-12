@@ -11,6 +11,10 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource MusicInterludeSource;
     [SerializeField] private AudioSource MusicOutroSource;
 
+    [Header("Volume Variables")]
+    [SerializeField, Range(0.0f, 1.0f)] private float sfxVolume = 1.0f;
+    [SerializeField, Range(0.0f, 1.0f)] private float musicVolume = 1.0f;
+
     [field : SerializeField] public SoundEffects soundEffects { get; private set; }
     private void Awake()
     {
@@ -25,7 +29,15 @@ public class AudioManager : MonoBehaviour
 
         MusicLoopSource.loop = true;
     }
-    
+    private void OnValidate()
+    {
+        audioSource.volume = sfxVolume;
+
+        MusicIntroSource.volume = musicVolume;
+        MusicLoopSource.volume = musicVolume;
+        MusicInterludeSource.volume = musicVolume;
+        MusicOutroSource.volume = musicVolume;
+    }
     public void PlaySoundOneShot(AudioClip audioClip)
     {
         if (AudioClipIsNull(audioClip)) return;
@@ -46,7 +58,7 @@ public class AudioManager : MonoBehaviour
         currSoundtrack = soundtrack;
 
         double startTime = AudioSettings.dspTime + 0.2;
-        double introDuration = 0.0; ;
+        double introDuration = 0.0;
         if (soundtrack.intro == null) Debug.LogWarning($"{soundtrack.name}'s intro component is NULL!");
         else
         {
@@ -129,10 +141,12 @@ public class AudioManager : MonoBehaviour
     {
         float startTime = Time.time;
         float progress = Time.time - startTime / crossfadeDuration;
+        float toMuteStartVolume = toMute[0].volume;
+        float toUnmuteStartVolume = toUnmute[0].volume;
         while (progress < 1.0)
         {
-            foreach (AudioSource currAudioSource in toMute) currAudioSource.volume = Mathf.Lerp(1.0f, 0.0f, progress);
-            foreach (AudioSource currAudioSource in toUnmute) currAudioSource.volume = Mathf.Lerp(0.0f, 1.0f, progress);
+            foreach (AudioSource currAudioSource in toMute) currAudioSource.volume = Mathf.Lerp(toMuteStartVolume, 0.0f, progress);
+            foreach (AudioSource currAudioSource in toUnmute) currAudioSource.volume = Mathf.Lerp(toUnmuteStartVolume, musicVolume, progress);
             yield return null;
         }
         foreach (AudioSource currAudioSource in toMute) currAudioSource.volume = 0.0f;
