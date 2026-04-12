@@ -67,6 +67,21 @@ public class AudioManager : MonoBehaviour
         else MusicLoopSource.clip = soundtrack.mainLoop;
 
         MusicLoopSource.PlayScheduled(startTime + introDuration);
+
+        if (soundtrack.interlude == null) Debug.LogWarning($"{soundtrack.name}'s interlude component is NULL!");
+        else
+        {
+            MusicInterludeSource.volume = 0.0f;
+            MusicInterludeSource.clip = soundtrack.interlude;
+            MusicInterludeSource.PlayScheduled(startTime);
+        }
+
+        if (soundtrack.outro == null) Debug.LogWarning($"{soundtrack.name}'s outro component is NULL!");
+        else
+        {
+            MusicOutroSource.volume = 0.0f;
+            MusicOutroSource.clip = soundtrack.outro;
+        }
     }
     public void SoundtrackSwitchToInterlude(float crossfadeDuration = 1.0f)
     {
@@ -89,6 +104,25 @@ public class AudioManager : MonoBehaviour
 
         if (crossfadeCoroutine != null) StopCoroutine(crossfadeCoroutine);
         crossfadeCoroutine = StartCoroutine(Crossfade(toMute, toUnmute, crossfadeDuration));
+    }
+    public void SoundtrackPlayOutro(float crossfadeDuration = 1.0f)
+    {
+        if (MusicOutroSource.clip != null) MusicOutroSource.Play();
+
+        List<AudioSource> toMute = new List<AudioSource>();
+        toMute.Add(MusicIntroSource);
+        toMute.Add(MusicLoopSource);
+        toMute.Add(MusicInterludeSource);
+
+        List<AudioSource> toUnmute = new List<AudioSource>();
+        toUnmute.Add(MusicOutroSource);
+
+        if (crossfadeCoroutine != null) StopCoroutine(crossfadeCoroutine);
+        crossfadeCoroutine = StartCoroutine(Crossfade(toMute, toUnmute, crossfadeDuration));
+
+        MusicIntroSource.SetScheduledEndTime(AudioSettings.dspTime + crossfadeDuration);
+        MusicLoopSource.SetScheduledEndTime(AudioSettings.dspTime + crossfadeDuration);
+        MusicInterludeSource.SetScheduledEndTime(AudioSettings.dspTime + crossfadeDuration);
     }
     private Coroutine crossfadeCoroutine;
     private IEnumerator Crossfade(List<AudioSource> toMute, List<AudioSource> toUnmute, float crossfadeDuration = 1.0f)
