@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
@@ -45,12 +46,8 @@ public class AudioManager : MonoBehaviour
         currSoundtrack = soundtrack;
 
         double startTime = AudioSettings.dspTime + 0.2;
-        double introDuration = 0.0;
-        if (soundtrack.intro == null)
-        {
-            Debug.LogWarning($"{soundtrack.name}'s intro component is NULL!");
-            introDuration = 0.0;
-        }
+        double introDuration = 0.0; ;
+        if (soundtrack.intro == null) Debug.LogWarning($"{soundtrack.name}'s intro component is NULL!");
         else
         {
             MusicIntroSource.clip = soundtrack.intro;
@@ -65,14 +62,46 @@ public class AudioManager : MonoBehaviour
             {
                 Debug.LogWarning($"MainLoop falling back to Intro!");
                 MusicLoopSource.clip = soundtrack.intro;
-                MusicLoopSource.PlayScheduled(startTime + introDuration);
             }
         }
-        else
-        {
-            MusicLoopSource.clip = soundtrack.mainLoop;
-            MusicLoopSource.PlayScheduled(startTime + introDuration);
-        }
+        else MusicLoopSource.clip = soundtrack.mainLoop;
+
+        MusicLoopSource.PlayScheduled(startTime + introDuration);
     }
-    
+    public void SoundtrackSwitchToInterlude(float crossfadeDuration = 1.0f)
+    {
+        List<AudioSource> toMute = new List<AudioSource>();
+        toMute.Add(MusicIntroSource);
+        toMute.Add(MusicLoopSource);
+        List<AudioSource> toUnmute = new List<AudioSource>();
+        toUnmute.Add(MusicInterludeSource);
+
+        if (crossfadeCoroutine != null) StopCoroutine(crossfadeCoroutine);
+        crossfadeCoroutine = StartCoroutine(Crossfade(toMute, toUnmute, crossfadeDuration));
+    }
+    public void SoundtrackSwitchToMain(float crossfadeDuration = 1.0f)
+    {
+        List<AudioSource> toMute = new List<AudioSource>();
+        toMute.Add(MusicInterludeSource);
+        List<AudioSource> toUnmute = new List<AudioSource>();
+        toUnmute.Add(MusicIntroSource);
+        toUnmute.Add(MusicLoopSource);
+
+        if (crossfadeCoroutine != null) StopCoroutine(crossfadeCoroutine);
+        crossfadeCoroutine = StartCoroutine(Crossfade(toMute, toUnmute, crossfadeDuration));
+    }
+    private Coroutine crossfadeCoroutine;
+    private IEnumerator Crossfade(List<AudioSource> toMute, List<AudioSource> toUnmute, float crossfadeDuration = 1.0f)
+    {
+        float startTime = Time.time;
+        float progress = Time.time - startTime / crossfadeDuration;
+        while (progress < 1.0)
+        {
+            foreach (AudioSource currAudioSource in toMute) currAudioSource.volume = Mathf.Lerp(1.0f, 0.0f, progress);
+            foreach (AudioSource currAudioSource in toUnmute) currAudioSource.volume = Mathf.Lerp(0.0f, 1.0f, progress);
+            yield return null;
+        }
+        foreach (AudioSource currAudioSource in toMute) currAudioSource.volume = 0.0f;
+        foreach (AudioSource currAudioSource in toUnmute) currAudioSource.volume = 1.0f;
+    }
 }
