@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0e84998c9e5f8469aed77f69078024, type: 3}
   m_Name: tempBiome
   m_EditorClassIdentifier: Assembly-CSharp::BiomeComponents
-  biomeCombatRooms: []
+  biomeCombatRooms:
+  - {fileID: 860382422138769227, guid: b55345a1a006b9544919e72efb0239ec, type: 3}
+  - {fileID: 7602060386136855354, guid: adeacb657b445ad428e8b1525a4815a1, type: 3}
   biomeEventRooms: []
   biomeLength: 5

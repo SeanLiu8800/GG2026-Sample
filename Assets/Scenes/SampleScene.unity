@@ -254,6 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef0a33172995e954ba64c021f13daece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  biomeComponents: {fileID: 11400000, guid: 861f220d8bc088b40bd230366742c1a7, type: 2}
   <currRoom>k__BackingField: {fileID: 2063995964367002516}
   <roomNumber>k__BackingField: 0
 --- !u!4 &772975969

@@ -3,6 +3,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    [SerializeField] private BiomeComponents biomeComponents;
     [field: SerializeField] public Room currRoom { get; private set; }
     [field: SerializeField] public int roomNumber { get; private set; } = 0;
     private void Awake()
