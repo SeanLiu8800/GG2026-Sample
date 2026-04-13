@@ -76,7 +76,6 @@ public class AudioManager : MonoBehaviour
             MusicIntroSource.clip = soundtrack.intro;
             MusicIntroSource.volume = musicVolume;
             introDuration = soundtrack.intro.length - 3.0f;
-            Debug.Log($"{soundtrack.intro.length}, {introDuration}");
             MusicIntroSource.PlayScheduled(startTime);
         }
 
