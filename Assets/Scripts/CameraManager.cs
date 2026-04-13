@@ -10,7 +10,7 @@ public class CameraManager : MonoBehaviour
         if (Instance != null && Instance != this)
         {
             Debug.LogWarning("Another CameraManager tried to Initialize! Deleting it!");
-            return;
+            Destroy(this.gameObject);
         }
         else
         {
