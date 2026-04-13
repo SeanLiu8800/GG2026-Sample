@@ -4,6 +4,7 @@ public abstract class EnemyAttackBase : EnemyComponent
 {
     [Header("Enemy Attack Base Variables")]
     [SerializeField] protected GameObject attackWarning;
+    [SerializeField, ReadOnly] protected bool canAttack = true;
     [SerializeField, Range(0.0f, 5.0f)] protected float attackCooldown = 1.0f;
     [SerializeField, ReadOnly] protected bool isOffscreen = false;
 
@@ -68,11 +69,10 @@ public abstract class EnemyAttackBase : EnemyComponent
     private Coroutine attackCooldownCoroutine;
     private IEnumerator AttackCooldownCoroutine()
     {
-        enemy.canAttack = false;
+        canAttack = false;
         float cooldownStartTime = Time.time;
         while (Time.time - cooldownStartTime <= attackCooldown) yield return null;
-        enemy.canAttack = true;
-        yield break;
+        canAttack = true;
     }
     /// <summary>
     /// Stops all attacks (with StopAllCoroutines()) then puts this enemy on attack cooldoown
@@ -80,15 +80,16 @@ public abstract class EnemyAttackBase : EnemyComponent
     protected void StopAllAttacks()
     {
         StopAllCoroutines();
+        enemy.isAttacking = false;
         SetInteractible(true);
         AttackCooldown();
-    }    
-        /// <summary>
+    }
+    /// <summary>
     /// Spawn and then Initializes the given Bullet
     /// </summary>
     /// <param name="attack">The bullet to spawn</param>
     /// <param name="target">The target for the bullet</param>
-    /// <param name="initialLinearVelocity">The Initial Linear Velocity of the Bullet</param>
+    /// <param name="initialMoveDirection">The Initial Direction of the Bullet</param>
     /// <param name="lookDirection">The direction the Bullet will face</param>
     protected void SpawnAttack
     (

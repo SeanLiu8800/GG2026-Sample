@@ -20,9 +20,10 @@ public class EnemyAttack : EnemyAttackBase
     {
         if (!enemy.allowAttack) return;
         if (enemy.isBeingPummeled || enemy.isParryStunned) return;
-        if (!enemy.canAttack || enemy.target == null) return;
-        enemy.canAttack = false;
+        if (!canAttack || enemy.isAttacking || enemy.target == null) return;
 
+        enemy.isAttacking = true;
+        canAttack = false;
         switch (Random.Range(0, 4))
         {
             case 0:
@@ -41,7 +42,6 @@ public class EnemyAttack : EnemyAttackBase
                 StartCoroutine(Shoot());
                 break;
         }
-        if (Random.Range(0, 2) == 1) StartCoroutine(Shoot());
     }
     private IEnumerator Shoot()
     {
@@ -62,8 +62,8 @@ public class EnemyAttack : EnemyAttackBase
             yield return new WaitForSeconds(0.2f);
         }
 
+        enemy.isAttacking = false;
         AttackCooldown();
-        yield break;
     }
     private IEnumerator MeleeAttack()
     {
@@ -101,6 +101,7 @@ public class EnemyAttack : EnemyAttackBase
         else
         {
             enemy.canMove = true;
+            enemy.isAttacking = false;
             AttackCooldown();
         }
     }
@@ -127,6 +128,7 @@ public class EnemyAttack : EnemyAttackBase
         }
 
         enemy.canMove = true;
+        enemy.isAttacking = false;
         AttackCooldown();
     }
 
@@ -150,7 +152,9 @@ public class EnemyAttack : EnemyAttackBase
             yield return new WaitForSeconds(0.55f);
         }
         StopCoroutine(syncToDirRoulette);
+
         enemy.canMove = true;
+        enemy.isAttacking = false;
         SetInteractible(true);
         AttackCooldown();
     }
@@ -177,14 +181,14 @@ public class EnemyAttack : EnemyAttackBase
             AttackWarning();
             yield return new WaitForSeconds(0.2f);
             AttackWarning();
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.1f);
 
             AttackZoneManager.Instance.SetCircleAttackZone(
                 transform.position + direction * dist,
-                3.0f,
-                1.0f
+                4.0f,
+                1.1f
             );
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.3f);
 
             enemy.enemyRigidbody.AddForce(direction * impulse, ForceMode2D.Impulse);
             SpawnAttack(meleeCircleSweep, enemy.target, default, direction);
@@ -194,6 +198,7 @@ public class EnemyAttack : EnemyAttackBase
         }
         
         enemy.canMove = true;
+        enemy.isAttacking = false;
         AttackCooldown();
     }
 }

@@ -14,6 +14,7 @@ public class EnemyVision : EnemyComponent
     }
     private void Update()
     {
+        if (enemy.isAttacking) return;
         if (!enemy.allowVision || enemy.isBeingPummeled) return;
         if (enemy.target != null) CheckLineOfSight();
         if (enemy.target == null) SearchForTarget();
