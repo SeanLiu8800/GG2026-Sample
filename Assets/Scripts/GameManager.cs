@@ -3,7 +3,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public Room currRoom { get; private set; }
+    [field: SerializeField] public Room currRoom { get; private set; }
     [field: SerializeField] public int roomNumber { get; private set; } = 0;
     private void Awake()
     {
@@ -22,18 +22,22 @@ public class GameManager : MonoBehaviour
     {
         Fun();
     }
+    private void StartGame()
+    {
+
+    }
     private void Fun()
     {
         currRoom.roomEvents.roomStarts += RoomStarts;
-        currRoom.roomEvents.roomEnds += RoomEnd;
+        currRoom.roomEvents.roomEnds += LoadNextRoom;
     }
     private void RoomStarts()
     {
         Debug.Log("Game Manager sees that Room Starts");
     }
-    private void RoomEnd()
+    private void LoadNextRoom()
     {
         Debug.Log("Game Manager sees that Room Ends");
-        roomNumber++;
+        roomNumber ++;
     }
 }
