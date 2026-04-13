@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class RoomDebugMenu : RoomComponent
+public class RoomDebugMenu : MonoBehaviour
 {
     private bool currState = false;
     private void Start()
@@ -14,15 +14,15 @@ public class RoomDebugMenu : RoomComponent
 
     public void StartRoom()
     {
-        room.roomEvents.roomStarts?.Invoke();
+        GameManager.Instance.currRoom.roomEvents.roomStarts?.Invoke();
     }
     public void EndRoom()
     {
-        room.roomEvents.roomEnds?.Invoke();
+        GameManager.Instance.currRoom.roomEvents.roomEnds?.Invoke();
     }
     public void KillAllEnemies()
     {
-        room.waveSpawner.KillCurrentEnemies();
+        GameManager.Instance.currRoom.waveSpawner.KillCurrentEnemies();
     }
 
     private void Toggle()
