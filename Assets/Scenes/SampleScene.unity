@@ -255,7 +255,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   biomeComponents: {fileID: 11400000, guid: 861f220d8bc088b40bd230366742c1a7, type: 2}
+  player: {fileID: 993337297}
   <currRoom>k__BackingField: {fileID: 2063995964367002516}
+  roomOrder: 
   <roomNumber>k__BackingField: 0
 --- !u!4 &772975969
 Transform:
