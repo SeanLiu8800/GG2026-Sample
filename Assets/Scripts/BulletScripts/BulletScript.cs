@@ -31,7 +31,12 @@ public class BulletScript : MonoBehaviour
         bulletCollider = _bulletCollider;
         spriteRenderer = _spriteRenderer;
     }
-
+    void Start()
+    {
+        if (!wasInitialized) transform.parent = GameManager.Instance.currRoom.roomBullets.bulletContainer.transform;
+    }
+    
+    private bool wasInitialized = false;
     public void Initialize
     (
         GameObject owner,
@@ -40,6 +45,8 @@ public class BulletScript : MonoBehaviour
         Vector3 lookDirection = default
     )
     {
+        wasInitialized = true;
+
         this.owner = owner;
         this.target = target;
         this.moveDirection = initialMoveDirection;

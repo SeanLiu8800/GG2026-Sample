@@ -174,8 +174,7 @@ public class EnemyAttack : EnemyAttackBase
         for (int i = 0; i < 4; i ++)
         {
             Vector3 direction = enemy.toTargetDirection;
-            float dist = Mathf.Min(enemy.distanceToTarget, 4.0f);
-            float impulse = enemy.move.ImpulseFromDistance(dist);
+            float dist = Mathf.Min(enemy.distanceToTarget - 1.5f, 4.0f);
 
             AttackWarning();
             yield return new WaitForSeconds(0.2f);
@@ -189,7 +188,7 @@ public class EnemyAttack : EnemyAttackBase
             );
             yield return new WaitForSeconds(0.3f);
 
-            enemy.enemyRigidbody.AddForce(direction * impulse, ForceMode2D.Impulse);
+            enemy.move.Dash(direction, dist);
             SpawnAttack(meleeCircleSweep, enemy.target, default, direction);
             yield return new WaitForSeconds(0.3f);
             SpawnAttack(meleeCircleSweep, enemy.target, default, direction);
