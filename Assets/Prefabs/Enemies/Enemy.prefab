@@ -221,13 +221,13 @@ MonoBehaviour:
   <playerLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 8
-  <allowMove>k__BackingField: 1
-  <allowAttack>k__BackingField: 1
+  <allowMove>k__BackingField: 0
+  <allowAttack>k__BackingField: 0
   <allowDamage>k__BackingField: 1
   <allowVision>k__BackingField: 1
   <allowInstantPummel>k__BackingField: 0
   canMove: 1
-  canAttack: 1
+  isAttacking: 0
   isParryStunned: 0
   isBeingPummeled: 0
 --- !u!114 &1453278992626137235
@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
   attackWarning: {fileID: 8827905931808526965, guid: 33e8cf780e3dd3a4d8207f50b7a05299, type: 3}
+  canAttack: 1
   attackCooldown: 1
   isOffscreen: 0
   attack: {fileID: 8827905931808526965, guid: 465e389e586ddb04fbcdfcaa10e0cadb, type: 3}

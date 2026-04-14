@@ -68,13 +68,13 @@ public class EnemyAttack : EnemyAttackBase
     private IEnumerator MeleeAttack()
     {
         enemy.canMove = false;
-        Vector3 direction = enemy.toTargetDirection;
-        float dist = enemy.move.DistanceFromImpulse(30.0f);
 
         AttackWarning();
         yield return new WaitForSeconds(0.2f);
         AttackWarning();
 
+        Vector3 direction = enemy.toTargetDirection;
+        float dist = 4.0f;
         AttackZoneManager.Instance.SetSquareAttackZone(
             transform.position + direction * dist,
             direction,
@@ -82,16 +82,15 @@ public class EnemyAttack : EnemyAttackBase
             2.0f * dist,
             1.0f
         );
-        enemy.enemyRigidbody.AddForce(direction * 30.0f, ForceMode2D.Impulse);
-
-        yield return StartCoroutine(TrackDistanceToTarget(2.0f, 0.3f));
-
-        SpawnAttack(meleeAttack, enemy.target, default, direction);
-        enemy.enemyRigidbody.AddForce(direction * 10.0f, ForceMode2D.Impulse);
+        enemy.move.DashToTarget(dist);
         yield return new WaitForSeconds(0.3f);
 
         SpawnAttack(meleeAttack, enemy.target, default, direction);
-        enemy.enemyRigidbody.AddForce(direction * 10.0f, ForceMode2D.Impulse);
+        enemy.move.Dash(direction, 1.5f);
+        yield return new WaitForSeconds(0.3f);
+
+        SpawnAttack(meleeAttack, enemy.target, default, direction);
+        enemy.move.Dash(direction, 1.5f);
         yield return new WaitForSeconds(0.2f);
 
         if (enemy.IsTargetWithinDistance(5.0f))
@@ -122,7 +121,7 @@ public class EnemyAttack : EnemyAttackBase
             );
             yield return new WaitForSeconds(0.3f);
             enemy.enemyRigidbody.linearVelocity = Vector2.zero;
-            enemy.enemyRigidbody.AddForce(direction * 20.0f, ForceMode2D.Impulse);
+            enemy.move.Dash(direction, 2.5f);
             SpawnAttack(meleeAttack, enemy.target, default, direction);
             yield return new WaitForSeconds(0.2f);
         }
