@@ -30,6 +30,20 @@ public class EnemyMovement : EnemyComponent
         return impulse;
     }
     /// <summary>
+    /// Have this enemy Dash maxDistance towards the target, or to within 1.5f of the target, whichever has the smaller travel distance
+    /// </summary>
+    /// <param name="maxDistance">The maximum dash distance</param>
+    /// <param name="distanceFromTarget">The distance from the target to end the dash</param>
+    public void DashToTarget(float maxDistance, float distanceFromTarget = 1.5f)
+    {
+        float travelDistance = Mathf.Min(
+            enemy.distanceToTargetSquared - distanceFromTarget * distanceFromTarget, 
+            maxDistance
+        );
+        float travelImpulse = ImpulseFromDistance(travelDistance);
+        enemy.enemyRigidbody.AddForce(enemy.toTargetDirection * travelImpulse, ForceMode2D.Impulse);
+    }
+    /// <summary>
     /// Movement Behavior that allows movement towards strafeRadius units away from Player, then strafe in a circle
     /// </summary>
     private void ChaseThenStrafe()
