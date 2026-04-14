@@ -29,8 +29,12 @@ public class GameManager : MonoBehaviour
     {
         GenerateRoomOrder();
         SpawnRoom();
-        
     }
+    /// <summary>
+    /// Generates the sequence of indices of biomeComponent.biomeCombatRooms for this run<br/>
+    /// and stores it in roomOrder<br/>
+    /// Duplicates do not exist UNLESS the number of rooms of a run in biomeComponent is GREATER than the number of Combat Rooms
+    /// </summary>
     private void GenerateRoomOrder()
     {
         roomOrder = new int[biomeComponents.biomeLength];
@@ -51,8 +55,8 @@ public class GameManager : MonoBehaviour
     {
         if (currRoom != null)
         {
-            Destroy(currRoom.gameObject);
             Unsubscribe();
+            Destroy(currRoom.gameObject);
         }
         currRoom = Instantiate(biomeComponents.biomeCombatRooms[roomOrder[roomNumber]]).GetComponent<Room>();
         player.transform.position = currRoom.spawnPoints.GetPlayerSpawnPoint();

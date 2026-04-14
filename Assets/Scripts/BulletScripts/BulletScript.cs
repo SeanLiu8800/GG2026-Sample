@@ -46,5 +46,6 @@ public class BulletScript : MonoBehaviour
         this.lookDirection = lookDirection;
         float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        transform.parent = GameManager.Instance.currRoom.roomBullets.bulletContainer.transform;
     }
 }
