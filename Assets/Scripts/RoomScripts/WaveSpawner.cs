@@ -105,14 +105,17 @@ public class WaveSpawner : RoomComponent
                 }
                 else
                 {
-                    currEnemyGameObject.transform.parent = enemyContainer.transform;
-                    currEnemyGameObject.transform.position = room.spawnPoints.GetEnemySpawnPoint();
-                    currWaveEnemies.Add(enemy);
+                    AddEnemy(enemy);
                 }
             }
         }
-        // Track when each enemy Dies
-        foreach (Enemy enemy in currWaveEnemies) enemy.enemyEvents.onEnemyDies += OnEnemyDies;
+    }
+    public void AddEnemy(Enemy enemy)
+    {
+        enemy.transform.parent = enemyContainer.transform;
+        enemy.transform.position = room.spawnPoints.GetEnemySpawnPoint();
+        enemy.enemyEvents.onEnemyDies += OnEnemyDies;
+        currWaveEnemies.Add(enemy);
     }
     public void DeleteEnemies()
     {

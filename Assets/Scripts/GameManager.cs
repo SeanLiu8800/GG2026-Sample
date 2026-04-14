@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
     {
         if (currRoom != null)
         {
+            currRoom.roomBullets.DeleteAllBullets();
             Unsubscribe();
             Destroy(currRoom.gameObject);
         }

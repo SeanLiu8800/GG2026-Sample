@@ -101,6 +101,12 @@ public class Enemy : MonoBehaviour
     }
     #endregion
 
+    void Start()
+    {
+        // Late addition to current room's enemy spawner
+        if (transform.parent == null) GameManager.Instance.currRoom.waveSpawner.AddEnemy(this);
+    }
+
     public bool IsTargetWithinDistance(float distance)
     {
         if (target == null) return false;
