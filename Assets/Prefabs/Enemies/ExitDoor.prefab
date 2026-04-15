@@ -13,7 +13,23 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2902083262967808948, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: <allowMove>k__BackingField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2902083262967808948, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: <allowAttack>k__BackingField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2902083262967808948, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: <allowDamage>k__BackingField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2902083262967808948, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: <allowVision>k__BackingField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2902083262967808948, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: <allowInstantPummel>k__BackingField
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3334341506000453853, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
@@ -26,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5009635962318628123, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: m_IncludeLayers.m_Bits
-      value: 8
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 5009635962318628123, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: m_LayerOverridePriority

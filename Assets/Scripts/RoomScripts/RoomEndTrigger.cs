@@ -40,12 +40,12 @@ public class RoomEndTrigger : RoomComponent
     void RoomStarts()
     {
         SetActive(false);
-        DisableWall();
+        DisableBreakability();
     }
     void AllWavesCompleted()
     {
         SetActive(true);
-        EnableWall();
+        EnableBreakability();
     }
     #endregion
 
@@ -65,7 +65,7 @@ public class RoomEndTrigger : RoomComponent
         }
         else
         {
-            DisableWall();
+            DisableBreakability();
         }
     }
  
@@ -77,7 +77,7 @@ public class RoomEndTrigger : RoomComponent
     /// <summary>
     /// Function that enables player interaction with enemyWall
     /// </summary>
-    public void EnableWall()
+    public void EnableBreakability()
     {
         if (exitDoor == null)
         {
@@ -91,7 +91,7 @@ public class RoomEndTrigger : RoomComponent
     /// <summary>
     /// Function that disables player interaction with Wall
     /// </summary>
-    public void DisableWall()
+    public void DisableBreakability()
     {
         if (exitDoor == null)
         {
