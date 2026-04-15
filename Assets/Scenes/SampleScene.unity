@@ -285,7 +285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 882305333}
   - component: {fileID: 882305334}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -384,7 +384,7 @@ GameObject:
   - component: {fileID: 993337302}
   - component: {fileID: 993337304}
   - component: {fileID: 993337305}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -707,7 +707,7 @@ GameObject:
   - component: {fileID: 1351050885}
   - component: {fileID: 1351050884}
   - component: {fileID: 1351050887}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: PlayerAttackArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}

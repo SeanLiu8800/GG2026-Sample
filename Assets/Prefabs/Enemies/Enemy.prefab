@@ -220,7 +220,7 @@ MonoBehaviour:
   <target>k__BackingField: {fileID: 0}
   <playerLayer>k__BackingField:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 512
   <allowMove>k__BackingField: 0
   <allowAttack>k__BackingField: 0
   <allowDamage>k__BackingField: 1
@@ -284,7 +284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   damageLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 512
   <maxHealth>k__BackingField: 5
   <currHealth>k__BackingField: 5
 --- !u!114 &6475756978650275598
@@ -302,10 +302,10 @@ MonoBehaviour:
   visionRadius: 5
   detectionLayerMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 512
   lineOfSightLayermask:
     serializedVersion: 2
-    m_Bits: 264
+    m_Bits: 768
   loseTargetTime: 1
 --- !u!114 &5469936719626399801
 MonoBehaviour:

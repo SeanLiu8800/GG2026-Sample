@@ -184,7 +184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   playerLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 512
   exitDoorGameObject: {fileID: 4705485784247206799, guid: 9b5a0231c4889c5418d363db630e281a, type: 3}
 --- !u!1 &1330401690350030430
 GameObject:
@@ -1737,7 +1737,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomTriggers
   playerLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 512
 --- !u!1 &7250187847492669562
 GameObject:
   m_ObjectHideFlags: 0
@@ -1856,7 +1856,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bfbc94ae2f993744bf092872d931250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  bulletContainer: {fileID: 0}
 --- !u!1 &7505173185303039956
 GameObject:
   m_ObjectHideFlags: 0

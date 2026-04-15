@@ -24,11 +24,9 @@ public class EnemyVision : EnemyComponent
         Collider2D collider = Physics2D.OverlapCircle(transform.position, visionRadius, detectionLayerMask);
         // No targets within Overlap Circle
         if (collider == null) return;
-        
         RaycastHit2D hit = Physics2D.Linecast(transform.position, collider.transform.position, lineOfSightLayermask);
         // Direct Line of Sight is blocked
         if (!CheckIsTarget(hit.transform, collider.gameObject)) return;
-
         enemy.AssignTarget(collider.gameObject);
     }
 

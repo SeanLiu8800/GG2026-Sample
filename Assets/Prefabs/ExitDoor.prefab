@@ -220,14 +220,14 @@ MonoBehaviour:
   <target>k__BackingField: {fileID: 0}
   <playerLayer>k__BackingField:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 512
   <allowMove>k__BackingField: 0
   <allowAttack>k__BackingField: 0
   <allowDamage>k__BackingField: 1
   <allowVision>k__BackingField: 0
   <allowInstantPummel>k__BackingField: 0
   canMove: 1
-  canAttack: 1
+  isAttacking: 0
   isParryStunned: 0
   isBeingPummeled: 0
 --- !u!114 &1453278992626137235
@@ -259,6 +259,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb0e4cffbfab8c54586726fe696020cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  attackWarning: {fileID: 0}
+  canAttack: 1
+  attackCooldown: 1
+  isOffscreen: 0
 --- !u!114 &8397098237968679545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,7 +277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   damageLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 512
   <maxHealth>k__BackingField: 10
   <currHealth>k__BackingField: 10
 --- !u!114 &6475756978650275598
@@ -291,10 +295,10 @@ MonoBehaviour:
   visionRadius: 5
   detectionLayerMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 512
   lineOfSightLayermask:
     serializedVersion: 2
-    m_Bits: 264
+    m_Bits: 768
   loseTargetTime: 1
 --- !u!114 &5469936719626399801
 MonoBehaviour:
