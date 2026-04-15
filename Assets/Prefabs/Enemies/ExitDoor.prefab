@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2236136314133411825
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 59801324413392711, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: pummelIndefinitely
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2902083262967808948, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: <allowVision>k__BackingField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3334341506000453853, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 4705485784247206799, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: m_Name
+      value: ExitDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 5009635962318628123, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5009635962318628123, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: m_LayerOverridePriority
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6428915879681099594, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: m_BodyType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6475756978650275598, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: visionRadius
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760488159647587559, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: m_Color.b
+      value: 0.3490566
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760488159647587559, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: m_Color.g
+      value: 0.3490566
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760488159647587559, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: m_Color.r
+      value: 0.3490566
+      objectReference: {fileID: 0}
+    - target: {fileID: 7562004299904221908, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7562004299904221908, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7562004299904221908, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7562004299904221908, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7628755638479967323, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397098237968679545, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: <maxHealth>k__BackingField
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397098237968679545, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: <currHealth>k__BackingField
+      value: 10
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6481323338877870485, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4705485784247206799, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      insertIndex: 6
+      addedObject: {fileID: -3274207390866115685}
+  m_SourcePrefab: {fileID: 100100000, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+--- !u!1 &6792945849886405758 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4705485784247206799, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+  m_PrefabInstance: {fileID: 2236136314133411825}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-3274207390866115685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6792945849886405758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb0e4cffbfab8c54586726fe696020cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAttackEmpty
+  attackWarning: {fileID: 0}
+  canAttack: 1
+  attackCooldown: 1
+  isOffscreen: 0

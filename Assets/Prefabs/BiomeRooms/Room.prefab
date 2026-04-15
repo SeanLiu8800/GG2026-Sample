@@ -185,7 +185,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
-  exitDoorGameObject: {fileID: 4705485784247206799, guid: 9b5a0231c4889c5418d363db630e281a, type: 3}
+  exitDoorGameObject: {fileID: 6792945849886405758, guid: 0d899a6fb14cf3749b3e7641e84fe0e0, type: 3}
 --- !u!1 &1330401690350030430
 GameObject:
   m_ObjectHideFlags: 0

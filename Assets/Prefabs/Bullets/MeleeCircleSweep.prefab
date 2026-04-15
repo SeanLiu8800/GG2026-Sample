@@ -150,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   <layerMask>k__BackingField:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 512
   <bulletSFX>k__BackingField: {fileID: 11400000, guid: 54dc6d9671c0b5e40910ee0a04d07140, type: 2}
   <owner>k__BackingField: {fileID: 0}
   <target>k__BackingField: {fileID: 0}
