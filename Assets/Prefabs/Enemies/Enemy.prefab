@@ -267,6 +267,9 @@ MonoBehaviour:
   meleeAttack: {fileID: 8827905931808526965, guid: 93161380bd30a374b992c08f5b22c457, type: 3}
   meleeSwipe: {fileID: 8827905931808526965, guid: 201d11c97a3dcce45a2a3db7f6754239, type: 3}
   meleeCircleSweep: {fileID: 8827905931808526965, guid: 9ab74319e57c7724ea0f4c1f1b81d15d, type: 3}
+  wall:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &8397098237968679545
 MonoBehaviour:
   m_ObjectHideFlags: 0

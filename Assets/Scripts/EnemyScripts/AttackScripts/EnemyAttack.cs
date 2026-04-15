@@ -158,12 +158,16 @@ public class EnemyAttack : EnemyAttackBase
         AttackCooldown();
     }
     private Coroutine syncToDirRoulette;
+    public LayerMask wall;
     private IEnumerator SyncToDirRoulette()
     {
         while(true)
         {
-            transform.position =
-            enemy.target.transform.position - Bullet_OnInterval_DirRouletteEmit.previousDirection * 2.0f;
+            Vector3 attackDir = Bullet_OnInterval_DirRouletteEmit.previousDirection;
+            if (!Physics2D.Raycast(enemy.target.transform.position, -attackDir, 2.0f, wall))
+            {
+                transform.position = enemy.target.transform.position - attackDir * 2.0f;
+            }
             yield return null;
         }
     }
@@ -173,13 +177,13 @@ public class EnemyAttack : EnemyAttackBase
         enemy.canMove = false;
         for (int i = 0; i < 4; i ++)
         {
-            Vector3 direction = enemy.toTargetDirection;
-            float dist = Mathf.Min(enemy.distanceToTarget - 1.5f, 4.0f);
-
             AttackWarning();
             yield return new WaitForSeconds(0.2f);
             AttackWarning();
             yield return new WaitForSeconds(0.1f);
+
+            Vector3 direction = enemy.toTargetDirection;
+            float dist = Mathf.Min(enemy.distanceToTarget - 1.5f, 4.0f);
 
             AttackZoneManager.Instance.SetCircleAttackZone(
                 transform.position + direction * dist,
