@@ -78,6 +78,6 @@ public class EnemyHealth : EnemyComponent, IDamageable
         
         lastAttackID = player.attack.currAttackID;
         Damage(player.attack.currDamage);
-        enemy.enemyRigidbody.AddForce((transform.position - collision.transform.position).normalized * 10.0f, ForceMode2D.Impulse);
+        enemy.move.Dash((transform.position - collision.transform.position).normalized, 1.0f);
     }
 }

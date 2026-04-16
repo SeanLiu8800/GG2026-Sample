@@ -3,12 +3,14 @@ using System.Collections.Generic;
 public class EnemyVision : EnemyComponent
 {
     [SerializeField, Range(0.0f, 5.0f)] private float visionRadius = 5.0f;
-    [SerializeField] private LayerMask detectionLayerMask;
-    [SerializeField] private LayerMask lineOfSightLayermask;
+    private LayerMask detectionLayerMask;
+    private LayerMask lineOfSightLayermask;
 
     [SerializeField, Range(0.0f, 2.0f)] private float loseTargetTime = 1.0f;
     private void Start()
     {
+        detectionLayerMask = LayerMask.GetMask("Player");
+        lineOfSightLayermask = LayerMask.GetMask("Player", "Wall");
         if (detectionLayerMask == 0) Debug.LogWarning($"{this.name}'s detectionLayerMask is set to Nothing! Should you set it to something?");
         if (lineOfSightLayermask == 0) Debug.LogWarning($"{this.name}'s lineOfSightLayermask is set to Nothing! Should you set it to something?");
     }
