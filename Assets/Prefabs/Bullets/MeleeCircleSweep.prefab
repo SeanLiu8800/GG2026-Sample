@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df5da9ae21aaa6e4d85875e2385c888e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  <layerMask>k__BackingField:
+  <interactLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 512
   <bulletSFX>k__BackingField: {fileID: 11400000, guid: 54dc6d9671c0b5e40910ee0a04d07140, type: 2}
