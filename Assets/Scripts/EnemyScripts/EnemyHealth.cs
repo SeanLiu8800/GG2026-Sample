@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class EnemyHealth : EnemyComponent, IDamageable
 {
-    [SerializeField] private LayerMask damageLayer;
     [field: SerializeField] public int maxHealth { get; private set; } = 5;
     [field: SerializeField] public int currHealth { get; private set; } = 5;
 
@@ -26,7 +25,7 @@ public class EnemyHealth : EnemyComponent, IDamageable
         //Invoke(nameof(Respawn), 1.0f);
     }
     #endregion
-
+    
     public void Damage(int damage = 1)
     {
         if (damage < 1)
@@ -70,7 +69,8 @@ public class EnemyHealth : EnemyComponent, IDamageable
     private int lastAttackID = 0;
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (!enemy.allowDamage || ((1 << collision.gameObject.layer) & damageLayer) == 0) return;
+        // Only tracks player attack colliders!
+        if (!enemy.allowDamage || ((1 << collision.gameObject.layer) & enemy.playerLayer) == 0) return;
 
         Player player = collision.gameObject.GetComponentInParent<Player>();
         if (player == null || !player.attack.isAttacking) return;

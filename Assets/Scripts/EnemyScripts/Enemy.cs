@@ -105,6 +105,7 @@ public class Enemy : MonoBehaviour
     {
         // Late addition to current room's enemy spawner
         if (transform.parent == null) GameManager.Instance.currRoom.waveSpawner.AddEnemy(this);
+        if ((playerLayer = LayerMask.GetMask("Player")) == 0) Debug.LogError("Player layer NOT FOUND!");
     }
 
     public bool IsTargetWithinDistance(float distance)

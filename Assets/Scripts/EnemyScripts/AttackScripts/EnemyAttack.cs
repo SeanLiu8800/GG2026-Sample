@@ -158,10 +158,15 @@ public class EnemyAttack : EnemyAttackBase
         AttackCooldown();
     }
     private Coroutine syncToDirRoulette;
-    public LayerMask wall;
     private IEnumerator SyncToDirRoulette()
     {
-        while(true)
+        LayerMask wall;
+        if ((wall = LayerMask.GetMask("Wall")) == 0) 
+        {
+            Debug.LogError("Wall Layer is NOT FOUND");
+            yield break;
+        }
+        while (true)
         {
             Vector3 attackDir = Bullet_OnInterval_DirRouletteEmit.previousDirection;
             if (!Physics2D.Raycast(enemy.target.transform.position, -attackDir, 2.0f, wall))
