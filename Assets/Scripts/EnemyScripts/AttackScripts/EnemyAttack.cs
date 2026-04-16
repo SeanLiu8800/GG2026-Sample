@@ -161,6 +161,7 @@ public class EnemyAttack : EnemyAttackBase
     private IEnumerator SyncToDirRoulette()
     {
         LayerMask wall;
+        float distance = 1.5f + enemy.spriteRenderer.bounds.extents.magnitude;
         if ((wall = LayerMask.GetMask("Wall")) == 0) 
         {
             Debug.LogError("Wall Layer is NOT FOUND");
@@ -169,10 +170,11 @@ public class EnemyAttack : EnemyAttackBase
         while (true)
         {
             Vector3 attackDir = Bullet_OnInterval_DirRouletteEmit.previousDirection;
-            if (!Physics2D.Raycast(enemy.target.transform.position, -attackDir, 2.0f, wall))
-            {
-                transform.position = enemy.target.transform.position - attackDir * 2.0f;
-            }
+            Vector3 position = enemy.target.transform.position - attackDir * distance;
+            bool enoughSpace = !Physics2D.OverlapBox(position, enemy.spriteRenderer.bounds.extents * 3, 0.0f, wall);
+            bool hasLineOfSight = !Physics2D.Raycast(enemy.target.transform.position, -attackDir, distance, wall);
+            if (enoughSpace && hasLineOfSight) transform.position = enemy.target.transform.position - attackDir * 2.0f;
+
             yield return null;
         }
     }
