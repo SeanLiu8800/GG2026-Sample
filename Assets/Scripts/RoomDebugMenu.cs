@@ -24,6 +24,10 @@ public class RoomDebugMenu : MonoBehaviour
     {
         GameManager.Instance.currRoom.waveSpawner.KillCurrentEnemies();
     }
+    public void ResetGame()
+    {
+        GameManager.Instance.StartGame();
+    }
 
     private void Toggle()
     {

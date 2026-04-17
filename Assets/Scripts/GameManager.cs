@@ -25,9 +25,10 @@ public class GameManager : MonoBehaviour
     {
         StartGame();
     }
-    private void StartGame()
+    public void StartGame()
     {
         GenerateRoomOrder();
+        roomNumber = 0;
         SpawnRoom();
     }
     /// <summary>
@@ -81,8 +82,7 @@ public class GameManager : MonoBehaviour
     private void LoadNextRoom()
     {
         Debug.Log("Game Manager sees that Room Ends");
-        roomNumber ++;
-        if (roomNumber < roomOrder.Length) SpawnRoom();
+        if (roomNumber >= 0 && ++roomNumber < roomOrder.Length) SpawnRoom();
         else
         {
             roomNumber = -1;
