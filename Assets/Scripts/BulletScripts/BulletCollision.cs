@@ -23,7 +23,8 @@ public class BulletCollision : BulletComponent
         }
         else
         {
-            Destroy(this.gameObject);
+            Vector3 normalVector = Physics2D.Raycast(transform.position, bullet.moveDirection).normal;
+            bullet.bulletEvents.onHitWall?.Invoke(normalVector);
         }
     }
     /// <summary>

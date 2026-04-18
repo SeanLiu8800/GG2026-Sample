@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 128513230372407838}
   - component: {fileID: -223621541423900768}
   - component: {fileID: 8955815773037303832}
+  - component: {fileID: 562501836962054041}
   m_Layer: 7
   m_Name: Bullet
   m_TagString: Untagged
@@ -244,3 +245,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de33e38a3499f754891bc01c4ee5d5ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet_OnDashedInto_Destroy
+--- !u!114 &562501836962054041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8827905931808526965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54c34418c4b5d764c9a18061c476e8b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'

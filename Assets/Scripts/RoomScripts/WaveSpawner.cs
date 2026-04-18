@@ -100,7 +100,7 @@ public class WaveSpawner : RoomComponent
             Debug.LogError("Enemy GameObject is NULL! An EnemyUnit's enemy GameObject field probably isn't set!");
             return;
         }
-        if (!enemyGameObject.TryGetComponent<Enemy>(out Enemy enemy))
+        if (enemyGameObject.GetComponent<Enemy>() == null)
         {
             Debug.LogError("Enemy GameObject DOES NOT have an Enemy Component!");
             return;
