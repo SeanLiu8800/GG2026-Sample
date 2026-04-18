@@ -88,28 +88,27 @@ public class WaveSpawner : RoomComponent
         defeatedEnemies = 0;
         currWaveEnemies.Clear();
         EnemyWave currWave = enemyWaves[currWaveNumber];
-        foreach (EnemyWaveUnit enemyUnit in currWave.enemies)
-        {
-            if (enemyUnit.enemy == null)
-            {
-                Debug.LogError($"{this.name} has an Unset enemy unit!");
-                continue;
-            }
-            for (int i = 0; i < enemyUnit.enemyCount; i ++)
-            {
-                GameObject currEnemyGameObject = Instantiate(enemyUnit.enemy, new Vector2(4.5f, 0.0f), transform.rotation);
-                if (!currEnemyGameObject.TryGetComponent<Enemy>(out Enemy enemy))
-                {
-                    Debug.LogError("Spawned Enemy DOES NOT have an Enemy Component!");
-                    Destroy(currEnemyGameObject);
-                }
-                else
-                {
-                    AddEnemy(enemy);
-                }
-            }
-        }
+        foreach (EnemyWaveUnit enemyUnit in currWave.enemies) AddEnemy(enemyUnit.enemy, enemyUnit.enemyCount);
     }
+    /// <summary>Adds a specified number of enemyGameObjects to this current Enemy Wave</summary>
+    /// <param name="enemyGameObject">The Enemy to Spawn</param>
+    /// <param name="count">The number of enemies to spawn</param>
+    public void AddEnemy(GameObject enemyGameObject, int count = 1)
+    {
+        if (enemyGameObject == null)
+        {
+            Debug.LogError("Enemy GameObject is NULL! An EnemyUnit's enemy GameObject field probably isn't set!");
+            return;
+        }
+        if (!enemyGameObject.TryGetComponent<Enemy>(out Enemy enemy))
+        {
+            Debug.LogError("Enemy GameObject DOES NOT have an Enemy Component!");
+            return;
+        }
+        for (int i = 0; i < count; i++) AddEnemy(Instantiate(enemyGameObject).GetComponent<Enemy>());
+    }
+    /// <summary>Adds enemyGameObject to this current Enemy Wave</summary>
+    /// <param name="enemy">The EnemyScript component of the Enemy to add</param>
     public void AddEnemy(Enemy enemy)
     {
         enemy.transform.parent = enemyContainer.transform;
