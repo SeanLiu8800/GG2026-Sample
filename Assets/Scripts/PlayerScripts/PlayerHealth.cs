@@ -3,8 +3,8 @@ using UnityEngine;
 public class PlayerHealth : PlayerComponent, IDamageable
 {
     [field: Header("Health Variables")]
-    [field: SerializeField] public int maxHealth { get; private set; } = 5;
-    [field: SerializeField] public int currHealth { get; private set; } = 5;
+    [field: SerializeField] public float maxHealth { get; private set; } = 5.0f;
+    [field: SerializeField] public float currHealth { get; private set; } = 5.0f;
     [field: Header("Invincibility Variables")]
     [field: SerializeField, ReadOnly] public bool isInvincible { get; private set; } = false;
     [SerializeField, Range(0.0f, 2.0f)] private float invincibilityDuration = 1.0f;
@@ -45,35 +45,40 @@ public class PlayerHealth : PlayerComponent, IDamageable
         UpdateInvincibility();
     }
     
-    public void Damage(int damage = 1)
+    public void Damage(float damage = 1.0f)
     {
         if (!player.canTakeDamage) return;
         if (isInvincible) return;
-        if (damage < 0)
+        if (damage < 0.0f)
         {
             Heal(-damage);
             return;
         }
 
-        currHealth = Mathf.Clamp(currHealth - damage, 0, maxHealth);
+        float originalHealth = currHealth;
+        currHealth = Mathf.Clamp(currHealth - damage, 0.0f, maxHealth);
+        if (originalHealth != currHealth) player.playerEvents.healthChanges?.Invoke();
+        player.playerEvents.onDamage?.Invoke();
+
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerHurts);
-        player.playerEvents.healthChanges?.Invoke();
-        if (currHealth <= 0) Die();
+        if (currHealth <= 0.0f) Die();
 
         StartInvincibility();
         return;
     }
-    public void Heal(int heal = 1)
+    public void Heal(float heal = 1.0f)
     {
         if (!player.canHeal) return;
-        if (heal < 0)
+        if (heal < 0.0f)
         {
             Damage(-heal);
             return;
         }
 
-        currHealth = Mathf.Clamp(currHealth + heal, 0, maxHealth);
-        player.playerEvents.healthChanges?.Invoke();
+        float originalHealth = currHealth;
+        currHealth = Mathf.Clamp(currHealth + heal, 0.0f, maxHealth);
+        if (originalHealth != currHealth) player.playerEvents.healthChanges?.Invoke();
+        player.playerEvents.onHeal?.Invoke();
 
         return;
     }

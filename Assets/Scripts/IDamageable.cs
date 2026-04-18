@@ -1,6 +1,8 @@
 public interface IDamageable
 {
-    void Damage(int damage = 1);
-    void Heal(int heal = 1);
-    void Die();
+    public float currHealth { get; }
+    public float maxHealth { get; }
+    public void Damage(float damage = 1.0f);
+    public void Heal(float heal = 1.0f);
+    public void Die();
 }

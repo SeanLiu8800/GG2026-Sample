@@ -25,7 +25,9 @@ public struct PlayerEvents
     public Action onParry;
     public Action attackEnds;
 
-    public Action healthChanges;
+    public Action healthChanges; 
+    public Action onDamage;
+    public Action onHeal;
     public Action playerDies;
 
     public Action invincibilityStarts;

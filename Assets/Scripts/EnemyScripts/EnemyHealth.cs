@@ -2,9 +2,8 @@ using UnityEngine;
 
 public class EnemyHealth : EnemyComponent, IDamageable
 {
-    [field: SerializeField] public int maxHealth { get; private set; } = 5;
-    [field: SerializeField] public int currHealth { get; private set; } = 5;
-
+    [field: SerializeField] public float currHealth { get; private set; } = 5;
+    [field: SerializeField] public float maxHealth { get; private set; } = 5;
     protected virtual void OnEnable()
     {
         enemy.enemyEvents.onEnemyDies += OnEnemyDies;
@@ -26,34 +25,35 @@ public class EnemyHealth : EnemyComponent, IDamageable
     }
     #endregion
     
-    public void Damage(int damage = 1)
+    public void Damage(float damage = 1.0f)
     {
-        if (damage < 0)
+        if (!enemy.allowDamage) return;
+        if (damage < 0.0f)
         {
             Heal(-damage);
             return;
         }
         float originalHealth = currHealth;
-        currHealth = Mathf.Clamp(currHealth - damage, 0, maxHealth);
+        currHealth = Mathf.Clamp(currHealth - damage, 0.0f, maxHealth);
 
         if (originalHealth != currHealth) enemy.enemyEvents.onHealthChange?.Invoke();
         enemy.enemyEvents.onDamage?.Invoke();
 
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.enemyHurts);
-        if (currHealth <= 0) Die();
+        if (currHealth <= 0.0f) Die();
 
         return;
     }
-    public void Heal(int heal = 1)
+    public void Heal(float heal = 1.0f)
     {
-        if (heal < 0)
+        if (heal < 0.0f)
         {
             Damage(-heal);
             return;
         }
 
         float originalHealth = currHealth;
-        currHealth = Mathf.Clamp(currHealth + heal, 0, maxHealth);
+        currHealth = Mathf.Clamp(currHealth + heal, 0.0f, maxHealth);
         if (originalHealth != currHealth) enemy.enemyEvents.onHealthChange?.Invoke();
         enemy.enemyEvents.onHeal?.Invoke();
 
@@ -76,7 +76,7 @@ public class EnemyHealth : EnemyComponent, IDamageable
     private void OnTriggerStay2D(Collider2D collision)
     {
         // Only tracks player attack colliders!
-        if (!enemy.allowDamage || ((1 << collision.gameObject.layer) & enemy.playerLayer) == 0) return;
+        if (((1 << collision.gameObject.layer) & enemy.playerLayer) == 0) return;
 
         Player player = collision.gameObject.GetComponentInParent<Player>();
         if (player == null || !player.attack.isAttacking) return;
