@@ -50,7 +50,7 @@ public class EnemyPummel : EnemyComponent
     private void EjectPummeler()
     {
         if (!enemy.isBeingPummeled || pummeler == null) return;
-        pummeler.health.Damage(ejectPummelerDamage);
+        pummeler.health.Damage(ejectPummelerDamage, this.gameObject);
         pummeler.move.KnockBack(-enemy.toTargetDirection * 10.0f);
 
         pummeler.pummel.EjectedByPummelTarget();

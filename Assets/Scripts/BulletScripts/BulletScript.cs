@@ -13,7 +13,20 @@ public class BulletScript : MonoBehaviour
     [field: SerializeField, ReadOnly] public GameObject target { get; private set; }
     [field: SerializeField, ReadOnly] public Vector3 moveDirection { get; set; } = Vector3.up;
     [field: SerializeField, Range(0.0f, 60.0f)] public float moveSpeed { get; private set; } = 5.0f;
-    [field: SerializeField, ReadOnly] public Vector3 lookDirection { get; private set; }
+    [SerializeField, ReadOnly] private Vector3 _lookDirection = Vector3.up;
+    public Vector3 lookDirection 
+    { 
+        get
+        {
+            return _lookDirection;
+        }
+        private set 
+        {
+            _lookDirection = value;
+            float angle = Mathf.Atan2(_lookDirection.y, _lookDirection.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        } 
+    }
     [SerializeField, Range(0, 5)] public int damage = 1;
     [SerializeField, Range(0, 5)] public int empowerRate = 1;
 
@@ -51,8 +64,7 @@ public class BulletScript : MonoBehaviour
         this.target = target;
         this.moveDirection = initialMoveDirection;
         this.lookDirection = lookDirection;
-        float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        
         transform.parent = GameManager.Instance.currRoom.roomBullets.bulletContainer.transform;
     }
 }
