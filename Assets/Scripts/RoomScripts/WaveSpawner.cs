@@ -58,7 +58,7 @@ public class WaveSpawner : RoomComponent
         currWaveEnemies.Clear();
         Debug.Log("ALL WAVES COMPLETED");
     }
-    void OnEnemyDies()
+    void EnemyDies()
     {
         if (++defeatedEnemies >= currWaveEnemies.Count) room.roomEvents.waveCompleted?.Invoke();
     }
@@ -114,7 +114,7 @@ public class WaveSpawner : RoomComponent
     {
         enemy.transform.parent = enemyContainer.transform;
         enemy.transform.position = room.spawnPoints.GetEnemySpawnPoint();
-        enemy.enemyEvents.onEnemyDies += OnEnemyDies;
+        enemy.enemyEvents.enemyDies += EnemyDies;
         currWaveEnemies.Add(enemy);
     }
     public void DeleteEnemies()
@@ -123,7 +123,7 @@ public class WaveSpawner : RoomComponent
     }
     public void KillCurrentEnemies()
     {
-        for (int i = 0; i < currWaveEnemies.Count; i ++) currWaveEnemies[i].enemyEvents.onEnemyDies?.Invoke();
+        for (int i = 0; i < currWaveEnemies.Count; i++) currWaveEnemies[i].health.Die();
     }
 }
 

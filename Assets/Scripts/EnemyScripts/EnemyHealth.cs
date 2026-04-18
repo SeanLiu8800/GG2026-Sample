@@ -28,14 +28,17 @@ public class EnemyHealth : EnemyComponent, IDamageable
     
     public void Damage(int damage = 1)
     {
-        if (damage < 1)
+        if (damage < 0)
         {
             Heal(-damage);
             return;
         }
-
+        float originalHealth = currHealth;
         currHealth = Mathf.Clamp(currHealth - damage, 0, maxHealth);
-        enemy.enemyEvents.onHealthChange?.Invoke();
+
+        if (originalHealth != currHealth) enemy.enemyEvents.onHealthChange?.Invoke();
+        enemy.enemyEvents.onDamage?.Invoke();
+
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.enemyHurts);
         if (currHealth <= 0) Die();
 
@@ -43,20 +46,23 @@ public class EnemyHealth : EnemyComponent, IDamageable
     }
     public void Heal(int heal = 1)
     {
-        if (heal < 1)
+        if (heal < 0)
         {
             Damage(-heal);
             return;
         }
 
+        float originalHealth = currHealth;
         currHealth = Mathf.Clamp(currHealth + heal, 0, maxHealth);
-        enemy.enemyEvents.onHealthChange?.Invoke();
+        if (originalHealth != currHealth) enemy.enemyEvents.onHealthChange?.Invoke();
+        enemy.enemyEvents.onHeal?.Invoke();
 
         return;
     }
     public void Die()
     {
         enemy.enemyEvents.onEnemyDies?.Invoke();
+        enemy.enemyEvents.enemyDies?.Invoke();
     }
     private void Respawn()
     {

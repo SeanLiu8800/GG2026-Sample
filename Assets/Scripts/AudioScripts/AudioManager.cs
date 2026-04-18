@@ -41,13 +41,13 @@ public class AudioManager : MonoBehaviour
         MusicInterludeSource.volume = musicVolume;
         MusicOutroSource.volume = musicVolume;
     }
-    //private void Update()
-    //{
-    //    if (Keyboard.current.enterKey.wasPressedThisFrame) PlaySoundtrack(tempSoundtrack);
-    //    if (Keyboard.current.minusKey.wasPressedThisFrame) SoundtrackSwitchToInterlude();
-    //    if (Keyboard.current.equalsKey.wasPressedThisFrame) SoundtrackSwitchToMain();
-    //    if (Keyboard.current.backspaceKey.wasPressedThisFrame) StopSountrack();
-    //}
+    private void Update()
+    {
+        if (Keyboard.current.enterKey.wasPressedThisFrame) PlaySoundtrack(tempSoundtrack);
+        if (Keyboard.current.minusKey.wasPressedThisFrame) SoundtrackSwitchToInterlude();
+        if (Keyboard.current.equalsKey.wasPressedThisFrame) SoundtrackSwitchToMain();
+        if (Keyboard.current.backspaceKey.wasPressedThisFrame) StopSountrack();
+    }
 
     public void PlaySoundOneShot(AudioClip audioClip)
     {

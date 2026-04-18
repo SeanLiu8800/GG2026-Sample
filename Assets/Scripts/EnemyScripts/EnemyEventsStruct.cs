@@ -8,7 +8,10 @@ public struct EnemyEvents
     public Action parryStunEnds;
 
     public Action onHealthChange;
+    public Action onDamage;
+    public Action onHeal;
     public Action onEnemyDies;
+    public Action enemyDies;
 
     public Action<Player> pummelStarts;
     public Action pummelEnds;
