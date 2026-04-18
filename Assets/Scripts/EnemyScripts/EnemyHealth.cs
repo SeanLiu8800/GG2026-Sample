@@ -24,15 +24,27 @@ public class EnemyHealth : EnemyComponent, IDamageable
         //Invoke(nameof(Respawn), 1.0f);
     }
     #endregion
-    
-    public void Damage(float damage = 1.0f)
+    public void Damage(float damage, BulletScript bullet)
     {
-        if (!enemy.allowDamage) return;
         if (damage < 0.0f)
         {
-            Heal(-damage);
+            Heal(-damage, bullet.gameObject);
             return;
         }
+        if (!enemy.allowDamage) return;
+
+        bullet.bulletEvents.onDamage?.Invoke(this.gameObject);
+        Damage(damage, bullet.gameObject);
+    }
+    public void Damage(float damage, GameObject damager = null)
+    {
+        if (damage < 0.0f)
+        {
+            Heal(-damage, damager);
+            return;
+        }
+        if (!enemy.allowDamage) return;
+        
         float originalHealth = currHealth;
         currHealth = Mathf.Clamp(currHealth - damage, 0.0f, maxHealth);
 
@@ -44,11 +56,11 @@ public class EnemyHealth : EnemyComponent, IDamageable
 
         return;
     }
-    public void Heal(float heal = 1.0f)
+    public void Heal(float heal, GameObject healer = null)
     {
         if (heal < 0.0f)
         {
-            Damage(-heal);
+            Damage(-heal, healer);
             return;
         }
 

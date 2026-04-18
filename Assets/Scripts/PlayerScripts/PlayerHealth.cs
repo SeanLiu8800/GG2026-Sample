@@ -44,16 +44,34 @@ public class PlayerHealth : PlayerComponent, IDamageable
     {
         UpdateInvincibility();
     }
-    
-    public void Damage(float damage = 1.0f)
+
+    public void Damage(float damage, BulletScript bullet)
     {
-        if (!player.canTakeDamage) return;
-        if (isInvincible) return;
         if (damage < 0.0f)
         {
-            Heal(-damage);
+            Heal(-damage, bullet.gameObject);
             return;
         }
+        if (!player.canTakeDamage) return;
+        if (isInvincible) return;
+
+        if (player.move.isDashing) bullet.bulletEvents.onDashedInto?.Invoke(player);
+        else if (player.attack.isAttacking && player.attack.attackIsEnhanced) bullet.bulletEvents.onEnhancedAttacked?.Invoke(player);
+        else if (!isInvincible)
+        {
+            bullet.bulletEvents.onDamage?.Invoke(this.gameObject);
+            Damage(damage, bullet.gameObject);
+        }
+    }
+    public void Damage(float damage, GameObject damager = null)
+    {
+        if (damage < 0.0f)
+        {
+            Heal(-damage, damager);
+            return;
+        }
+        if (!player.canTakeDamage) return;
+        if (isInvincible) return;
 
         float originalHealth = currHealth;
         currHealth = Mathf.Clamp(currHealth - damage, 0.0f, maxHealth);
@@ -66,12 +84,12 @@ public class PlayerHealth : PlayerComponent, IDamageable
         StartInvincibility();
         return;
     }
-    public void Heal(float heal = 1.0f)
+    public void Heal(float heal, GameObject healer = null)
     {
         if (!player.canHeal) return;
         if (heal < 0.0f)
         {
-            Damage(-heal);
+            Damage(-heal, healer);
             return;
         }
 
