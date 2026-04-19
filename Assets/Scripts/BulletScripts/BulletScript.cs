@@ -27,6 +27,7 @@ public class BulletScript : MonoBehaviour
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         } 
     }
+    
     [SerializeField, Range(0, 5)] public int damage = 1;
     [SerializeField, Range(0, 5)] public int empowerRate = 1;
 

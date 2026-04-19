@@ -150,7 +150,6 @@ public class PlayerMovement : PlayerComponent
     void PummelReleased()
     {
         StartDash(new InputAction.CallbackContext());
-        //player.playerEvents.dashStarts?.Invoke();
     }
     void PummelEjected()
     {
@@ -194,6 +193,7 @@ public class PlayerMovement : PlayerComponent
     void Update()
     {
         MoveCharacter();
+        UpdateDashBuffer();
         UpdateDashCooldown();
         UpdateKnockback();
     }
@@ -239,13 +239,29 @@ public class PlayerMovement : PlayerComponent
         currMoveSpeed = Mathf.Max(multiplier * currMoveSpeed, 0.0f);
     }
 
+    [SerializeField, ReadOnly] private bool dashBuffered = false;
+    private float bufferStartTime = 0.0f;
+    [SerializeField, Range(0.0f, 0.5f)] private float bufferLifespan = 0.1f;
+    /// <summary>Fills the Dash Buffer and start it on the first possible frame</summary>
     private void StartDash(InputAction.CallbackContext context)
     {
-        if (!player.allowDash) return;
-        // Player is Lunging or Dash still on Cooldown or is pummeling
-        if (isLunging || !canDash || player.pummel.isPummeling || isKnockbacked) return;
+        dashBuffered = true;
+        bufferStartTime = Time.time;
+        UpdateDashBuffer();
+    }
+    /// <summary>Starts a Dash at the first possible frame if it is buffered, or clears the buffer if it expires</summary>
+    private void UpdateDashBuffer()
+    {
+        if (dashBuffered && Time.time - bufferStartTime <= bufferLifespan)
+        {
+            if (!player.allowDash) return;
+            // Player is Lunging or Dash still on Cooldown or is pummeling
+            if (isLunging || !canDash || player.pummel.isPummeling || isKnockbacked) return;
 
-        player.playerEvents.dashStarts?.Invoke();
+            player.playerEvents.dashStarts?.Invoke();
+            return;
+        }
+        dashBuffered = false;
     }
     private void Dash()
     {
@@ -257,6 +273,7 @@ public class PlayerMovement : PlayerComponent
     }
     private void StopDash(InputAction.CallbackContext context)
     {
+        dashBuffered = false;
         if (!isDashing) return;
 
         player.playerEvents.dashEnds?.Invoke();
