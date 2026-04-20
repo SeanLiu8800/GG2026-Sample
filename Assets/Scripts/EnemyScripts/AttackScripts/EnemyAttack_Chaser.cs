@@ -3,13 +3,9 @@ using System.Collections;
 public class EnemyAttack_Chaser : EnemyAttackBase
 {
     [Header("Attack Variables")]
-    [SerializeField, Range(1.0f, 5.0f)] private float attackRange = 2.0f;
+    [SerializeField, Range(1.0f, 5.0f)] private float attackRange = 5.0f;
     [SerializeField] private GameObject attack;
 
-    private void Update()
-    {
-        Attack();
-    }
     protected override void Attack()
     {
         if (!enemy.allowAttack) return;
@@ -35,7 +31,7 @@ public class EnemyAttack_Chaser : EnemyAttackBase
         enemy.canMove = false;
 
         Vector3 direction = enemy.toTargetDirection;
-        float dist = 2.0f;
+        float dist = 4.0f;
         AttackZoneManager.Instance.SetSquareAttackZone(
             transform.position + direction * dist,
             direction,

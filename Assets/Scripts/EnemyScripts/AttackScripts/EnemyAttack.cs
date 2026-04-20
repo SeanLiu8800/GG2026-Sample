@@ -8,7 +8,7 @@ public class EnemyAttack : EnemyAttackBase
     [SerializeField] private GameObject meleeAttack;
     [SerializeField] private GameObject meleeSwipe;
     [SerializeField] private GameObject meleeCircleSweep;
-    protected void Update()
+    protected override void Update()
     {
         Attack();
         if (Keyboard.current.rKey.wasPressedThisFrame) StartCoroutine(Shoot());

@@ -36,6 +36,10 @@ public abstract class EnemyAttackBase : EnemyComponent
     }
     #endregion
 
+    protected virtual void Update()
+    {
+        Attack();
+    }
     protected abstract void Attack();
 
     /// <summary>
