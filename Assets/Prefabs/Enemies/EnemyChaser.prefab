@@ -10,7 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1453278992626137235, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: strafeRadius
-      value: 1
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453278992626137235, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: normalMoveSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1453278992626137235, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: strafingThreshold

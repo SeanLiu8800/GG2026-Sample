@@ -3,7 +3,7 @@ using System.Collections;
 public class EnemyAttack_Chaser : EnemyAttackBase
 {
     [Header("Attack Variables")]
-    [SerializeField, Range(1.0f, 5.0f)] private float attackRange = 5.0f;
+    [SerializeField, Range(3.0f, 8.0f)] private float attackRange = 5.0f;
     [SerializeField] private GameObject attack;
 
     protected override void Attack()
@@ -40,7 +40,7 @@ public class EnemyAttack_Chaser : EnemyAttackBase
             1.0f
         );
         AttackWarning();
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.4f);
 
         
         enemy.move.Dash(direction, dist);

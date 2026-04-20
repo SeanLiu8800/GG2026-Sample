@@ -239,7 +239,6 @@ public class PlayerMovement : PlayerComponent
     /// <summary>Fills the Dash Buffer and start it on the first possible frame</summary>
     private void StartDash(InputAction.CallbackContext context)
     {
-        Debug.LogError("START DASH");
         dashBuffered = true;
         bufferStartTime = Time.time;
         UpdateDashBuffer();
@@ -268,7 +267,6 @@ public class PlayerMovement : PlayerComponent
     }
     private void StopDash(InputAction.CallbackContext context)
     {
-        Debug.LogError("STOP DASH");
         dashBuffered = false;
         if (!isDashing) return;
 

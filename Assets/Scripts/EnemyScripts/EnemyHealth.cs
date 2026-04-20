@@ -6,22 +6,19 @@ public class EnemyHealth : EnemyComponent, IDamageable
     [field: SerializeField] public float maxHealth { get; private set; } = 5;
     protected virtual void OnEnable()
     {
-        enemy.enemyEvents.onEnemyDies += OnEnemyDies;
+        enemy.enemyEvents.enemyDies += EnemyDies;
     }
     protected virtual void OnDisable()
     {
-        enemy.enemyEvents.onEnemyDies -= OnEnemyDies;
+        enemy.enemyEvents.enemyDies -= EnemyDies;
     }
 
     #region ----- Event Functions -----
-    protected virtual void OnEnemyDies()
+    protected virtual void EnemyDies()
     {
         enemy.spriteRenderer.color = Color.white;
         enemy.spriteRenderer.SetAlpha(0.2f);
-        enemy.enemyCollider.excludeLayers = enemy.playerLayer;
-        //enemy.enemyCollider.enabled = false;
-        //Destroy(this.gameObject);
-        //Invoke(nameof(Respawn), 1.0f);
+        enemy.enemyCollider.excludeLayers = LayerMask.GetMask("Player", "Enemy");
     }
     #endregion
     public void Damage(float damage, BulletScript bullet)
@@ -75,13 +72,6 @@ public class EnemyHealth : EnemyComponent, IDamageable
     {
         enemy.enemyEvents.onEnemyDies?.Invoke();
         enemy.enemyEvents.enemyDies?.Invoke();
-    }
-    private void Respawn()
-    {
-        enemy.spriteRenderer.enabled = true;
-        enemy.enemyCollider.enabled = true;
-        Heal(99);
-        this.transform.position = new Vector3(3.5f, 0.0f, 0.0f);
     }
 
     private int lastAttackID = 0;

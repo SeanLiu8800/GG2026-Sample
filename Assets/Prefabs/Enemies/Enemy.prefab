@@ -225,7 +225,7 @@ MonoBehaviour:
   <allowAttack>k__BackingField: 1
   <allowDamage>k__BackingField: 1
   <allowVision>k__BackingField: 1
-  <allowInstantPummel>k__BackingField: 1
+  <allowInstantPummel>k__BackingField: 0
   canMove: 1
   isAttacking: 0
   isParryStunned: 0
