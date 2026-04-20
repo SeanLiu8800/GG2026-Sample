@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EnemyMovement : EnemyComponent
 {
+    private bool canMove { get { return enemy.canMove && !enemy.isParryStunned && !enemy.isBeingPummeled; } }
     [SerializeField, Range(1.0f, 10.0f)] private float strafeRadius = 3.5f;
     [SerializeField, Range(0.0f, 10.0f)] private float normalMoveSpeed = 3.5f;
     [SerializeField, Range(0.0f, 10.0f)] private float strafeMoveSpeed = 1.0f;
@@ -53,7 +54,7 @@ public class EnemyMovement : EnemyComponent
     private void ChaseThenStrafe()
     {
         if (!enemy.allowMove) return;
-        if (!enemy.canMove || enemy.target == null) return;
+        if (!canMove || enemy.target == null) return;
 
         Vector3 toTargetVector = enemy.toTargetVector;
         Vector3 strafeVector = Quaternion.Euler(new Vector3(0, 0, (strafeClockwise ? 1 : -1) * 90)) * toTargetVector;

@@ -12,13 +12,17 @@ public abstract class EnemyAttackBase : EnemyComponent
     {
         enemy.enemyEvents.onEnemyDies += OnEnemyDies;
         enemy.enemyEvents.parryStunStarts += ParryStunStarts;
+
         enemy.enemyEvents.pummelStarts += PummelStarts;
+        enemy.enemyEvents.pummelEnds += PummelEnds;
     }
     protected virtual void OnDisable()
     {
         enemy.enemyEvents.onEnemyDies -= OnEnemyDies;
         enemy.enemyEvents.parryStunStarts -= ParryStunStarts;
+
         enemy.enemyEvents.pummelStarts -= PummelStarts;
+        enemy.enemyEvents.pummelEnds -= PummelEnds;
     }
 
     #region ----- Event Functions -----
@@ -34,11 +38,25 @@ public abstract class EnemyAttackBase : EnemyComponent
     {
         StopAllAttacks();
     }
+    protected virtual void PummelEnds()
+    {
+        AttackCooldown();
+    }
     #endregion
 
     protected virtual void Update()
     {
         Attack();
+    }
+    /// <summary>Checks whether an attack is possible this frame</summary>
+    /// <returns>Returns True if this enemy CAN Attack, False if it can't</returns>
+    protected bool AttackIsPossible()
+    {
+        if (!enemy.allowAttack) return false;
+        if (enemy.isBeingPummeled || enemy.isParryStunned) return false;
+        if (!canAttack || enemy.isAttacking || enemy.target == null) return false;
+
+        return true;
     }
     protected abstract void Attack();
 
@@ -84,6 +102,7 @@ public abstract class EnemyAttackBase : EnemyComponent
     protected void StopAllAttacks()
     {
         StopAllCoroutines();
+        enemy.canMove = true;
         enemy.isAttacking = false;
         SetInteractible(true);
         AttackCooldown();

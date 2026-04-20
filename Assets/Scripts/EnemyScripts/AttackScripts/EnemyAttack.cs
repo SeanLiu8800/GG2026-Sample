@@ -18,9 +18,7 @@ public class EnemyAttack : EnemyAttackBase
     }
     protected override void Attack()
     {
-        if (!enemy.allowAttack) return;
-        if (enemy.isBeingPummeled || enemy.isParryStunned) return;
-        if (!canAttack || enemy.isAttacking || enemy.target == null) return;
+        if (!AttackIsPossible()) return;
 
         enemy.isAttacking = true;
         canAttack = false;

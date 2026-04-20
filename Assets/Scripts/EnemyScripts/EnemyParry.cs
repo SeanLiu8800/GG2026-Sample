@@ -18,6 +18,8 @@ public class EnemyParry : EnemyComponent
         enemy.enemyEvents.parryStunEnds += ParryStunEnds;
 
         enemy.enemyEvents.pummelStarts += PummelStarts;
+
+        enemy.enemyEvents.onEnemyDies += OnEnemyDies;
     }
     void OnDisable()
     {
@@ -26,6 +28,8 @@ public class EnemyParry : EnemyComponent
         enemy.enemyEvents.parryStunEnds -= ParryStunEnds;
 
         enemy.enemyEvents.pummelStarts -= PummelStarts;
+
+        enemy.enemyEvents.onEnemyDies -= OnEnemyDies;
     }
 
     #region ----- Event Functions -----
@@ -50,10 +54,14 @@ public class EnemyParry : EnemyComponent
     }
     protected void PummelStarts(Player player)
     {
-        ParryStunEnds();
+        enemy.enemyEvents.parryStunEnds?.Invoke();
+    }
+    protected void OnEnemyDies()
+    {
+        enemy.enemyEvents.parryStunEnds?.Invoke();
     }
     #endregion
-    
+
     void Update()
     {
         DecayParryProgress();

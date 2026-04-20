@@ -8,9 +8,7 @@ public class EnemyAttack_Chaser : EnemyAttackBase
 
     protected override void Attack()
     {
-        if (!enemy.allowAttack) return;
-        if (enemy.isBeingPummeled || enemy.isParryStunned) return;
-        if (!canAttack || enemy.isAttacking || enemy.target == null) return;
+        if (!AttackIsPossible()) return;
 
         if (!enemy.IsTargetWithinDistance(attackRange)) return;
         enemy.isAttacking = true;
