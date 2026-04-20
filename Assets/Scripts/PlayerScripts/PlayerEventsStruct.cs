@@ -13,6 +13,7 @@ public struct PlayerEvents
     public Action<Enemy> pummelStarts;
     public Action pummelEnds;
     public Action pummelReleased;
+    public Action pummelDismount;
     public Action pummelEjected;
 
     public Action lungeStarts;

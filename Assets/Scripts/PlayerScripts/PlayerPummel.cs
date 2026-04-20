@@ -59,14 +59,8 @@ public class PlayerPummel : PlayerComponent
         this.pummelTarget = null;
         player.playerCollider.enabled = true;
     }
-    void PummelReleased()
-    {
-
-    }
-    void PummelEjected()
-    {
-
-    }
+    void PummelReleased(){}
+    void PummelEjected(){}
     #endregion
     
     void FixedUpdate()
@@ -79,20 +73,12 @@ public class PlayerPummel : PlayerComponent
         if (!isPummeling || pummelTarget == null) return;
         Vector2 toTarget = pummelTarget.transform.position - transform.position;
         Vector3 directionInput = moveAction.ReadValue<Vector2>();
-        if (Vector2.Dot(toTarget.normalized, directionInput.normalized) < -0.6)
-        {
-            //Debug.LogWarning($"Releasing {pummelTarget.name}");
-            ReleaseTarget();
-        }
-        else
-        {
-            //Debug.LogWarning($"Pummeling {pummelTarget.name}");
-            Pummel();
-        }
+        if (Vector2.Dot(toTarget.normalized, directionInput.normalized) < -0.6) ReleaseTarget();
+        else Pummel();
     }    
     private void Pummel()
     {
-        pummelTarget.health.Damage(1, this.gameObject);
+        pummelTarget.health.Damage(1.0f, this.gameObject);
         pummelTarget.enemyRigidbody.AddForce(
             (pummelTarget.transform.position - transform.position).normalized * 4.0f, 
             ForceMode2D.Impulse
@@ -119,8 +105,7 @@ public class PlayerPummel : PlayerComponent
             transform.position = Vector3.Lerp(transform.position, dismountEndPosition, 5.0f*Time.deltaTime);
             yield return null;
         }
-
-        player.playerEvents.pummelReleased?.Invoke();
+        player.playerEvents.pummelDismount?.Invoke();
         player.playerEvents.pummelEnds?.Invoke();
     }
     private void MoveToLatchPosition()
@@ -143,7 +128,7 @@ public class PlayerPummel : PlayerComponent
         if (!collision.TryGetComponent<Enemy>(out Enemy enemy)) return;
         if (!enemy.allowInstantPummel && (!enemy.isParryStunned || enemy.isBeingPummeled)) return;
 
-        player.playerEvents.pummelStarts(enemy);
+        player.playerEvents.pummelStarts?.Invoke(enemy);
         enemy.enemyEvents.pummelStarts?.Invoke(player);
     }
 

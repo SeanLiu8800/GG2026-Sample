@@ -143,18 +143,12 @@ public class PlayerMovement : PlayerComponent
         player.playerCollider.enabled = false;
         playerRigidbody.linearVelocity = Vector2.zero;
     }
-    void PummelEnds()
-    {
-                
-    }
+    void PummelEnds(){}
     void PummelReleased()
     {
         StartDash(new InputAction.CallbackContext());
     }
-    void PummelEjected()
-    {
-
-    }
+    void PummelEjected(){}
     void LungeStarts()
     {
         isLunging = true;
@@ -245,6 +239,7 @@ public class PlayerMovement : PlayerComponent
     /// <summary>Fills the Dash Buffer and start it on the first possible frame</summary>
     private void StartDash(InputAction.CallbackContext context)
     {
+        Debug.LogError("START DASH");
         dashBuffered = true;
         bufferStartTime = Time.time;
         UpdateDashBuffer();
@@ -273,6 +268,7 @@ public class PlayerMovement : PlayerComponent
     }
     private void StopDash(InputAction.CallbackContext context)
     {
+        Debug.LogError("STOP DASH");
         dashBuffered = false;
         if (!isDashing) return;
 
