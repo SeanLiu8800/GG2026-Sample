@@ -6,6 +6,7 @@ public class BulletLockToTarget : BulletComponent
     private void Start()
     {
         if (bullet.owner == null) Debug.LogWarning($"{this.name} DOES NOT have a Target!");
+        else transform.position = bullet.target.transform.position + offset;
     }
     void Update()
     {
