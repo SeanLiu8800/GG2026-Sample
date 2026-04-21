@@ -45,11 +45,11 @@ public class PlayerHealth : PlayerComponent, IDamageable
         UpdateInvincibility();
     }
 
-    public void Damage(float damage, BulletScript bullet)
+    public void BulletHits(BulletScript bullet)
     {
-        if (damage < 0.0f)
+        if (bullet.damage < 0.0f)
         {
-            Heal(-damage, bullet.gameObject);
+            Heal(-bullet.damage, bullet.gameObject);
             return;
         }
         if (player.move.isDashing)
@@ -62,7 +62,7 @@ public class PlayerHealth : PlayerComponent, IDamageable
         if (!isInvincible)
         {
             bullet.bulletEvents.onDamage?.Invoke(this.gameObject);
-            Damage(damage, bullet.gameObject);
+            Damage(bullet.damage, bullet.gameObject);
         }
     }
     public void Damage(float damage, GameObject damager = null)

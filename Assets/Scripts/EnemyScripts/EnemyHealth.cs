@@ -21,17 +21,18 @@ public class EnemyHealth : EnemyComponent, IDamageable
         enemy.enemyCollider.excludeLayers = LayerMask.GetMask("Player", "Enemy");
     }
     #endregion
-    public void Damage(float damage, BulletScript bullet)
+    public void BulletHits(BulletScript bullet)
     {
-        if (damage < 0.0f)
+        if (bullet.damage < 0.0f)
         {
-            Heal(-damage, bullet.gameObject);
+            Heal(-bullet.damage, bullet.gameObject);
             return;
         }
         if (!enemy.allowDamage) return;
+        if (currHealth <= 0.0f) return;
 
         bullet.bulletEvents.onDamage?.Invoke(this.gameObject);
-        Damage(damage, bullet.gameObject);
+        Damage(bullet.damage, bullet.gameObject);
     }
     public void Damage(float damage, GameObject damager = null)
     {
