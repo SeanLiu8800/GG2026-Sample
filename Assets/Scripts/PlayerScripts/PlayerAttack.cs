@@ -55,7 +55,6 @@ public class PlayerAttack : PlayerComponent
         isAttacking = true;
         attackStartTime = Time.time;
         attackParries = false;
-        if (player.autoEnhance) player.playerEvents.enhanceAttack?.Invoke();
     }
     void OnParry()
     {
@@ -65,11 +64,7 @@ public class PlayerAttack : PlayerComponent
     {
         isAttacking = false;
         currDamage = baseDamage;
-        if (!attackParries) // Unenhance attack if player DOES NOT parry
-        {
-            attackParries = false;
-            attackIsEnhanced = false;
-        }
+        if (!attackParries) attackIsEnhanced = false; // Unenhance attack if player DOES NOT parry
     }
     #endregion
     void FixedUpdate()
@@ -81,6 +76,8 @@ public class PlayerAttack : PlayerComponent
     {
         if (!player.allowAttack || (isAttacking && !attackParries)) return;
         if (player.pummel.isPummeling || player.move.isKnockbacked) return;
+        if (player.autoEnhance) player.playerEvents.enhanceAttack?.Invoke();
+        if (attackParries) currDamage = baseDamage; // Reset Damage if attack starts before it's ended due to parry
 
         BulletScript bullet = Instantiate(attackIsEnhanced ? playerEnhancedAttack : playerAttack).GetComponent<BulletScript>();
         bullet.Initialize(this.gameObject, null, player.move.lastMovementDirection, player.move.lastMovementDirection);
@@ -136,7 +133,7 @@ public class PlayerAttack : PlayerComponent
         }
         return count;
     }
-    private void UpdateAttackArea()
+    private void UpdateAttack()
     {
         if (!isAttacking || Time.time - attackStartTime < attackDuration) return;
         player.playerEvents.attackEnds?.Invoke();
