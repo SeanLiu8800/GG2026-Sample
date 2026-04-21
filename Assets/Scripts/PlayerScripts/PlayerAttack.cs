@@ -4,7 +4,8 @@ using System.Collections.Generic;
 public class PlayerAttack : PlayerComponent
 {
     private InputAction attackAction;
-    [SerializeField] private AttackArea attackArea;
+    [SerializeField] private GameObject playerAttack;
+    [SerializeField] private GameObject playerEnhancedAttack;
     [SerializeField] private ContactFilter2D attackTargetFilter;
 
     [field: Header("Attack Variables")]
@@ -15,7 +16,7 @@ public class PlayerAttack : PlayerComponent
     [field: SerializeField, Range(0, 5), ReadOnly] public int currDamage { get; private set; } = 1;
     [SerializeField, Range(0.0f, 1.0f)] private float attackDuration = 0.2f;
     private float attackStartTime = 0.0f;
-    [field: SerializeField, ReadOnly] public int currAttackID { get; private set; } = 0;
+    
     protected override void Awake()
     {
         base.Awake();
@@ -47,18 +48,13 @@ public class PlayerAttack : PlayerComponent
     void EnhanceAttack()
     {
         attackIsEnhanced = true;
-        attackArea.GetSpriteRenderer().SetColor(Color.cyan.r, Color.cyan.g, Color.cyan.b, -1.0f);
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerEnhancesAttack);
     }
     void AttackStarts()
     {
         isAttacking = true;
         attackStartTime = Time.time;
-        currAttackID = AttackIDGenerator();
         attackParries = false;
-        if (player.autoEnhance) player.playerEvents.enhanceAttack?.Invoke();
-        if (attackIsEnhanced) AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttackEnhanced);
-        else AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerAttack);
     }
     void OnParry()
     {
@@ -68,31 +64,28 @@ public class PlayerAttack : PlayerComponent
     {
         isAttacking = false;
         currDamage = baseDamage;
-        attackArea.DisableAttack();
-        if (!attackParries) // Unenhance attack if player DOES NOT parry
-        {
-            attackParries = false;
-            attackIsEnhanced = false;
-            attackArea.GetSpriteRenderer().SetColor(Color.white.r, Color.white.g, Color.white.b, -1.0f);
-        }
+        if (!attackParries) attackIsEnhanced = false; // Unenhance attack if player DOES NOT parry
     }
     #endregion
-
-    void FixedUpdate()
+    void Update()
     {
-        UpdateAttackArea();
+        UpdateAttack();
     }
     
     private void Attack(InputAction.CallbackContext context)
     {
         if (!player.allowAttack || (isAttacking && !attackParries)) return;
         if (player.pummel.isPummeling || player.move.isKnockbacked) return;
-        attackArea.EnableAttack();
-        attackArea.transform.rotation = Quaternion.LookRotation(Vector3.forward, player.move.lastMovementDirection);
+        if (player.autoEnhance) player.playerEvents.enhanceAttack?.Invoke();
+        if (attackParries) currDamage = baseDamage; // Reset Damage if attack starts before it's ended due to parry
+
+        BulletScript bullet = Instantiate(attackIsEnhanced ? playerEnhancedAttack : playerAttack).GetComponent<BulletScript>();
+        bullet.Initialize(this.gameObject, null, player.move.lastMovementDirection, player.move.lastMovementDirection);
+        bullet.damage = currDamage;
         // No target to attack
-        if (!CheckAttackArea())
+        if (!CheckAttackArea(bullet.bulletCollider))
         {
-            attackArea.DisableAttack();
+            Destroy(bullet.gameObject);
             return;
         }
 
@@ -102,7 +95,7 @@ public class PlayerAttack : PlayerComponent
     /// Check to see if there are Colliders within attackArea's Collider2D that follow attackTargetFilter
     /// </summary>
     /// <returns>True if there are applicable Colliders<br/>False if not</returns>
-    private bool CheckAttackArea()
+    private bool CheckAttackArea(Collider2D collider)
     {
         List<Collider2D> currHits = new List<Collider2D>();
         Vector3 currPos = transform.position;
@@ -111,12 +104,12 @@ public class PlayerAttack : PlayerComponent
             finalPos = currPos + player.move.lastMovementDirection * player.move.lungeDistance;
 
         // Angle assumes Collider's Default position, so must calculate it's orientation
-        float angleDeg = (attackArea.transform.eulerAngles.z - 360) % 360;
+        float angleDeg = (collider.transform.eulerAngles.z - 360) % 360;
         // Slide Player Attack Area towards finalPos, with increments of 0.5f units
         // It should be using a While loop, but I used a for loop to limit how many times it runs
         for (int i = 0; i < 10; i ++)
         {
-            attackArea.GetCollider2D().Overlap(currPos, angleDeg, attackTargetFilter, currHits);
+            collider.Overlap(currPos, angleDeg, attackTargetFilter, currHits);
             if (CountValidColliders(currHits) >= 1) return true;
             if (currPos == finalPos) break;
             currPos = Vector3.MoveTowards(currPos, finalPos, 0.5f);
@@ -140,19 +133,14 @@ public class PlayerAttack : PlayerComponent
         }
         return count;
     }
-    private void UpdateAttackArea()
+    private void UpdateAttack()
     {
         if (!isAttacking || Time.time - attackStartTime < attackDuration) return;
         player.playerEvents.attackEnds?.Invoke();
     }
-
     public void Empower(int input = 1)
     {
         //Debug.Log("Empowering Player's Attack!");
         currDamage += input;
-    }
-    private int AttackIDGenerator()
-    {
-        return (currAttackID = (currAttackID + 1) % 256);
     }
 }
