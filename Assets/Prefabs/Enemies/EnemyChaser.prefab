@@ -20,14 +20,6 @@ PrefabInstance:
       propertyPath: strafingThreshold
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2902083262967808948, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
-      propertyPath: <allowMove>k__BackingField
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2902083262967808948, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
-      propertyPath: <allowAttack>k__BackingField
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4705485784247206799, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: m_Name
       value: EnemyChaser

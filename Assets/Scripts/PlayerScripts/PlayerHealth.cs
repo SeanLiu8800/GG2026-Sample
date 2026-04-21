@@ -56,7 +56,7 @@ public class PlayerHealth : PlayerComponent, IDamageable
         if (isInvincible) return;
 
         if (player.move.isDashing) bullet.bulletEvents.onDashedInto?.Invoke(player);
-        else if (player.attack.isAttacking && player.attack.attackIsEnhanced) bullet.bulletEvents.onEnhancedAttacked?.Invoke(player);
+        else if (player.attack.isAttacking && player.attack.attackIsEnhanced) { } // Yes this is supposed to be blank, because enhanced attack is now a Bullet Component
         else if (!isInvincible)
         {
             bullet.bulletEvents.onDamage?.Invoke(this.gameObject);
