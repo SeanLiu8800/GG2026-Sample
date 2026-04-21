@@ -19,8 +19,8 @@ public class Player : MonoBehaviour
     public bool autoLunge = false;
 
     [Header("Health Toggles")]
-    public bool canTakeDamage = true;
-    public bool canHeal = true;
+    public bool allowDamage = true;
+    public bool allowHealing = true;
     //[Header("States")]
     //[ReadOnly] public bool isPummeling = false;
 }

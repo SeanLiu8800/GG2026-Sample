@@ -57,7 +57,7 @@ public class PlayerHealth : PlayerComponent, IDamageable
             bullet.bulletEvents.onDashedInto?.Invoke(player);
             return;
         }
-        if (!player.canTakeDamage) return;
+        if (!player.allowDamage) return;
         if (player.attack.isAttacking && player.attack.attackIsEnhanced) return; // Yes this is supposed to be blank, because enhanced attack is now a Bullet Component
         if (!isInvincible)
         {
@@ -72,7 +72,7 @@ public class PlayerHealth : PlayerComponent, IDamageable
             Heal(-damage, damager);
             return;
         }
-        if (!player.canTakeDamage) return;
+        if (!player.allowDamage) return;
         if (isInvincible) return;
 
         float originalHealth = currHealth;
@@ -88,7 +88,7 @@ public class PlayerHealth : PlayerComponent, IDamageable
     }
     public void Heal(float heal, GameObject healer = null)
     {
-        if (!player.canHeal) return;
+        if (!player.allowHealing) return;
         if (heal < 0.0f)
         {
             Damage(-heal, healer);

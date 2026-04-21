@@ -67,9 +67,9 @@ public class PlayerAttack : PlayerComponent
         if (!attackParries) attackIsEnhanced = false; // Unenhance attack if player DOES NOT parry
     }
     #endregion
-    void FixedUpdate()
+    void Update()
     {
-        UpdateAttackArea();
+        UpdateAttack();
     }
     
     private void Attack(InputAction.CallbackContext context)
