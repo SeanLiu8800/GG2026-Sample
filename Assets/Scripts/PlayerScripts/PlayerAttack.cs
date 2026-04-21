@@ -16,6 +16,7 @@ public class PlayerAttack : PlayerComponent
     [SerializeField, Range(0.0f, 1.0f)] private float attackDuration = 0.2f;
     private float attackStartTime = 0.0f;
     [field: SerializeField, ReadOnly] public int currAttackID { get; private set; } = 0;
+    public GameObject meleeAttack;
     protected override void Awake()
     {
         base.Awake();
@@ -77,7 +78,10 @@ public class PlayerAttack : PlayerComponent
         }
     }
     #endregion
-
+    private void Update()
+    {
+        if (Keyboard.current.bKey.wasPressedThisFrame) SpawnMeleeAttack();
+    }
     void FixedUpdate()
     {
         UpdateAttackArea();
@@ -154,5 +158,24 @@ public class PlayerAttack : PlayerComponent
     private int AttackIDGenerator()
     {
         return (currAttackID = (currAttackID + 1) % 256);
+    }
+    private void SpawnMeleeAttack()
+    {
+        BulletScript bullet = Instantiate(meleeAttack).GetComponent<BulletScript>();
+        bullet.Initialize(this.gameObject, null, player.move.lastMovementDirection, player.move.lastMovementDirection);
+
+        float angleDeg = Mathf.Atan2(player.move.lastMovementDirection.y, player.move.lastMovementDirection.x) * Mathf.Rad2Deg;
+        List<Collider2D> currHits = new List<Collider2D>();
+        Debug.Log($"{angleDeg}, " +
+            $"{bullet.bulletCollider.Overlap(transform.position, angleDeg, attackTargetFilter, currHits)}");
+
+        if (currHits.Count >= 1)
+        {
+            Debug.Log("GOTCHA BITCH");
+        }
+        else
+        {
+            Destroy(bullet.gameObject);
+        }
     }
 }

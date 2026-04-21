@@ -6,6 +6,7 @@ public class BulletLockToOwner : BulletComponent
     private void Start()
     {
         if (bullet.owner == null) Debug.LogWarning($"{this.name} DOES NOT have an Owner!");
+        else transform.position = bullet.owner.transform.position + offset;
     }
     void Update()
     {

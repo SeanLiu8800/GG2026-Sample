@@ -415,6 +415,8 @@ MonoBehaviour:
   dashDuration: 1
   dashCooldown: 0.5
   perfectDashLeniency: 0.05
+  dashBuffered: 0
+  bufferLifespan: 0.1
   <willLunge>k__BackingField: 0
   <isLunging>k__BackingField: 0
   minDashEnhanceAttack: 0.2
@@ -617,6 +619,7 @@ MonoBehaviour:
   <currDamage>k__BackingField: 1
   attackDuration: 0.2
   <currAttackID>k__BackingField: 0
+  meleeAttack: {fileID: 8827905931808526965, guid: 4f239782480d98140a1499a3d67f4567, type: 3}
 --- !u!61 &993337303
 BoxCollider2D:
   m_ObjectHideFlags: 0
