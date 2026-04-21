@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     public EnemyEvents enemyEvents;
     #endregion
     [field: SerializeField] public GameObject target { get; private set; }
-    [field: SerializeField] public LayerMask playerLayer { get; private set; }
+    public int playerLayer { get; private set; }
     public Vector3 toTargetVector 
     { 
         get
@@ -105,7 +105,7 @@ public class Enemy : MonoBehaviour
     {
         // Late addition to current room's enemy spawner
         if (transform.parent == null) GameManager.Instance.currRoom.waveSpawner.AddEnemy(this);
-        if ((playerLayer = LayerMask.GetMask("Player")) == 0) Debug.LogError("Player layer NOT FOUND!");
+        if ((playerLayer = LayerMask.NameToLayer("Player")) == 0) Debug.LogError("Player layer NOT FOUND!");
     }
 
     public bool IsTargetWithinDistance(float distance)
@@ -117,12 +117,9 @@ public class Enemy : MonoBehaviour
     public void AssignTarget(GameObject input)
     {
         if (input == null) return;
-        // Get Root GameObject of the hierarchy if input is from the Player layer
-        if (((1 << input.layer) & playerLayer) >= 1)
-        {
-            while (input.transform.parent != null) input = input.transform.parent.gameObject;
-        }
-        target = input;
+        // Get Player GameObject of the hierarchy if input is from the Player layer
+        if (input.layer == playerLayer) target = input.GetComponentInParent<Player>().gameObject;
+        else target = input;
     }
     public void UnassignTarget()
     {

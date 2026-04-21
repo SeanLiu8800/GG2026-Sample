@@ -78,7 +78,7 @@ public class EnemyHealth : EnemyComponent, IDamageable
     private void OnTriggerStay2D(Collider2D collision)
     {
         // Only tracks player attack colliders!
-        if (((1 << collision.gameObject.layer) & enemy.playerLayer) == 0) return;
+        if (collision.gameObject.layer == enemy.playerLayer) return;
 
         Player player = collision.gameObject.GetComponentInParent<Player>();
         if (player == null || !player.attack.isAttacking) return;
