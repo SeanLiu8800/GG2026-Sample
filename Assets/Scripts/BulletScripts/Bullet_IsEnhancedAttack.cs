@@ -18,7 +18,6 @@ public class Bullet_IsEnhancedAttack : BulletComponent
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer != attackLayer) return;
-        Debug.Log($"HIT a {collision.name}!");
         if (!collision.TryGetComponent<BulletScript>(out BulletScript bullet))
         {
             Debug.Log($"{collision.name} DOES NOT have a BulletScript Component!");

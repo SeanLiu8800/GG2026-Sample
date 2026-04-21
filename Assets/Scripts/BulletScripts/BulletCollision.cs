@@ -20,6 +20,6 @@ public class BulletCollision : BulletComponent
         // If Bullet hits Player or Player's Attack area
         IDamageable damageable = collision.GetComponentInParent<IDamageable>();
         if (damageable != null) damageable.Damage(bullet.damage, bullet);
-        else Debug.LogWarning($"Bullet hits {collision.name}, which isn't damageable!");
+        //else Debug.LogWarning($"Bullet hits {collision.name}, which isn't damageable!");
     }
 }

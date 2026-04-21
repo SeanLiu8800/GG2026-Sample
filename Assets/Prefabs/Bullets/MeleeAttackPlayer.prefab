@@ -108,9 +108,6 @@ GameObject:
   - component: {fileID: -7986148878376013430}
   - component: {fileID: -4070128488187521795}
   - component: {fileID: 3699263169848525622}
-  - component: {fileID: -8867143272021663871}
-  - component: {fileID: -4092543142711184226}
-  - component: {fileID: 8690491014012096111}
   m_Layer: 7
   m_Name: MeleeAttackPlayer
   m_TagString: Untagged
@@ -345,40 +342,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   lifespan: 0.2
---- !u!114 &-8867143272021663871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8827905931808526965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b41fb9f500cfd2458473666f2587983, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
---- !u!114 &-4092543142711184226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8827905931808526965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 831f3eb4ce9350d40a793fb72bacca95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  knockbackStrength: 20
---- !u!114 &8690491014012096111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8827905931808526965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af0c2e513ce46aa47a6489a030ee22ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
