@@ -3,10 +3,10 @@ using UnityEngine;
 public class Bullet_OnEnhancedAttacked_Knockback : Bullet_OnEnhancedAttacked_BehaviorBase
 {
     [Header("Knockback Variables")]
-    [SerializeField, Range(0.0f, 30.0f)] private float knockbackStrength = 10.0f;
+    [SerializeField, Range(0.0f, 10.0f)] private float knockbackDistance = 5.0f;
     private void Start()
     {
-        if (knockbackStrength <= 0) Debug.LogWarning($"{knockbackStrength} is Zero or Negative! Knockback will not happen!");
+        if (knockbackDistance <= 0) Debug.LogWarning($"{knockbackDistance} is Zero! Knockback will not happen!");
     }
     protected override void OnEnhancedAttackedBehavior(Player player)
     {
@@ -17,6 +17,6 @@ public class Bullet_OnEnhancedAttacked_Knockback : Bullet_OnEnhancedAttacked_Beh
             return;
         }
 
-        enemy.enemyRigidbody.AddForce(-enemy.toTargetDirection * knockbackStrength, ForceMode2D.Impulse);
+        enemy.move.Dash(-enemy.toTargetDirection, knockbackDistance);
     }
 }

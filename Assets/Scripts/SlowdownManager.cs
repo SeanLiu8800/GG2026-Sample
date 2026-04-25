@@ -25,15 +25,15 @@ public class SlowdownManager : MonoBehaviour
     /// <param name="easeInDuration">Time it takes to reach actionSlowdownTimescale</param>
     /// <param name="slowDownDuration">Time to stay in actionSlowdownTimescale</param>
     /// <param name="easeOutDuration">Time to return to globalTimescale</param>
-    public void ActionSlowdown(float easeInDuration = 0.01f, float slowDownDuration = 0.0f, float easeOutDuration = 0.3f)
+    public void ActionSlowdown(float easeInDuration = 0.01f, float slowdownDuration = 0.0f, float easeOutDuration = 0.3f)
     {
         StopAllCoroutines();
-        StartCoroutine(ActionSlowdownCoroutine(easeInDuration, slowDownDuration, easeOutDuration));
+        StartCoroutine(ActionSlowdownCoroutine(easeInDuration, slowdownDuration, easeOutDuration));
     }
     public void StopSlowdown()
     {
         StopAllCoroutines(); //STOP ALL COROUTINES IS STOPPING EASE TIMESCALE BELOW!
-        StartCoroutine(easeTimescale(globalTimescale, 0.0f));
+        StartCoroutine(EaseTimescale(globalTimescale, 0.0f));
     }
     /// <summary>
     /// Changes the game's Timescale to timescaleTarget in easeDuration seconds<br/>
@@ -47,7 +47,7 @@ public class SlowdownManager : MonoBehaviour
         else if (timescaleTarget < 0.0f) timescaleTarget = globalTimescale;
         StopAllCoroutines();
         this.globalTimescale = timescaleTarget;
-        StartCoroutine(easeTimescale(timescaleTarget, easeDuration));
+        StartCoroutine(EaseTimescale(timescaleTarget, easeDuration));
     }
     /// <summary>A Coroutine that Slows down the Game for duration Seconds</summary>
     /// <param name="easeInDuration">Time it takes to reach actionSlowdownTimescale</param>
@@ -55,11 +55,11 @@ public class SlowdownManager : MonoBehaviour
     /// <param name="easeOutDuration">Time to return to globalTimescale</param>
     private IEnumerator ActionSlowdownCoroutine(float easeInDuration = 0.01f, float slowdownDuration = 0.0f, float easeOutDuration = 0.3f)
     {
-        yield return StartCoroutine(easeTimescale(actionSlowdownTimescale, easeInDuration));
+        yield return StartCoroutine(EaseTimescale(actionSlowdownTimescale, easeInDuration));
         yield return new WaitForSecondsRealtime(slowdownDuration);
-        yield return StartCoroutine(easeTimescale(globalTimescale, easeOutDuration));
+        yield return StartCoroutine(EaseTimescale(globalTimescale, easeOutDuration));
     }
-    private IEnumerator easeTimescale(float timescaleTarget = 1.0f, float easeDuration = 0.5f)
+    private IEnumerator EaseTimescale(float timescaleTarget = 1.0f, float easeDuration = 0.5f)
     {
         if (timescaleTarget <= 0.0f) yield break;
 

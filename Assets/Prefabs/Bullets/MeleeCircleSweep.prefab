@@ -156,7 +156,7 @@ MonoBehaviour:
   <target>k__BackingField: {fileID: 0}
   <moveDirection>k__BackingField: {x: 0, y: 1, z: 0}
   <moveSpeed>k__BackingField: 5
-  <lookDirection>k__BackingField: {x: 0, y: 0, z: 0}
+  _lookDirection: {x: 0, y: 1, z: 0}
   damage: 1
   empowerRate: 1
 --- !u!114 &7049995139362423018
@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 831f3eb4ce9350d40a793fb72bacca95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  knockbackStrength: 20
+  knockbackDistance: 3
 --- !u!114 &8690491014012096111
 MonoBehaviour:
   m_ObjectHideFlags: 0
