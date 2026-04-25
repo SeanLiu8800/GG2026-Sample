@@ -9,6 +9,9 @@ public class PlayerAttack : PlayerComponent
     [SerializeField] private ContactFilter2D attackTargetFilter;
 
     [field: Header("Attack Variables")]
+    private bool attackBuffered = false;
+    [SerializeField, Range(0.0f, 1.0f)] private float attackBufferLifespan = 0.1f;
+    private float attackBufferFillTime = 0.0f;
     [field: SerializeField, ReadOnly] public bool isAttacking { get; private set; } = false;
     [field: SerializeField, ReadOnly] public bool attackIsEnhanced { get; private set; } = false;
     [SerializeField, ReadOnly] private bool attackParries = false;
@@ -25,7 +28,7 @@ public class PlayerAttack : PlayerComponent
     }
     void OnEnable()
     {
-        attackAction.canceled += Attack;
+        attackAction.canceled += FillAttackBuffer;
 
         player.playerEvents.enhanceAttack += EnhanceAttack;
 
@@ -35,7 +38,7 @@ public class PlayerAttack : PlayerComponent
     }
     void OnDisable()
     {
-        attackAction.canceled -= Attack;
+        attackAction.canceled -= FillAttackBuffer;
 
         player.playerEvents.enhanceAttack -= EnhanceAttack;
 
@@ -69,13 +72,29 @@ public class PlayerAttack : PlayerComponent
     #endregion
     void Update()
     {
+        UpdateAttackBuffer();
         UpdateAttack();
     }
-    
-    private void Attack(InputAction.CallbackContext context)
+
+    private void FillAttackBuffer(InputAction.CallbackContext context)
     {
-        if (!player.allowAttack || (isAttacking && !attackParries)) return;
-        if (player.pummel.isPummeling || player.move.isKnockbacked) return;
+        attackBuffered = true;
+        attackBufferFillTime = Time.time;
+        UpdateAttackBuffer();
+    }
+    private void UpdateAttackBuffer()
+    {
+        if (attackBuffered && Time.time - attackBufferFillTime < attackBufferLifespan)
+        {
+            if (!player.allowAttack || (isAttacking && !attackParries)) return;
+            if (player.pummel.isPummeling || player.move.isKnockbacked) return;
+
+            Attack();
+        }
+        attackBuffered = false;
+    }
+    private void Attack()
+    {
         if (player.autoEnhance) player.playerEvents.enhanceAttack?.Invoke();
         if (attackParries) currDamage = baseDamage; // Reset Damage if attack starts before it's ended due to parry
 
@@ -103,7 +122,7 @@ public class PlayerAttack : PlayerComponent
         if (player.allowLunge && (player.move.willLunge || player.autoLunge)) 
             finalPos = currPos + player.move.lastMovementDirection * player.move.lungeDistance;
 
-        // Angle assumes Collider's Default position, so must calculate it's orientation
+        // Overlap assumes Collider's Default position, so must calculate it's orientation
         float angleDeg = (collider.transform.eulerAngles.z - 360) % 360;
         // Slide Player Attack Area towards finalPos, with increments of 0.5f units
         // It should be using a While loop, but I used a for loop to limit how many times it runs
@@ -126,7 +145,7 @@ public class PlayerAttack : PlayerComponent
         int count = 0;
         for (int i = 0; i < input.Count; i ++)
         {
-            // Probably an authorized attackArea
+            // Probably an authorizing attack Area
             if (!input[i].TryGetComponent<Enemy>(out Enemy currEnemy)) count++;
             // Normal Enemy
             else if (currEnemy.health.currHealth > 0) count++;

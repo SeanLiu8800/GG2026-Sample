@@ -253,7 +253,6 @@ public class PlayerMovement : PlayerComponent
             if (isLunging || !canDash || player.pummel.isPummeling || isKnockbacked) return;
 
             player.playerEvents.dashStarts?.Invoke();
-            return;
         }
         dashBuffered = false;
     }
