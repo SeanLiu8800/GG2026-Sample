@@ -91,6 +91,7 @@ public class PlayerMovement : PlayerComponent
     #region ----- Event Functions -----
     void DashStarts()
     {
+        dashBuffered = false; // Empty buffer
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerDash);
         player.spriteRenderer.SetColor(Color.brown.r, Color.brown.g, Color.brown.b, -1.0f);
         willLunge = false;
@@ -253,6 +254,7 @@ public class PlayerMovement : PlayerComponent
             if (isLunging || !canDash || player.pummel.isPummeling || isKnockbacked) return;
 
             player.playerEvents.dashStarts?.Invoke();
+            return;
         }
         dashBuffered = false;
     }

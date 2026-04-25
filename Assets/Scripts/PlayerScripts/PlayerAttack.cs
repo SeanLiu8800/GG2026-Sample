@@ -28,6 +28,7 @@ public class PlayerAttack : PlayerComponent
     }
     void OnEnable()
     {
+        //attackAction.started += EmptyAttackBuffer;
         attackAction.canceled += FillAttackBuffer;
 
         player.playerEvents.enhanceAttack += EnhanceAttack;
@@ -38,6 +39,7 @@ public class PlayerAttack : PlayerComponent
     }
     void OnDisable()
     {
+        //attackAction.started -= EmptyAttackBuffer;
         attackAction.canceled -= FillAttackBuffer;
 
         player.playerEvents.enhanceAttack -= EnhanceAttack;
@@ -82,6 +84,10 @@ public class PlayerAttack : PlayerComponent
         attackBufferFillTime = Time.time;
         UpdateAttackBuffer();
     }
+    private void EmptyAttackBuffer(InputAction.CallbackContext context)
+    {
+        attackBuffered = false;
+    }
     private void UpdateAttackBuffer()
     {
         if (attackBuffered && Time.time - attackBufferFillTime < attackBufferLifespan)
@@ -90,11 +96,13 @@ public class PlayerAttack : PlayerComponent
             if (player.pummel.isPummeling || player.move.isKnockbacked) return;
 
             Attack();
+            return;
         }
         attackBuffered = false;
     }
     private void Attack()
     {
+        attackBuffered = false; // Empty buffer
         if (player.autoEnhance) player.playerEvents.enhanceAttack?.Invoke();
         if (attackParries) currDamage = baseDamage; // Reset Damage if attack starts before it's ended due to parry
 
