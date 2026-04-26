@@ -521,6 +521,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  attackBufferLifespan: 0.1
   <isAttacking>k__BackingField: 0
   <attackIsEnhanced>k__BackingField: 0
   attackParries: 0
