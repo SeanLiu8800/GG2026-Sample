@@ -59,8 +59,9 @@ public class Enemy : MonoBehaviour
     [ReadOnly] public bool canMove = true;
     [ReadOnly] public bool isAttacking = false;
     [ReadOnly] public bool isParryStunned = false;
+    [ReadOnly] public bool isPummelable = true;
     [ReadOnly] public bool isBeingPummeled = false;
-
+    
     void Awake()
     {
         if (!TryGetComponent<EnemyMovement>(out EnemyMovement _move)) Debug.LogError($"{this.name} DOES NOT have an EnemyHealth Component!");

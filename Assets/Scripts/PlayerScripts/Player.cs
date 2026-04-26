@@ -31,17 +31,18 @@ public class Player : MonoBehaviour
     public bool isAttacking { get { return (state & PlayerState.Attacking) != 0; } }
     public bool isKnockbacked { get { return (state & PlayerState.Knockbacked) != 0; } }
     public bool isPummeling { get { return (state & PlayerState.Pummeling) != 0; } }
+    public bool isRestricted { get { return (state & PlayerState.Restricted) != 0; } }
 }
 
-[System.Flags]
-public enum PlayerState 
+[System.Flags] public enum PlayerState 
 { 
     Idle = 0, 
     Dashing = 1, 
     Lunging = 2, 
     Attacking = 4, 
     Knockbacked = 8, 
-    Pummeling = 16
+    Pummeling = 16,
+    Restricted = 32
 }
 public static class PlayerStateExtensions
 {

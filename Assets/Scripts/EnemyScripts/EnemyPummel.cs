@@ -11,6 +11,9 @@ public class EnemyPummel : EnemyComponent
     private float pummelStartTime = -99.0f;
     [SerializeField, ReadOnly] private float currentPummelDuration = 0.0f;
     [SerializeField, Range(0, 5)] private int ejectPummelerDamage = 0;
+    private float pummelEndTime = -99.0f;
+    [SerializeField, Range(0.0f, 2.0f)] private float pummelCooldown = 1.0f;
+    
     void OnEnable()
     {
         enemy.enemyEvents.pummelStarts += PummelStarts;
@@ -25,12 +28,14 @@ public class EnemyPummel : EnemyComponent
     #region ----- Event Functions -----
     protected virtual void PummelStarts(Player player)
     {
+        enemy.isPummelable = false;
         enemy.isBeingPummeled = true;
         pummeler = player;
         pummelStartTime = Time.time;
     }
     protected virtual void PummelEnds()
     {
+        pummelEndTime = Time.time;
         enemy.isBeingPummeled = false;
         this.pummeler = null;
     }
@@ -39,6 +44,7 @@ public class EnemyPummel : EnemyComponent
     void Update()
     {
         UpdatePummel();
+        UpdatePummelCooldown();
     }
 
     private void UpdatePummel()
@@ -57,6 +63,11 @@ public class EnemyPummel : EnemyComponent
         enemy.enemyEvents.pummelEnds?.Invoke();
     }
 
+    private void UpdatePummelCooldown()
+    {
+        if (enemy.isBeingPummeled) return;
+        if (!enemy.isPummelable && Time.time - pummelEndTime >= pummelCooldown) enemy.isPummelable = true;
+    }
     public Vector3 GetClosestLatchPoint(Vector3 inputPosition)
     {
         float minDistance = float.PositiveInfinity;

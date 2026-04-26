@@ -121,10 +121,11 @@ public class PlayerPummel : PlayerComponent
         player.playerEvents.pummelEjected?.Invoke();
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!player.isDashing) return;
         if (!collision.TryGetComponent<Enemy>(out Enemy enemy)) return;
+        if (!enemy.isPummelable) return;
         if (!enemy.allowInstantPummel && (!enemy.isParryStunned || enemy.isBeingPummeled)) return;
 
         player.playerEvents.pummelStarts?.Invoke(enemy);
