@@ -74,19 +74,4 @@ public class EnemyHealth : EnemyComponent, IDamageable
         enemy.enemyEvents.onEnemyDies?.Invoke();
         enemy.enemyEvents.enemyDies?.Invoke();
     }
-
-    //private int lastAttackID = 0;
-    //private void OnTriggerStay2D(Collider2D collision)
-    //{
-    //    // Only tracks player attack colliders!
-    //    if (collision.gameObject.layer == enemy.playerLayer) return;
-
-    //    Player player = collision.gameObject.GetComponentInParent<Player>();
-    //    if (player == null || !player.attack.isAttacking) return;
-    //    if (lastAttackID == player.attack.currAttackID) return;
-        
-    //    lastAttackID = player.attack.currAttackID;
-    //    Damage(player.attack.currDamage);
-    //    enemy.move.Dash((transform.position - collision.transform.position).normalized, 1.0f);
-    //}
 }
