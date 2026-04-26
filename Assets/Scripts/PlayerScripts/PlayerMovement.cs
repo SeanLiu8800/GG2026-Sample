@@ -20,7 +20,6 @@ public class PlayerMovement : PlayerComponent
 
     [Header("Dash Variables")]
     [SerializeField, ReadOnly] private bool canDash = true;
-    [field: SerializeField, ReadOnly] public bool isDashing { get; private set; } = false;
     [SerializeField, Range(0.0f, 1.5f)] private float dashDuration = 1.0f;
     private float dashCooldownStartTime = -99.9f;
     [SerializeField, Range(0.0f, 2.0f)] private float dashCooldown = 0.5f;
@@ -96,7 +95,7 @@ public class PlayerMovement : PlayerComponent
         player.spriteRenderer.SetColor(Color.brown.r, Color.brown.g, Color.brown.b, -1.0f);
         willLunge = false;
         canDash = false;
-        isDashing = true;
+        player.isDashing = true;
         player.playerCollider.isTrigger = true;
         dashCollider.enabled = true;
         dashDirection = (movementInput == Vector3.zero) ? lastMovementDirection : movementInput.normalized;
@@ -110,7 +109,7 @@ public class PlayerMovement : PlayerComponent
     }
     void DashEnds()
     {
-        isDashing = false;
+        player.isDashing = false;
         player.playerCollider.isTrigger = false;
         dashCollider.enabled = false;
         StopLaunchTowards();
@@ -152,26 +151,26 @@ public class PlayerMovement : PlayerComponent
     void PummelEjected(){}
     void LungeStarts()
     {
-        isLunging = true;
+        player.isLunging = true;
         willLunge = false;
         LaunchTowards(lastMovementDirection * lungeInitialSpeed, lungeDuration, 6.0f);
     }
     void LungeEnds()
     {
-        isLunging = false;
+        player.isLunging = false;
         StopLaunchTowards();
     }
     void KnockbackStarts(Vector3 initialVelocity, float duration = 0.5f)
     {
         player.playerEvents.dashEnds?.Invoke();
         player.playerEvents.lungeEnds?.Invoke();
-        isKnockbacked = true;
+        player.isKnockbacked = true;
         knockbackDuration = duration;
         LaunchTowards(initialVelocity, duration, 6.0f);
     }
     void KnockbackEnds()
     {
-        isKnockbacked = false;
+        player.isKnockbacked = false;
         StopLaunchTowards();
     }
     void AttackStarts()
@@ -194,7 +193,7 @@ public class PlayerMovement : PlayerComponent
     }
     void FixedUpdate()
     {
-        if (!isDashing && !isLunging && !player.pummel.isPummeling && !isKnockbacked) 
+        if (!player.isDashing && !player.isLunging && !player.isPummeling && !player.isKnockbacked) 
             playerRigidbody.linearVelocity = movementInput * CorrectedMoveSpeed();
         Dash();
         AttackLunge();
@@ -251,7 +250,7 @@ public class PlayerMovement : PlayerComponent
         {
             if (!player.allowDash) return;
             // Player is Lunging or Dash still on Cooldown or is pummeling
-            if (isLunging || !canDash || player.pummel.isPummeling || isKnockbacked) return;
+            if (player.isLunging || !canDash || player.isPummeling || player.isKnockbacked) return;
 
             player.playerEvents.dashStarts?.Invoke();
             return;
@@ -260,7 +259,7 @@ public class PlayerMovement : PlayerComponent
     }
     private void Dash()
     {
-        if (!isDashing) return;
+        if (!player.isDashing) return;
         // Enhance Attack if player Dashes for the minimum amount of time
         if (!thisDashEnhancedAttack && (player.autoEnhance || currLaunchTowardsTime >= minDashEnhanceAttack)) 
             player.playerEvents.enhanceAttack?.Invoke();
@@ -269,20 +268,19 @@ public class PlayerMovement : PlayerComponent
     private void StopDash(InputAction.CallbackContext context)
     {
         dashBuffered = false;
-        if (!isDashing) return;
+        if (!player.isDashing) return;
 
         player.playerEvents.dashEnds?.Invoke();
     }
     private void UpdateDashCooldown()
     {
-        if (isDashing || Time.time - dashCooldownStartTime < dashCooldown) return;
+        if (player.isDashing || Time.time - dashCooldownStartTime < dashCooldown) return;
 
         player.playerEvents.dashCooldownEnds?.Invoke();
     }
 
     [field: Header("Attack Lunge Variables")]
     [field: SerializeField, ReadOnly] public bool willLunge { get; private set; } = false;
-    [field: SerializeField, ReadOnly] public bool isLunging { get; private set; } = false;
     private bool thisDashEnhancedAttack = false;
     [Tooltip("The minimum amount of time to dash to enhance Attack")]
     [SerializeField, Range(0.0f, 0.5f)] private float minDashEnhanceAttack = 0.2f;
@@ -295,12 +293,11 @@ public class PlayerMovement : PlayerComponent
     }
     private void AttackLunge()
     {
-        if (!isLunging) return;
+        if (!player.isLunging) return;
         if (currLaunchTowardsTime >= lungeDuration) player.playerEvents.lungeEnds?.Invoke();
     }
 
     [Header("Knockback Variables")]
-    [field: SerializeField] public bool isKnockbacked { get; private set; } = false;
     private float currKnockbackTime = -90.0f;
     private float knockbackDuration = 0.5f;
     public void KnockBack(Vector3 initialVelocity, float duration = 0.5f)
@@ -309,7 +306,7 @@ public class PlayerMovement : PlayerComponent
     }
     private void UpdateKnockback()
     {
-        if (!isKnockbacked) return;
+        if (!player.isKnockbacked) return;
         currKnockbackTime = currLaunchTowardsTime;
         if (currKnockbackTime >= knockbackDuration) player.playerEvents.knockbackEnds?.Invoke();
     }

@@ -362,4 +362,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 638bacb5f91e66d46b7c07fea528ac58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet_OnDamage_PlayGrabCinematic
-  grabCinematic: {fileID: 0}
+  grabCinematic: {fileID: 8677727039344905869, guid: 9c87540da7988f14f98eab3d2356ec49, type: 3}

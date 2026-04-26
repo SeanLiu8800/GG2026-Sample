@@ -12,7 +12,6 @@ public class PlayerAttack : PlayerComponent
     private bool attackBuffered = false;
     [SerializeField, Range(0.0f, 1.0f)] private float attackBufferLifespan = 0.1f;
     private float attackBufferFillTime = 0.0f;
-    [field: SerializeField, ReadOnly] public bool isAttacking { get; private set; } = false;
     [field: SerializeField, ReadOnly] public bool attackIsEnhanced { get; private set; } = false;
     [SerializeField, ReadOnly] private bool attackParries = false;
     [SerializeField, Range(0, 5)] private int baseDamage = 1;
@@ -57,7 +56,7 @@ public class PlayerAttack : PlayerComponent
     }
     void AttackStarts()
     {
-        isAttacking = true;
+        player.isAttacking = true;
         attackStartTime = Time.time;
         attackParries = false;
     }
@@ -67,7 +66,7 @@ public class PlayerAttack : PlayerComponent
     }
     void AttackEnds()
     {
-        isAttacking = false;
+        player.isAttacking = false;
         currDamage = baseDamage;
         if (!attackParries) attackIsEnhanced = false; // Unenhance attack if player DOES NOT parry
     }
@@ -92,8 +91,8 @@ public class PlayerAttack : PlayerComponent
     {
         if (attackBuffered && Time.time - attackBufferFillTime < attackBufferLifespan)
         {
-            if (!player.allowAttack || (isAttacking && !attackParries)) return;
-            if (player.pummel.isPummeling || player.move.isKnockbacked) return;
+            if (!player.allowAttack || (player.isAttacking && !attackParries)) return;
+            if (player.isPummeling || player.isKnockbacked) return;
 
             Attack();
             return;
@@ -162,7 +161,7 @@ public class PlayerAttack : PlayerComponent
     }
     private void UpdateAttack()
     {
-        if (!isAttacking || Time.time - attackStartTime < attackDuration) return;
+        if (!player.isAttacking || Time.time - attackStartTime < attackDuration) return;
         player.playerEvents.attackEnds?.Invoke();
     }
     public void Empower(int input = 1)

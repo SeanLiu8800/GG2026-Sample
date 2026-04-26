@@ -7,7 +7,6 @@ public class PlayerPummel : PlayerComponent
     private InputAction pummelAction;
 
     [field: Header("Pummel Variables")]
-    [field: SerializeField, ReadOnly] public bool isPummeling { get; private set; } = false;
     [SerializeField, ReadOnly] private Enemy pummelTarget;
     [SerializeField, ReadOnly] private Vector3 pummelDismountLocation = Vector3.zero;
     
@@ -48,14 +47,14 @@ public class PlayerPummel : PlayerComponent
     }
     void PummelStarts(Enemy enemy)
     {
-        isPummeling = true;
+        player.isPummeling = true;
         pummelTarget = enemy;
 
         player.playerCollider.enabled = false;
     }
     void PummelEnds()
     {
-        isPummeling = false;
+        player.isPummeling = false;
         this.pummelTarget = null;
         player.playerCollider.enabled = true;
     }
@@ -70,7 +69,7 @@ public class PlayerPummel : PlayerComponent
 
     private void DecideAction(InputAction.CallbackContext context)
     {
-        if (!isPummeling || pummelTarget == null) return;
+        if (!player.isPummeling || pummelTarget == null) return;
         Vector2 toTarget = pummelTarget.transform.position - transform.position;
         Vector3 directionInput = moveAction.ReadValue<Vector2>();
         if (Vector2.Dot(toTarget.normalized, directionInput.normalized) < -0.6) ReleaseTarget();
@@ -110,7 +109,7 @@ public class PlayerPummel : PlayerComponent
     }
     private void MoveToLatchPosition()
     {
-        if (!isPummeling || pummelTarget == null) return;
+        if (!player.isPummeling || pummelTarget == null) return;
 
         Vector3 latchPosition = pummelTarget.pummel.GetClosestLatchPoint(transform.position);
         transform.position = Vector3.Lerp(transform.position, latchPosition, 10.0f * Time.fixedDeltaTime);
@@ -124,7 +123,7 @@ public class PlayerPummel : PlayerComponent
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (!player.move.isDashing) return;
+        if (!player.isDashing) return;
         if (!collision.TryGetComponent<Enemy>(out Enemy enemy)) return;
         if (!enemy.allowInstantPummel && (!enemy.isParryStunned || enemy.isBeingPummeled)) return;
 
