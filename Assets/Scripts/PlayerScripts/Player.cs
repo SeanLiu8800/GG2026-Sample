@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     [Header("States")]
     [ReadOnly] public PlayerState state = PlayerState.Idle;
 
-    public bool isIdle { get { return (state & PlayerState.Idle) != 0; } }
+    public bool isIdle { get { return state == 0; } }
     public bool isDashing { get { return (state & PlayerState.Dashing) != 0; } }
     public bool isLunging { get { return (state & PlayerState.Lunging) != 0; } }
     public bool isAttacking { get { return (state & PlayerState.Attacking) != 0; } }

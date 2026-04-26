@@ -193,7 +193,7 @@ public class PlayerMovement : PlayerComponent
     }
     void FixedUpdate()
     {
-        if (player.state.IsIdle() || (player.state & PlayerState.Attacking) != 0) 
+        if (player.isIdle || player.isAttacking) 
             playerRigidbody.linearVelocity = movementInput * CorrectedMoveSpeed();
         Dash();
         AttackLunge();
@@ -249,7 +249,7 @@ public class PlayerMovement : PlayerComponent
         if (dashBuffered && Time.time - bufferStartTime <= bufferLifespan)
         {
             if (!player.allowDash || !canDash) return;
-            if ((player.state & (PlayerState.Lunging | PlayerState.Pummeling | PlayerState.Knockbacked)) != 0) return;
+            if (player.isLunging || player.isPummeling || player.isKnockbacked) return;
             player.playerEvents.dashStarts?.Invoke();
             return;
         }
@@ -257,8 +257,7 @@ public class PlayerMovement : PlayerComponent
     }
     private void Dash()
     {
-        if ((player.state & PlayerState.Dashing) == 0) return;
-        //if (!player.isDashing) return;
+        if (!player.isDashing) return;
         // Enhance Attack if player Dashes for the minimum amount of time
         if (!thisDashEnhancedAttack && (player.autoEnhance || currLaunchTowardsTime >= minDashEnhanceAttack)) 
         player.playerEvents.enhanceAttack?.Invoke();
@@ -272,7 +271,7 @@ public class PlayerMovement : PlayerComponent
     }
     private void UpdateDashCooldown()
     {
-        if ((player.state & PlayerState.Dashing) != 0 || Time.time - dashCooldownStartTime < dashCooldown) return;
+        if (player.isDashing || Time.time - dashCooldownStartTime < dashCooldown) return;
 
         player.playerEvents.dashCooldownEnds?.Invoke();
     }
@@ -291,7 +290,7 @@ public class PlayerMovement : PlayerComponent
     }
     private void AttackLunge()
     {
-        if ((player.state & PlayerState.Lunging) == 0) return;
+        if (!player.isLunging) return;
         if (currLaunchTowardsTime >= lungeDuration) player.playerEvents.lungeEnds?.Invoke();
     }
 
@@ -304,7 +303,7 @@ public class PlayerMovement : PlayerComponent
     }
     private void UpdateKnockback()
     {
-        if ((player.state & PlayerState.Knockbacked) == 0) return;
+        if (!player.isKnockbacked) return;
         currKnockbackTime = currLaunchTowardsTime;
         if (currKnockbackTime >= knockbackDuration) player.playerEvents.knockbackEnds?.Invoke();
     }

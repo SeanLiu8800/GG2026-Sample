@@ -91,8 +91,8 @@ public class PlayerAttack : PlayerComponent
     {
         if (attackBuffered && Time.time - attackBufferFillTime < attackBufferLifespan)
         {
-            if (!player.allowAttack || ((player.state & PlayerState.Attacking) != 0 && !attackParries)) return;
-            if (((player.state & (PlayerState.Pummeling | PlayerState.Knockbacked)) != 0)) return;
+            if (!player.allowAttack || player.isAttacking && !attackParries) return;
+            if (player.isPummeling || player.isKnockbacked) return;
             Attack();
             return;
         }
@@ -160,7 +160,7 @@ public class PlayerAttack : PlayerComponent
     }
     private void UpdateAttack()
     {
-        if (((player.state & PlayerState.Attacking) == 0) || Time.time - attackStartTime < attackDuration) return;
+        if (!player.isAttacking || Time.time - attackStartTime < attackDuration) return;
         player.playerEvents.attackEnds?.Invoke();
     }
     public void Empower(int input = 1)

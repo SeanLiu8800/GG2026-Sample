@@ -69,7 +69,7 @@ public class PlayerPummel : PlayerComponent
 
     private void DecideAction(InputAction.CallbackContext context)
     {
-        if ((player.state & PlayerState.Pummeling) == 0 || pummelTarget == null) return;
+        if (!player.isPummeling || pummelTarget == null) return;
         Vector2 toTarget = pummelTarget.transform.position - transform.position;
         Vector3 directionInput = moveAction.ReadValue<Vector2>();
         if (Vector2.Dot(toTarget.normalized, directionInput.normalized) < -0.6) ReleaseTarget();
@@ -109,7 +109,7 @@ public class PlayerPummel : PlayerComponent
     }
     private void MoveToLatchPosition()
     {
-        if ((player.state & PlayerState.Pummeling) == 0 || pummelTarget == null) return;
+        if (!player.isPummeling || pummelTarget == null) return;
 
         Vector3 latchPosition = pummelTarget.pummel.GetClosestLatchPoint(transform.position);
         transform.position = Vector3.Lerp(transform.position, latchPosition, 10.0f * Time.fixedDeltaTime);
@@ -123,7 +123,7 @@ public class PlayerPummel : PlayerComponent
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if ((player.state & PlayerState.Dashing) == 0) return;
+        if (!player.isDashing) return;
         if (!collision.TryGetComponent<Enemy>(out Enemy enemy)) return;
         if (!enemy.allowInstantPummel && (!enemy.isParryStunned || enemy.isBeingPummeled)) return;
 
