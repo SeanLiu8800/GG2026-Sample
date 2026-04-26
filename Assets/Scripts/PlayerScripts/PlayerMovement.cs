@@ -193,7 +193,7 @@ public class PlayerMovement : PlayerComponent
     }
     void FixedUpdate()
     {
-        if (player.isIdle || player.isAttacking) 
+        if (player.isIdle || (player.isAttacking && !player.isLunging)) 
             playerRigidbody.linearVelocity = movementInput * CorrectedMoveSpeed();
         Dash();
         AttackLunge();
