@@ -24,10 +24,25 @@ public class Player : MonoBehaviour
 
     [Header("States")]
     [ReadOnly] public PlayerState state = PlayerState.Idle;
+
+    public bool isIdle { get { return (state & PlayerState.Idle) != 0; } }
+    public bool isDashing { get { return (state & PlayerState.Dashing) != 0; } }
+    public bool isLunging { get { return (state & PlayerState.Lunging) != 0; } }
+    public bool isAttacking { get { return (state & PlayerState.Attacking) != 0; } }
+    public bool isKnockbacked { get { return (state & PlayerState.Knockbacked) != 0; } }
+    public bool isPummeling { get { return (state & PlayerState.Pummeling) != 0; } }
 }
 
 [System.Flags]
-public enum PlayerState { Idle = 0, Moving = 1, Dashing = 2, Lunging = 4, Attacking = 8, Knockbacked = 16, Pummeling = 32}
+public enum PlayerState 
+{ 
+    Idle = 0, 
+    Dashing = 1, 
+    Lunging = 2, 
+    Attacking = 4, 
+    Knockbacked = 8, 
+    Pummeling = 16
+}
 public static class PlayerStateExtensions
 {
     public static PlayerState Add(this PlayerState state, PlayerState input)

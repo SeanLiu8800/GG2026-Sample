@@ -201,12 +201,7 @@ public class PlayerMovement : PlayerComponent
     private void MoveCharacter()
     {
         movementInput = moveAction.ReadValue<Vector2>();
-        if (movementInput != Vector3.zero)
-        {
-            lastMovementDirection = movementInput.normalized;
-            player.state.Remove(PlayerState.Moving);
-        }
-        else player.state.Add(PlayerState.Moving);
+        if (movementInput != Vector3.zero) lastMovementDirection = movementInput.normalized;
     }
     private float CorrectedMoveSpeed()
     {
