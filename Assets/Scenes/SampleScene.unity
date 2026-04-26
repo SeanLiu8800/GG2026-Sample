@@ -316,21 +316,18 @@ MonoBehaviour:
   playerRigidbody: {fileID: 993337298}
   moveSpeed: 10
   currMoveSpeed: 0
-  maxMoveSpeed: 20
+  maxMoveSpeed: 15
   speedRestoreRate: 5
   speedDecayRate: 5
   canDash: 1
-  <isDashing>k__BackingField: 0
   dashDuration: 1
   dashCooldown: 0.5
   perfectDashLeniency: 0.05
   dashBuffered: 0
   bufferLifespan: 0.1
   <willLunge>k__BackingField: 0
-  <isLunging>k__BackingField: 0
   minDashEnhanceAttack: 0.2
   lungeDuration: 0.2
-  <isKnockbacked>k__BackingField: 0
 --- !u!114 &993337297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,6 +353,7 @@ MonoBehaviour:
   autoLunge: 0
   allowDamage: 1
   allowHealing: 1
+  state: 0
 --- !u!50 &993337298
 Rigidbody2D:
   serializedVersion: 5
@@ -522,7 +520,6 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   attackBufferLifespan: 0.1
-  <isAttacking>k__BackingField: 0
   <attackIsEnhanced>k__BackingField: 0
   attackParries: 0
   baseDamage: 1
@@ -602,7 +599,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5350c50e6c7a24f49918e82ac0458be2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  <isPummeling>k__BackingField: 0
   pummelTarget: {fileID: 0}
   pummelDismountLocation: {x: 0, y: 0, z: 0}
 --- !u!1 &1020955758

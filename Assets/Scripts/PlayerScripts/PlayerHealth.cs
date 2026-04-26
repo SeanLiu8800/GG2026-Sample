@@ -52,13 +52,13 @@ public class PlayerHealth : PlayerComponent, IDamageable
             Heal(-bullet.damage, bullet.gameObject);
             return;
         }
-        if (player.isDashing)
+        if ((player.state & PlayerState.Dashing) != 0)
         {
             bullet.bulletEvents.onDashedInto?.Invoke(player);
             return;
         }
         if (!player.allowDamage) return;
-        if (player.isAttacking && player.attack.attackIsEnhanced) return; // Yes this is supposed to be blank, because enhanced attack is now a Bullet Component
+        if ((player.state & PlayerState.Attacking) != 0 && player.attack.attackIsEnhanced) return; // Yes this is supposed to be blank, because enhanced attack is now a Bullet Component
         if (!isInvincible)
         {
             bullet.bulletEvents.onDamage?.Invoke(this.gameObject);

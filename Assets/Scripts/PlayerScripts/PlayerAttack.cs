@@ -56,7 +56,7 @@ public class PlayerAttack : PlayerComponent
     }
     void AttackStarts()
     {
-        player.isAttacking = true;
+        player.state = player.state.Add(PlayerState.Attacking);
         attackStartTime = Time.time;
         attackParries = false;
     }
@@ -66,7 +66,7 @@ public class PlayerAttack : PlayerComponent
     }
     void AttackEnds()
     {
-        player.isAttacking = false;
+        player.state = player.state.Remove(PlayerState.Attacking);
         currDamage = baseDamage;
         if (!attackParries) attackIsEnhanced = false; // Unenhance attack if player DOES NOT parry
     }
@@ -91,9 +91,8 @@ public class PlayerAttack : PlayerComponent
     {
         if (attackBuffered && Time.time - attackBufferFillTime < attackBufferLifespan)
         {
-            if (!player.allowAttack || (player.isAttacking && !attackParries)) return;
-            if (player.isPummeling || player.isKnockbacked) return;
-
+            if (!player.allowAttack || ((player.state & PlayerState.Attacking) != 0 && !attackParries)) return;
+            if (((player.state & (PlayerState.Pummeling | PlayerState.Knockbacked)) != 0)) return;
             Attack();
             return;
         }
@@ -161,7 +160,7 @@ public class PlayerAttack : PlayerComponent
     }
     private void UpdateAttack()
     {
-        if (!player.isAttacking || Time.time - attackStartTime < attackDuration) return;
+        if (((player.state & PlayerState.Attacking) == 0) || Time.time - attackStartTime < attackDuration) return;
         player.playerEvents.attackEnds?.Invoke();
     }
     public void Empower(int input = 1)

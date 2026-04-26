@@ -95,7 +95,7 @@ public class PlayerMovement : PlayerComponent
         player.spriteRenderer.SetColor(Color.brown.r, Color.brown.g, Color.brown.b, -1.0f);
         willLunge = false;
         canDash = false;
-        player.isDashing = true;
+        player.state = player.state.Add(PlayerState.Dashing);
         player.playerCollider.isTrigger = true;
         dashCollider.enabled = true;
         dashDirection = (movementInput == Vector3.zero) ? lastMovementDirection : movementInput.normalized;
@@ -109,7 +109,7 @@ public class PlayerMovement : PlayerComponent
     }
     void DashEnds()
     {
-        player.isDashing = false;
+        player.state = player.state.Remove(PlayerState.Dashing);
         player.playerCollider.isTrigger = false;
         dashCollider.enabled = false;
         StopLaunchTowards();
@@ -151,26 +151,26 @@ public class PlayerMovement : PlayerComponent
     void PummelEjected(){}
     void LungeStarts()
     {
-        player.isLunging = true;
+        player.state = player.state.Add(PlayerState.Lunging);
         willLunge = false;
         LaunchTowards(lastMovementDirection * lungeInitialSpeed, lungeDuration, 6.0f);
     }
     void LungeEnds()
     {
-        player.isLunging = false;
+        player.state = player.state.Remove(PlayerState.Lunging);
         StopLaunchTowards();
     }
     void KnockbackStarts(Vector3 initialVelocity, float duration = 0.5f)
     {
         player.playerEvents.dashEnds?.Invoke();
         player.playerEvents.lungeEnds?.Invoke();
-        player.isKnockbacked = true;
+        player.state = player.state.Add(PlayerState.Knockbacked);
         knockbackDuration = duration;
         LaunchTowards(initialVelocity, duration, 6.0f);
     }
     void KnockbackEnds()
     {
-        player.isKnockbacked = false;
+        player.state = player.state.Remove(PlayerState.Knockbacked);
         StopLaunchTowards();
     }
     void AttackStarts()
@@ -193,7 +193,7 @@ public class PlayerMovement : PlayerComponent
     }
     void FixedUpdate()
     {
-        if (!player.isDashing && !player.isLunging && !player.isPummeling && !player.isKnockbacked) 
+        if (player.state.IsIdle() || (player.state & PlayerState.Attacking) != 0) 
             playerRigidbody.linearVelocity = movementInput * CorrectedMoveSpeed();
         Dash();
         AttackLunge();
@@ -201,7 +201,12 @@ public class PlayerMovement : PlayerComponent
     private void MoveCharacter()
     {
         movementInput = moveAction.ReadValue<Vector2>();
-        if (movementInput != Vector3.zero) lastMovementDirection = movementInput.normalized;
+        if (movementInput != Vector3.zero)
+        {
+            lastMovementDirection = movementInput.normalized;
+            player.state.Remove(PlayerState.Moving);
+        }
+        else player.state.Add(PlayerState.Moving);
     }
     private float CorrectedMoveSpeed()
     {
@@ -248,10 +253,8 @@ public class PlayerMovement : PlayerComponent
     {
         if (dashBuffered && Time.time - bufferStartTime <= bufferLifespan)
         {
-            if (!player.allowDash) return;
-            // Player is Lunging or Dash still on Cooldown or is pummeling
-            if (player.isLunging || !canDash || player.isPummeling || player.isKnockbacked) return;
-
+            if (!player.allowDash || !canDash) return;
+            if ((player.state & (PlayerState.Lunging | PlayerState.Pummeling | PlayerState.Knockbacked)) != 0) return;
             player.playerEvents.dashStarts?.Invoke();
             return;
         }
@@ -259,22 +262,22 @@ public class PlayerMovement : PlayerComponent
     }
     private void Dash()
     {
-        if (!player.isDashing) return;
+        if ((player.state & PlayerState.Dashing) == 0) return;
+        //if (!player.isDashing) return;
         // Enhance Attack if player Dashes for the minimum amount of time
         if (!thisDashEnhancedAttack && (player.autoEnhance || currLaunchTowardsTime >= minDashEnhanceAttack)) 
-            player.playerEvents.enhanceAttack?.Invoke();
+        player.playerEvents.enhanceAttack?.Invoke();
         if (currLaunchTowardsTime >= dashDuration) StopDash(new InputAction.CallbackContext());
     }
     private void StopDash(InputAction.CallbackContext context)
     {
         dashBuffered = false;
-        if (!player.isDashing) return;
-
+        if ((player.state & PlayerState.Dashing) == 0) return;
         player.playerEvents.dashEnds?.Invoke();
     }
     private void UpdateDashCooldown()
     {
-        if (player.isDashing || Time.time - dashCooldownStartTime < dashCooldown) return;
+        if ((player.state & PlayerState.Dashing) != 0 || Time.time - dashCooldownStartTime < dashCooldown) return;
 
         player.playerEvents.dashCooldownEnds?.Invoke();
     }
@@ -293,7 +296,7 @@ public class PlayerMovement : PlayerComponent
     }
     private void AttackLunge()
     {
-        if (!player.isLunging) return;
+        if ((player.state & PlayerState.Lunging) == 0) return;
         if (currLaunchTowardsTime >= lungeDuration) player.playerEvents.lungeEnds?.Invoke();
     }
 
@@ -306,7 +309,7 @@ public class PlayerMovement : PlayerComponent
     }
     private void UpdateKnockback()
     {
-        if (!player.isKnockbacked) return;
+        if ((player.state & PlayerState.Knockbacked) == 0) return;
         currKnockbackTime = currLaunchTowardsTime;
         if (currKnockbackTime >= knockbackDuration) player.playerEvents.knockbackEnds?.Invoke();
     }

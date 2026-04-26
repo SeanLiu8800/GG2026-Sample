@@ -23,9 +23,24 @@ public class Player : MonoBehaviour
     public bool allowHealing = true;
 
     [Header("States")]
-    [ReadOnly] public bool isDashing = false;
-    [ReadOnly] public bool isLunging = false;
-    [ReadOnly] public bool isKnockbacked = false;
-    [ReadOnly] public bool isAttacking = false;
-    [ReadOnly] public bool isPummeling = false;
+    [ReadOnly] public PlayerState state = PlayerState.Idle;
+}
+
+[System.Flags]
+public enum PlayerState { Idle = 0, Moving = 1, Dashing = 2, Lunging = 4, Attacking = 8, Knockbacked = 16, Pummeling = 32}
+public static class PlayerStateExtensions
+{
+    public static PlayerState Add(this PlayerState state, PlayerState input)
+    {
+        return state | input;
+    }
+    public static PlayerState Remove(this PlayerState state, PlayerState input)
+    {
+        return state & ~input;
+    }
+    public static bool IsIdle(this PlayerState state)
+    {
+        if (state == PlayerState.Idle) return true;
+        else return false;
+    }
 }
