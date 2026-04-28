@@ -86,7 +86,7 @@ public class RoomEndTrigger : RoomComponent
         }
         exitDoor.allowInstantPummel = true;
         exitDoor.allowDamage = true;
-        exitDoor.enemyCollider.layerOverridePriority = -1;
+        //exitDoor.enemyCollider.layerOverridePriority = -1;
     }
     /// <summary>
     /// Function that disables player interaction with Wall
@@ -100,7 +100,7 @@ public class RoomEndTrigger : RoomComponent
         }
         exitDoor.allowInstantPummel = false;
         exitDoor.allowDamage = false;
-        exitDoor.enemyCollider.layerOverridePriority = 1;
+        //exitDoor.enemyCollider.layerOverridePriority = 1;
         exitDoor.enemyCollider.includeLayers = playerLayer;
     }
     private void OnTriggerEnter2D(Collider2D collision)

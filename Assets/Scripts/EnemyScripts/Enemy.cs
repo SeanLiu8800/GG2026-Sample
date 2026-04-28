@@ -68,6 +68,7 @@ public class Enemy : MonoBehaviour
         {
             if (pummelOnCooldown) return false;
             if (isBeingPummeled) return false;
+            if (health.currHealth <= 0) return false;
             if (allowInstantPummel || isParryStunned) return true;
             return false;
         }
