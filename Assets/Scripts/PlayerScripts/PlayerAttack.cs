@@ -28,7 +28,7 @@ public class PlayerAttack : PlayerComponent
     void OnEnable()
     {
         //attackAction.started += EmptyAttackBuffer;
-        attackAction.canceled += FillAttackBuffer;
+        attackAction.canceled += BufferAttack;
 
         player.playerEvents.enhanceAttack += EnhanceAttack;
 
@@ -39,7 +39,7 @@ public class PlayerAttack : PlayerComponent
     void OnDisable()
     {
         //attackAction.started -= EmptyAttackBuffer;
-        attackAction.canceled -= FillAttackBuffer;
+        attackAction.canceled -= BufferAttack;
 
         player.playerEvents.enhanceAttack -= EnhanceAttack;
 
@@ -77,7 +77,7 @@ public class PlayerAttack : PlayerComponent
         UpdateAttack();
     }
 
-    private void FillAttackBuffer(InputAction.CallbackContext context)
+    private void BufferAttack(InputAction.CallbackContext context)
     {
         attackBuffered = true;
         attackBufferFillTime = Time.time;
@@ -91,6 +91,7 @@ public class PlayerAttack : PlayerComponent
     {
         if (attackBuffered && Time.time - attackBufferFillTime < attackBufferLifespan)
         {
+            if (player.isRestricted) return;
             if (!player.allowAttack || player.isAttacking && !attackParries) return;
             if (player.isPummeling || player.isKnockbacked) return;
             Attack();

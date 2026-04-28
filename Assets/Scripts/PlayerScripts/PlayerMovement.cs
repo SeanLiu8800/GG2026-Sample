@@ -38,7 +38,7 @@ public class PlayerMovement : PlayerComponent
     }
     void OnEnable()
     {
-        dashAction.started += StartDash;
+        dashAction.started += BufferDash;
         dashAction.canceled += StopDash;
 
         player.playerEvents.dashStarts += DashStarts;
@@ -63,7 +63,7 @@ public class PlayerMovement : PlayerComponent
     }
     void OnDisable()
     {
-        dashAction.started -= StartDash;
+        dashAction.started -= BufferDash;
         dashAction.canceled -= StopDash;
 
         player.playerEvents.dashStarts -= DashStarts;
@@ -146,7 +146,7 @@ public class PlayerMovement : PlayerComponent
     void PummelEnds(){}
     void PummelReleased()
     {
-        StartDash(new InputAction.CallbackContext());
+        BufferDash(new InputAction.CallbackContext());
     }
     void PummelEjected(){}
     void LungeStarts()
@@ -195,8 +195,8 @@ public class PlayerMovement : PlayerComponent
     {
         if (player.isIdle || (player.isAttacking && !player.isLunging)) 
             playerRigidbody.linearVelocity = movementInput * CorrectedMoveSpeed();
-        Dash();
-        AttackLunge();
+        UpdateDash();
+        UpdateAttackLunge();
     }
     private void MoveCharacter()
     {
@@ -237,7 +237,7 @@ public class PlayerMovement : PlayerComponent
     private float bufferStartTime = 0.0f;
     [SerializeField, Range(0.0f, 0.5f)] private float bufferLifespan = 0.1f;
     /// <summary>Fills the Dash Buffer and start it on the first possible frame</summary>
-    private void StartDash(InputAction.CallbackContext context)
+    private void BufferDash(InputAction.CallbackContext context)
     {
         dashBuffered = true;
         bufferStartTime = Time.time;
@@ -248,6 +248,7 @@ public class PlayerMovement : PlayerComponent
     {
         if (dashBuffered && Time.time - bufferStartTime <= bufferLifespan)
         {
+            if (player.isRestricted) return;
             if (!player.allowDash || !canDash) return;
             if (player.isLunging || player.isPummeling || player.isKnockbacked) return;
             player.playerEvents.dashStarts?.Invoke();
@@ -255,7 +256,7 @@ public class PlayerMovement : PlayerComponent
         }
         dashBuffered = false;
     }
-    private void Dash()
+    private void UpdateDash()
     {
         if (!player.isDashing) return;
         // Enhance Attack if player Dashes for the minimum amount of time
@@ -288,7 +289,7 @@ public class PlayerMovement : PlayerComponent
     {
         player.playerEvents.lungeStarts?.Invoke();
     }
-    private void AttackLunge()
+    private void UpdateAttackLunge()
     {
         if (!player.isLunging) return;
         if (currLaunchTowardsTime >= lungeDuration) player.playerEvents.lungeEnds?.Invoke();
