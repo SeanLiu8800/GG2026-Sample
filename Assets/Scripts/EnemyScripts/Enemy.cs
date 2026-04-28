@@ -59,8 +59,19 @@ public class Enemy : MonoBehaviour
     [ReadOnly] public bool canMove = true;
     [ReadOnly] public bool isAttacking = false;
     [ReadOnly] public bool isParryStunned = false;
-    [ReadOnly] public bool isPummelable = true;
+    [ReadOnly] public bool pummelOnCooldown = false;
     [ReadOnly] public bool isBeingPummeled = false;
+    
+    public bool IsPummelable
+    {
+        get
+        {
+            if (pummelOnCooldown) return false;
+            if (isBeingPummeled) return false;
+            if (allowInstantPummel || isParryStunned) return true;
+            return false;
+        }
+    }
     
     void Awake()
     {

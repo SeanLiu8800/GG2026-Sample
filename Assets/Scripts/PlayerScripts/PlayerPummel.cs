@@ -5,6 +5,8 @@ public class PlayerPummel : PlayerComponent
 {
     private InputAction moveAction;
     private InputAction pummelAction;
+    private LayerMask enemyLayer;
+    [SerializeField, Range(0.0f, 1.5f)] private float checkRadius = 0.75f;
 
     [field: Header("Pummel Variables")]
     [SerializeField, ReadOnly] private Enemy pummelTarget;
@@ -16,6 +18,8 @@ public class PlayerPummel : PlayerComponent
 
         moveAction = InputSystem.actions.FindAction("Move");
         pummelAction = InputSystem.actions.FindAction("PlayerPummelControls/Pummel");
+
+        if ((enemyLayer = LayerMask.GetMask("Enemy")) == 0) Debug.LogError("Enemy Layer NOT FOUND!");
     }
     private void OnEnable()
     {
@@ -44,6 +48,7 @@ public class PlayerPummel : PlayerComponent
     void DashStarts()
     {
         pummelDismountLocation = transform.position;
+        StartCoroutine(FindPummelTarget());
     }
     void PummelStarts(Enemy enemy)
     {
@@ -66,7 +71,22 @@ public class PlayerPummel : PlayerComponent
     {
         MoveToLatchPosition();
     }
-
+    private IEnumerator FindPummelTarget()
+    {
+        while (player.isDashing)
+        {
+            Collider2D hit = Physics2D.OverlapCircle(transform.position, checkRadius, enemyLayer);
+            if (hit != null && hit.TryGetComponent<Enemy>(out Enemy enemy))
+            {
+                if (enemy.IsPummelable) 
+                {
+                    player.playerEvents.pummelStarts?.Invoke(enemy);
+                    enemy.enemyEvents.pummelStarts?.Invoke(player);
+                } 
+            }
+            yield return null;
+        }
+    }
     private void DecideAction(InputAction.CallbackContext context)
     {
         if (!player.isPummeling || pummelTarget == null) return;
@@ -121,21 +141,11 @@ public class PlayerPummel : PlayerComponent
         player.playerEvents.pummelEjected?.Invoke();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (!player.isDashing) return;
-        if (!collision.TryGetComponent<Enemy>(out Enemy enemy)) return;
-        if (!enemy.isPummelable) return;
-        if (!enemy.allowInstantPummel && (!enemy.isParryStunned || enemy.isBeingPummeled)) return;
-
-        player.playerEvents.pummelStarts?.Invoke(enemy);
-        enemy.enemyEvents.pummelStarts?.Invoke(player);
-    }
-
     private void OnDrawGizmos()
     {
         if (!Application.isPlaying) return;
 
         Gizmos.DrawSphere(pummelDismountLocation, 0.2f);
+        if (player.isDashing) Gizmos.DrawSphere(transform.position, checkRadius);
     }
 }

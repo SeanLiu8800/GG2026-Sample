@@ -28,13 +28,13 @@ public class EnemyPummel : EnemyComponent
     #region ----- Event Functions -----
     protected virtual void PummelStarts(Player player)
     {
-        enemy.isPummelable = false;
         enemy.isBeingPummeled = true;
         pummeler = player;
         pummelStartTime = Time.time;
     }
     protected virtual void PummelEnds()
     {
+        enemy.pummelOnCooldown = true;
         pummelEndTime = Time.time;
         enemy.isBeingPummeled = false;
         this.pummeler = null;
@@ -62,11 +62,10 @@ public class EnemyPummel : EnemyComponent
         pummeler.pummel.EjectedByPummelTarget();
         enemy.enemyEvents.pummelEnds?.Invoke();
     }
-
     private void UpdatePummelCooldown()
     {
         if (enemy.isBeingPummeled) return;
-        if (!enemy.isPummelable && Time.time - pummelEndTime >= pummelCooldown) enemy.isPummelable = true;
+        if (enemy.pummelOnCooldown && Time.time - pummelEndTime >= pummelCooldown) enemy.pummelOnCooldown = false;
     }
     public Vector3 GetClosestLatchPoint(Vector3 inputPosition)
     {
