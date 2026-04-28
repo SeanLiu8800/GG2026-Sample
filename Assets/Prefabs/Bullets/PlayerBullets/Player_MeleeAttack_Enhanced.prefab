@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 3855591752347032133}
   - component: {fileID: 3699263169848525622}
   m_Layer: 7
-  m_Name: MeleeAttackEnhancedPlayer
+  m_Name: Player_MeleeAttack_Enhanced
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -289,7 +289,7 @@ MonoBehaviour:
   <owner>k__BackingField: {fileID: 0}
   <target>k__BackingField: {fileID: 0}
   <moveDirection>k__BackingField: {x: 0, y: 1, z: 0}
-  <moveSpeed>k__BackingField: 5
+  <moveSpeed>k__BackingField: 0
   _lookDirection: {x: 0, y: 1, z: 0}
   damage: 1
   empowerRate: 1
