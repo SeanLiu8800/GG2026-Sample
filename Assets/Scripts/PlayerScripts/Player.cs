@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     [field: SerializeField] public PlayerMovement move { get; private set; }
@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     [field: SerializeField] public PlayerHealth health { get; private set; }
     [field: SerializeField] public PlayerPummel pummel { get; private set; }
     [field: SerializeField] public Collider2D playerCollider { get; private set; }
+    [field: SerializeField] public Rigidbody2D playerRigidbody { get; private set; }
     [field: SerializeField] public SpriteRenderer spriteRenderer { get; private set; }
 
     public PlayerEvents playerEvents;
@@ -32,7 +33,25 @@ public class Player : MonoBehaviour
     public bool isKnockbacked { get { return (state & PlayerState.Knockbacked) != 0; } }
     public bool isPummeling { get { return (state & PlayerState.Pummeling) != 0; } }
     public bool isRestricted { get { return (state & PlayerState.Restricted) != 0; } }
+
+    public void AddState(PlayerState input) { state = state.Add(input); }
+    public void RemoveState(PlayerState input) { state = state.Remove(input); }
+    public void RestrictActions() 
+    { 
+        AddState(PlayerState.Restricted);
+        playerEvents.dashEnds?.Invoke();
+        playerEvents.lungeEnds?.Invoke();
+        playerEvents.knockbackEnds?.Invoke();
+    }
+    public void EnableActions() { RemoveState(PlayerState.Restricted); }
+
+    private void Update()
+    {
+        if (Keyboard.current.enterKey.wasPressedThisFrame) RestrictActions();
+        if (Keyboard.current.rightShiftKey.wasPressedThisFrame) EnableActions();
+    }
 }
+
 
 [System.Flags] public enum PlayerState 
 { 

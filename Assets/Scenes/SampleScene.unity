@@ -313,9 +313,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   dashCollider: {fileID: 993337303}
-  playerRigidbody: {fileID: 993337298}
   moveSpeed: 10
-  currMoveSpeed: 0
+  <currMoveSpeed>k__BackingField: 0
   maxMoveSpeed: 15
   speedRestoreRate: 5
   speedDecayRate: 5
@@ -345,6 +344,7 @@ MonoBehaviour:
   <health>k__BackingField: {fileID: 993337304}
   <pummel>k__BackingField: {fileID: 993337305}
   <playerCollider>k__BackingField: {fileID: 993337299}
+  <playerRigidbody>k__BackingField: {fileID: 993337298}
   <spriteRenderer>k__BackingField: {fileID: 993337300}
   allowDash: 1
   allowAttack: 1

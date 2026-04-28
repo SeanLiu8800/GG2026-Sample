@@ -4,14 +4,13 @@ using System.Collections;
 public class PlayerMovement : PlayerComponent
 {
     [SerializeField] private Collider2D dashCollider;
-    [SerializeField] private Rigidbody2D playerRigidbody;
 
     private InputAction moveAction;
     private InputAction dashAction;
 
     [Header("Movement Variables")]
     [SerializeField, Range(5.0f, 15.0f)] private float moveSpeed = 10.0f;
-    [SerializeField, ReadOnly, Range(0.0f, 60.0f)] private float currMoveSpeed = 0.0f;
+    [field: SerializeField, ReadOnly, Range(0.0f, 60.0f)] public float currMoveSpeed { get; private set; } = 0.0f;
     [SerializeField, Range(5.0f, 60.0f)] private float maxMoveSpeed = 20.0f;
     [Range(0.0f, 10.0f)] public float speedRestoreRate = 5.0f;
     [Range(0.0f, 10.0f)] public float speedDecayRate = 5.0f;
@@ -95,7 +94,7 @@ public class PlayerMovement : PlayerComponent
         player.spriteRenderer.SetColor(Color.brown.r, Color.brown.g, Color.brown.b, -1.0f);
         willLunge = false;
         canDash = false;
-        player.state = player.state.Add(PlayerState.Dashing);
+        player.AddState(PlayerState.Dashing);
         player.playerCollider.isTrigger = true;
         dashCollider.enabled = true;
         dashDirection = (movementInput == Vector3.zero) ? lastMovementDirection : movementInput.normalized;
@@ -109,10 +108,11 @@ public class PlayerMovement : PlayerComponent
     }
     void DashEnds()
     {
-        player.state = player.state.Remove(PlayerState.Dashing);
+        player.RemoveState(PlayerState.Dashing);
         player.playerCollider.isTrigger = false;
         dashCollider.enabled = false;
         StopLaunchTowards();
+        player.playerRigidbody.linearVelocity = Vector2.zero;
         // Perfect Dash
         if (Mathf.Abs(0.5f * dashDuration - currLaunchTowardsTime) <= perfectDashLeniency) 
             player.playerEvents.perfectDash?.Invoke();
@@ -141,7 +141,7 @@ public class PlayerMovement : PlayerComponent
         player.playerEvents.dashEnds?.Invoke();
         player.playerEvents.dashCooldownEnds?.Invoke();
         player.playerCollider.enabled = false;
-        playerRigidbody.linearVelocity = Vector2.zero;
+        player.playerRigidbody.linearVelocity = Vector2.zero;
     }
     void PummelEnds(){}
     void PummelReleased()
@@ -151,26 +151,26 @@ public class PlayerMovement : PlayerComponent
     void PummelEjected(){}
     void LungeStarts()
     {
-        player.state = player.state.Add(PlayerState.Lunging);
+        player.AddState(PlayerState.Lunging);
         willLunge = false;
         LaunchTowards(lastMovementDirection * lungeInitialSpeed, lungeDuration, 6.0f);
     }
     void LungeEnds()
     {
-        player.state = player.state.Remove(PlayerState.Lunging);
+        player.RemoveState(PlayerState.Lunging);
         StopLaunchTowards();
     }
     void KnockbackStarts(Vector3 initialVelocity, float duration = 0.5f)
     {
         player.playerEvents.dashEnds?.Invoke();
         player.playerEvents.lungeEnds?.Invoke();
-        player.state = player.state.Add(PlayerState.Knockbacked);
+        player.AddState(PlayerState.Knockbacked);
         knockbackDuration = duration;
         LaunchTowards(initialVelocity, duration, 6.0f);
     }
     void KnockbackEnds()
     {
-        player.state = player.state.Remove(PlayerState.Knockbacked);
+        player.RemoveState(PlayerState.Knockbacked);
         StopLaunchTowards();
     }
     void AttackStarts()
@@ -193,8 +193,9 @@ public class PlayerMovement : PlayerComponent
     }
     void FixedUpdate()
     {
+        CorrectMoveSpeed();
         if (player.isIdle || (player.isAttacking && !player.isLunging)) 
-            playerRigidbody.linearVelocity = movementInput * CorrectedMoveSpeed();
+            player.playerRigidbody.linearVelocity = movementInput * currMoveSpeed;
         UpdateDash();
         UpdateAttackLunge();
     }
@@ -203,7 +204,7 @@ public class PlayerMovement : PlayerComponent
         movementInput = moveAction.ReadValue<Vector2>();
         if (movementInput != Vector3.zero) lastMovementDirection = movementInput.normalized;
     }
-    private float CorrectedMoveSpeed()
+    private float CorrectMoveSpeed()
     {
         float unitsUnderLimit = moveSpeed - currMoveSpeed;
         float unitsAboveLimit = currMoveSpeed - moveSpeed;
@@ -223,7 +224,6 @@ public class PlayerMovement : PlayerComponent
         }
         return currMoveSpeed;
     }
-    public float GetMoveSpeed() { return currMoveSpeed; }
     public void AddMoveSpeed(float addAmount)
     {
         currMoveSpeed = Mathf.Max(currMoveSpeed + addAmount, 0.0f);
@@ -267,7 +267,7 @@ public class PlayerMovement : PlayerComponent
     private void StopDash(InputAction.CallbackContext context)
     {
         dashBuffered = false;
-        if ((player.state & PlayerState.Dashing) == 0) return;
+        if (!player.isDashing) return;
         player.playerEvents.dashEnds?.Invoke();
     }
     private void UpdateDashCooldown()
@@ -330,7 +330,7 @@ public class PlayerMovement : PlayerComponent
 
         while (currLaunchTowardsTime <= duration)
         {
-            playerRigidbody.linearVelocity = currLaunchTowardsVelocity;
+            player.playerRigidbody.linearVelocity = currLaunchTowardsVelocity;
             currLaunchTowardsVelocity = Vector3.Lerp(currLaunchTowardsVelocity, Vector3.zero, Time.deltaTime * lerpCoefficient);
             currLaunchTowardsTime = Time.time - moveTowardsStartTime;
 

@@ -47,14 +47,14 @@ public class PlayerPummel : PlayerComponent
     }
     void PummelStarts(Enemy enemy)
     {
-        player.state = player.state.Add(PlayerState.Pummeling);
+        player.AddState(PlayerState.Pummeling);
         pummelTarget = enemy;
 
         player.playerCollider.enabled = false;
     }
     void PummelEnds()
     {
-        player.state = player.state.Remove(PlayerState.Pummeling);
+        player.RemoveState(PlayerState.Pummeling);
         this.pummelTarget = null;
         player.playerCollider.enabled = true;
     }

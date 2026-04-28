@@ -56,7 +56,7 @@ public class PlayerAttack : PlayerComponent
     }
     void AttackStarts()
     {
-        player.state = player.state.Add(PlayerState.Attacking);
+        player.AddState(PlayerState.Attacking);
         attackStartTime = Time.time;
         attackParries = false;
     }
@@ -66,7 +66,7 @@ public class PlayerAttack : PlayerComponent
     }
     void AttackEnds()
     {
-        player.state = player.state.Remove(PlayerState.Attacking);
+        player.RemoveState(PlayerState.Attacking);
         currDamage = baseDamage;
         if (!attackParries) attackIsEnhanced = false; // Unenhance attack if player DOES NOT parry
     }
