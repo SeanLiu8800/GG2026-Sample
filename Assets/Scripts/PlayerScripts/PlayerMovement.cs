@@ -3,7 +3,8 @@ using UnityEngine.InputSystem;
 using System.Collections;
 public class PlayerMovement : PlayerComponent
 {
-    [SerializeField] private Collider2D dashCollider;
+    [SerializeField] private GameObject dashBullet;
+    private GameObject currDashBullet = null;
 
     private InputAction moveAction;
     private InputAction dashAction;
@@ -32,8 +33,7 @@ public class PlayerMovement : PlayerComponent
         dashAction = InputSystem.actions.FindAction("Dash");
 
         currMoveSpeed = moveSpeed;
-        player.playerCollider.enabled = true;
-        dashCollider.enabled = false;
+        //player.playerCollider.enabled = true;
     }
     void OnEnable()
     {
@@ -96,8 +96,10 @@ public class PlayerMovement : PlayerComponent
         canDash = false;
         player.AddState(PlayerState.Dashing);
         player.playerCollider.isTrigger = true;
-        dashCollider.enabled = true;
         dashDirection = (movementInput == Vector3.zero) ? lastMovementDirection : movementInput.normalized;
+        //dashCollider.enabled = true;
+        currDashBullet = Instantiate(dashBullet);
+        currDashBullet.GetComponent<BulletScript>().Initialize(gameObject, null, default, dashDirection);
         thisDashEnhancedAttack = false;
         LaunchTowards(dashDirection * 20, dashDuration, 3.0f); // initial Dash Velocity is hard coded to be 20 units
     }
@@ -110,7 +112,8 @@ public class PlayerMovement : PlayerComponent
     {
         player.RemoveState(PlayerState.Dashing);
         player.playerCollider.isTrigger = false;
-        dashCollider.enabled = false;
+                //dashCollider.enabled = false;
+        Destroy(currDashBullet);
         StopLaunchTowards();
         player.playerRigidbody.linearVelocity = Vector2.zero;
         // Perfect Dash
