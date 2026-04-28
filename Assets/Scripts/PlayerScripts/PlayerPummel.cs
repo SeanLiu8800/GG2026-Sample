@@ -80,6 +80,7 @@ public class PlayerPummel : PlayerComponent
             {
                 if (enemy.IsPummelable) 
                 {
+                    yield return null;
                     player.playerEvents.pummelStarts?.Invoke(enemy);
                     enemy.enemyEvents.pummelStarts?.Invoke(player);
                 } 
@@ -134,7 +135,6 @@ public class PlayerPummel : PlayerComponent
         Vector3 latchPosition = pummelTarget.pummel.GetClosestLatchPoint(transform.position);
         transform.position = Vector3.Lerp(transform.position, latchPosition, 10.0f * Time.fixedDeltaTime);
     }
-    
     public void EjectedByPummelTarget()
     {
         player.playerEvents.pummelEnds?.Invoke();
