@@ -95,9 +95,8 @@ public class PlayerMovement : PlayerComponent
         willLunge = false;
         canDash = false;
         player.AddState(PlayerState.Dashing);
-        player.playerCollider.isTrigger = true;
+        player.playerCollider.excludeLayers |= (1 << LayerMask.NameToLayer("Enemy"));
         dashDirection = (movementInput == Vector3.zero) ? lastMovementDirection : movementInput.normalized;
-        //dashCollider.enabled = true;
         currDashBullet = Instantiate(dashBullet);
         currDashBullet.GetComponent<BulletScript>().Initialize(gameObject, null, default, dashDirection);
         thisDashEnhancedAttack = false;
@@ -111,8 +110,7 @@ public class PlayerMovement : PlayerComponent
     void DashEnds()
     {
         player.RemoveState(PlayerState.Dashing);
-        player.playerCollider.isTrigger = false;
-                //dashCollider.enabled = false;
+        player.playerCollider.excludeLayers &= ~(1 << LayerMask.NameToLayer("Enemy"));
         Destroy(currDashBullet);
         StopLaunchTowards();
         player.playerRigidbody.linearVelocity = Vector2.zero;
