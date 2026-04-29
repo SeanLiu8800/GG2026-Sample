@@ -4,7 +4,7 @@ public class RoomStartTrigger : RoomComponent
 {
     private Collider2D roomStartTrigger;
     private SpriteRenderer triggerSprite;
-    [SerializeField] private LayerMask playerLayer;
+    private int playerLayer;
 
     protected override void Awake()
     {
@@ -22,6 +22,8 @@ public class RoomStartTrigger : RoomComponent
         triggerSprite = _triggerSprite;
 
         SetActive(true);
+
+        if ((playerLayer = LayerMask.NameToLayer("Player")) == 0) Debug.LogError("Player Layer NOT FOUND!");
     }
     protected void OnEnable()
     {
@@ -46,7 +48,7 @@ public class RoomStartTrigger : RoomComponent
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (((1 << collision.gameObject.layer) & playerLayer) == 0) return;
+        if (collision.gameObject.layer != playerLayer) return;
 
         Debug.Log("Room Starts!");
         room.roomEvents.roomStarts?.Invoke();

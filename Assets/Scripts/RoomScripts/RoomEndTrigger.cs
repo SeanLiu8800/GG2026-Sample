@@ -4,7 +4,7 @@ public class RoomEndTrigger : RoomComponent
 {
     private Collider2D roomEndTrigger;
     private SpriteRenderer triggerSprite;
-    [SerializeField] private LayerMask playerLayer;
+    private int playerLayer;
     [SerializeField] private GameObject exitDoorGameObject;
     private Enemy exitDoor;
 
@@ -24,6 +24,8 @@ public class RoomEndTrigger : RoomComponent
         triggerSprite = _triggerSprite;
 
         SetActive(false);
+
+        if ((playerLayer = LayerMask.NameToLayer("Player")) == 0) Debug.LogError("Player Layer NOT FOUND!");
     }
     protected void OnEnable()
     {
@@ -86,7 +88,6 @@ public class RoomEndTrigger : RoomComponent
         }
         exitDoor.allowInstantPummel = true;
         exitDoor.allowDamage = true;
-        //exitDoor.enemyCollider.layerOverridePriority = -1;
     }
     /// <summary>
     /// Function that disables player interaction with Wall
@@ -100,12 +101,10 @@ public class RoomEndTrigger : RoomComponent
         }
         exitDoor.allowInstantPummel = false;
         exitDoor.allowDamage = false;
-        //exitDoor.enemyCollider.layerOverridePriority = 1;
-        exitDoor.enemyCollider.includeLayers = playerLayer;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (((1 << collision.gameObject.layer) & playerLayer) == 0) return;
+        if (collision.gameObject.layer != playerLayer) return;
 
         Debug.Log("Room Ends!");
         room.roomEvents.roomEnds?.Invoke();
