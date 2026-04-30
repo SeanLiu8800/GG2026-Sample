@@ -18,7 +18,7 @@ public class Enemy_OnDeath_SpawnEnemy : Enemy_OnDeath_BehaviorBase
     {
         if (Instantiate(spawnEnemy).TryGetComponent<Enemy>(out Enemy enemy))
         {
-            Debug.Log("Spawned an Enemy!");
+            GameManager.Instance.currRoom.waveSpawner.AddEnemy(enemy);
         }
     }
 }

@@ -71,6 +71,7 @@ public class EnemyHealth : EnemyComponent, IDamageable
     }
     public void Die()
     {
+        currHealth = 0;
         enemy.enemyEvents.onEnemyDies?.Invoke();
         enemy.enemyEvents.enemyDies?.Invoke();
     }

@@ -116,13 +116,19 @@ public class WaveSpawner : RoomComponent
         enemy.enemyEvents.enemyDies += EnemyDies;
         currWaveEnemies.Add(enemy);
     }
-    public void DeleteEnemies()
+    private void DeleteEnemies()
     {
         foreach (Transform childTransform in enemyContainer.transform) Destroy(childTransform.gameObject);
     }
     public void KillCurrentEnemies()
     {
-        for (int i = 0; i < currWaveEnemies.Count; i++) currWaveEnemies[i].health.Die();
+        // Create a copy of existing wave enemies to avoid killing enemies spawned after another enemy's death
+        List<Enemy> temp = new(currWaveEnemies);
+        for (int i = 0; i < temp.Count; i++)
+        {
+            // Kill the enemy if they aren't dead
+            if (temp[i].health.currHealth > 0) temp[i].health.Die();
+        }
     }
 }
 
