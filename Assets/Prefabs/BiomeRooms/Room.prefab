@@ -182,9 +182,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf7a45aba5d587347b84f0a8da232be4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 512
   exitDoorGameObject: {fileID: 6792945849886405758, guid: 0d899a6fb14cf3749b3e7641e84fe0e0, type: 3}
 --- !u!1 &1330401690350030430
 GameObject:
@@ -1735,9 +1732,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbad60c49069ee14d9ed3dda2f11d85d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomTriggers
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!1 &7250187847492669562
 GameObject:
   m_ObjectHideFlags: 0
@@ -1806,7 +1800,7 @@ MonoBehaviour:
   <spawnImmediately>k__BackingField: 1
   enemyWaves:
   - enemies:
-    - enemy: {fileID: 4705485784247206799, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+    - enemy: {fileID: 8399099391514227950, guid: fd525964d4949ae48ac7a3c3209caf32, type: 3}
       enemyCount: 1
   currWaveNumber: 0
   currWaveEnemies: []
