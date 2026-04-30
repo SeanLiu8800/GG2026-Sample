@@ -218,9 +218,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   <target>k__BackingField: {fileID: 0}
-  <playerLayer>k__BackingField:
-    serializedVersion: 2
-    m_Bits: 512
   <allowMove>k__BackingField: 1
   <allowAttack>k__BackingField: 1
   <allowDamage>k__BackingField: 1
@@ -229,6 +226,7 @@ MonoBehaviour:
   canMove: 1
   isAttacking: 0
   isParryStunned: 0
+  pummelOnCooldown: 1
   isBeingPummeled: 0
 --- !u!114 &1453278992626137235
 MonoBehaviour:
@@ -329,6 +327,7 @@ MonoBehaviour:
   pummelDuration: 3
   currentPummelDuration: 0
   ejectPummelerDamage: 0
+  pummelCooldown: 1
 --- !u!1 &6438934494947225700
 GameObject:
   m_ObjectHideFlags: 0
