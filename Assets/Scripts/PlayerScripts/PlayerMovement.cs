@@ -89,7 +89,7 @@ public class PlayerMovement : PlayerComponent
     #region ----- Event Functions -----
     void DashStarts()
     {
-        dashBuffered = false; // Empty buffer
+        dashBuffered = false; // Empty the buffer
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerDash);
         player.spriteRenderer.SetColor(Color.brown.r, Color.brown.g, Color.brown.b, -1.0f);
         willLunge = false;
@@ -110,7 +110,7 @@ public class PlayerMovement : PlayerComponent
     void DashEnds()
     {
         player.RemoveState(PlayerState.Dashing);
-        player.playerCollider.excludeLayers &= ~(1 << LayerMask.NameToLayer("Enemy"));
+        player.playerCollider.excludeLayers &= ~LayerMask.GetMask("Enemy");
         Destroy(currDashBullet);
         StopLaunchTowards();
         player.playerRigidbody.linearVelocity = Vector2.zero;
@@ -145,10 +145,7 @@ public class PlayerMovement : PlayerComponent
         player.playerRigidbody.linearVelocity = Vector2.zero;
     }
     void PummelEnds(){}
-    void PummelReleased()
-    {
-        BufferDash(new InputAction.CallbackContext());
-    }
+    void PummelReleased(){}
     void PummelEjected(){}
     void LungeStarts()
     {
