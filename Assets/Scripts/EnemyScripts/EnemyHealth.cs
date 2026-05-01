@@ -1,9 +1,18 @@
 using UnityEngine;
-
+using System.Collections;
 public class EnemyHealth : EnemyComponent, IDamageable
 {
+    [field: Header("Health Variables")]
     [field: SerializeField] public float currHealth { get; private set; } = 5;
     [field: SerializeField] public float maxHealth { get; private set; } = 5;
+
+    [field: Header("Element Variables")]
+    [field: SerializeField, ReadOnly] public float fireBuildup { get; private set; } = 0.0f;
+    [field: SerializeField] public float fireLimit { get; private set; } = 5.0f;
+    [field: SerializeField, ReadOnly] public float iceBuildup { get; private set; } = 0.0f;
+    [field: SerializeField] public float iceLimit { get; private set; } = 5.0f;
+    [field: SerializeField, ReadOnly] public float shockBuildup { get; private set; } = 0.0f;
+    [field: SerializeField] public float shockLimit { get; private set; } = 5.0f;
     protected virtual void OnEnable()
     {
         enemy.enemyEvents.enemyDies += EnemyDies;
@@ -32,9 +41,9 @@ public class EnemyHealth : EnemyComponent, IDamageable
         if (currHealth <= 0.0f) return;
 
         bullet.bulletEvents.onDamage?.Invoke(this.gameObject);
-        Damage(bullet.damage, bullet.gameObject);
+        Damage(bullet.damage, bullet.element, bullet.elementBuildup, bullet.gameObject);
     }
-    public void Damage(float damage, GameObject damager = null)
+    public void Damage(float damage, DamageElement element = DamageElement.None, float elementBuildup = 0.0f, GameObject damager = null)
     {
         if (damage < 0.0f)
         {
@@ -58,7 +67,7 @@ public class EnemyHealth : EnemyComponent, IDamageable
     {
         if (heal < 0.0f)
         {
-            Damage(-heal, healer);
+            Damage(-heal, DamageElement.None, 0.0f, healer);
             return;
         }
 
@@ -69,10 +78,35 @@ public class EnemyHealth : EnemyComponent, IDamageable
 
         return;
     }
+    public void ElementDamage(DamageElement element, float buildupRate)
+    {
+        switch (element)
+        {
+            case DamageElement.Fire:
+                fireBuildup += buildupRate;
+                break;
+            case DamageElement.Ice:
+                iceBuildup += buildupRate;
+                break;
+            case DamageElement.Shock:
+                shockBuildup += buildupRate;
+                break;
+            default:
+                break;
+        }
+    }
     public void Die()
     {
         currHealth = 0;
         enemy.enemyEvents.onEnemyDies?.Invoke();
         enemy.enemyEvents.enemyDies?.Invoke();
+    }
+    public IEnumerator Afterburn()
+    {
+        yield break;
+    }
+    public IEnumerator Corrosion()
+    {
+        yield break;
     }
 }

@@ -1,10 +1,19 @@
 using UnityEngine;
-
+using System.Collections;
 public class PlayerHealth : PlayerComponent, IDamageable
 {
     [field: Header("Health Variables")]
     [field: SerializeField] public float maxHealth { get; private set; } = 5.0f;
     [field: SerializeField] public float currHealth { get; private set; } = 5.0f;
+
+    [field: Header("Element Variables")]
+    [field: SerializeField, ReadOnly] public float fireBuildup { get; private set; } = 0.0f;
+    [field: SerializeField] public float fireLimit { get; private set; } = 5.0f;
+    [field: SerializeField, ReadOnly] public float iceBuildup { get; private set; } = 0.0f;
+    [field: SerializeField] public float iceLimit { get; private set; } = 5.0f;
+    [field: SerializeField, ReadOnly] public float shockBuildup { get; private set; } = 0.0f;
+    [field: SerializeField] public float shockLimit { get; private set; } = 5.0f;
+
     [field: Header("Invincibility Variables")]
     [field: SerializeField, ReadOnly] public bool isInvincible { get; private set; } = false;
     [SerializeField, Range(0.0f, 2.0f)] private float invincibilityDuration = 1.0f;
@@ -58,10 +67,10 @@ public class PlayerHealth : PlayerComponent, IDamageable
         if (!isInvincible)
         {
             bullet.bulletEvents.onDamage?.Invoke(this.gameObject);
-            Damage(bullet.damage, bullet.gameObject);
+            Damage(bullet.damage, bullet.element, bullet.elementBuildup, bullet.gameObject);
         }
     }
-    public void Damage(float damage, GameObject damager = null)
+    public void Damage(float damage, DamageElement element = DamageElement.None, float elementBuildup = 0.0f, GameObject damager = null)
     {
         if (damage < 0.0f)
         {
@@ -82,12 +91,29 @@ public class PlayerHealth : PlayerComponent, IDamageable
         StartInvincibility();
         return;
     }
+    public void ElementDamage(DamageElement element, float buildupRate)
+    {
+        switch (element)
+        {
+            case DamageElement.Fire:
+                fireBuildup += buildupRate;
+                break;
+            case DamageElement.Ice:
+                iceBuildup += buildupRate;
+                break;
+            case DamageElement.Shock:
+                shockBuildup += buildupRate;
+                break;
+            default:
+                break;
+        }
+    }
     public void Heal(float heal, GameObject healer = null)
     {
         if (!player.allowHealing) return;
         if (heal < 0.0f)
         {
-            Damage(-heal, healer);
+            Damage(-heal, DamageElement.None, 0.0f, healer);
             return;
         }
 
@@ -116,5 +142,14 @@ public class PlayerHealth : PlayerComponent, IDamageable
     {
         if (!isInvincible || Time.time < invincibilityEndTime) return;
         player.playerEvents.invincibilityEnds?.Invoke();
+    }
+
+    public IEnumerator Afterburn()
+    {
+        yield break;
+    }
+    public IEnumerator Corrosion()
+    {
+        yield break;
     }
 }

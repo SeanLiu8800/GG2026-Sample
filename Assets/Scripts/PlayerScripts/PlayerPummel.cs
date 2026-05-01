@@ -98,7 +98,7 @@ public class PlayerPummel : PlayerComponent
     }    
     private void Pummel()
     {
-        pummelTarget.health.Damage(1.0f, this.gameObject);
+        pummelTarget.health.Damage(1.0f, DamageElement.None, 0.0f, this.gameObject);
         pummelTarget.enemyRigidbody.AddForce(
             (pummelTarget.transform.position - transform.position).normalized * 4.0f, 
             ForceMode2D.Impulse

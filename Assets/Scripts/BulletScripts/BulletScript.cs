@@ -29,6 +29,8 @@ public class BulletScript : MonoBehaviour
     }
     
     [SerializeField, Range(0, 5)] public int damage = 1;
+    [SerializeField] public DamageElement element = DamageElement.None;
+    [SerializeField, Range(0.0f, 5.0f)] public float elementBuildup = 1.0f;
     [SerializeField, Range(0, 5)] public int empowerRate = 1;
 
     public BulletEvents bulletEvents;
