@@ -13,6 +13,7 @@ public class PlayerHealth : PlayerComponent, IDamageable
     [field: SerializeField] public float iceLimit { get; private set; } = 5.0f;
     [field: SerializeField, ReadOnly] public float shockBuildup { get; private set; } = 0.0f;
     [field: SerializeField] public float shockLimit { get; private set; } = 5.0f;
+    public bool isCorroded { get; private set; }
 
     [field: Header("Invincibility Variables")]
     [field: SerializeField, ReadOnly] public bool isInvincible { get; private set; } = false;
@@ -148,7 +149,13 @@ public class PlayerHealth : PlayerComponent, IDamageable
     {
         yield break;
     }
-    public IEnumerator Corrosion()
+    public void ApplyCorrosion(float corrosionThreshold)
+    {
+        if (corrosionCoroutine != null) StopCoroutine(corrosionCoroutine);
+        corrosionCoroutine = StartCoroutine(Corrosion(corrosionThreshold));
+    }
+    private Coroutine corrosionCoroutine;
+    private IEnumerator Corrosion(float corrosionThreshold)
     {
         yield break;
     }

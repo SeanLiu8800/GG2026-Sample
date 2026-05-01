@@ -13,6 +13,8 @@ public class EnemyHealth : EnemyComponent, IDamageable
     [field: SerializeField] public float iceLimit { get; private set; } = 5.0f;
     [field: SerializeField, ReadOnly] public float shockBuildup { get; private set; } = 0.0f;
     [field: SerializeField] public float shockLimit { get; private set; } = 5.0f;
+    public bool isCorroded { get; private set; }
+
     protected virtual void OnEnable()
     {
         enemy.enemyEvents.enemyDies += EnemyDies;
@@ -105,8 +107,8 @@ public class EnemyHealth : EnemyComponent, IDamageable
     {
         yield break;
     }
-    public IEnumerator Corrosion()
+    public void ApplyCorrosion(float corrosionThreshold)
     {
-        yield break;
+
     }
 }

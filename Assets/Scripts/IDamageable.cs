@@ -11,6 +11,8 @@ public interface IDamageable
     public float shockBuildup { get; }
     public float shockLimit { get; }
 
+    public bool isCorroded { get; }
+
     /// <summary>Process the bullet that hits this GameObject</summary>
     /// <param name="bullet">The Bullet that does the damage</param>
     public void BulletHits(BulletScript bullet);
@@ -33,7 +35,7 @@ public interface IDamageable
     public void Die();
 
     public IEnumerator Afterburn();
-    public IEnumerator Corrosion();
+    public void ApplyCorrosion(float corrosionThreshold);
 }
 
 public enum DamageElement { None, Fire, Ice, Shock }
