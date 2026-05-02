@@ -107,34 +107,32 @@ public class PlayerHealth : PlayerComponent, IDamageable
     }
     public void ElementDamage(DamageElement element, float buildupRate)
     {
-        switch (element)
+        if ((element & DamageElement.Fire) != 0)
         {
-            case DamageElement.Fire:
-                fireBuildup += buildupRate;
-                if (fireBuildup >= fireLimit)
-                {
-                    Debug.Log("Player suffers Overheat");
-                    fireBuildup = 0.0f;
-                }
-                break;
-            case DamageElement.Ice:
-                iceBuildup += buildupRate;
-                if (iceBuildup >= iceLimit)
-                {
-                    Debug.Log("Player suffers Cold Seizure");
-                    iceBuildup = 0.0f;
-                }
-                break;
-            case DamageElement.Shock:
-                shockBuildup += buildupRate;
-                if (shockBuildup >= shockLimit)
-                {
-                    Debug.Log("Player suffers Undervolt");
-                    shockBuildup = 0.0f;
-                }
-                break;
-            default:
-                break;
+            fireBuildup += buildupRate;
+            if (fireBuildup >= fireLimit)
+            {
+                Debug.Log("Player suffers Overheat");
+                fireBuildup = 0.0f;
+            }
+        }
+        if ((element & DamageElement.Ice) != 0)
+        {
+            iceBuildup += buildupRate;
+            if (iceBuildup >= iceLimit)
+            {
+                Debug.Log("Player suffers Cold Seizure");
+                iceBuildup = 0.0f;
+            }
+        }
+        if ((element & DamageElement.Shock) != 0)
+        {
+            shockBuildup += buildupRate;
+            if (shockBuildup >= shockLimit)
+            {
+                Debug.Log("Player suffers Undervolt");
+                shockBuildup = 0.0f;
+            }
         }
     }
     public void Heal(float heal, GameObject healer = null)
