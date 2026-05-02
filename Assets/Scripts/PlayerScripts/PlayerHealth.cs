@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.InputSystem;
 public class PlayerHealth : PlayerComponent, IDamageable
 {
     [field: Header("Health Variables")]
@@ -13,7 +14,7 @@ public class PlayerHealth : PlayerComponent, IDamageable
     [field: SerializeField] public float iceLimit { get; private set; } = 5.0f;
     [field: SerializeField, ReadOnly] public float shockBuildup { get; private set; } = 0.0f;
     [field: SerializeField] public float shockLimit { get; private set; } = 5.0f;
-    public bool isCorroded { get; private set; }
+    [field: SerializeField] public bool isCorroded { get; private set; }
 
     [field: Header("Invincibility Variables")]
     [field: SerializeField, ReadOnly] public bool isInvincible { get; private set; } = false;
@@ -25,6 +26,8 @@ public class PlayerHealth : PlayerComponent, IDamageable
         player.playerEvents.invincibilityEnds += InvincibilityEnds;
 
         player.playerEvents.pummelDismount += PummelDismount;
+
+        player.playerEvents.onParry += OnParry;
     }
     void OnDisable()
     {
@@ -32,6 +35,8 @@ public class PlayerHealth : PlayerComponent, IDamageable
         player.playerEvents.invincibilityEnds -= InvincibilityEnds;
 
         player.playerEvents.pummelDismount -= PummelDismount;
+
+        player.playerEvents.onParry -= OnParry;
     }
 
     #region ----- Event Functions -----
@@ -49,10 +54,16 @@ public class PlayerHealth : PlayerComponent, IDamageable
     {
         StartInvincibility();
     }
+    void OnParry()
+    {
+        CorrosionResetGracePeriod();
+    }
     #endregion
     void Update()
     {
         UpdateInvincibility();
+        if (Keyboard.current.nKey.wasPressedThisFrame) ApplyCorrosion(0.5f);
+        if (Keyboard.current.mKey.wasPressedThisFrame) StopCorrosion();
     }
 
     public void BulletHits(BulletScript bullet)
@@ -86,10 +97,10 @@ public class PlayerHealth : PlayerComponent, IDamageable
         if (originalHealth != currHealth) player.playerEvents.healthChanges?.Invoke();
         player.playerEvents.onDamage?.Invoke();
 
-        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerHurts);
+        if (element != DamageElement.Corrosion) AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerHurts);
         if (currHealth <= 0.0f) Die();
 
-        StartInvincibility();
+        if (element != DamageElement.Corrosion) StartInvincibility();
         return;
     }
     public void ElementDamage(DamageElement element, float buildupRate)
@@ -151,12 +162,31 @@ public class PlayerHealth : PlayerComponent, IDamageable
     }
     public void ApplyCorrosion(float corrosionThreshold)
     {
-        if (corrosionCoroutine != null) StopCoroutine(corrosionCoroutine);
+        StopCorrosion();
         corrosionCoroutine = StartCoroutine(Corrosion(corrosionThreshold));
     }
+    public void StopCorrosion()
+    {
+        isCorroded = false;
+        if (corrosionCoroutine != null) StopCoroutine(corrosionCoroutine);
+    }
+    public void CorrosionResetGracePeriod()
+    {
+        currCorrosionGrace = corrosionGracePeriod;
+    }
+    [SerializeField, Range(0.0f, 10.0f)] private float corrosionGracePeriod = 5.0f;
+    [SerializeField, Range(0.0f, 10.0f)] private float currCorrosionGrace = 5.0f;
     private Coroutine corrosionCoroutine;
     private IEnumerator Corrosion(float corrosionThreshold)
     {
-        yield break;
+        isCorroded = true;
+        CorrosionResetGracePeriod();
+        while (true)
+        {
+            if (currCorrosionGrace < 0.0f && currHealth > maxHealth * corrosionThreshold)
+                Damage(1.0f * Time.deltaTime, DamageElement.Corrosion);
+            yield return null;
+            currCorrosionGrace -= Time.deltaTime;
+        }
     }
 }

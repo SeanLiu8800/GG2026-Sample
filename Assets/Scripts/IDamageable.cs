@@ -38,4 +38,4 @@ public interface IDamageable
     public void ApplyCorrosion(float corrosionThreshold);
 }
 
-public enum DamageElement { None, Fire, Ice, Shock }
+public enum DamageElement { None, Fire, Ice, Shock, Corrosion }
