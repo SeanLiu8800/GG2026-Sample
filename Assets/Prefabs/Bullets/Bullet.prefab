@@ -111,7 +111,6 @@ GameObject:
   - component: {fileID: -223621541423900768}
   - component: {fileID: 8955815773037303832}
   - component: {fileID: 562501836962054041}
-  - component: {fileID: 3539409352605449182}
   m_Layer: 7
   m_Name: Bullet
   m_TagString: Untagged
@@ -252,6 +251,8 @@ MonoBehaviour:
   <moveSpeed>k__BackingField: 10
   _lookDirection: {x: 0, y: 1, z: 0}
   damage: 1
+  element: 1
+  elementBuildup: 1
   empowerRate: 1
 --- !u!114 &-6415505467108294467
 MonoBehaviour:
@@ -350,16 +351,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54c34418c4b5d764c9a18061c476e8b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
---- !u!114 &3539409352605449182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8827905931808526965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 638bacb5f91e66d46b7c07fea528ac58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Bullet_OnDamage_PlayGrabCinematic
-  grabCinematic: {fileID: 8677727039344905869, guid: 9c87540da7988f14f98eab3d2356ec49, type: 3}

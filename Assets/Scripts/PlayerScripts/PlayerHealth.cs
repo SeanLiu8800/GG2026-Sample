@@ -97,6 +97,8 @@ public class PlayerHealth : PlayerComponent, IDamageable
         if (originalHealth != currHealth) player.playerEvents.healthChanges?.Invoke();
         player.playerEvents.onDamage?.Invoke();
 
+        ElementDamage(element, elementBuildup);
+
         if (element != DamageElement.Corrosion) AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerHurts);
         if (currHealth <= 0.0f) Die();
 
@@ -109,12 +111,27 @@ public class PlayerHealth : PlayerComponent, IDamageable
         {
             case DamageElement.Fire:
                 fireBuildup += buildupRate;
+                if (fireBuildup >= fireLimit)
+                {
+                    Debug.Log("Player suffers Overheat");
+                    fireBuildup = 0.0f;
+                }
                 break;
             case DamageElement.Ice:
                 iceBuildup += buildupRate;
+                if (iceBuildup >= iceLimit)
+                {
+                    Debug.Log("Player suffers Cold Seizure");
+                    iceBuildup = 0.0f;
+                }
                 break;
             case DamageElement.Shock:
                 shockBuildup += buildupRate;
+                if (shockBuildup >= shockLimit)
+                {
+                    Debug.Log("Player suffers Undervolt");
+                    shockBuildup = 0.0f;
+                }
                 break;
             default:
                 break;

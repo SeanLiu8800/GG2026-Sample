@@ -37,5 +37,5 @@ public interface IDamageable
     public IEnumerator Afterburn();
     public void ApplyCorrosion(float corrosionThreshold);
 }
-
-public enum DamageElement { None, Fire, Ice, Shock, Corrosion }
+[System.Flags]
+public enum DamageElement { None = 0, Fire = 1, Ice = 2, Shock = 4, Corrosion = 8 }
