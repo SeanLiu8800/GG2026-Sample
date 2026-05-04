@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     [field: SerializeField] public PlayerAttack attack { get; private set; }
     [field: SerializeField] public PlayerHealth health { get; private set; }
     [field: SerializeField] public PlayerPummel pummel { get; private set; }
+    [field: SerializeField] public PlayerSound sound { get; private set; }
     [field: SerializeField] public Collider2D playerCollider { get; private set; }
     [field: SerializeField] public Rigidbody2D playerRigidbody { get; private set; }
     [field: SerializeField] public SpriteRenderer spriteRenderer { get; private set; }

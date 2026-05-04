@@ -33,7 +33,6 @@ public class PlayerMovement : PlayerComponent
         dashAction = InputSystem.actions.FindAction("Dash");
 
         currMoveSpeed = moveSpeed;
-        //player.playerCollider.enabled = true;
     }
     void OnEnable()
     {
@@ -90,7 +89,7 @@ public class PlayerMovement : PlayerComponent
     void DashStarts()
     {
         dashBuffered = false; // Empty the buffer
-        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerDash);
+       // AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerDash);
         player.spriteRenderer.SetColor(Color.brown.r, Color.brown.g, Color.brown.b, -1.0f);
         willLunge = false;
         canDash = false;
@@ -124,13 +123,13 @@ public class PlayerMovement : PlayerComponent
     {
         currMoveSpeed = Mathf.Clamp(currMoveSpeed * 1.5f, 0.0f, maxMoveSpeed);
         dashCooldownStartTime = Time.time - (dashCooldown * 0.5f);
-        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.perfectDash);
+        //AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.perfectDash);
     }
     void ImperfectDash()
     {
         currMoveSpeed = Mathf.Clamp(currMoveSpeed - 5.0f, moveSpeed * 0.5f, maxMoveSpeed);
         dashCooldownStartTime = Time.time;
-        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.imperfectDash);
+        //AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.imperfectDash);
     }
     void DashCooldownEnds()
     {

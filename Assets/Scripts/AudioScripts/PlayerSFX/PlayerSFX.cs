@@ -5,8 +5,8 @@ public class PlayerSFX : ScriptableObject
 {
     public AudioClip dashStart;
     public AudioClip dashChannel;
-    public AudioClip dashPerfect;
-    public AudioClip dashEnd;
+    public AudioClip dashEndPerfect;
+    public AudioClip dashEndImperfect;
 
     public AudioClip enhanceAttack;
 }
