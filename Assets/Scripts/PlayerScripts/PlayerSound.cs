@@ -17,24 +17,30 @@ public class PlayerSound : PlayerComponent
         player.playerEvents.dashStarts += DashStarts;
         player.playerEvents.perfectDash += PerfectDash;
         player.playerEvents.imperfectDash += ImperfectDash;
+        player.playerEvents.enhanceAttack += EnhanceAttack;
     }
     private void OnDisable()
     {
         player.playerEvents.dashStarts -= DashStarts;
         player.playerEvents.perfectDash -= PerfectDash;
         player.playerEvents.imperfectDash -= ImperfectDash;
+        player.playerEvents.enhanceAttack -= EnhanceAttack;
     }
 
     void DashStarts()
     {
-        AudioManager.Instance.PlaySoundOneShot(sound.dashStart);
+        if (sound.dashStart != null) AudioManager.Instance.PlaySoundOneShot(sound.dashStart);
     }
     void PerfectDash()
     {
-        AudioManager.Instance.PlaySoundOneShot(sound.dashEndPerfect);
+        if (sound.dashEndPerfect != null) AudioManager.Instance.PlaySoundOneShot(sound.dashEndPerfect);
     }
     void ImperfectDash()
     {
-        AudioManager.Instance.PlaySoundOneShot(sound.dashEndImperfect);
+        if (sound.dashEndImperfect != null) AudioManager.Instance.PlaySoundOneShot(sound.dashEndImperfect);
+    }
+    void EnhanceAttack()
+    {
+        if (sound.enhanceAttack != null) AudioManager.Instance.PlaySoundOneShot(sound.enhanceAttack);
     }
 }
