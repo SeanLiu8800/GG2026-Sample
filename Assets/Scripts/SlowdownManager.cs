@@ -15,6 +15,7 @@ public class SlowdownManager : MonoBehaviour
         else
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 

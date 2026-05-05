@@ -26,6 +26,7 @@ public class AttackZoneManager : MonoBehaviour
         {
             AttackZoneManager.Instance = this;
             Initialize();
+            DontDestroyOnLoad(gameObject);
         }
     }
 

@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
         else
         {
             GameManager.Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 

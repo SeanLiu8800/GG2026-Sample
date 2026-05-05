@@ -17,3 +17,4 @@ MonoBehaviour:
   dashEndPerfect: {fileID: 8300000, guid: a01bf75aea8b6684a8b50360db8c3896, type: 3}
   dashEndImperfect: {fileID: 8300000, guid: fa9d23cc7acb17e449abf72c81a32d25, type: 3}
   enhanceAttack: {fileID: 8300000, guid: 00d5bd4d3d7d70a478dd8d3b64e82094, type: 3}
+  takeDamage: {fileID: 8300000, guid: e3f8aa88b7c2c1b4fb1c8410f11bbf64, type: 3}
