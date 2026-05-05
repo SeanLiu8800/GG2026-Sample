@@ -99,10 +99,9 @@ public class PlayerHealth : PlayerComponent, IDamageable
 
         ElementDamage(element, elementBuildup);
 
-        if (element != DamageElement.Corrosion) AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerHurts);
         if (currHealth <= 0.0f) Die();
 
-        if (element != DamageElement.Corrosion) StartInvincibility();
+        StartInvincibility();
         return;
     }
     public void ElementDamage(DamageElement element, float buildupRate)
@@ -199,7 +198,11 @@ public class PlayerHealth : PlayerComponent, IDamageable
         while (true)
         {
             if (currCorrosionGrace < 0.0f && currHealth > maxHealth * corrosionThreshold)
-                Damage(1.0f * Time.deltaTime, DamageElement.Corrosion);
+            {
+                currHealth = Mathf.Clamp(currHealth - 1.0f * Time.deltaTime, 0.0f, maxHealth);
+                player.playerEvents.healthChanges?.Invoke();
+            }
+                
             yield return null;
             currCorrosionGrace -= Time.deltaTime;
         }

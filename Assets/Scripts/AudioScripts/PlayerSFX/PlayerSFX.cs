@@ -9,4 +9,6 @@ public class PlayerSFX : ScriptableObject
     public AudioClip dashEndImperfect;
 
     public AudioClip enhanceAttack;
+
+    public AudioClip takeDamage;
 }
