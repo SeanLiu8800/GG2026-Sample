@@ -16,4 +16,4 @@ MonoBehaviour:
   travelSound: {fileID: 0}
   hitSound: {fileID: 0}
   dashedIntoSound: {fileID: 0}
-  enhancedAttackedSound: {fileID: 0}
+  enhancedAttackedSound: {fileID: 8300000, guid: 2d32094691e28994bb22f31f12bea6a7, type: 3}

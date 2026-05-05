@@ -2,6 +2,16 @@ using UnityEngine;
 
 public class BulletSound : BulletComponent
 {
+    [SerializeField] private BulletSFX bulletSFX;
+    protected override void Awake()
+    {
+        base.Awake();
+        if (bulletSFX == null)
+        {
+            Debug.LogError("BulletSFX is NOT SET! Disabling Component!");
+            enabled = false;
+        }
+    }
     private void OnEnable()
     {
         bullet.bulletEvents.onDashedInto += OnDashedInto;
@@ -14,20 +24,14 @@ public class BulletSound : BulletComponent
     }
     void OnDashedInto(Player player)
     {
-        if (bullet.bulletSFX == null) return;
-        if (bullet.bulletSFX.dashedIntoSound == null) return;
-        AudioManager.Instance.PlaySoundOneShot(bullet.bulletSFX.dashedIntoSound);
+        if (bulletSFX.dashedIntoSound != null) AudioManager.Instance.PlaySoundOneShot(bulletSFX.dashedIntoSound);
     }
     void OnEnhancedAttacked(Player player)
     {
-        if (bullet.bulletSFX == null) return;
-        if (bullet.bulletSFX.enhancedAttackedSound == null) return;
-        AudioManager.Instance.PlaySoundOneShot(bullet.bulletSFX.enhancedAttackedSound);
+        if (bulletSFX.enhancedAttackedSound != null) AudioManager.Instance.PlaySoundOneShot(bulletSFX.enhancedAttackedSound);
     }
     void Start()
     {
-        if (bullet.bulletSFX == null) return;
-        if (bullet.bulletSFX.firingSound == null) return;
-        AudioManager.Instance.PlaySoundOneShot(bullet.bulletSFX.firingSound);
+        if (bulletSFX.firingSound != null) AudioManager.Instance.PlaySoundOneShot(bulletSFX.firingSound);
     }
 }

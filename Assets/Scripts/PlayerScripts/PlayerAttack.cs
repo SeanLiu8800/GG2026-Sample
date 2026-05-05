@@ -52,7 +52,6 @@ public class PlayerAttack : PlayerComponent
     void EnhanceAttack()
     {
         attackIsEnhanced = true;
-        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.playerEnhancesAttack);
     }
     void AttackStarts()
     {

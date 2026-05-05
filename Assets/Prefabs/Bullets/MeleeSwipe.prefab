@@ -259,13 +259,14 @@ MonoBehaviour:
   <interactLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 512
-  <bulletSFX>k__BackingField: {fileID: 11400000, guid: 54dc6d9671c0b5e40910ee0a04d07140, type: 2}
   <owner>k__BackingField: {fileID: 0}
   <target>k__BackingField: {fileID: 0}
   <moveDirection>k__BackingField: {x: 0, y: 1, z: 0}
   <moveSpeed>k__BackingField: 60
-  <lookDirection>k__BackingField: {x: 0, y: 0, z: 0}
+  _lookDirection: {x: 0, y: 1, z: 0}
   damage: 1
+  element: 0
+  elementBuildup: 1
   empowerRate: 1
 --- !u!114 &7049995139362423018
 MonoBehaviour:
@@ -279,6 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1ac4e10faa24c248a9aa22fe37143aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletSound
+  bulletSFX: {fileID: 11400000, guid: 54dc6d9671c0b5e40910ee0a04d07140, type: 2}
 --- !u!114 &-5299134499498550986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,7 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 831f3eb4ce9350d40a793fb72bacca95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  knockbackStrength: 20
+  knockbackDistance: 5
 --- !u!114 &8690491014012096111
 MonoBehaviour:
   m_ObjectHideFlags: 0

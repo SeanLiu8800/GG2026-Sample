@@ -285,13 +285,14 @@ MonoBehaviour:
   <interactLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 64
-  <bulletSFX>k__BackingField: {fileID: 11400000, guid: 7798b6741c8f3cb46a95d3cda4267542, type: 2}
   <owner>k__BackingField: {fileID: 0}
   <target>k__BackingField: {fileID: 0}
   <moveDirection>k__BackingField: {x: 0, y: 1, z: 0}
   <moveSpeed>k__BackingField: 0
   _lookDirection: {x: 0, y: 1, z: 0}
   damage: 1
+  element: 0
+  elementBuildup: 1
   empowerRate: 1
 --- !u!114 &7049995139362423018
 MonoBehaviour:
@@ -305,6 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1ac4e10faa24c248a9aa22fe37143aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletSound
+  bulletSFX: {fileID: 11400000, guid: 7798b6741c8f3cb46a95d3cda4267542, type: 2}
 --- !u!114 &-7986148878376013430
 MonoBehaviour:
   m_ObjectHideFlags: 0

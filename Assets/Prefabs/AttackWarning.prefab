@@ -172,16 +172,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df5da9ae21aaa6e4d85875e2385c888e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  <layerMask>k__BackingField:
+  <interactLayer>k__BackingField:
     serializedVersion: 2
-    m_Bits: 256
-  <bulletSFX>k__BackingField: {fileID: 11400000, guid: 58c6df32a23f5744784ce56fff744870, type: 2}
+    m_Bits: 0
   <owner>k__BackingField: {fileID: 0}
   <target>k__BackingField: {fileID: 0}
   <moveDirection>k__BackingField: {x: 0, y: 1, z: 0}
   <moveSpeed>k__BackingField: 5
-  <lookDirection>k__BackingField: {x: 0, y: 0, z: 0}
+  _lookDirection: {x: 0, y: 1, z: 0}
   damage: 1
+  element: 0
+  elementBuildup: 1
   empowerRate: 1
 --- !u!114 &3335254446662555079
 MonoBehaviour:
@@ -195,6 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1ac4e10faa24c248a9aa22fe37143aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  bulletSFX: {fileID: 11400000, guid: 58c6df32a23f5744784ce56fff744870, type: 2}
 --- !u!114 &-9054533698057080689
 MonoBehaviour:
   m_ObjectHideFlags: 0

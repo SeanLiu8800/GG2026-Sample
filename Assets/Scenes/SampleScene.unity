@@ -624,7 +624,7 @@ MonoBehaviour:
   <attack>k__BackingField: {fileID: 993337302}
   <health>k__BackingField: {fileID: 993337304}
   <pummel>k__BackingField: {fileID: 993337305}
-  <sound>k__BackingField: {fileID: 0}
+  <sound>k__BackingField: {fileID: 993337306}
   <playerCollider>k__BackingField: {fileID: 993337299}
   <playerRigidbody>k__BackingField: {fileID: 993337298}
   <spriteRenderer>k__BackingField: {fileID: 993337300}
