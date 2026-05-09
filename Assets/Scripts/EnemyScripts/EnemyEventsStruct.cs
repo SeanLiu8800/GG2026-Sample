@@ -7,7 +7,6 @@ public struct EnemyEvents
     public Action parryStunStarts;
     public Action parryStunEnds;
 
-    public Action onHealthChange;
     public Action onDamage;
     public Action onHeal;
     public Action onEnemyDies;

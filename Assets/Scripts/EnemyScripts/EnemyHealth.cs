@@ -1,11 +1,14 @@
 using UnityEngine;
+using System;
 using System.Collections;
 public class EnemyHealth : EnemyComponent, IDamageable
 {
     [field: Header("Health Variables")]
-    [field: SerializeField] public float currHealth { get; private set; } = 5;
-    [field: SerializeField] public float maxHealth { get; private set; } = 5;
-
+    [field: SerializeField] public float maxHealth { get; private set; } = 5.0f;
+    [SerializeField] private float _currHealth = 5.0f;
+    public float currHealth { get { return _currHealth; } private set { _currHealth = value; onHealthChange?.Invoke(); } }
+    public Action onHealthChange { get; set; }
+    
     [field: Header("Element Variables")]
     [field: SerializeField, ReadOnly] public float fireBuildup { get; private set; } = 0.0f;
     [field: SerializeField] public float fireLimit { get; private set; } = 5.0f;
@@ -56,8 +59,6 @@ public class EnemyHealth : EnemyComponent, IDamageable
         
         float originalHealth = currHealth;
         currHealth = Mathf.Clamp(currHealth - damage, 0.0f, maxHealth);
-
-        if (originalHealth != currHealth) enemy.enemyEvents.onHealthChange?.Invoke();
         enemy.enemyEvents.onDamage?.Invoke();
 
         AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.enemyHurts);
@@ -75,7 +76,6 @@ public class EnemyHealth : EnemyComponent, IDamageable
 
         float originalHealth = currHealth;
         currHealth = Mathf.Clamp(currHealth + heal, 0.0f, maxHealth);
-        if (originalHealth != currHealth) enemy.enemyEvents.onHealthChange?.Invoke();
         enemy.enemyEvents.onHeal?.Invoke();
 
         return;

@@ -1,11 +1,14 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using UnityEngine.InputSystem;
 public class PlayerHealth : PlayerComponent, IDamageable
 {
     [field: Header("Health Variables")]
     [field: SerializeField] public float maxHealth { get; private set; } = 5.0f;
-    [field: SerializeField] public float currHealth { get; private set; } = 5.0f;
+    private float _currHealth = 5.0f;
+    public float currHealth { get { return _currHealth; } private set { _currHealth = value; onHealthChange?.Invoke(); } }
+    public Action onHealthChange { get; set; }
 
     [field: Header("Element Variables")]
     [field: SerializeField, ReadOnly] public float fireBuildup { get; private set; } = 0.0f;
@@ -94,14 +97,14 @@ public class PlayerHealth : PlayerComponent, IDamageable
 
         float originalHealth = currHealth;
         currHealth = Mathf.Clamp(currHealth - damage, 0.0f, maxHealth);
-        if (originalHealth != currHealth) player.playerEvents.healthChanges?.Invoke();
         player.playerEvents.onDamage?.Invoke();
 
-        ElementDamage(element, elementBuildup);
-
         if (currHealth <= 0.0f) Die();
-
-        StartInvincibility();
+        else
+        {
+            ElementDamage(element, elementBuildup);
+            StartInvincibility();
+        }
         return;
     }
     public void ElementDamage(DamageElement element, float buildupRate)
@@ -145,7 +148,6 @@ public class PlayerHealth : PlayerComponent, IDamageable
 
         float originalHealth = currHealth;
         currHealth = Mathf.Clamp(currHealth + heal, 0.0f, maxHealth);
-        if (originalHealth != currHealth) player.playerEvents.healthChanges?.Invoke();
         player.playerEvents.onHeal?.Invoke();
 
         return;
@@ -198,10 +200,7 @@ public class PlayerHealth : PlayerComponent, IDamageable
         while (true)
         {
             if (currCorrosionGrace < 0.0f && currHealth > maxHealth * corrosionThreshold)
-            {
                 currHealth = Mathf.Clamp(currHealth - 1.0f * Time.deltaTime, 0.0f, maxHealth);
-                player.playerEvents.healthChanges?.Invoke();
-            }
                 
             yield return null;
             currCorrosionGrace -= Time.deltaTime;

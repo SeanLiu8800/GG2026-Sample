@@ -1,7 +1,9 @@
 using UnityEngine;
+using System;
 using System.Collections;
 public interface IDamageable
 {
+    public Action onHealthChange { get; }
     public float currHealth { get; }
     public float maxHealth { get; }
     public float fireBuildup { get; }

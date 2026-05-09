@@ -6,11 +6,11 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private Slider healthbar;
     private void OnEnable()
     {
-        player.playerEvents.healthChanges += UpdateHealthbar;
+        player.health.onHealthChange += UpdateHealthbar;
     }
     private void OnDisable()
     {
-        player.playerEvents.healthChanges -= UpdateHealthbar;
+        player.health.onHealthChange -= UpdateHealthbar;
     }
     void Start()
     {
