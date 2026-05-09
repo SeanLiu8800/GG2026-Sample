@@ -11,7 +11,7 @@ public class PlayerPummel : PlayerComponent
     [field: Header("Pummel Variables")]
     [SerializeField, ReadOnly] private Enemy pummelTarget;
     [SerializeField, ReadOnly] private Vector3 pummelDismountLocation = Vector3.zero;
-    
+    private bool ignoreFirstPummel = true;
     protected override void Awake()
     {
         base.Awake();
@@ -24,24 +24,22 @@ public class PlayerPummel : PlayerComponent
     private void OnEnable()
     {
         pummelAction.started += DecideAction;
+        pummelAction.canceled += DecideAction;
 
         player.playerEvents.dashStarts += DashStarts;
 
         player.playerEvents.pummelStarts += PummelStarts;
         player.playerEvents.pummelEnds += PummelEnds;
-        player.playerEvents.pummelReleased += PummelReleased;
-        player.playerEvents.pummelEjected += PummelEjected;
     }
     private void OnDisable()
     {
         pummelAction.started -= DecideAction;
+        pummelAction.canceled -= DecideAction;
 
         player.playerEvents.dashStarts -= DashStarts;
 
         player.playerEvents.pummelStarts -= PummelStarts;
         player.playerEvents.pummelEnds -= PummelEnds;
-        player.playerEvents.pummelReleased -= PummelReleased;
-        player.playerEvents.pummelEjected -= PummelEjected;
     }
     
     #region ----- Event Functions -----
@@ -56,6 +54,7 @@ public class PlayerPummel : PlayerComponent
         pummelTarget = enemy;
 
         player.playerCollider.enabled = false;
+        ignoreFirstPummel = true;
     }
     void PummelEnds()
     {
@@ -63,8 +62,6 @@ public class PlayerPummel : PlayerComponent
         this.pummelTarget = null;
         player.playerCollider.enabled = true;
     }
-    void PummelReleased(){}
-    void PummelEjected(){}
     #endregion
     
     void FixedUpdate()
@@ -91,13 +88,20 @@ public class PlayerPummel : PlayerComponent
     private void DecideAction(InputAction.CallbackContext context)
     {
         if (!player.isPummeling || pummelTarget == null) return;
-        Vector2 toTarget = pummelTarget.transform.position - transform.position;
-        Vector3 directionInput = moveAction.ReadValue<Vector2>();
-        if (Vector2.Dot(toTarget.normalized, directionInput.normalized) < -0.6) ReleaseTarget();
+        if (context.started)
+        {
+            ignoreFirstPummel = false;
+            Vector2 toTarget = pummelTarget.transform.position - transform.position;
+            Vector3 directionInput = moveAction.ReadValue<Vector2>();
+            if (Vector2.Dot(toTarget.normalized, directionInput.normalized) < -0.6) ReleaseTarget();
+            else Pummel();
+        }
         else Pummel();
     }    
     private void Pummel()
     {
+        if (ignoreFirstPummel) return;
+
         pummelTarget.health.Damage(1.0f, DamageElement.None, 0.0f, this.gameObject);
         pummelTarget.enemyRigidbody.AddForce(
             (pummelTarget.transform.position - transform.position).normalized * 4.0f, 
