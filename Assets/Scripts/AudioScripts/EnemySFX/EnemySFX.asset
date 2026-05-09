@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffe4c4b7e9425b147ba191c177a76556, type: 3}
+  m_Name: EnemySFX
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySFX
+  takeDamage: {fileID: 8300000, guid: e3f8aa88b7c2c1b4fb1c8410f11bbf64, type: 3}
+  parryStunned: {fileID: 8300000, guid: 2d32094691e28994bb22f31f12bea6a7, type: 3}

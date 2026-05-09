@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 6475756978650275598}
   - component: {fileID: 5469936719626399801}
   - component: {fileID: 59801324413392711}
+  - component: {fileID: 7355651887766350282}
   m_Layer: 6
   m_Name: EnemyBase
   m_TagString: Untagged
@@ -277,8 +278,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f7b9e81f69e16442addf74c5bcec550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  <currHealth>k__BackingField: 5
   <maxHealth>k__BackingField: 5
+  _currHealth: 5
+  <fireBuildup>k__BackingField: 0
+  <fireLimit>k__BackingField: 5
+  <iceBuildup>k__BackingField: 0
+  <iceLimit>k__BackingField: 5
+  <shockBuildup>k__BackingField: 0
+  <shockLimit>k__BackingField: 5
 --- !u!114 &6475756978650275598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,6 +335,19 @@ MonoBehaviour:
   currentPummelDuration: 0
   ejectPummelerDamage: 0
   pummelCooldown: 1
+--- !u!114 &7355651887766350282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4705485784247206799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86617f07996a83d48a28b6c29d1c3787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  sound: {fileID: 11400000, guid: 77aca70a20e5c294facf8bf1a66a4089, type: 2}
 --- !u!1 &6438934494947225700
 GameObject:
   m_ObjectHideFlags: 0

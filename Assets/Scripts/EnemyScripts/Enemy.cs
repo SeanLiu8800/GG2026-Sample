@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     public EnemyVision vision { get; private set; }
     public EnemyParry parry { get; private set; }
     public EnemyPummel pummel { get; private set; }
+    public EnemySound sound { get; private set; }
     public SpriteRenderer spriteRenderer { get; private set; }
     public Collider2D enemyCollider { get; private set; }
     public Rigidbody2D enemyRigidbody { get; private set; }
@@ -82,6 +83,7 @@ public class Enemy : MonoBehaviour
         if (!TryGetComponent<EnemyVision>(out EnemyVision _vision)) Debug.LogError($"{this.name} DOES NOT have an EnemyVision Component!");
         if (!TryGetComponent<EnemyParry>(out EnemyParry _parry)) Debug.LogError($"{this.name} DOES NOT have an EnemyParry Component!");
         if (!TryGetComponent<EnemyPummel>(out EnemyPummel _pummel)) Debug.LogError($"{this.name} DOES NOT have an EnemyPummel Component!");
+        if (!TryGetComponent<EnemySound>(out EnemySound _sound)) Debug.LogError($"{this.name} DOES NOT have an EnemySound Component!");
         if (!TryGetComponent<SpriteRenderer>(out SpriteRenderer _spriteRenderer)) Debug.LogError($"{this.name} DOES NOT have an SpriteRenderer Component!");
         if (!TryGetComponent<Collider2D>(out Collider2D _collider2D)) Debug.LogError($"{this.name} DOES NOT have a Collider2D Component!");
         if (!TryGetComponent<Rigidbody2D>(out Rigidbody2D _rigidbody)) Debug.LogError($"{this.name} DOES NOT have a Rigidbody2D Component!");
@@ -92,6 +94,7 @@ public class Enemy : MonoBehaviour
         vision = _vision;
         parry = _parry;
         pummel = _pummel;
+        sound = _sound;
         spriteRenderer = _spriteRenderer;
         enemyCollider = _collider2D;
         enemyRigidbody = _rigidbody;

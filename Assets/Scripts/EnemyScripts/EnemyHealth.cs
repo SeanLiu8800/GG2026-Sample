@@ -61,10 +61,9 @@ public class EnemyHealth : EnemyComponent, IDamageable
         currHealth = Mathf.Clamp(currHealth - damage, 0.0f, maxHealth);
         enemy.enemyEvents.onDamage?.Invoke();
 
-        AudioManager.Instance.PlaySoundOneShot(AudioManager.Instance.soundEffects.enemyHurts);
         if (currHealth <= 0.0f) Die();
 
-        return;
+        ElementDamage(element, elementBuildup);
     }
     public void Heal(float heal, GameObject healer = null)
     {
@@ -77,8 +76,6 @@ public class EnemyHealth : EnemyComponent, IDamageable
         float originalHealth = currHealth;
         currHealth = Mathf.Clamp(currHealth + heal, 0.0f, maxHealth);
         enemy.enemyEvents.onHeal?.Invoke();
-
-        return;
     }
     public void ElementDamage(DamageElement element, float buildupRate)
     {

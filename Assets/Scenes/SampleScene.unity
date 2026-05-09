@@ -821,7 +821,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   <maxHealth>k__BackingField: 5
-  <currHealth>k__BackingField: 5
   <fireBuildup>k__BackingField: 0
   <fireLimit>k__BackingField: 5
   <iceBuildup>k__BackingField: 0

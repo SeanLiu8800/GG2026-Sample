@@ -52,14 +52,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8397098237968679545, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
-      propertyPath: _currHealth
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8397098237968679545, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
-      propertyPath: <maxHealth>k__BackingField
-      value: 20
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
