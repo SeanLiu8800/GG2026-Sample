@@ -5,7 +5,7 @@ public class BulletScript : MonoBehaviour
     public Collider2D bulletCollider { get; private set; }
     public SpriteRenderer spriteRenderer { get; private set; }
     [field: Tooltip("Decides what Layer this bullet with interact with")]
-    [field: SerializeField] public LayerMask interactLayer { get; private set; }
+    [field: SerializeField] public LayerMask damageLayer { get; private set; }
 
     [field: Header("Bullet Variables")]
     [field: SerializeField, ReadOnly] public GameObject owner { get; private set; }
