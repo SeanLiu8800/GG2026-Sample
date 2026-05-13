@@ -85,7 +85,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -1
   m_MaskInteraction: 2
   m_Sprite: {fileID: 3625043607559282579, guid: 045b15ec09bba42448d89db77fa6f20a, type: 3}
   m_Color: {r: 0.8679245, g: 0.52172023, b: 0, a: 0.29803923}
@@ -191,16 +191,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df5da9ae21aaa6e4d85875e2385c888e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  <interactLayer>k__BackingField:
+  <damageLayer>k__BackingField:
     serializedVersion: 2
-    m_Bits: 64
-  <bulletSFX>k__BackingField: {fileID: 0}
+    m_Bits: 0
   <owner>k__BackingField: {fileID: 0}
   <target>k__BackingField: {fileID: 0}
   <moveDirection>k__BackingField: {x: 0, y: 1, z: 0}
   <moveSpeed>k__BackingField: 0
   _lookDirection: {x: 0, y: 1, z: 0}
   damage: 0
+  element: 0
+  elementBuildup: 1
   empowerRate: 1
 --- !u!114 &-7986148878376013430
 MonoBehaviour:

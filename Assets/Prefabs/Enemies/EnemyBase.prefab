@@ -264,7 +264,7 @@ MonoBehaviour:
   isOffscreen: 0
   attack: {fileID: 7940462022952780728, guid: bfe57dabd785a9b4f926caf4df59a4bf, type: 3}
   meleeAttack: {fileID: 8109537810932913037, guid: 75cbcb039f1a9f149a9079a4b2d8f0d3, type: 3}
-  meleeSwipe: {fileID: 8827905931808526965, guid: 201d11c97a3dcce45a2a3db7f6754239, type: 3}
+  meleeSwipe: {fileID: 4504142638950382626, guid: 08f9dd0dd0ca2ae47b8ecf3e9fa1d25f, type: 3}
   meleeCircleSweep: {fileID: 3288716961818127846, guid: 11c30db2086b3fa44b03e84f6a22e980, type: 3}
 --- !u!114 &8397098237968679545
 MonoBehaviour:
