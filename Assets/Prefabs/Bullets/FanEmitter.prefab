@@ -52,10 +52,6 @@ PrefabInstance:
       propertyPath: <moveSpeed>k__BackingField
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5476034631633967730, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
-      propertyPath: <damageLayer>k__BackingField.m_Bits
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8827905931808526965, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
       propertyPath: m_Icon
       value: 
