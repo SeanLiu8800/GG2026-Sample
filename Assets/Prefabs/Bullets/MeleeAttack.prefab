@@ -171,7 +171,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: MeleeAttack
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -3209305481630138771, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1265701074003027832, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
@@ -179,7 +180,7 @@ PrefabInstance:
       addedObject: {fileID: 7838965157327200457}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8827905931808526965, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
-      insertIndex: -1
+      insertIndex: 2
       addedObject: {fileID: -7435645528433213393}
     - targetCorrespondingSourceObject: {fileID: 8827905931808526965, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
       insertIndex: -1
