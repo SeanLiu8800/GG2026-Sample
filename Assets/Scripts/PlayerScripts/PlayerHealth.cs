@@ -6,7 +6,7 @@ public class PlayerHealth : PlayerComponent, IDamageable
 {
     [field: Header("Health Variables")]
     [field: SerializeField] public float maxHealth { get; private set; } = 5.0f;
-    private float _currHealth = 5.0f;
+    [SerializeField] private float _currHealth = 5.0f;
     public float currHealth { get { return _currHealth; } private set { _currHealth = value; onHealthChange?.Invoke(); } }
     public Action onHealthChange { get; set; }
 

@@ -544,7 +544,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1825183855}
   m_HandleRect: {fileID: 0}
@@ -593,7 +593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64e17a5654d177f4fac5c62d3bd173c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  dashBullet: {fileID: 8827905931808526965, guid: 918f40959750bad4bb6731354d0f9ad3, type: 3}
+  dashBullet: {fileID: 3990956804311722917, guid: c2843228ea5f7b44e8002b5cca0d49bc, type: 3}
   moveSpeed: 10
   <currMoveSpeed>k__BackingField: 0
   maxMoveSpeed: 15
@@ -786,8 +786,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d68ee6d1397f2e04ea48b08c7034b2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  playerAttack: {fileID: 8827905931808526965, guid: 4f239782480d98140a1499a3d67f4567, type: 3}
-  playerEnhancedAttack: {fileID: 8827905931808526965, guid: d461d716ee31d064a90f0856b800cb36, type: 3}
+  playerAttack: {fileID: 8109537810932913037, guid: 9ba7a0f8776d61d4d973cd622b1b725e, type: 3}
+  playerEnhancedAttack: {fileID: 8109537810932913037, guid: 95934a21210b09a46ae26aee4ad4a89a, type: 3}
   attackTargetFilter:
     useTriggers: 1
     useLayerMask: 1
@@ -821,6 +821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   <maxHealth>k__BackingField: 5
+  _currHealth: 5
   <fireBuildup>k__BackingField: 0
   <fireLimit>k__BackingField: 5
   <iceBuildup>k__BackingField: 0
@@ -2028,7 +2029,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -5
+  m_SortingOrder: -6
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
