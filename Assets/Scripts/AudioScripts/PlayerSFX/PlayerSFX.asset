@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 941325ace1abca141b237f488c74fcae, type: 3}
   m_Name: PlayerSFX
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSFX
-  dashStart: {fileID: 8300000, guid: 5f9cef3b2b4fb5c40af367ca6780ef95, type: 3}
+  dashStart: {fileID: 8300000, guid: c6eaa10dbc4883747878fc21ffcffba1, type: 3}
   dashChannel: {fileID: 0}
   dashEndPerfect: {fileID: 8300000, guid: a01bf75aea8b6684a8b50360db8c3896, type: 3}
   dashEndImperfect: {fileID: 8300000, guid: fa9d23cc7acb17e449abf72c81a32d25, type: 3}
