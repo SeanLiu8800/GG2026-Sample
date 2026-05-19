@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -116,10 +116,10 @@ TextureImporter:
       name: Nero_Concepts_UpLeft_0
       rect:
         serializedVersion: 2
-        x: 429
-        y: 253
-        width: 416
-        height: 492
+        x: 162
+        y: 56
+        width: 904
+        height: 1071
       alignment: 9
       pivot: {x: 0.65, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 838bb7136814a8743a0053dcd6e35bd2
+    spriteID: 1d4090ae6a7546146a0ebe4a37ea7358
     internalID: 0
     vertices: []
     indices: 
