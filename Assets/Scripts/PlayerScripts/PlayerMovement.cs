@@ -131,7 +131,7 @@ public class PlayerMovement : PlayerComponent
     void DashCooldownEnds()
     {
         canDash = true;
-        player.spriteRenderer.SetColor(Color.red.r, Color.red.g, Color.red.b, -1.0f); 
+        player.spriteRenderer.SetColor(Color.white.r, Color.white.g, Color.white.b, -1.0f); 
     }
     void PummelStarts(Enemy enemy)
     {
