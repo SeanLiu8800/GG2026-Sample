@@ -26,6 +26,11 @@ public class RoomEndTrigger : RoomComponent
         SetActive(false);
 
         if ((playerLayer = LayerMask.NameToLayer("Player")) == 0) Debug.LogError("Player Layer NOT FOUND!");
+
+        exitDoorGameObject = Instantiate(exitDoorGameObject);
+        exitDoorGameObject.transform.parent = this.transform;
+        if (!exitDoorGameObject.TryGetComponent<Enemy>(out exitDoor)) Debug.LogError("Door GameObject DOES NOT have an Enemy Component!");
+        else DisableBreakability();
     }
     protected void OnEnable()
     {
@@ -53,22 +58,8 @@ public class RoomEndTrigger : RoomComponent
 
     private void Start()
     {
-        exitDoorGameObject =
-            Instantiate(
-                exitDoorGameObject,
-                room.spawnPoints.GetDoorSpawn().transform.position,
-                room.spawnPoints.GetDoorSpawn().transform.rotation
-            );
-        exitDoorGameObject.transform.parent = this.transform;
-
-        if (!exitDoorGameObject.TryGetComponent<Enemy>(out exitDoor))
-        {
-            Debug.LogError("Door GameObject DOES NOT have an Enemy Component!");
-        }
-        else
-        {
-            DisableBreakability();
-        }
+        exitDoorGameObject.transform.position = room.spawnPoints.GetDoorSpawn().transform.position;
+        exitDoorGameObject.transform.rotation = room.spawnPoints.GetDoorSpawn().transform.rotation;
     }
  
     private void SetActive(bool input)

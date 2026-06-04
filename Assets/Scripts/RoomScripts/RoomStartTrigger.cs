@@ -28,14 +28,20 @@ public class RoomStartTrigger : RoomComponent
     protected void OnEnable()
     {
         room.roomEvents.roomStarts += RoomStarts;
+        room.roomEvents.allWavesCompleted += AllWavesCompleted;
     }
     protected void OnDisable()
     {
         room.roomEvents.roomStarts -= RoomStarts;
+        room.roomEvents.allWavesCompleted -= AllWavesCompleted;
     }
 
     #region ----- Event Functions -----
     void RoomStarts()
+    {
+        SetActive(false);
+    }
+    void AllWavesCompleted()
     {
         SetActive(false);
     }
