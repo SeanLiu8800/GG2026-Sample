@@ -18,22 +18,13 @@ public class RoomCamera : RoomComponent
         player = GameObject.Find("Player");
 
         SanitizeBounds();
+        mainCamera.transform.position = CalculateCamPosition();
     }
 
     void Update()
     {
         if (!isActive) return;
-        Vector3 finalPos = mainCamera.transform.position;
-
-        if (followPlayer)
-        {
-            finalPos = new Vector3(player.transform.position.x, player.transform.position.y, -10.0f);
-        }
-        if (stayInBounds)
-        {
-            finalPos.x = Mathf.Clamp(finalPos.x, boundsLower.transform.position.x, boundsUpper.transform.position.x);
-            finalPos.y = Mathf.Clamp(finalPos.y, boundsLower.transform.position.y, boundsUpper.transform.position.y);
-        }
+        Vector3 finalPos = CalculateCamPosition();
 
         mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, finalPos, 3.0f * Time.deltaTime);
     }
@@ -58,5 +49,21 @@ public class RoomCamera : RoomComponent
 
         boundsLower.transform.position = new Vector3(Mathf.Min(lowerX, higherX), Mathf.Min(lowerY, higherY), -10.0f);
         boundsUpper.transform.position = new Vector3(Mathf.Max(lowerX, higherX), Mathf.Max(lowerY, higherY), -10.0f);
+    }
+    private Vector3 CalculateCamPosition()
+    {
+        Vector3 finalPos = mainCamera.transform.position;
+
+        if (followPlayer)
+        {
+            finalPos = new Vector3(player.transform.position.x, player.transform.position.y, -10.0f);
+        }
+        if (stayInBounds)
+        {
+            finalPos.x = Mathf.Clamp(finalPos.x, boundsLower.transform.position.x, boundsUpper.transform.position.x);
+            finalPos.y = Mathf.Clamp(finalPos.y, boundsLower.transform.position.y, boundsUpper.transform.position.y);
+        }
+
+        return finalPos;
     }
 }
