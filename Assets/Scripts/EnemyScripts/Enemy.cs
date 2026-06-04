@@ -102,10 +102,12 @@ public class Enemy : MonoBehaviour
     void OnEnable()
     {
         enemyEvents.onEnemyDies += OnEnemyDies;
+        enemyEvents.enemyRevives += EnemyRevives;
     }
     void OnDisable()
     {
         enemyEvents.onEnemyDies -= OnEnemyDies;
+        enemyEvents.enemyRevives -= EnemyRevives;
     }
 
     #region ----- Event Function -----
@@ -114,6 +116,12 @@ public class Enemy : MonoBehaviour
         allowMove = false;
         allowAttack = false;
         allowVision = false;
+    }
+    void EnemyRevives()
+    {
+        allowMove = true;
+        allowAttack = true;
+        allowVision = true;
     }
     #endregion
 

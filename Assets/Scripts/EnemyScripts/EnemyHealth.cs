@@ -21,10 +21,12 @@ public class EnemyHealth : EnemyComponent, IDamageable
     protected virtual void OnEnable()
     {
         enemy.enemyEvents.enemyDies += EnemyDies;
+        enemy.enemyEvents.enemyRevives += EnemyRevives;
     }
     protected virtual void OnDisable()
     {
         enemy.enemyEvents.enemyDies -= EnemyDies;
+        enemy.enemyEvents.enemyRevives -= EnemyRevives;
     }
 
     #region ----- Event Functions -----
@@ -33,6 +35,12 @@ public class EnemyHealth : EnemyComponent, IDamageable
         enemy.spriteRenderer.color = Color.white;
         enemy.spriteRenderer.SetAlpha(0.2f);
         enemy.enemyCollider.excludeLayers = LayerMask.GetMask("Player", "Enemy");
+    }
+    protected virtual void EnemyRevives()
+    {
+        enemy.spriteRenderer.color = Color.white;
+        enemy.spriteRenderer.SetAlpha(1.0f);
+        enemy.enemyCollider.excludeLayers = 0;
     }
     #endregion
     public void BulletHits(BulletScript bullet)

@@ -11,6 +11,7 @@ public struct EnemyEvents
     public Action onHeal;
     public Action onEnemyDies;
     public Action enemyDies;
+    public Action enemyRevives;
 
     public Action<Player> pummelStarts;
     public Action pummelEnds;

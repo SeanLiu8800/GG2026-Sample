@@ -28,6 +28,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Practice Dummy
       objectReference: {fileID: 0}
+    - target: {fileID: 6428915879681099594, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: m_BodyType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6760488159647587559, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -116,6 +120,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4705485784247206799, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       insertIndex: 6
       addedObject: {fileID: -7160699664538716404}
+    - targetCorrespondingSourceObject: {fileID: 4705485784247206799, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -368328122197004935}
   m_SourcePrefab: {fileID: 100100000, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
 --- !u!1 &8800648282644511387 stripped
 GameObject:
@@ -140,3 +147,15 @@ MonoBehaviour:
   isOffscreen: 0
   bulletAttack: {fileID: 3020573356033518482, guid: 23a0159513919544caf0764d208883d9, type: 3}
   meleeAttack: {fileID: 8109537810932913037, guid: 75cbcb039f1a9f149a9079a4b2d8f0d3, type: 3}
+--- !u!114 &-368328122197004935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8800648282644511387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c246a0e7ecb9d14890cbc3a604f9425, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
