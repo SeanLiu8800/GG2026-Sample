@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     public EnemyParry parry { get; private set; }
     public EnemyPummel pummel { get; private set; }
     public EnemySound sound { get; private set; }
+    public EnemyAnimation anim { get; private set; }
     public SpriteRenderer spriteRenderer { get; private set; }
     public Collider2D enemyCollider { get; private set; }
     public Rigidbody2D enemyRigidbody { get; private set; }
@@ -87,7 +88,7 @@ public class Enemy : MonoBehaviour
         if (!TryGetComponent<SpriteRenderer>(out SpriteRenderer _spriteRenderer)) Debug.LogError($"{this.name} DOES NOT have an SpriteRenderer Component!");
         if (!TryGetComponent<Collider2D>(out Collider2D _collider2D)) Debug.LogError($"{this.name} DOES NOT have a Collider2D Component!");
         if (!TryGetComponent<Rigidbody2D>(out Rigidbody2D _rigidbody)) Debug.LogError($"{this.name} DOES NOT have a Rigidbody2D Component!");
-        
+        if (!TryGetComponent<EnemyAnimation>(out EnemyAnimation _anim)) Debug.LogError($"{this.name} DOES NOT have an EnemyAnimation Component!");
         move = _move;
         attack = _attack;
         health = _health;
@@ -95,6 +96,7 @@ public class Enemy : MonoBehaviour
         parry = _parry;
         pummel = _pummel;
         sound = _sound;
+        anim = _anim;
         spriteRenderer = _spriteRenderer;
         enemyCollider = _collider2D;
         enemyRigidbody = _rigidbody;

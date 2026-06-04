@@ -17,7 +17,8 @@ public class EnemyAttack_Dummy : EnemyAttackBase
         enemy.isAttacking = true;
         canAttack = false;
 
-        StartCoroutine(Shoot());
+        if (enemy.IsTargetWithinDistance(4.0f)) StartCoroutine(Melee());
+        else StartCoroutine(Shoot());
     }
 
     private IEnumerator Shoot()
@@ -38,6 +39,24 @@ public class EnemyAttack_Dummy : EnemyAttackBase
             );
             yield return new WaitForSeconds(0.2f);
         }
+
+        enemy.isAttacking = false;
+        AttackCooldown();
+    }
+    private IEnumerator Melee()
+    {
+        enemy.canMove = false;
+
+        AttackWarning();
+        AttackZoneManager.Instance.SetCircleAttackZone(
+            transform.position,
+            3.0f,
+            0.5f
+        );
+
+        yield return new WaitForSeconds(0.2f);
+        SpawnAttack(meleeAttack, enemy.target, default, enemy.toTargetDirection);
+        yield return new WaitForSeconds(0.2f);
 
         enemy.isAttacking = false;
         AttackCooldown();

@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2688209159788057110, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 75231a97fed9ae54d89c082ed8007da3, type: 2}
     - target: {fileID: 1453278992626137235, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: normalMoveSpeed
       value: 0
@@ -27,6 +31,10 @@ PrefabInstance:
     - target: {fileID: 4705485784247206799, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: m_Name
       value: Practice Dummy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5469936719626399801, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: parryTarget
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6428915879681099594, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: m_BodyType
@@ -118,7 +126,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4705485784247206799, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
-      insertIndex: 6
+      insertIndex: 7
       addedObject: {fileID: -7160699664538716404}
     - targetCorrespondingSourceObject: {fileID: 4705485784247206799, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       insertIndex: -1
@@ -159,3 +167,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c246a0e7ecb9d14890cbc3a604f9425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  respawnDelay: 2
+  respawnHealth: 30
