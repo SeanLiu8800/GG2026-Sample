@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DemoBiome
   m_EditorClassIdentifier: Assembly-CSharp::BiomeComponents
   biomeCombatRooms:
-  - {fileID: 860382422138769227, guid: b55345a1a006b9544919e72efb0239ec, type: 3}
+  - {fileID: 3621552755312272538, guid: d9d8ae7805fbd7541a8a0d10f4537285, type: 3}
   biomeEventRooms: []
   biomeLength: 1
