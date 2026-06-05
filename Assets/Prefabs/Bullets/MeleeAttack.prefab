@@ -205,7 +205,7 @@ PrefabInstance:
       addedObject: {fileID: -997692341645952061}
     - targetCorrespondingSourceObject: {fileID: 8827905931808526965, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -8715343264939106372}
+      addedObject: {fileID: -5836913219839385624}
   m_SourcePrefab: {fileID: 100100000, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
 --- !u!4 &1988748716634564224 stripped
 Transform:
@@ -357,7 +357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af0c2e513ce46aa47a6489a030ee22ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
---- !u!114 &-8715343264939106372
+--- !u!114 &-5836913219839385624
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -366,14 +366,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8109537810932913037}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55a6fd67fbe3df943827a9dcfb10379e, type: 3}
+  m_Script: {fileID: 11500000, guid: 48032f5f39ca8544ca38d661db6f1df5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
+  m_EditorClassIdentifier: Assembly-CSharp::Bullet_OnInterval_EmitFan
   initialActionDelay: 0
   actionCount: 1
-  actionInterval: 0
-  emissionCount: 8
+  actionInterval: 0.2
+  fanEmissionRadius: 180
+  emissionCount: 6
   spawnClockwise: 1
-  emissionDelay: 0
+  emissionDelay: 0.03
   emissionOffset: 1.5
   bulletToEmit: {fileID: 3020573356033518482, guid: 23a0159513919544caf0764d208883d9, type: 3}

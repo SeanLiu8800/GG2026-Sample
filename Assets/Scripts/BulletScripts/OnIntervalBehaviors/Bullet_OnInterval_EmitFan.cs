@@ -8,6 +8,7 @@ public class Bullet_OnInterval_EmitFan : Bullet_OnIntervalBehaviorBase
     [SerializeField] [Range(1, 18)] private int emissionCount = 3;
     [SerializeField] private bool spawnClockwise = true;
     [SerializeField] [Range(0, 2)] private float emissionDelay = 0.2f;
+    [SerializeField] [Range(0.0f, 3.0f)] private float emissionOffset = 0.0f;
 
     [SerializeField] private GameObject bulletToEmit;
     protected override void Start()
@@ -30,7 +31,7 @@ public class Bullet_OnInterval_EmitFan : Bullet_OnIntervalBehaviorBase
     {
         float startingDegree = 0.0f;
         float degreeDifference = 0.0f;
-        Vector2 spawnDirection = bullet.moveDirection;
+        Vector3 spawnDirection = bullet.moveDirection.normalized;
         if (emissionCount > 1)
         {
             startingDegree = (spawnClockwise ? 1 : -1) * fanEmissionRadius / 2.0f;
@@ -51,9 +52,11 @@ public class Bullet_OnInterval_EmitFan : Bullet_OnIntervalBehaviorBase
                         spawnDirection,
                         spawnDirection
                     );
+                Vector3 spawnLocation = this.transform.position + (spawnDirection * emissionOffset);
+                currBulletScript.transform.position = spawnLocation;
             }
             spawnDirection = Quaternion.Euler(0, 0, degreeDifference) * spawnDirection;
-            yield return new WaitForSeconds(emissionDelay);
+            if (emissionDelay > 0) yield return new WaitForSeconds(emissionDelay);
         }
     }
 }
