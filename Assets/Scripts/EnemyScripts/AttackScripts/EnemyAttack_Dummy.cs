@@ -55,7 +55,7 @@ public class EnemyAttack_Dummy : EnemyAttackBase
         );
 
         yield return new WaitForSeconds(0.2f);
-        SpawnAttack(meleeAttack, enemy.target, default, enemy.toTargetDirection);
+        SpawnAttack(meleeAttack, enemy.target, enemy.toTargetDirection, enemy.toTargetDirection);
         yield return new WaitForSeconds(0.2f);
 
         enemy.isAttacking = false;
