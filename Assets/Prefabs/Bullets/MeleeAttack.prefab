@@ -372,7 +372,8 @@ MonoBehaviour:
   initialActionDelay: 0
   actionCount: 1
   actionInterval: 0
-  emissionCount: 10
+  emissionCount: 8
   spawnClockwise: 1
   emissionDelay: 0
+  emissionOffset: 1.5
   bulletToEmit: {fileID: 3020573356033518482, guid: 23a0159513919544caf0764d208883d9, type: 3}

@@ -21,14 +21,14 @@ public abstract class Bullet_OnIntervalBehaviorBase : BulletComponent
     /// </summary>
     protected IEnumerator IntervalCoroutine()
     {
-        yield return new WaitForSeconds(initialActionDelay);
+        if (initialActionDelay > 0) yield return new WaitForSeconds(initialActionDelay);
         while (actionCount > 0)
         {
             IntervalAction();
             actionCount = actionCount - 1;
             if (actionCount <= 0) break;
 
-            yield return new WaitForSeconds(actionInterval);
+            if (actionInterval > 0) yield return new WaitForSeconds(actionInterval);
         }
     }
 }
