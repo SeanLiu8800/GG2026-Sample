@@ -8,6 +8,12 @@ public class EnemyAnimation : EnemyComponent
         base.Awake();
         if (!TryGetComponent<Animator>(out Animator _animator)) Debug.LogError($"{this.name} DOES NOT have an Animator Component!");
         animator = _animator;
+
+        if (animator.runtimeAnimatorController == null)
+        {
+            Debug.LogWarning($"{this.name} DOES NOT have an Animator Controller! Disabling this EnemyAnimation Component");
+            this.enabled = false;
+        }
     }
 
     protected void OnEnable()
