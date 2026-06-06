@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 public class EnemyAnimation : EnemyComponent
 {
     private Animator animator;
@@ -30,4 +30,27 @@ public class EnemyAnimation : EnemyComponent
         animator.SetBool("ParryStunned", false);
     }
     #endregion
+
+    private bool val = false;
+    private void Update()
+    {
+        UpdateMoveDirection();
+        UpdateTargetDirection();
+        if (Keyboard.current.hKey.wasPressedThisFrame)
+        {
+            val = !val;
+            animator.SetBool("IsReadyingAttack", val);
+        }
+    }
+    private void UpdateMoveDirection()
+    {
+        animator.SetFloat("LastMoveX", enemy.enemyRigidbody.linearVelocityX);
+        animator.SetFloat("LastMoveY", enemy.enemyRigidbody.linearVelocityY);
+    }
+    private void UpdateTargetDirection()
+    {
+        Vector2 toTargetVector = enemy.toTargetVector;
+        animator.SetFloat("AttackDirectionX", toTargetVector.x);
+        animator.SetFloat("AttackDirectionY", toTargetVector.y);
+    }
 }
