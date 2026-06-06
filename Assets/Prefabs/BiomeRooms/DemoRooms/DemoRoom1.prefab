@@ -7175,7 +7175,7 @@ PrefabInstance:
     - target: {fileID: 5935794751231712640, guid: b55345a1a006b9544919e72efb0239ec, type: 3}
       propertyPath: enemyWaves.Array.data[0].enemies.Array.data[0].enemy
       value: 
-      objectReference: {fileID: 8800648282644511387, guid: e5465f93f41f8d94696f6b704e153a57, type: 3}
+      objectReference: {fileID: 6769552458106676768, guid: c3530c39052c4714fad8fffea55604bc, type: 3}
     - target: {fileID: 5935794751231712640, guid: b55345a1a006b9544919e72efb0239ec, type: 3}
       propertyPath: enemyWaves.Array.data[0].enemies.Array.data[0].enemyCount
       value: 1

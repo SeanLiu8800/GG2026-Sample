@@ -23,11 +23,11 @@ public class EnemyAnimation : EnemyComponent
     #region ----- Event Functions -----
     void ParryStunStarts()
     {
-        animator.SetBool("parryStunned", true);
+        animator.SetBool("ParryStunned", true);
     }
     void ParryStunEnds()
     {
-        animator.SetBool("parryStunned", false);
+        animator.SetBool("ParryStunned", false);
     }
     #endregion
 }
