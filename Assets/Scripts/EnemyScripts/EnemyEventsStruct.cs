@@ -3,6 +3,10 @@ using System;
 
 public struct EnemyEvents
 {
+    public Action meleeAttack;
+    public Action rangedAttack;
+    public Action attackEnds;
+
     public Action<GameObject> onParried;
     public Action parryStunStarts;
     public Action parryStunEnds;

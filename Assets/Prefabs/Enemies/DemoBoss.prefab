@@ -61,34 +61,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7562004299904221908, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.7490444
-      objectReference: {fileID: 0}
-    - target: {fileID: 7562004299904221908, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.1414459
-      objectReference: {fileID: 0}
-    - target: {fileID: 7562004299904221908, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7562004299904221908, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7562004299904221908, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7562004299904221908, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7562004299904221908, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7562004299904221908, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
@@ -126,3 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32447f41857a42444a2334a1f1fd2d3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  attackWarning: {fileID: 8827905931808526965, guid: 33e8cf780e3dd3a4d8207f50b7a05299, type: 3}
+  canAttack: 1
+  attackCooldown: 1
+  isOffscreen: 0
+  attack: {fileID: 3020573356033518482, guid: 23a0159513919544caf0764d208883d9, type: 3}
+  meleeAttack: {fileID: 8109537810932913037, guid: 75cbcb039f1a9f149a9079a4b2d8f0d3, type: 3}

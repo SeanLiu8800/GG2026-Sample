@@ -91,6 +91,8 @@ public abstract class EnemyAttackBase : EnemyComponent
     private Coroutine attackCooldownCoroutine;
     private IEnumerator AttackCooldownCoroutine()
     {
+        enemy.enemyEvents.attackEnds?.Invoke();
+        enemy.isAttacking = false;
         canAttack = false;
         float cooldownStartTime = Time.time;
         while (Time.time - cooldownStartTime <= attackCooldown) yield return null;

@@ -18,15 +18,29 @@ public class EnemyAnimation : EnemyComponent
 
     protected void OnEnable()
     {
+        enemy.enemyEvents.meleeAttack += MeleeAttack;
+        enemy.enemyEvents.attackEnds += AttackEnds;
+
         enemy.enemyEvents.parryStunStarts += ParryStunStarts;
         enemy.enemyEvents.parryStunEnds += ParryStunEnds;
     }
     protected void OnDisable()
     {
+        enemy.enemyEvents.meleeAttack -= MeleeAttack;
+        enemy.enemyEvents.attackEnds -= AttackEnds;
+
         enemy.enemyEvents.parryStunStarts -= ParryStunStarts;
         enemy.enemyEvents.parryStunEnds -= ParryStunEnds;
     }
     #region ----- Event Functions -----
+    void MeleeAttack()
+    {
+        animator.SetBool("IsReadyingAttack", true);
+    }
+    void AttackEnds()
+    {
+        animator.SetBool("IsReadyingAttack", false);
+    }
     void ParryStunStarts()
     {
         animator.SetBool("ParryStunned", true);
