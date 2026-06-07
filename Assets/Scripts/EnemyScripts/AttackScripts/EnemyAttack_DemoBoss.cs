@@ -30,15 +30,19 @@ public class EnemyAttack_DemoBoss : EnemyAttackBase
             2.0f * dist,
             1.0f
         );
-        enemy.enemyEvents.meleeAttack?.Invoke();
+        enemy.anim.animator.SetBool("IsReadyingAttack", true);
+                //enemy.enemyEvents.meleeAttack?.Invoke();
         yield return new WaitForSeconds(0.4f);
 
+        enemy.anim.animator.SetBool("IsReadyingAttack", false);
+        enemy.anim.animator.SetBool("IsAttacking", true);
         SpawnAttack(meleeAttack, enemy.target, direction, direction);
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.4f);
 
         enemy.canMove = true;
         enemy.isAttacking = false;
+        enemy.anim.animator.SetBool("IsAttacking", false);
         AttackCooldown();
     }
 }

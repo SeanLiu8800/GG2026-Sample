@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class EnemyAnimation : EnemyComponent
 {
-    private Animator animator;
+    [HideInInspector] public Animator animator;
     protected override void Awake()
     {
         base.Awake();
@@ -18,7 +18,7 @@ public class EnemyAnimation : EnemyComponent
 
     protected void OnEnable()
     {
-        enemy.enemyEvents.meleeAttack += MeleeAttack;
+        //enemy.enemyEvents.meleeAttack += MeleeAttack;
         enemy.enemyEvents.attackEnds += AttackEnds;
 
         enemy.enemyEvents.parryStunStarts += ParryStunStarts;
@@ -26,7 +26,7 @@ public class EnemyAnimation : EnemyComponent
     }
     protected void OnDisable()
     {
-        enemy.enemyEvents.meleeAttack -= MeleeAttack;
+        //enemy.enemyEvents.meleeAttack -= MeleeAttack;
         enemy.enemyEvents.attackEnds -= AttackEnds;
 
         enemy.enemyEvents.parryStunStarts -= ParryStunStarts;
