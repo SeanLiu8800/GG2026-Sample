@@ -33,12 +33,42 @@ public class EnemyAttack_DemoBoss : EnemyAttackBase
         enemy.anim.animator.SetBool("IsReadyingAttack", true);
                 //enemy.enemyEvents.meleeAttack?.Invoke();
         yield return new WaitForSeconds(0.4f);
-
         enemy.anim.animator.SetBool("IsReadyingAttack", false);
         enemy.anim.animator.SetBool("IsAttacking", true);
         SpawnAttack(meleeAttack, enemy.target, direction, direction);
+        yield return new WaitForSeconds(0.8f);
 
-        yield return new WaitForSeconds(0.4f);
+        direction = enemy.toTargetDirection;
+        dist = 2.0f;
+        AttackZoneManager.Instance.SetSquareAttackZone(
+            transform.position + direction * dist,
+            direction,
+            3.0f,
+            2.0f * dist,
+            1.0f
+        );
+        enemy.anim.animator.SetBool("IsReadyingAttack", true);
+        yield return new WaitForSeconds(0.2f);
+        enemy.anim.animator.SetBool("IsReadyingAttack", false);
+        enemy.anim.animator.SetBool("IsAttacking", true);
+        SpawnAttack(meleeAttack, enemy.target, direction, direction);
+        yield return new WaitForSeconds(0.2f);
+
+        direction = enemy.toTargetDirection;
+        dist = 2.0f;
+        AttackZoneManager.Instance.SetSquareAttackZone(
+            transform.position + direction * dist,
+            direction,
+            3.0f,
+            2.0f * dist,
+            1.0f
+        );
+        enemy.anim.animator.SetBool("IsReadyingAttack", true);
+        yield return new WaitForSeconds(0.2f);
+        enemy.anim.animator.SetBool("IsReadyingAttack", false);
+        enemy.anim.animator.SetBool("IsAttacking", true);
+        SpawnAttack(meleeAttack, enemy.target, direction, direction);
+        yield return new WaitForSeconds(0.8f);
 
         enemy.canMove = true;
         enemy.isAttacking = false;
