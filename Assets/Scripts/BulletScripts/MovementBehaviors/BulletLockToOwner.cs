@@ -2,14 +2,20 @@ using UnityEngine;
 
 public class BulletLockToOwner : BulletComponent
 {
-    [SerializeField] private Vector3 offset = Vector3.zero;
+    [SerializeField] private float distanceOffset = 0.0f;
+    [SerializeField] private Vector3 relativeOffset = Vector3.zero;
     private void Start()
     {
         if (bullet.owner == null) Debug.LogWarning($"{this.name} DOES NOT have an Owner!");
-        else transform.position = bullet.owner.transform.position + offset;
+        else ApplyOffset();
     }
     void Update()
     {
-        if (bullet.owner != null) transform.position = bullet.owner.transform.position + offset;
+        if (bullet.owner != null) ApplyOffset();
+    }
+    private void ApplyOffset()
+    {
+        transform.position = bullet.owner.transform.position + 
+            (bullet.moveDirection * distanceOffset) + relativeOffset;
     }
 }

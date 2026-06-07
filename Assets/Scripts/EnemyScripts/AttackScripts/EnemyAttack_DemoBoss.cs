@@ -31,7 +31,7 @@ public class EnemyAttack_DemoBoss : EnemyAttackBase
             1.0f
         );
         enemy.enemyEvents.meleeAttack?.Invoke();
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.4f);
 
         SpawnAttack(meleeAttack, enemy.target, direction, direction);
 

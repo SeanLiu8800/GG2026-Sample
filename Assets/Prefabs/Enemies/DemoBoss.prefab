@@ -103,4 +103,4 @@ MonoBehaviour:
   attackCooldown: 1
   isOffscreen: 0
   attack: {fileID: 3020573356033518482, guid: 23a0159513919544caf0764d208883d9, type: 3}
-  meleeAttack: {fileID: 8109537810932913037, guid: 75cbcb039f1a9f149a9079a4b2d8f0d3, type: 3}
+  meleeAttack: {fileID: 1176788867619865850, guid: 7dd5dc1fd4600b5468fae1492e0a07cd, type: 3}
