@@ -31,15 +31,14 @@ public class EnemyAttack_DemoBoss : EnemyAttackBase
             1.0f
         );
         enemy.anim.animator.SetBool("IsReadyingAttack", true);
-                //enemy.enemyEvents.meleeAttack?.Invoke();
         yield return new WaitForSeconds(0.4f);
         enemy.anim.animator.SetBool("IsReadyingAttack", false);
         enemy.anim.animator.SetBool("IsAttacking", true);
         SpawnAttack(meleeAttack, enemy.target, direction, direction);
         yield return new WaitForSeconds(0.8f);
 
+        AttackWarning();
         direction = enemy.toTargetDirection;
-        dist = 2.0f;
         AttackZoneManager.Instance.SetSquareAttackZone(
             transform.position + direction * dist,
             direction,
@@ -54,8 +53,8 @@ public class EnemyAttack_DemoBoss : EnemyAttackBase
         SpawnAttack(meleeAttack, enemy.target, direction, direction);
         yield return new WaitForSeconds(0.2f);
 
+        AttackWarning();
         direction = enemy.toTargetDirection;
-        dist = 2.0f;
         AttackZoneManager.Instance.SetSquareAttackZone(
             transform.position + direction * dist,
             direction,

@@ -40,6 +40,7 @@ public class EnemyAnimation : EnemyComponent
     void AttackEnds()
     {
         animator.SetBool("IsReadyingAttack", false);
+        enemy.anim.animator.SetBool("IsAttacking", false);
     }
     void ParryStunStarts()
     {
