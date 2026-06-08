@@ -14,7 +14,7 @@ public class EnemyAttack_DemoBoss : EnemyAttackBase
         canAttack = false;
 
         if (enemy.distanceToTarget < 5.0f) StartCoroutine(MeleeAttack());
-        else StartCoroutine(MeleeAttack());
+        else StartCoroutine(Shoot());
     }
 
     private IEnumerator MeleeAttack()
@@ -72,6 +72,29 @@ public class EnemyAttack_DemoBoss : EnemyAttackBase
         enemy.canMove = true;
         enemy.isAttacking = false;
         enemy.anim.animator.SetBool("IsAttacking", false);
+        AttackCooldown();
+    }
+    private IEnumerator Shoot()
+    {
+        GameObject shootTarget = enemy.target;
+        if (shootTarget != null)
+        {
+            enemy.anim.animator.SetTrigger("IsCasting");
+            for (int i = 0; i < 5; i++)
+            {
+                SpawnAttack(
+                    attack,
+                    shootTarget,
+                    (shootTarget.transform.position - transform.position).normalized,
+                    shootTarget.transform.position - transform.position
+                );
+                yield return new WaitForSeconds(0.2f);
+            }
+            enemy.anim.animator.ResetTrigger("IsCasting");
+            enemy.anim.animator.SetTrigger("IsCasting");
+        }
+
+        enemy.isAttacking = false;
         AttackCooldown();
     }
 }

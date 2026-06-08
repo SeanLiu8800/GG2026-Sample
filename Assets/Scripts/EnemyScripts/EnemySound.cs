@@ -30,6 +30,6 @@ public class EnemySound : EnemyComponent
     }
     void ParryStunStarts()
     {
-        if (sound.parryStunned != null) AudioManager.Instance.PlaySoundOneShot(sound.parryStunned);
+        //if (sound.parryStunned != null) AudioManager.Instance.PlaySoundOneShot(sound.parryStunned);
     }
 }
