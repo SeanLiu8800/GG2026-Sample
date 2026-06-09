@@ -39,6 +39,7 @@ public class EnemyAttack_DemoBoss : EnemyAttackBase
 
         AttackWarning();
         direction = enemy.toTargetDirection;
+        enemy.move.Dash(direction, 3.0f);
         AttackZoneManager.Instance.SetSquareAttackZone(
             transform.position + direction * dist,
             direction,
@@ -55,6 +56,7 @@ public class EnemyAttack_DemoBoss : EnemyAttackBase
 
         AttackWarning();
         direction = enemy.toTargetDirection;
+        enemy.move.Dash(direction, 2.0f);
         AttackZoneManager.Instance.SetSquareAttackZone(
             transform.position + direction * dist,
             direction,
@@ -64,6 +66,7 @@ public class EnemyAttack_DemoBoss : EnemyAttackBase
         );
         enemy.anim.animator.SetBool("IsReadyingAttack", true);
         yield return new WaitForSeconds(0.2f);
+        
         enemy.anim.animator.SetBool("IsReadyingAttack", false);
         enemy.anim.animator.SetBool("IsAttacking", true);
         SpawnAttack(meleeAttack, enemy.target, direction, direction);

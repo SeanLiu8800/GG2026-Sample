@@ -58,11 +58,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3175725846749800671, guid: 75cbcb039f1a9f149a9079a4b2d8f0d3, type: 3}
       propertyPath: distanceOffset
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8109537810932913037, guid: 75cbcb039f1a9f149a9079a4b2d8f0d3, type: 3}
       propertyPath: m_Name
-      value: MeleeAttack_DemoBoss
+      value: DemoBoss_MeleeAttack
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -7435645528433213393, guid: 75cbcb039f1a9f149a9079a4b2d8f0d3, type: 3}
