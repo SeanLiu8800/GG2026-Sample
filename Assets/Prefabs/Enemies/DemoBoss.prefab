@@ -436,7 +436,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6475756978650275598, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: loseTargetTime
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6760488159647587559, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: m_Size.x

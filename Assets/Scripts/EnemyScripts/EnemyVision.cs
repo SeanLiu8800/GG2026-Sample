@@ -6,7 +6,7 @@ public class EnemyVision : EnemyComponent
     private LayerMask detectionLayerMask;
     private LayerMask lineOfSightLayermask;
 
-    [SerializeField, Range(0.0f, 2.0f)] private float loseTargetTime = 1.0f;
+    [SerializeField, Range(0.0f, 5.0f)] private float loseTargetTime = 1.0f;
     private void Start()
     {
         detectionLayerMask = LayerMask.GetMask("Player");
