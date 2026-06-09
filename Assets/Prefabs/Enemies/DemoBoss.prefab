@@ -40,6 +40,10 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 3.4775827
       objectReference: {fileID: 0}
+    - target: {fileID: 5469936719626399801, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: parryTarget
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6760488159647587559, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: m_Size.x
       value: 3.609375
@@ -84,6 +88,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4705485784247206799, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       insertIndex: 7
       addedObject: {fileID: 2257802606784708001}
+    - targetCorrespondingSourceObject: {fileID: 4705485784247206799, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2906769547692535454}
   m_SourcePrefab: {fileID: 100100000, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
 --- !u!1 &6769552458106676768 stripped
 GameObject:
@@ -108,3 +115,18 @@ MonoBehaviour:
   isOffscreen: 0
   attack: {fileID: 1178297425845121209, guid: ba19e74cce5db7a45a19d67ac543ebe5, type: 3}
   meleeAttack: {fileID: 1176788867619865850, guid: 7dd5dc1fd4600b5468fae1492e0a07cd, type: 3}
+--- !u!114 &-2906769547692535454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6769552458106676768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b04b30a7b5a1b654da6f0f9152668e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy_OnParryStun_ActionSlowdown
+  easeIn: 0.05
+  slowdownDuration: 0.15
+  easeOut: 0.2
