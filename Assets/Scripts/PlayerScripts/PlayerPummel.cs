@@ -9,7 +9,8 @@ public class PlayerPummel : PlayerComponent
     [SerializeField, Range(0.0f, 1.5f)] private float checkRadius = 0.75f;
 
     [field: Header("Pummel Variables")]
-    [SerializeField] private float pummelDamage = 1.0f;
+    [SerializeField, Range(0.0f, 2.0f)] private float pummelDamage = 1.0f;
+    [SerializeField, Range(0.0f, 2.0f)] private float pummelHeal = 0.3f;
     [SerializeField, ReadOnly] private Enemy pummelTarget;
     [SerializeField, ReadOnly, HideInInspector] private Vector3 pummelDismountLocation = Vector3.zero;
     private bool ignoreFirstPummel = true;
@@ -118,6 +119,7 @@ public class PlayerPummel : PlayerComponent
             ForceMode2D.Impulse
         );
         currPummelCount++;
+        player.health.Heal(pummelHeal);
         if (pummelTarget.health.currHealth <= 0 || currPummelCount >= maxPummelCount) StartCoroutine(PummelDismount());
     }
     private void ReleaseTarget()

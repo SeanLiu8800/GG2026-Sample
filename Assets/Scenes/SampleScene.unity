@@ -847,8 +847,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   checkRadius: 0.75
+  pummelDamage: 1
+  pummelHeal: 0.3
   pummelTarget: {fileID: 0}
   pummelDismountLocation: {x: 0, y: 0, z: 0}
+  currPummelCount: 0
+  maxPummelCount: 16
+  maxPummelDamage: 10
 --- !u!114 &993337306
 MonoBehaviour:
   m_ObjectHideFlags: 0
