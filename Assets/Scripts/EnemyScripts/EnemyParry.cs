@@ -3,9 +3,9 @@ using UnityEngine;
 public class EnemyParry : EnemyComponent
 {
     [Header("Parry Variables")]
-    [SerializeField, Range(0.0f, 5.0f)] private float parryProgress = 0;
+    [SerializeField, Range(0.0f, 5.0f)] private float parryProgress = 0.0f;
     [SerializeField, Range(0.0f, 1.0f)] private float parryDecayRate = 0.0f;
-    [SerializeField, Range(1.0f, 5.0f)] private float parryTarget = 3.0f;
+    [SerializeField, Range(1.0f, 15.0f)] private float parryTarget = 3.0f;
 
     [Header("Parry Stun Variables")]
     private float parryStunStartTime = -99.0f;

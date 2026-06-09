@@ -9,9 +9,15 @@ public class PlayerPummel : PlayerComponent
     [SerializeField, Range(0.0f, 1.5f)] private float checkRadius = 0.75f;
 
     [field: Header("Pummel Variables")]
+    [SerializeField] private float pummelDamage = 1.0f;
     [SerializeField, ReadOnly] private Enemy pummelTarget;
-    [SerializeField, ReadOnly] private Vector3 pummelDismountLocation = Vector3.zero;
+    [SerializeField, ReadOnly, HideInInspector] private Vector3 pummelDismountLocation = Vector3.zero;
     private bool ignoreFirstPummel = true;
+
+    [SerializeField, Range(0, 16)] private int currPummelCount = 0;
+    [SerializeField, Range(0, 16)] private int maxPummelCount = 16;
+    [SerializeField] private float maxPummelDamage = 10.0f;
+    
     protected override void Awake()
     {
         base.Awake();
@@ -55,6 +61,10 @@ public class PlayerPummel : PlayerComponent
 
         player.playerCollider.enabled = false;
         ignoreFirstPummel = true;
+
+        currPummelCount = 0;
+        maxPummelDamage = Mathf.Max(enemy.health.maxHealth / 6, 10.0f);
+        pummelDamage = 1.0f;
     }
     void PummelEnds()
     {
@@ -102,12 +112,13 @@ public class PlayerPummel : PlayerComponent
     {
         if (ignoreFirstPummel) return;
 
-        pummelTarget.health.Damage(1.0f, DamageElement.None, 0.0f, this.gameObject);
+        pummelTarget.health.Damage(pummelDamage, DamageElement.None, 0.0f, this.gameObject);
         pummelTarget.enemyRigidbody.AddForce(
             (pummelTarget.transform.position - transform.position).normalized * 4.0f, 
             ForceMode2D.Impulse
         );
-        if (pummelTarget.health.currHealth <= 0) StartCoroutine(PummelDismount());
+        currPummelCount++;
+        if (pummelTarget.health.currHealth <= 0 || currPummelCount >= maxPummelCount) StartCoroutine(PummelDismount());
     }
     private void ReleaseTarget()
     {

@@ -2,15 +2,33 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PlayerUI : MonoBehaviour
 {
-    [SerializeField] private Player player;
-    [SerializeField] private Slider healthbar;
+    private IDamageable owner;
+    private Slider healthbar;
+    private void Awake()
+    {
+        owner = GetComponentInParent<IDamageable>();
+        if (owner == null)
+        {
+            Debug.LogWarning("This Healthbar is not associated with any Damageable GameObject! Disabling!");
+            enabled = false;
+            gameObject.SetActive(false);
+        }
+
+        healthbar = GetComponentInChildren<Slider>();
+        if (healthbar == null)
+        {
+            Debug.LogWarning("There is no Healthbar Slider with this Damageable GameObject! Disabling!");
+            enabled = false;
+            gameObject.SetActive(false);
+        }
+    }
     private void OnEnable()
     {
-        player.health.onHealthChange += UpdateHealthbar;
+        owner.onHealthChange += UpdateHealthbar;
     }
     private void OnDisable()
     {
-        player.health.onHealthChange -= UpdateHealthbar;
+        owner.onHealthChange -= UpdateHealthbar;
     }
     void Start()
     {
@@ -19,8 +37,8 @@ public class PlayerUI : MonoBehaviour
 
     private void UpdateHealthbar()
     {
-        healthbar.value = player.health.currHealth;
         healthbar.minValue = 0.0f;
-        healthbar.maxValue = player.health.maxHealth;
+        healthbar.maxValue = owner.maxHealth;
+        healthbar.value = owner.currHealth;
     }
 }

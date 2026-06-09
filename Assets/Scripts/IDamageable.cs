@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 public interface IDamageable
 {
-    public Action onHealthChange { get; }
+    public Action onHealthChange { get; set; }
     public float currHealth { get; }
     public float maxHealth { get; }
     public float fireBuildup { get; }
