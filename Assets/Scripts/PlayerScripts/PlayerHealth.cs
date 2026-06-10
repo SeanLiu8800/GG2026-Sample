@@ -155,6 +155,10 @@ public class PlayerHealth : PlayerComponent, IDamageable
     public void Die()
     {
         Debug.Log($"{this.name} has run out of health!");
+
+                    Heal(99);
+                    transform.position = GameManager.Instance.currRoom.spawnPoints.GetPlayerSpawnPoint();
+                    GameManager.Instance.currRoom.roomEvents.roomStarts?.Invoke();
     }
 
     private void StartInvincibility(float duration = -1.0f)

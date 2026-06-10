@@ -7,4 +7,5 @@ public class BiomeComponents : ScriptableObject
     public GameObject[] biomeEventRooms;
 
     [Range(1, 10)] public int biomeLength = 5;
+    public bool randomizeOrder = true;
 }

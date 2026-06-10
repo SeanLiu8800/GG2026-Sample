@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
         {
             int[] currRoomOrder = new int[biomeComponents.biomeCombatRooms.Length];
             for (int i = 0; i < biomeComponents.biomeCombatRooms.Length; i++) currRoomOrder[i] = i;
-            ShuffleArray(currRoomOrder);
+            if (biomeComponents.randomizeOrder) ShuffleArray(currRoomOrder);
             for (int i = 0; i < currRoomOrder.Length; i++)
             {
                 roomOrder[roomOrderIndex++] = currRoomOrder[i];
