@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BiomeComponents
   biomeCombatRooms:
   - {fileID: 3621552755312272538, guid: d9d8ae7805fbd7541a8a0d10f4537285, type: 3}
+  - {fileID: 3621552755312272538, guid: a8638f06f8814a84685592b91e903d84, type: 3}
   - {fileID: 3621552755312272538, guid: e202e77342ae8824097b216021a634d3, type: 3}
   biomeEventRooms: []
-  biomeLength: 2
+  biomeLength: 3
   randomizeOrder: 0
