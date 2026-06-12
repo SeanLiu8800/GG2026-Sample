@@ -402,6 +402,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 0a17aad4339be9d4184428e7f0a396a5, type: 2}
+    - target: {fileID: 3334341506000453853, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 4705485784247206799, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: m_Name
       value: DemoBoss
@@ -472,7 +476,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7628755638479967323, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8397098237968679545, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: _currHealth

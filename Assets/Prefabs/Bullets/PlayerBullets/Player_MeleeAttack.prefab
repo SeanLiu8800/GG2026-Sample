@@ -164,6 +164,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6452316627612785655, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6452316627612785655, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
       propertyPath: m_MaskInteraction
       value: 2
       objectReference: {fileID: 0}
@@ -316,7 +320,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac85ec39bd2845a4c8495dc8f528ac40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletLockToOwner
-  offset: {x: 0, y: 0, z: 0}
+  distanceOffset: 0
+  relativeOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &557561726566256076
 MonoBehaviour:
   m_ObjectHideFlags: 0

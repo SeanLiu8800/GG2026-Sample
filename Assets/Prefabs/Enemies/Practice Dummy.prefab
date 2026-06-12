@@ -410,14 +410,6 @@ PrefabInstance:
       propertyPath: strafeMoveSpeed
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3334341506000453853, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3334341506000453853, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4705485784247206799, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: m_Name
       value: Practice Dummy
@@ -496,11 +488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7628755638479967323, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7628755638479967323, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8397098237968679545, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: _currHealth
