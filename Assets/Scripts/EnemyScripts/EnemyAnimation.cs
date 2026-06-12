@@ -57,14 +57,11 @@ public class EnemyAnimation : EnemyComponent
     {
         UpdateMoveDirection();
         UpdateTargetDirection();
-        if (Keyboard.current.hKey.wasPressedThisFrame)
-        {
-            val = !val;
-            animator.SetBool("IsReadyingAttack", val);
-        }
     }
     private void UpdateMoveDirection()
     {
+        if (enemy.enemyRigidbody.linearVelocity == Vector2.zero) return;
+
         animator.SetFloat("LastMoveX", enemy.enemyRigidbody.linearVelocityX);
         animator.SetFloat("LastMoveY", enemy.enemyRigidbody.linearVelocityY);
     }
