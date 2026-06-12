@@ -1,17 +1,17 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using System.Collections;
 using System.Collections.Generic;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
-    [SerializeField] private AudioSource audioSource;
 
     [SerializeField] private AudioSource MusicIntroSource;
     [SerializeField] private AudioSource MusicLoopSource;
     [SerializeField] private AudioSource MusicInterludeSource;
     [SerializeField] private AudioSource MusicOutroSource;
+
+    [SerializeField] private List<AudioSource> SFXAudioSourcePool;
 
     [Header("Volume Variables")]
     [SerializeField, Range(0.0f, 1.0f)] private float sfxVolume = 1.0f;
@@ -32,10 +32,11 @@ public class AudioManager : MonoBehaviour
         }
 
         MusicLoopSource.loop = true;
+        MusicInterludeSource.loop = true;
     }
     private void OnValidate()
     {
-        audioSource.volume = sfxVolume;
+        foreach (AudioSource audioSource in SFXAudioSourcePool) audioSource.volume = sfxVolume;
 
         MusicIntroSource.volume = musicVolume;
         MusicLoopSource.volume = musicVolume;
@@ -50,11 +51,24 @@ public class AudioManager : MonoBehaviour
     //    if (Keyboard.current.backspaceKey.wasPressedThisFrame) StopSountrack();
     //}
 
-    public void PlaySoundOneShot(AudioClip audioClip)
+    public void PlaySoundOneShot(AudioClip audioClip, float pitch = 1.0f)
     {
         if (AudioClipIsNull(audioClip)) return;
 
-        audioSource.PlayOneShot(audioClip);
+        foreach (AudioSource audioSource in SFXAudioSourcePool)
+        {
+            if (audioSource.isPlaying) continue;
+
+            audioSource.pitch = pitch;
+            audioSource.clip = audioClip;
+            audioSource.Play();
+            return;
+        }
+
+        SFXAudioSourcePool.Add(this.gameObject.AddComponent<AudioSource>());
+        SFXAudioSourcePool[SFXAudioSourcePool.Count - 1].pitch = pitch;
+        SFXAudioSourcePool[SFXAudioSourcePool.Count - 1].clip = audioClip;
+        SFXAudioSourcePool[SFXAudioSourcePool.Count - 1].Play();
     }
     private bool AudioClipIsNull(AudioClip audioClip)
     {
