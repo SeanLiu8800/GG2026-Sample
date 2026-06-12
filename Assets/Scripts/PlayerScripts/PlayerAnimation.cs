@@ -9,6 +9,9 @@ public class PlayerAnimation : PlayerComponent
         player.playerEvents.dashStarts += DashStarts;
         player.playerEvents.dashEnds += DashEnds;
 
+        player.playerEvents.attackStarts += AttackStarts;
+        player.playerEvents.attackEnds += AttackEnds;
+
         player.playerEvents.pummelStarts += PummelStarts;
         player.playerEvents.pummelEnds += PummelEnds;
     }
@@ -17,10 +20,29 @@ public class PlayerAnimation : PlayerComponent
         player.playerEvents.dashStarts -= DashStarts;
         player.playerEvents.dashEnds -= DashEnds;
 
+        player.playerEvents.attackStarts -= AttackStarts;
+        player.playerEvents.attackEnds -= AttackEnds;
+
         player.playerEvents.pummelStarts -= PummelStarts;
         player.playerEvents.pummelEnds -= PummelEnds;
     }
     #region ----- Event Functions -----
+    void DashStarts()
+    {
+        animator.SetBool("IsDashing", true);
+    }
+    void DashEnds()
+    {
+        animator.SetBool("IsDashing", false);
+    }
+    void AttackStarts()
+    {
+        animator.SetBool("IsAttacking", true);
+    }
+    void AttackEnds()
+    {
+        animator.SetBool("IsAttacking", false);
+    }
     void PummelStarts(Enemy pummelTarget)
     {
         this.pummelTarget = pummelTarget;
@@ -31,14 +53,7 @@ public class PlayerAnimation : PlayerComponent
         this.pummelTarget = null;
         animator.SetBool("IsPummeling", false);
     }
-    void DashStarts()
-    {
-        animator.SetBool("IsDashing", true);
-    }
-    void DashEnds()
-    {
-        animator.SetBool("IsDashing", false);
-    }
+    
     #endregion
     void Update()
     {

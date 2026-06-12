@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: c3d834af54f90c645a0b9b33d72c6f24
+guid: 90608ade2f53089418b4ead23d58c084
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4555915735779951511
-    second: Nero_Attack_2_0
+      213: 8994754122152534215
+    second: Nero_Attack_Up_0
+  - first:
+      213: 1404026009819281325
+    second: Nero_Attack_Up_1
+  - first:
+      213: -5029049925272628453
+    second: Nero_Attack_Up_2
+  - first:
+      213: -6266989544094118832
+    second: Nero_Attack_Up_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +122,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Nero_Attack_2_0
+      name: Nero_Attack_Up_0
       rect:
         serializedVersion: 2
-        x: 385
-        y: 222
-        width: 862
-        height: 455
+        x: 1601
+        y: 300
+        width: 372
+        height: 516
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 793c6c1393dd93f30800000000000000
-      internalID: 4555915735779951511
+      spriteID: 7c0e1e4c739c3dc70800000000000000
+      internalID: 8994754122152534215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nero_Attack_Up_1
+      rect:
+        serializedVersion: 2
+        x: 2079
+        y: 310
+        width: 377
+        height: 523
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da7ffa2973a1c7310800000000000000
+      internalID: 1404026009819281325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nero_Attack_Up_2
+      rect:
+        serializedVersion: 2
+        x: 2635
+        y: 328
+        width: 478
+        height: 576
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b139b6eecb9353ab0800000000000000
+      internalID: -5029049925272628453
       vertices: []
       indices: 
       edges: []
@@ -138,7 +191,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: bcb175272a3e2cb4ba83b27b7ac4f630
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +201,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Nero_Attack_2_0: 4555915735779951511
+      Nero_Attack_Up_0: 8994754122152534215
+      Nero_Attack_Up_1: 1404026009819281325
+      Nero_Attack_Up_2: -5029049925272628453
+      Nero_Attack_Up_3: -6266989544094118832
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
