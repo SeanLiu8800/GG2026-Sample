@@ -89,7 +89,7 @@ public class PlayerMovement : PlayerComponent
     void DashStarts()
     {
         dashBuffered = false; // Empty the buffer
-        player.spriteRenderer.SetColor(Color.brown.r, Color.brown.g, Color.brown.b, -1.0f);
+                //player.spriteRenderer.SetColor(Color.brown.r, Color.brown.g, Color.brown.b, -1.0f);
         willLunge = false;
         canDash = false;
         player.AddState(PlayerState.Dashing);
@@ -131,7 +131,7 @@ public class PlayerMovement : PlayerComponent
     void DashCooldownEnds()
     {
         canDash = true;
-        player.spriteRenderer.SetColor(Color.white.r, Color.white.g, Color.white.b, -1.0f); 
+                //player.spriteRenderer.SetColor(Color.white.r, Color.white.g, Color.white.b, -1.0f); 
     }
     void PummelStarts(Enemy enemy)
     {

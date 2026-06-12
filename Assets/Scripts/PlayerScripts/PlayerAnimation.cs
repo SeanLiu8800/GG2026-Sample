@@ -6,11 +6,17 @@ public class PlayerAnimation : PlayerComponent
     private Enemy pummelTarget;
     private void OnEnable()
     {
+        player.playerEvents.dashStarts += DashStarts;
+        player.playerEvents.dashEnds += DashEnds;
+
         player.playerEvents.pummelStarts += PummelStarts;
         player.playerEvents.pummelEnds += PummelEnds;
     }
     private void OnDisable()
     {
+        player.playerEvents.dashStarts -= DashStarts;
+        player.playerEvents.dashEnds -= DashEnds;
+
         player.playerEvents.pummelStarts -= PummelStarts;
         player.playerEvents.pummelEnds -= PummelEnds;
     }
@@ -18,13 +24,20 @@ public class PlayerAnimation : PlayerComponent
     void PummelStarts(Enemy pummelTarget)
     {
         this.pummelTarget = pummelTarget;
-        animator.SetTrigger("IsPummeling");
+        animator.SetBool("IsPummeling", true);
     }
     void PummelEnds()
     {
         this.pummelTarget = null;
-        animator.ResetTrigger("IsPummeling");
-        animator.SetTrigger("IsPummeling");
+        animator.SetBool("IsPummeling", false);
+    }
+    void DashStarts()
+    {
+        animator.SetBool("IsDashing", true);
+    }
+    void DashEnds()
+    {
+        animator.SetBool("IsDashing", false);
     }
     #endregion
     void Update()
@@ -34,10 +47,12 @@ public class PlayerAnimation : PlayerComponent
 
     private void Animate()
     {
-        animator.SetFloat("LastMoveX", player.playerRigidbody.linearVelocityX);
-        animator.SetFloat("LastMoveY", player.playerRigidbody.linearVelocityY);
+        if (player.playerRigidbody.linearVelocity != Vector2.zero)
+        {
+            animator.SetFloat("LastMoveX", player.playerRigidbody.linearVelocityX);
+            animator.SetFloat("LastMoveY", player.playerRigidbody.linearVelocityY);
+        }
 
-        if (pummelTarget == null) return;
-        animator.SetFloat("PummelDirection", pummelTarget.transform.position.x - transform.position.x);
+        if (pummelTarget != null) animator.SetFloat("PummelDirection", pummelTarget.transform.position.x - transform.position.x);
     }
 }
