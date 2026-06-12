@@ -436,7 +436,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5469936719626399801, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: parryTarget
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6475756978650275598, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: loseTargetTime

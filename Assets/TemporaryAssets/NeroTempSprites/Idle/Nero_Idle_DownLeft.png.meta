@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8bb2f0c0a348b6741aa1137176ea0f5f
+guid: 24d265e0147235a41aaf0af4f68aeed1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8818128092876224535
-    second: Nero_Concepts_Up_0
+      213: -2706603922708858690
+    second: Nero_Idle_DownLeft_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Nero_Concepts_Up_0
+      name: Nero_Idle_DownLeft_0
       rect:
         serializedVersion: 2
-        x: 472
-        y: 58
-        width: 526
-        height: 1095
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
+        x: 227
+        y: 9
+        width: 805
+        height: 1142
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 718b7cfa7c8406a70800000000000000
-      internalID: 8818128092876224535
+      spriteID: eb8724f8216307ad0800000000000000
+      internalID: -2706603922708858690
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: f6f419112e452ec44a515a2c27d1b001
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Nero_Concepts_Up_0: 8818128092876224535
+      Nero_Idle_DownLeft_0: -2706603922708858690
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

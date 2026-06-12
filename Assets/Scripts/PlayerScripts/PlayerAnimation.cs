@@ -38,6 +38,8 @@ public class PlayerAnimation : PlayerComponent
     void AttackStarts()
     {
         animator.SetBool("IsAttacking", true);
+        animator.SetFloat("AttackDirectionX", player.move.lastMovementDirection.x);
+        animator.SetFloat("AttackDirectionY", player.move.lastMovementDirection.y);
     }
     void AttackEnds()
     {
