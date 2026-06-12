@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df5da9ae21aaa6e4d85875e2385c888e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  <interactLayer>k__BackingField:
+  <damageLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 0
   <owner>k__BackingField: {fileID: 0}
@@ -222,4 +222,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac85ec39bd2845a4c8495dc8f528ac40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletLockToOwner
-  offset: {x: 1, y: 1, z: 0}
+  distanceOffset: 0
+  relativeOffset: {x: 1, y: 1, z: 0}
