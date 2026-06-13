@@ -26,10 +26,10 @@ public class EnemySound : EnemyComponent
 
     void OnDamage()
     {
-        if (sound.takeDamage != null) AudioManager.Instance.PlaySoundOneShot(sound.takeDamage, 0.5f);
+        if (sound.takeDamage != null) AudioManager.Instance.PlaySoundOneShot(sound.takeDamage, sound.takeDamageVolume);
     }
     void ParryStunStarts()
     {
-        //if (sound.parryStunned != null) AudioManager.Instance.PlaySoundOneShot(sound.parryStunned);
+        if (sound.parryStunned != null) AudioManager.Instance.PlaySoundOneShot(sound.parryStunned, sound.parryStunnedVolume);
     }
 }
