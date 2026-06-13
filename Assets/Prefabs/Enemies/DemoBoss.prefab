@@ -462,6 +462,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7355651887766350282, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
+      propertyPath: sound
+      value: 
+      objectReference: {fileID: 11400000, guid: ea65bbb8c8ba86d41bfeff680bb46216, type: 2}
     - target: {fileID: 7562004299904221908, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0

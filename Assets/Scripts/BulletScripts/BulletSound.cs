@@ -32,6 +32,6 @@ public class BulletSound : BulletComponent
     }
     void Start()
     {
-        if (bulletSFX.firingSound != null) AudioManager.Instance.PlaySoundOneShot(bulletSFX.firingSound);
+        if (bulletSFX.firingSound != null) AudioManager.Instance.PlaySoundOneShot(bulletSFX.firingSound, (name == "AttackWarning(Clone)" ? 0.3f : 1.0f));
     }
 }

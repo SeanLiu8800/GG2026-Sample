@@ -314,7 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1ac4e10faa24c248a9aa22fe37143aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletSound
-  bulletSFX: {fileID: 11400000, guid: 54dc6d9671c0b5e40910ee0a04d07140, type: 2}
+  bulletSFX: {fileID: 11400000, guid: e510c3f2c9fa61e4ebc36c2760dede49, type: 2}
 --- !u!114 &3175725846749800671
 MonoBehaviour:
   m_ObjectHideFlags: 0

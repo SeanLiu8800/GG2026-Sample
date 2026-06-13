@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1cf899fc0ab29a46a13d0619ecc634f, type: 3}
-  m_Name: MeleeAttack
+  m_Name: PlayerDashAttack
   m_EditorClassIdentifier: Assembly-CSharp::BulletSFX
-  firingSound: {fileID: 8300000, guid: a445e1e7e16e12a4a9761062e5ef3713, type: 3}
+  firingSound: {fileID: 8300000, guid: cf1aa799d92991244a19ebb05fe5c755, type: 3}
   travelSound: {fileID: 0}
   hitSound: {fileID: 0}
   dashedIntoSound: {fileID: 0}
-  enhancedAttackedSound: {fileID: 8300000, guid: 49db03c3066623d4384c661c3a9796fd, type: 3}
+  enhancedAttackedSound: {fileID: 0}

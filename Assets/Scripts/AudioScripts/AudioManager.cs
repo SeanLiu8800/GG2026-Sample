@@ -51,7 +51,7 @@ public class AudioManager : MonoBehaviour
     //    if (Keyboard.current.backspaceKey.wasPressedThisFrame) StopSountrack();
     //}
 
-    public void PlaySoundOneShot(AudioClip audioClip, float pitch = 1.0f)
+    public void PlaySoundOneShot(AudioClip audioClip, float volume = 1.0f,  float pitch = 1.0f)
     {
         if (AudioClipIsNull(audioClip)) return;
 
@@ -60,6 +60,7 @@ public class AudioManager : MonoBehaviour
             if (audioSource.isPlaying) continue;
 
             audioSource.pitch = pitch;
+            audioSource.volume = volume;
             audioSource.clip = audioClip;
             audioSource.Play();
             return;
@@ -67,6 +68,7 @@ public class AudioManager : MonoBehaviour
 
         SFXAudioSourcePool.Add(this.gameObject.AddComponent<AudioSource>());
         SFXAudioSourcePool[SFXAudioSourcePool.Count - 1].pitch = pitch;
+        SFXAudioSourcePool[SFXAudioSourcePool.Count - 1].volume = volume;
         SFXAudioSourcePool[SFXAudioSourcePool.Count - 1].clip = audioClip;
         SFXAudioSourcePool[SFXAudioSourcePool.Count - 1].Play();
     }

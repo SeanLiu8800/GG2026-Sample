@@ -31,22 +31,22 @@ public class PlayerSound : PlayerComponent
 
     void DashStarts()
     {
-        if (sound.dashStart != null) AudioManager.Instance.PlaySoundOneShot(sound.dashStart);
+        if (sound.dashStart != null) AudioManager.Instance.PlaySoundOneShot(sound.dashStart, 0.3f);
     }
     void PerfectDash()
     {
-        if (sound.dashEndPerfect != null) AudioManager.Instance.PlaySoundOneShot(sound.dashEndPerfect);
+        if (sound.dashEndPerfect != null) AudioManager.Instance.PlaySoundOneShot(sound.dashEndPerfect, 0.6f);
     }
     void ImperfectDash()
     {
-        if (sound.dashEndImperfect != null) AudioManager.Instance.PlaySoundOneShot(sound.dashEndImperfect);
+        if (sound.dashEndImperfect != null) AudioManager.Instance.PlaySoundOneShot(sound.dashEndImperfect, 0.6f);
     }
     void EnhanceAttack()
     {
-        if (sound.enhanceAttack != null) AudioManager.Instance.PlaySoundOneShot(sound.enhanceAttack);
+        if (sound.enhanceAttack != null) AudioManager.Instance.PlaySoundOneShot(sound.enhanceAttack, 0.2f);
     }
     void OnDamage()
     {
-        if (sound.takeDamage != null) AudioManager.Instance.PlaySoundOneShot(sound.takeDamage);
+        if (sound.takeDamage != null) AudioManager.Instance.PlaySoundOneShot(sound.takeDamage, 0.5f);
     }
 }
