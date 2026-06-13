@@ -24,14 +24,14 @@ public class BulletSound : BulletComponent
     }
     void OnDashedInto(Player player)
     {
-        if (bulletSFX.dashedIntoSound != null) AudioManager.Instance.PlaySoundOneShot(bulletSFX.dashedIntoSound);
+        if (bulletSFX.dashedIntoSound != null) AudioManager.Instance.PlaySoundOneShot(bulletSFX.dashedIntoSound, bulletSFX.dashedIntoSoundVolume);
     }
     void OnEnhancedAttacked(Player player)
     {
-        if (bulletSFX.enhancedAttackedSound != null) AudioManager.Instance.PlaySoundOneShot(bulletSFX.enhancedAttackedSound);
+        if (bulletSFX.enhancedAttackedSound != null) AudioManager.Instance.PlaySoundOneShot(bulletSFX.enhancedAttackedSound, bulletSFX.enhancedAttackedSoundVolume);
     }
     void Start()
     {
-        if (bulletSFX.firingSound != null) AudioManager.Instance.PlaySoundOneShot(bulletSFX.firingSound, (name == "AttackWarning(Clone)" ? 0.3f : 1.0f));
+        if (bulletSFX.firingSound != null) AudioManager.Instance.PlaySoundOneShot(bulletSFX.firingSound, bulletSFX.firingSoundVolume);
     }
 }

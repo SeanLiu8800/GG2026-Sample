@@ -60,7 +60,7 @@ public class AudioManager : MonoBehaviour
             if (audioSource.isPlaying) continue;
 
             audioSource.pitch = pitch;
-            audioSource.volume = volume;
+            audioSource.volume = sfxVolume * volume;
             audioSource.clip = audioClip;
             audioSource.Play();
             return;
@@ -68,7 +68,7 @@ public class AudioManager : MonoBehaviour
 
         SFXAudioSourcePool.Add(this.gameObject.AddComponent<AudioSource>());
         SFXAudioSourcePool[SFXAudioSourcePool.Count - 1].pitch = pitch;
-        SFXAudioSourcePool[SFXAudioSourcePool.Count - 1].volume = volume;
+        SFXAudioSourcePool[SFXAudioSourcePool.Count - 1].volume = sfxVolume * volume;
         SFXAudioSourcePool[SFXAudioSourcePool.Count - 1].clip = audioClip;
         SFXAudioSourcePool[SFXAudioSourcePool.Count - 1].Play();
     }
