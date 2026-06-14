@@ -4,6 +4,7 @@ public class Bullet_OnInterval_EmitRadial : Bullet_OnIntervalBehaviorBase
 {
     [Header("Radial Emit Variables")]
     [SerializeField] [Range(1, 18)] private int emissionCount = 3;
+    [SerializeField] private bool emittedIsChild = false;
     [SerializeField] private bool spawnClockwise = true;
     [SerializeField] [Range(0, 2)] private float emissionDelay = 0.2f;
     [SerializeField] [Range(0.0f, 3.0f)] private float emissionOffset = 0.0f;
@@ -43,6 +44,7 @@ public class Bullet_OnInterval_EmitRadial : Bullet_OnIntervalBehaviorBase
                         spawnDirection,
                         spawnDirection
                     );
+                if (emittedIsChild) currBulletScript.transform.parent = this.transform;
                 Vector3 spawnLocation = this.transform.position + (spawnDirection * emissionOffset);
                 currBulletScript.transform.position = spawnLocation;
             }

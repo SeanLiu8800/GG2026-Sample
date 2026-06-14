@@ -4,6 +4,8 @@ public class EnemyAttack_DemoBoss : EnemyAttackBase
 {
     [Header("Attack Variables")]
     [SerializeField] private GameObject attack;
+    [SerializeField] private GameObject radialEmitter;
+    [SerializeField] private GameObject localSlam;
     [SerializeField] private GameObject meleeAttack;
 
     protected override void Attack()
@@ -13,14 +15,41 @@ public class EnemyAttack_DemoBoss : EnemyAttackBase
         enemy.isAttacking = true;
         canAttack = false;
 
-        if (enemy.distanceToTarget < 5.0f) StartCoroutine(MeleeAttack());
-        else
-        {
-            if (Random.Range(0, 2) == 0) StartCoroutine(MeleeAttack());
-            else StartCoroutine(Shoot());
-        }
+        StartCoroutine(RadialEmit());
+        //if (enemy.distanceToTarget < 5.0f) StartCoroutine(MeleeAttack());
+        //else
+        //{
+        //    if (Random.Range(0, 2) == 0) StartCoroutine(MeleeAttack());
+        //    else StartCoroutine(Shoot());
+        //}
     }
 
+    private IEnumerator RadialEmit()
+    {
+        enemy.canMove = false;
+        enemy.anim.animator.SetTrigger("IsCasting");
+        yield return new WaitForSeconds(0.3f);
+        SpawnAttack(
+            radialEmitter,
+            enemy.target,
+            Vector3.up,
+            Vector3.up
+        );
+        yield return new WaitForSeconds(0.5f);
+
+        AttackWarning();
+        enemy.anim.animator.SetBool("IsReadyingAttack", true);
+        yield return new WaitForSeconds(0.4f);
+        enemy.anim.animator.SetBool("IsReadyingAttack", false);
+        enemy.anim.animator.SetBool("IsAttacking", true);
+        SpawnAttack(localSlam, enemy.target, enemy.toTargetDirection, enemy.toTargetDirection);
+        yield return new WaitForSeconds(0.8f);
+
+        enemy.canMove = true;
+        enemy.isAttacking = false;
+        enemy.anim.animator.SetBool("IsAttacking", false);
+        AttackCooldown();
+    }
     private IEnumerator MeleeAttack()
     {
         enemy.canMove = false;
