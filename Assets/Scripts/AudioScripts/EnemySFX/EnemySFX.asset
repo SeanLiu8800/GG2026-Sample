@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: EnemySFX
   m_EditorClassIdentifier: Assembly-CSharp::EnemySFX
   takeDamage: {fileID: 8300000, guid: e3f8aa88b7c2c1b4fb1c8410f11bbf64, type: 3}
+  takeDamageVolume: 0.5
   parryStunned: {fileID: 8300000, guid: 2d32094691e28994bb22f31f12bea6a7, type: 3}
+  parryStunnedVolume: 0

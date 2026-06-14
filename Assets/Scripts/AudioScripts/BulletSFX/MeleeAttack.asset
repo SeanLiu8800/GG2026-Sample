@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: MeleeAttack
   m_EditorClassIdentifier: Assembly-CSharp::BulletSFX
   firingSound: {fileID: 8300000, guid: a445e1e7e16e12a4a9761062e5ef3713, type: 3}
+  firingSoundVolume: 0.4
   travelSound: {fileID: 0}
+  travelSoundVolume: 1
   hitSound: {fileID: 0}
+  hitSoundVolume: 1
   dashedIntoSound: {fileID: 0}
+  dashedIntoSoundVolume: 1
   enhancedAttackedSound: {fileID: 8300000, guid: 49db03c3066623d4384c661c3a9796fd, type: 3}
+  enhancedAttackedSoundVolume: 0.8

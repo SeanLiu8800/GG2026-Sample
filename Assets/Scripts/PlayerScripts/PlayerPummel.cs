@@ -31,7 +31,7 @@ public class PlayerPummel : PlayerComponent
     private void OnEnable()
     {
         pummelAction.started += DecideAction;
-        pummelAction.canceled += DecideAction;
+        //pummelAction.canceled += DecideAction;
 
         player.playerEvents.dashStarts += DashStarts;
 
@@ -41,7 +41,7 @@ public class PlayerPummel : PlayerComponent
     private void OnDisable()
     {
         pummelAction.started -= DecideAction;
-        pummelAction.canceled -= DecideAction;
+        //pummelAction.canceled -= DecideAction;
 
         player.playerEvents.dashStarts -= DashStarts;
 

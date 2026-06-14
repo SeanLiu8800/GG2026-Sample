@@ -14,7 +14,11 @@ public class EnemyAttack_DemoBoss : EnemyAttackBase
         canAttack = false;
 
         if (enemy.distanceToTarget < 5.0f) StartCoroutine(MeleeAttack());
-        else StartCoroutine(Shoot());
+        else
+        {
+            if (Random.Range(0, 2) == 0) StartCoroutine(MeleeAttack());
+            else StartCoroutine(Shoot());
+        }
     }
 
     private IEnumerator MeleeAttack()

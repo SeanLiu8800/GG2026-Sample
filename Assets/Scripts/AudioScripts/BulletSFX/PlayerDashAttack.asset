@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: PlayerDashAttack
   m_EditorClassIdentifier: Assembly-CSharp::BulletSFX
   firingSound: {fileID: 8300000, guid: cf1aa799d92991244a19ebb05fe5c755, type: 3}
+  firingSoundVolume: 0.4
   travelSound: {fileID: 0}
+  travelSoundVolume: 1
   hitSound: {fileID: 0}
+  hitSoundVolume: 1
   dashedIntoSound: {fileID: 0}
+  dashedIntoSoundVolume: 1
   enhancedAttackedSound: {fileID: 0}
+  enhancedAttackedSoundVolume: 1
