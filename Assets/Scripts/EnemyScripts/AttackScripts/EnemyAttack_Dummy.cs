@@ -47,16 +47,19 @@ public class EnemyAttack_Dummy : EnemyAttackBase
     {
         enemy.canMove = false;
 
-        AttackWarning();
-        AttackZoneManager.Instance.SetCircleAttackZone(
-            transform.position,
-            3.0f,
-            0.5f
-        );
+        for (int i = 0; i < 3; i ++)
+        {
+            AttackWarning();
+            AttackZoneManager.Instance.SetCircleAttackZone(
+                transform.position,
+                3.0f,
+                0.5f
+            );
 
-        yield return new WaitForSeconds(0.5f);
-        SpawnAttack(meleeAttack, enemy.target, enemy.toTargetDirection, enemy.toTargetDirection);
-        yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.4f);
+            SpawnAttack(meleeAttack, enemy.target, enemy.toTargetDirection, enemy.toTargetDirection);
+            yield return new WaitForSeconds(0.4f);
+        }
 
         enemy.isAttacking = false;
         AttackCooldown();
