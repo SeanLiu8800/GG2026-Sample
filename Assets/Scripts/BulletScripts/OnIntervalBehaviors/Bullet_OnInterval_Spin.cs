@@ -16,6 +16,13 @@ public class Bullet_OnInterval_Spin : Bullet_OnIntervalBehaviorBase
         while (Time.time - rotationStartTime < rotationDuration)
         {
             transform.Rotate(Vector3.forward * rotationRate * Time.deltaTime);
+            foreach (Transform childTransform in this.transform)
+            {
+                if (childTransform.TryGetComponent<BulletScript>(out BulletScript currBullet))
+                {
+                    currBullet.moveDirection = Quaternion.Euler(0, 0, rotationRate * Time.deltaTime) * currBullet.moveDirection;
+                }
+            }
             rotationRate += rotationAcceleration * Time.deltaTime;
             yield return null;
         }

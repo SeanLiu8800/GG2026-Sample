@@ -3,7 +3,7 @@ using System.Collections;
 public class Bullet_OnInterval_EmitRadial : Bullet_OnIntervalBehaviorBase
 {
     [Header("Radial Emit Variables")]
-    [SerializeField] [Range(1, 18)] private int emissionCount = 3;
+    [SerializeField] [Range(1, 36)] private int emissionCount = 3;
     [SerializeField] private bool emittedIsChild = false;
     [SerializeField] private bool spawnClockwise = true;
     [SerializeField] [Range(0, 2)] private float emissionDelay = 0.2f;
