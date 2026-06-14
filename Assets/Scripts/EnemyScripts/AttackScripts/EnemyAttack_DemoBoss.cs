@@ -8,6 +8,8 @@ public class EnemyAttack_DemoBoss : EnemyAttackBase
     [SerializeField] private GameObject localSlam;
     [SerializeField] private GameObject meleeAttack;
 
+    private int[] attackHistory = new int[2] { -1, -1 };
+    private int attackHistoryIndex = 0;
     protected override void Attack()
     {
         if (!AttackIsPossible()) return;
@@ -15,13 +17,30 @@ public class EnemyAttack_DemoBoss : EnemyAttackBase
         enemy.isAttacking = true;
         canAttack = false;
 
-        StartCoroutine(RadialEmit());
-        //if (enemy.distanceToTarget < 5.0f) StartCoroutine(MeleeAttack());
-        //else
-        //{
-        //    if (Random.Range(0, 2) == 0) StartCoroutine(MeleeAttack());
-        //    else StartCoroutine(Shoot());
-        //}
+        if (enemy.distanceToTarget < 5.0f) StartCoroutine(MeleeAttack());
+        else
+        {
+            int attackNumber;
+            while (true)
+            {
+                attackNumber = Random.Range(0, 3);
+                if (attackNumber != attackHistory[0] || attackNumber != attackHistory[0]) break;
+            }
+            switch (attackNumber)
+            {
+                case 0:
+                    StartCoroutine(MeleeAttack());
+                    break;
+                case 1:
+                    StartCoroutine(RadialEmit());
+                    break;
+                default:
+                    StartCoroutine(Shoot());
+                    break;
+            }
+            attackHistory[attackHistoryIndex] = attackNumber;
+            attackHistoryIndex = (attackHistoryIndex + 1) % attackHistory.Length;
+        }
     }
 
     private IEnumerator RadialEmit()
