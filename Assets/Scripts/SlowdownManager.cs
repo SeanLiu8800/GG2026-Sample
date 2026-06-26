@@ -1,10 +1,17 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using System;
 using System.Collections;
 public class SlowdownManager : MonoBehaviour
 {
     public static SlowdownManager Instance;
     [SerializeField] private float globalTimescale = 1.0f;
     [SerializeField] private float actionSlowdownTimescale = 0.01f;
+
+    public bool isDebugging = false;
+    [Range(0.0f, 1.0f)] public float easeInDuration = 0.1f;
+    [Range(0.0f, 1.0f)] public float slowdownDuration = 0.1f;
+    [Range(0.0f, 1.0f)] public float easeOutDuration = 0.1f;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -19,6 +26,10 @@ public class SlowdownManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (isDebugging && Keyboard.current.rightShiftKey.wasPressedThisFrame) ActionSlowdown(easeInDuration, slowdownDuration, easeOutDuration);
+    }
     /// <summary>
     ///     Slows down game to actionSlowdownTimescale (Described in the SlowdownManager) in easeInDuration,<br/>
     ///     maintain it for slowDownDuration, the restore it in easeOutDuration
@@ -34,7 +45,7 @@ public class SlowdownManager : MonoBehaviour
     public void StopSlowdown()
     {
         StopAllCoroutines(); //STOP ALL COROUTINES IS STOPPING EASE TIMESCALE BELOW!
-        StartCoroutine(EaseTimescale(globalTimescale, 0.0f));
+        StartCoroutine(EaseTimescale((x) => x, globalTimescale, 0.0f));
     }
     /// <summary>
     /// Changes the game's Timescale to timescaleTarget in easeDuration seconds<br/>
@@ -48,7 +59,7 @@ public class SlowdownManager : MonoBehaviour
         else if (timescaleTarget < 0.0f) timescaleTarget = globalTimescale;
         StopAllCoroutines();
         this.globalTimescale = timescaleTarget;
-        StartCoroutine(EaseTimescale(timescaleTarget, easeDuration));
+        StartCoroutine(EaseTimescale((x) => x, timescaleTarget, easeDuration));
     }
     /// <summary>A Coroutine that Slows down the Game for duration Seconds</summary>
     /// <param name="easeInDuration">Time it takes to reach actionSlowdownTimescale</param>
@@ -56,11 +67,11 @@ public class SlowdownManager : MonoBehaviour
     /// <param name="easeOutDuration">Time to return to globalTimescale</param>
     private IEnumerator ActionSlowdownCoroutine(float easeInDuration = 0.01f, float slowdownDuration = 0.0f, float easeOutDuration = 0.3f)
     {
-        yield return StartCoroutine(EaseTimescale(actionSlowdownTimescale, easeInDuration));
+        yield return StartCoroutine(EaseTimescale((x) => x, actionSlowdownTimescale, easeInDuration));
         yield return new WaitForSecondsRealtime(slowdownDuration);
-        yield return StartCoroutine(EaseTimescale(globalTimescale, easeOutDuration));
+        yield return StartCoroutine(EaseTimescale((x) => (-x * x) + 1, globalTimescale, easeOutDuration));
     }
-    private IEnumerator EaseTimescale(float timescaleTarget = 1.0f, float easeDuration = 0.5f)
+    private IEnumerator EaseTimescale(Func<float, float> easeFunction, float timescaleTarget = 1.0f, float easeDuration = 0.5f)
     {
         if (timescaleTarget <= 0.0f) yield break;
 
