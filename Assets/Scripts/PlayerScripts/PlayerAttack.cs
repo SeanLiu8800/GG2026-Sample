@@ -18,7 +18,14 @@ public class PlayerAttack : PlayerComponent
     [field: SerializeField, Range(0, 5), ReadOnly] public int currDamage { get; private set; } = 1;
     [SerializeField, Range(0.0f, 1.0f)] private float attackDuration = 0.2f;
     private float attackStartTime = 0.0f;
-    
+
+    [field: Header("Engine Variables")]
+    [SerializeField] private float maxEngine = 10.0f;
+    [SerializeField] private float _currEngine = 10.0f;
+    public float currEngine { get { return _currEngine; } private set { _currEngine = value; player.playerEvents.engineValueChanges?.Invoke(); } }
+    [SerializeField, Range(0.0f, 10.0f)] private float engineRecoverRate = 5.0f;
+    [SerializeField, Range(0.0f, 10.0f)] private float engineDrain = 2.5f;
+
     protected override void Awake()
     {
         base.Awake();
@@ -74,6 +81,7 @@ public class PlayerAttack : PlayerComponent
     {
         UpdateAttackBuffer();
         UpdateAttack();
+        RecoverEngine();
     }
 
     private void BufferAttack(InputAction.CallbackContext context)
@@ -166,5 +174,11 @@ public class PlayerAttack : PlayerComponent
     public void Empower(int input = 1)
     {
         currDamage += input;
+    }
+
+    private void RecoverEngine()
+    {
+        if (!player.isDashing) return;
+        currEngine += engineRecoverRate * Time.deltaTime;
     }
 }

@@ -26,6 +26,10 @@ public struct PlayerEvents
     public Action onParry;
     public Action attackEnds;
 
+    public Action engineValueChanges;
+    public Action engineFullyRecovers;
+    public Action engineFullyDepletes;
+
     public Action onDamage;
     public Action onHeal;
     public Action playerDies;
