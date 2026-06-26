@@ -24,6 +24,7 @@ public class PlayerMovement : PlayerComponent
     private float dashCooldownStartTime = -99.9f;
     [SerializeField, Range(0.0f, 2.0f)] private float dashCooldown = 0.5f;
     [SerializeField, Range(0.0f, 0.5f)] private float perfectDashLeniency = 0.05f;
+
     public Vector3 dashDirection { get; private set; }
     protected override void Awake()
     {
@@ -125,7 +126,8 @@ public class PlayerMovement : PlayerComponent
     }
     void ImperfectDash()
     {
-        currMoveSpeed = Mathf.Clamp(currMoveSpeed - 5.0f, moveSpeed * 0.5f, maxMoveSpeed);
+        //currMoveSpeed = Mathf.Clamp(currMoveSpeed - 5.0f, moveSpeed * 0.5f, maxMoveSpeed);
+        Debug.Log($"dashed for {currLaunchTowardsTime} seconds");
         dashCooldownStartTime = Time.time;
     }
     void DashCooldownEnds()
@@ -244,7 +246,7 @@ public class PlayerMovement : PlayerComponent
         {
             if (player.isRestricted) return;
             if (!player.allowDash || !canDash) return;
-            if (player.isLunging || player.isPummeling || player.isKnockbacked) return;
+            if (player.isAttacking || player.isLunging || player.isPummeling || player.isKnockbacked) return;
             player.playerEvents.dashStarts?.Invoke();
             return;
         }

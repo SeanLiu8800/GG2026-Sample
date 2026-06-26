@@ -602,9 +602,10 @@ MonoBehaviour:
   canDash: 1
   dashDuration: 1
   dashCooldown: 0.5
-  perfectDashLeniency: 0.05
+  perfectDashLeniency: 0
+  minDashApplyCooldown: 0.12
   dashBuffered: 0
-  bufferLifespan: 0.1
+  bufferLifespan: 0.2
   <willLunge>k__BackingField: 0
   minDashEnhanceAttack: 0.2
   lungeDuration: 0.2
