@@ -7156,6 +7156,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4075207595409005432, guid: b55345a1a006b9544919e72efb0239ec, type: 3}
+      propertyPath: exitDoorGameObject
+      value: 
+      objectReference: {fileID: 5350621508808388917, guid: b15582c35cdbcab4ca694b7fc1058e76, type: 3}
     - target: {fileID: 4394301649923894746, guid: b55345a1a006b9544919e72efb0239ec, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6

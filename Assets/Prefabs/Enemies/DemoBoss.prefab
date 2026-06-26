@@ -436,7 +436,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5469936719626399801, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: parryTarget
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6475756978650275598, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: loseTargetTime
@@ -484,11 +484,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8397098237968679545, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: _currHealth
-      value: 100
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8397098237968679545, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}
       propertyPath: <maxHealth>k__BackingField
-      value: 100
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6481323338877870485, guid: 992eedc032729f746bf0e8e2de3ecbb5, type: 3}

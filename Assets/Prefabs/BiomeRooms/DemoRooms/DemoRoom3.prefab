@@ -7110,7 +7110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 860382422138769227, guid: b55345a1a006b9544919e72efb0239ec, type: 3}
       propertyPath: m_Name
-      value: DemoRoom1
+      value: DemoRoom3
       objectReference: {fileID: 0}
     - target: {fileID: 1033903927539295820, guid: b55345a1a006b9544919e72efb0239ec, type: 3}
       propertyPath: m_Enabled
