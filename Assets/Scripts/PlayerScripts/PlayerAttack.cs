@@ -22,9 +22,8 @@ public class PlayerAttack : PlayerComponent
     [field: Header("Engine Variables")]
     [SerializeField] private float maxEngine = 10.0f;
     [SerializeField] private float _currEngine = 10.0f;
-    public float currEngine { get { return _currEngine; } private set { _currEngine = value; player.playerEvents.engineValueChanges?.Invoke(); } }
+    public float currEngine { get { return _currEngine; } set { _currEngine = value; player.playerEvents.engineValueChanges?.Invoke(); } }
     [SerializeField, Range(0.0f, 10.0f)] private float engineRecoverRate = 5.0f;
-    [SerializeField, Range(0.0f, 10.0f)] private float engineDrain = 2.5f;
 
     protected override void Awake()
     {
@@ -179,6 +178,15 @@ public class PlayerAttack : PlayerComponent
     private void RecoverEngine()
     {
         if (!player.isDashing) return;
-        currEngine += engineRecoverRate * Time.deltaTime;
+        currEngine = Mathf.Clamp(currEngine + (engineRecoverRate * Time.deltaTime), 0, maxEngine);
+
+        if (currEngine >= maxEngine) player.playerEvents.engineFullyRecovers?.Invoke();
+    }
+    public void DrainEngine(float drainAmount)
+    {
+        Debug.LogWarning($"{currEngine} now");
+        currEngine = Mathf.Clamp(currEngine - drainAmount, 0, maxEngine);
+        Debug.LogWarning($"{currEngine} later");
+        if (currEngine <= 0) player.playerEvents.engineFullyDepletes?.Invoke();
     }
 }

@@ -127,7 +127,6 @@ public class PlayerMovement : PlayerComponent
     void ImperfectDash()
     {
         //currMoveSpeed = Mathf.Clamp(currMoveSpeed - 5.0f, moveSpeed * 0.5f, maxMoveSpeed);
-        Debug.Log($"dashed for {currLaunchTowardsTime} seconds");
         dashCooldownStartTime = Time.time;
     }
     void DashCooldownEnds()

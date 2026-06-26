@@ -30,7 +30,6 @@ public class BulletCollision : BulletComponent
         {
             if (!hasHitBefore) damagedGameObjects.Add(collision.gameObject, 1);
             else damagedGameObjects[collision.gameObject]++;
-            foreach (KeyValuePair<GameObject, int> pair in damagedGameObjects) Debug.Log($"{pair.Key.name}, was hit {pair.Value} times");
 
             damageable.BulletHits(bullet);
         }

@@ -8,6 +8,7 @@ public struct BulletEvents
     public Action<Vector3> onHitWall;   
 
     public Action<Player> onDashedInto;
+    public Action<BulletScript> onLandedEnhancedAttack;
     public Action<Player> onEnhancedAttacked;
 
     public Action<GameObject> onDamage;
