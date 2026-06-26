@@ -14,7 +14,7 @@ public class Bullet_OnLandedEnhancedAttack_DrainEngine : Bullet_OnLandedEnhanced
     }
     protected override void OnLandedEnhancedAttack(BulletScript bullet)
     {
-        player.attack.DrainEngine(bullet.engineDrainAmount);
+        player.attack.DrainEngine(bullet.engineDrainAmount, bullet.owner);
         if (onlyApplyOnce) bullet.bulletEvents.onLandedEnhancedAttack -= OnLandedEnhancedAttack;
     }
 }

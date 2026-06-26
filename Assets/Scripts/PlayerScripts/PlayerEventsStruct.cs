@@ -28,7 +28,7 @@ public struct PlayerEvents
 
     public Action engineValueChanges;
     public Action engineFullyRecovers;
-    public Action engineFullyDepletes;
+    public Action<GameObject> engineFullyDepletes;
 
     public Action onDamage;
     public Action onHeal;

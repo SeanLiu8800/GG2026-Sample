@@ -86,9 +86,11 @@ public class PlayerAttack : PlayerComponent
     {
         engineFullyBroken = false;
     }
-    void EngineFullyDepletes()
+    void EngineFullyDepletes(GameObject depleter)
     {
         engineFullyBroken = true;
+        Debug.Log("===== ENGINE FULLY BREAKS =====");
+        player.move.KnockBack((transform.position - depleter.transform.position).normalized * 5.0f);
     }
     #endregion
     void Update()
@@ -115,7 +117,7 @@ public class PlayerAttack : PlayerComponent
             if (player.isRestricted) return;
             if (!player.allowAttack || player.isAttacking && !attackParries) return;
             if (player.isPummeling || player.isKnockbacked) return;
-            if (currEngine <= 0.0f) return;
+            if (engineFullyBroken) return;
             Attack();
             return;
         }
@@ -198,9 +200,9 @@ public class PlayerAttack : PlayerComponent
 
         if (currEngine >= maxEngine) player.playerEvents.engineFullyRecovers?.Invoke();
     }
-    public void DrainEngine(float drainAmount)
+    public void DrainEngine(float drainAmount, GameObject depleter)
     {
         currEngine = Mathf.Clamp(currEngine - drainAmount, 0, maxEngine);
-        if (currEngine <= 0) player.playerEvents.engineFullyDepletes?.Invoke();
+        if (currEngine <= 0) player.playerEvents.engineFullyDepletes?.Invoke(depleter);
     }
 }

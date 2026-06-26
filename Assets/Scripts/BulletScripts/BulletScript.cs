@@ -50,6 +50,7 @@ public class BulletScript : MonoBehaviour
     void Start()
     {
         if (!wasInitialized) transform.parent = GameManager.Instance.currRoom.roomBullets.bulletContainer.transform;
+        if (owner == null) owner = this.gameObject;
     }
     
     private bool wasInitialized = false;
