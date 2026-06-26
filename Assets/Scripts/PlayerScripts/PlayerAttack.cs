@@ -24,6 +24,7 @@ public class PlayerAttack : PlayerComponent
     [SerializeField] private float _currEngine = 10.0f;
     public float currEngine { get { return _currEngine; } set { _currEngine = value; player.playerEvents.engineValueChanges?.Invoke(); } }
     [SerializeField, Range(0.0f, 10.0f)] private float engineRecoverRate = 5.0f;
+    [SerializeField] private bool engineFullyBroken = false;
 
     protected override void Awake()
     {
@@ -41,6 +42,9 @@ public class PlayerAttack : PlayerComponent
         player.playerEvents.attackStarts += AttackStarts;
         player.playerEvents.onParry += OnParry;
         player.playerEvents.attackEnds += AttackEnds;
+
+        player.playerEvents.engineFullyRecovers += EngineFullyRecovers;
+        player.playerEvents.engineFullyDepletes += EngineFullyDepletes;
     }
     void OnDisable()
     {
@@ -52,6 +56,9 @@ public class PlayerAttack : PlayerComponent
         player.playerEvents.attackStarts -= AttackStarts;
         player.playerEvents.onParry -= OnParry;
         player.playerEvents.attackEnds -= AttackEnds;
+
+        player.playerEvents.engineFullyRecovers -= EngineFullyRecovers;
+        player.playerEvents.engineFullyDepletes -= EngineFullyDepletes;
     }
     
     #region ----- Event Functions -----
@@ -74,6 +81,14 @@ public class PlayerAttack : PlayerComponent
         player.RemoveState(PlayerState.Attacking);
         currDamage = baseDamage;
         if (!attackParries) attackIsEnhanced = false; // Unenhance attack if player DOES NOT parry
+    }
+    void EngineFullyRecovers()
+    {
+        engineFullyBroken = false;
+    }
+    void EngineFullyDepletes()
+    {
+        engineFullyBroken = true;
     }
     #endregion
     void Update()
@@ -100,6 +115,7 @@ public class PlayerAttack : PlayerComponent
             if (player.isRestricted) return;
             if (!player.allowAttack || player.isAttacking && !attackParries) return;
             if (player.isPummeling || player.isKnockbacked) return;
+            if (currEngine <= 0.0f) return;
             Attack();
             return;
         }
@@ -184,9 +200,7 @@ public class PlayerAttack : PlayerComponent
     }
     public void DrainEngine(float drainAmount)
     {
-        Debug.LogWarning($"{currEngine} now");
         currEngine = Mathf.Clamp(currEngine - drainAmount, 0, maxEngine);
-        Debug.LogWarning($"{currEngine} later");
         if (currEngine <= 0) player.playerEvents.engineFullyDepletes?.Invoke();
     }
 }

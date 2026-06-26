@@ -211,6 +211,9 @@ PrefabInstance:
       addedObject: {fileID: 2340856358030695266}
     - targetCorrespondingSourceObject: {fileID: 8827905931808526965, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
       insertIndex: -1
+      addedObject: {fileID: -8287287779024238364}
+    - targetCorrespondingSourceObject: {fileID: 8827905931808526965, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
+      insertIndex: -1
       addedObject: {fileID: -3491660765570418157}
     - targetCorrespondingSourceObject: {fileID: 8827905931808526965, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
       insertIndex: -1
@@ -358,6 +361,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   lifespan: 0.2
+--- !u!114 &-8287287779024238364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8109537810932913037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c35d34ae4d62b4f948580768253564, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Bullet_OnDamage_ResetPlayerDashCooldown
 --- !u!114 &-3491660765570418157
 MonoBehaviour:
   m_ObjectHideFlags: 0
