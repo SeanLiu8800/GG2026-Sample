@@ -6,7 +6,7 @@ public class SlowdownManager : MonoBehaviour
 {
     public static SlowdownManager Instance;
     [SerializeField] private float globalTimescale = 1.0f;
-    [SerializeField] private float actionSlowdownTimescale = 0.01f;
+    [SerializeField] private float actionSlowdownTimescale = 0.05f;
 
     public bool isDebugging = false;
     [Range(0.0f, 1.0f)] public float easeInDuration = 0.1f;
@@ -67,9 +67,9 @@ public class SlowdownManager : MonoBehaviour
     /// <param name="easeOutDuration">Time to return to globalTimescale</param>
     private IEnumerator ActionSlowdownCoroutine(float easeInDuration = 0.01f, float slowdownDuration = 0.0f, float easeOutDuration = 0.3f)
     {
-        yield return StartCoroutine(EaseTimescale((x) => x, actionSlowdownTimescale, easeInDuration));
+        yield return StartCoroutine(EaseTimescale((x) => x * x, actionSlowdownTimescale, easeInDuration));
         yield return new WaitForSecondsRealtime(slowdownDuration);
-        yield return StartCoroutine(EaseTimescale((x) => (-x * x) + 1, globalTimescale, easeOutDuration));
+        yield return StartCoroutine(EaseTimescale((x) => x * x, globalTimescale, easeOutDuration));
     }
     private IEnumerator EaseTimescale(Func<float, float> easeFunction, float timescaleTarget = 1.0f, float easeDuration = 0.5f)
     {
@@ -81,7 +81,7 @@ public class SlowdownManager : MonoBehaviour
         while (Time.unscaledTime - startTime < easeDuration)
         {
             float coefficient = (Time.unscaledTime - startTime) / easeDuration;
-            Time.timeScale = Mathf.Lerp(currentTimescale, timescaleTarget, coefficient * coefficient);
+            Time.timeScale = Mathf.Lerp(currentTimescale, timescaleTarget, easeFunction(coefficient));
             yield return null;
         }
         Time.timeScale = timescaleTarget;

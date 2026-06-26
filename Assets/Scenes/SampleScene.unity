@@ -920,8 +920,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   easeInDuration: 0.1
-  slowdownDuration: 0
-  easeOutDuration: 0.3
+  slowdownDuration: 0.3
+  easeOutDuration: 0.5
 --- !u!1 &1020955758
 GameObject:
   m_ObjectHideFlags: 0
@@ -2162,11 +2162,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlowdownManager
   globalTimescale: 1
-  actionSlowdownTimescale: 0.01
-  isDebugging: 0
+  actionSlowdownTimescale: 0.05
+  isDebugging: 1
   easeInDuration: 0.1
   slowdownDuration: 0.1
-  easeOutDuration: 0.1
+  easeOutDuration: 0.3
 --- !u!4 &1542837899
 Transform:
   m_ObjectHideFlags: 0
