@@ -20,7 +20,7 @@ public class PlayerAttack : PlayerComponent
     private float attackStartTime = 0.0f;
 
     [field: Header("Engine Variables")]
-    [SerializeField] private float maxEngine = 10.0f;
+    [SerializeField] public float maxEngine = 10.0f;
     [SerializeField] private float _currEngine = 10.0f;
     public float currEngine { get { return _currEngine; } set { _currEngine = value; player.playerEvents.engineValueChanges?.Invoke(); } }
     [SerializeField, Range(0.0f, 10.0f)] private float engineRecoverRate = 5.0f;

@@ -28,10 +28,10 @@ public class BulletScript : MonoBehaviour
     }
     
     public float  damage = 1.0f;
-    [SerializeField] public DamageElement element = DamageElement.None;
-    [SerializeField, Range(0.0f, 5.0f)] public float elementBuildup = 1.0f;
-    [SerializeField, Range(0, 5)] public int empowerRate = 1;
-    [SerializeField, Range(0.0f, 10.0f)] public float engineDrainAmount = 0.0f;
+    public DamageElement element = DamageElement.None;
+    [Range(0.0f, 5.0f)] public float elementBuildup = 1.0f;
+    [Range(0, 5)] public int empowerRate = 1;
+    [Range(0.0f, 10.0f)] public float engineDrainAmount = 0.0f;
 
     public BulletEvents bulletEvents;
     void Awake()
