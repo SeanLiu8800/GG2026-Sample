@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Bullet_OnPlayerAttackedBullet_DrainEngine : Bullet_OnPlayerAttackedBullet_BehaviorBase
+public class Bullet_OnPlayerAttacksBullet_DrainEngine : Bullet_OnPlayerAttacksBullet_BehaviorBase
 {
     private Player player;
 
@@ -12,9 +12,9 @@ public class Bullet_OnPlayerAttackedBullet_DrainEngine : Bullet_OnPlayerAttacked
             this.enabled = false;
         }
     }
-    protected override void OnPlayerAttackedBullet(BulletScript bullet)
+    protected override void OnPlayerAttacksBullet(BulletScript bullet)
     {
         player.attack.DrainEngine(bullet.engineDrainAmount, bullet.owner);
-        if (onlyApplyOnce) bullet.bulletEvents.onPlayerAttackedBullet -= OnPlayerAttackedBullet;
+        if (onlyApplyOnce) bullet.bulletEvents.onPlayerAttacksBullet -= OnPlayerAttacksBullet;
     }
 }

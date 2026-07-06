@@ -23,7 +23,7 @@ public class Bullet_IsPlayerAttack : BulletComponent
             Debug.Log($"{collision.name} DOES NOT have a BulletScript Component!");
             return;
         }
-        bullet.bulletEvents.onPlayerAttackedBullet?.Invoke(hitBullet);
+        bullet.bulletEvents.onPlayerAttacksBullet?.Invoke(hitBullet);
         hitBullet.bulletEvents.onPlayerAttacked?.Invoke(connectedPlayer);
     }
 }
