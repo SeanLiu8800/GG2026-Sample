@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Bullet_OnEnhancedAttacked_BeParried : Bullet_OnEnhancedAttacked_BehaviorBase
+public class Bullet_OnPlayerAttacked_BeParried : Bullet_OnPlayerAttacked_BehaviorBase
 {
-    protected override void OnEnhancedAttackedBehavior(Player player)
+    protected override void OnPlayerAttackedBehavior(Player player)
     {
         player.playerEvents.onParry?.Invoke();
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Bullet_IsEnhancedAttack : BulletComponent
+public class Bullet_IsPlayerAttack : BulletComponent
 {
     private Player connectedPlayer;
     private int attackLayer;
@@ -23,7 +23,7 @@ public class Bullet_IsEnhancedAttack : BulletComponent
             Debug.Log($"{collision.name} DOES NOT have a BulletScript Component!");
             return;
         }
-        bullet.bulletEvents.onLandedEnhancedAttack?.Invoke(hitBullet);
-        hitBullet.bulletEvents.onEnhancedAttacked?.Invoke(connectedPlayer);
+        bullet.bulletEvents.onPlayerAttackedBullet?.Invoke(hitBullet);
+        hitBullet.bulletEvents.onPlayerAttacked?.Invoke(connectedPlayer);
     }
 }

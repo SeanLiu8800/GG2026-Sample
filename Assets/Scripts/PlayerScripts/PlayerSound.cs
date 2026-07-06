@@ -43,7 +43,7 @@ public class PlayerSound : PlayerComponent
     }
     void StrengthenAttack()
     {
-        if (sound.enhanceAttack != null) AudioManager.Instance.PlaySoundOneShot(sound.enhanceAttack, sound.enhanceAttackVolume);
+        if (sound.strengthenAttack != null) AudioManager.Instance.PlaySoundOneShot(sound.strengthenAttack, sound.strengthenAttackVolume);
     }
     void OnDamage()
     {

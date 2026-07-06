@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1cf899fc0ab29a46a13d0619ecc634f, type: 3}
-  m_Name: MeleeEnhancedAttack
+  m_Name: Player_MeleeAttack_Strong
   m_EditorClassIdentifier: Assembly-CSharp::BulletSFX
   firingSound: {fileID: 8300000, guid: 146e08b89557a10418744e9a3756739d, type: 3}
   travelSound: {fileID: 0}

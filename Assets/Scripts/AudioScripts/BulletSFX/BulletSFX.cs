@@ -11,6 +11,6 @@ public class BulletSFX : ScriptableObject
     [Range(0.0f, 1.0f)] public float hitSoundVolume = 1.0f;
     public AudioClip dashedIntoSound;
     [Range(0.0f, 1.0f)] public float dashedIntoSoundVolume = 1.0f;
-    public AudioClip enhancedAttackedSound;
-    [Range(0.0f, 1.0f)] public float enhancedAttackedSoundVolume = 1.0f;
+    public AudioClip playerAttackedSound;
+    [Range(0.0f, 1.0f)] public float playerAttackedSoundVolume = 1.0f;
 }

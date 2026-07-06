@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Bullet_OnLandedEnhancedAttack_DrainEngine : Bullet_OnLandedEnhancedAttack_BehaviorBase
+public class Bullet_OnPlayerAttackedBullet_DrainEngine : Bullet_OnPlayerAttackedBullet_BehaviorBase
 {
     private Player player;
 
@@ -12,9 +12,9 @@ public class Bullet_OnLandedEnhancedAttack_DrainEngine : Bullet_OnLandedEnhanced
             this.enabled = false;
         }
     }
-    protected override void OnLandedEnhancedAttack(BulletScript bullet)
+    protected override void OnPlayerAttackedBullet(BulletScript bullet)
     {
         player.attack.DrainEngine(bullet.engineDrainAmount, bullet.owner);
-        if (onlyApplyOnce) bullet.bulletEvents.onLandedEnhancedAttack -= OnLandedEnhancedAttack;
+        if (onlyApplyOnce) bullet.bulletEvents.onPlayerAttackedBullet -= OnPlayerAttackedBullet;
     }
 }

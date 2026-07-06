@@ -12,8 +12,8 @@ public class PlayerSFX : ScriptableObject
     public AudioClip dashEndImperfect;
     [Range(0.0f, 1.0f)] public float dashEndImperfectVolume = 1.0f;
 
-    public AudioClip enhanceAttack;
-    [Range(0.0f, 1.0f)] public float enhanceAttackVolume = 1.0f;
+    public AudioClip strengthenAttack;
+    [Range(0.0f, 1.0f)] public float strengthenAttackVolume = 1.0f;
     public AudioClip takeDamage;
     [Range(0.0f, 1.0f)] public float takeDamageVolume = 1.0f;
 }

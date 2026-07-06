@@ -153,7 +153,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5476034631633967730, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
       propertyPath: engineDrainAmount
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6452316627612785655, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
       propertyPath: m_Sprite

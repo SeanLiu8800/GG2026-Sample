@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Bullet_OnEnhancedAttacked_Spawn : Bullet_OnEnhancedAttacked_BehaviorBase
+public class Bullet_OnPlayerAttacked_Spawn : Bullet_OnPlayerAttacked_BehaviorBase
 {
     [SerializeField] private GameObject spawnObject;
 
@@ -12,7 +12,7 @@ public class Bullet_OnEnhancedAttacked_Spawn : Bullet_OnEnhancedAttacked_Behavio
             Destroy(this);
         }
     }
-    protected override void OnEnhancedAttackedBehavior(Player player)
+    protected override void OnPlayerAttackedBehavior(Player player)
     {
         GameObject spawnedObject = Instantiate(spawnObject, this.transform.position, this.transform.rotation);
         if (spawnedObject.TryGetComponent<BulletScript>(out BulletScript bullet))

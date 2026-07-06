@@ -15,20 +15,20 @@ public class BulletSound : BulletComponent
     private void OnEnable()
     {
         bullet.bulletEvents.onDashedInto += OnDashedInto;
-        bullet.bulletEvents.onEnhancedAttacked += OnEnhancedAttacked;
+        bullet.bulletEvents.onPlayerAttacked += OnPlayerAttacked;
     }
     private void OnDisable()
     {
         bullet.bulletEvents.onDashedInto -= OnDashedInto;
-        bullet.bulletEvents.onEnhancedAttacked -= OnEnhancedAttacked;
+        bullet.bulletEvents.onPlayerAttacked -= OnPlayerAttacked;
     }
     void OnDashedInto(Player player)
     {
         if (bulletSFX.dashedIntoSound != null) AudioManager.Instance.PlaySoundOneShot(bulletSFX.dashedIntoSound, bulletSFX.dashedIntoSoundVolume);
     }
-    void OnEnhancedAttacked(Player player)
+    void OnPlayerAttacked(Player player)
     {
-        if (bulletSFX.enhancedAttackedSound != null) AudioManager.Instance.PlaySoundOneShot(bulletSFX.enhancedAttackedSound, bulletSFX.enhancedAttackedSoundVolume);
+        if (bulletSFX.playerAttackedSound != null) AudioManager.Instance.PlaySoundOneShot(bulletSFX.playerAttackedSound, bulletSFX.playerAttackedSoundVolume);
     }
     void Start()
     {
