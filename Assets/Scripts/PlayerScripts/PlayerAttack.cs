@@ -37,7 +37,7 @@ public class PlayerAttack : PlayerComponent
         //attackAction.started += EmptyAttackBuffer;
         attackAction.canceled += BufferAttack;
 
-        player.playerEvents.enhanceAttack += EnhanceAttack;
+        player.playerEvents.strengthenAttack += StrengthenAttack;
 
         player.playerEvents.attackStarts += AttackStarts;
         player.playerEvents.onParry += OnParry;
@@ -51,7 +51,7 @@ public class PlayerAttack : PlayerComponent
         //attackAction.started -= EmptyAttackBuffer;
         attackAction.canceled -= BufferAttack;
 
-        player.playerEvents.enhanceAttack -= EnhanceAttack;
+        player.playerEvents.strengthenAttack -= StrengthenAttack;
 
         player.playerEvents.attackStarts -= AttackStarts;
         player.playerEvents.onParry -= OnParry;
@@ -62,7 +62,7 @@ public class PlayerAttack : PlayerComponent
     }
     
     #region ----- Event Functions -----
-    void EnhanceAttack()
+    void StrengthenAttack()
     {
         attackIsStrong = true;
     }
@@ -80,7 +80,7 @@ public class PlayerAttack : PlayerComponent
     {
         player.RemoveState(PlayerState.Attacking);
         currDamage = baseDamage;
-        if (!attackParries) attackIsStrong = false; // Unenhance attack if player DOES NOT parry
+        if (!attackParries) attackIsStrong = false; // weaken attack if player DOES NOT parry
     }
     void EngineFullyRecovers()
     {
@@ -126,7 +126,7 @@ public class PlayerAttack : PlayerComponent
     private void Attack()
     {
         attackBuffered = false; // Empty buffer
-        if (player.autoEnhance) player.playerEvents.enhanceAttack?.Invoke();
+        if (player.autoStrongAttack) player.playerEvents.strengthenAttack?.Invoke();
         if (attackParries) currDamage = baseDamage; // Reset Damage if attack starts before it's ended due to parry
 
         BulletScript bullet = Instantiate(attackIsStrong ? playerAttackStrong : playerAttackWeak).GetComponent<BulletScript>();

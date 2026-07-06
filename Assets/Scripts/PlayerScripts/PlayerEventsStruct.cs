@@ -4,7 +4,7 @@ using System;
 public struct PlayerEvents
 {
     public Action dashStarts;
-    public Action enhanceAttack;
+    public Action strengthenAttack;
     public Action dashEnds;
     public Action perfectDash;
     public Action imperfectDash;

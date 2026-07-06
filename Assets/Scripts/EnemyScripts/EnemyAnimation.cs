@@ -52,7 +52,6 @@ public class EnemyAnimation : EnemyComponent
     }
     #endregion
 
-    private bool val = false;
     private void Update()
     {
         UpdateMoveDirection();

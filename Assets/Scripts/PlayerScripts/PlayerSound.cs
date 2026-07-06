@@ -17,7 +17,7 @@ public class PlayerSound : PlayerComponent
         player.playerEvents.dashStarts += DashStarts;
         player.playerEvents.perfectDash += PerfectDash;
         player.playerEvents.imperfectDash += ImperfectDash;
-        player.playerEvents.enhanceAttack += EnhanceAttack;
+        player.playerEvents.strengthenAttack += StrengthenAttack;
         player.playerEvents.onDamage += OnDamage;
     }
     private void OnDisable()
@@ -25,7 +25,7 @@ public class PlayerSound : PlayerComponent
         player.playerEvents.dashStarts -= DashStarts;
         player.playerEvents.perfectDash -= PerfectDash;
         player.playerEvents.imperfectDash -= ImperfectDash;
-        player.playerEvents.enhanceAttack -= EnhanceAttack;
+        player.playerEvents.strengthenAttack -= StrengthenAttack;
         player.playerEvents.onDamage -= OnDamage;
     }
 
@@ -41,7 +41,7 @@ public class PlayerSound : PlayerComponent
     {
         if (sound.dashEndImperfect != null) AudioManager.Instance.PlaySoundOneShot(sound.dashEndImperfect, sound.dashEndImperfectVolume);
     }
-    void EnhanceAttack()
+    void StrengthenAttack()
     {
         if (sound.enhanceAttack != null) AudioManager.Instance.PlaySoundOneShot(sound.enhanceAttack, sound.enhanceAttackVolume);
     }

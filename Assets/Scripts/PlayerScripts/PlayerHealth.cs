@@ -78,7 +78,7 @@ public class PlayerHealth : PlayerComponent, IDamageable
         }
         if (player.isDashing) return;
         if (!player.allowDamage) return;
-        if (player.isAttacking) return; // Yes this is supposed to be blank, because enhanced attack is now a Bullet Component
+        if (player.isAttacking) return;
         if (!isInvincible)
         {
             bullet.bulletEvents.onDamage?.Invoke(this.gameObject);

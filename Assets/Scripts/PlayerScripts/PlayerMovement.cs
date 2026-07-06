@@ -41,7 +41,7 @@ public class PlayerMovement : PlayerComponent
         dashAction.canceled += StopDash;
 
         player.playerEvents.dashStarts += DashStarts;
-        player.playerEvents.enhanceAttack += EnhanceAttack;
+        player.playerEvents.strengthenAttack += StrengthenAttack;
         player.playerEvents.dashEnds += DashEnds;
         player.playerEvents.perfectDash += PerfectDash;
         player.playerEvents.imperfectDash += ImperfectDash;
@@ -66,7 +66,7 @@ public class PlayerMovement : PlayerComponent
         dashAction.canceled -= StopDash;
 
         player.playerEvents.dashStarts -= DashStarts;
-        player.playerEvents.enhanceAttack -= EnhanceAttack;
+        player.playerEvents.strengthenAttack -= StrengthenAttack;
         player.playerEvents.dashEnds -= DashEnds;
         player.playerEvents.perfectDash -= PerfectDash;
         player.playerEvents.imperfectDash -= ImperfectDash;
@@ -98,13 +98,13 @@ public class PlayerMovement : PlayerComponent
         dashDirection = (movementInput == Vector3.zero) ? lastMovementDirection : movementInput.normalized;
         currDashBullet = Instantiate(dashBullet);
         currDashBullet.GetComponent<BulletScript>().Initialize(gameObject, null, default, dashDirection);
-        thisDashEnhancedAttack = false;
+        thisDashStrengthenedAttack = false;
         LaunchTowards(dashDirection * 20, dashDuration, 3.0f); // initial Dash Velocity is hard coded to be 20 units
     }
-    void EnhanceAttack()
+    void StrengthenAttack()
     {
         willLunge = true;
-        thisDashEnhancedAttack = true;
+        thisDashStrengthenedAttack = true;
     }
     void DashEnds()
     {
@@ -254,9 +254,9 @@ public class PlayerMovement : PlayerComponent
     private void UpdateDash()
     {
         if (!player.isDashing) return;
-        // Enhance Attack if player Dashes for the minimum amount of time
-        if (!thisDashEnhancedAttack && (player.autoEnhance || currLaunchTowardsTime >= minDashEnhanceAttack)) 
-        player.playerEvents.enhanceAttack?.Invoke();
+        // Strengthen Attack if player Dashes for the minimum amount of time
+        if (!thisDashStrengthenedAttack && (player.autoStrongAttack || currLaunchTowardsTime >= minDashStrengthenAttack)) 
+            player.playerEvents.strengthenAttack?.Invoke();
         if (currLaunchTowardsTime >= dashDuration) StopDash(new InputAction.CallbackContext());
     }
     private void StopDash(InputAction.CallbackContext context)
@@ -274,9 +274,9 @@ public class PlayerMovement : PlayerComponent
 
     [field: Header("Attack Lunge Variables")]
     [field: SerializeField, ReadOnly] public bool willLunge { get; private set; } = false;
-    private bool thisDashEnhancedAttack = false;
-    [Tooltip("The minimum amount of time to dash to enhance Attack")]
-    [SerializeField, Range(0.0f, 0.5f)] private float minDashEnhanceAttack = 0.2f;
+    private bool thisDashStrengthenedAttack = false;
+    [Tooltip("The minimum amount of time to dash to strengthen Attack")]
+    [SerializeField, Range(0.0f, 0.5f)] private float minDashStrengthenAttack = 0.2f;
     [SerializeField, Range(0.0f, 0.5f)] private float lungeDuration = 0.2f;
     public float lungeInitialSpeed { get { return Mathf.Max(currMoveSpeed * 1.5f, 15.0f); } }
     public float lungeDistance { get { return 0.115f * lungeInitialSpeed; } }
