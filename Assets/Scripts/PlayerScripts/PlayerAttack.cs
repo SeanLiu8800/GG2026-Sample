@@ -4,15 +4,15 @@ using System.Collections.Generic;
 public class PlayerAttack : PlayerComponent
 {
     private InputAction attackAction;
-    [SerializeField] private GameObject playerAttack;
-    [SerializeField] private GameObject playerEnhancedAttack;
+    [SerializeField] private GameObject playerAttackWeak;
+    [SerializeField] private GameObject playerAttackStrong;
     [SerializeField] private ContactFilter2D attackTargetFilter;
 
     [field: Header("Attack Variables")]
     private bool attackBuffered = false;
     [SerializeField, Range(0.0f, 1.0f)] private float attackBufferLifespan = 0.1f;
     private float attackBufferFillTime = 0.0f;
-    [field: SerializeField, ReadOnly] public bool attackIsEnhanced { get; private set; } = false;
+    [field: SerializeField, ReadOnly] public bool attackIsStrong { get; private set; } = false;
     [SerializeField, ReadOnly] private bool attackParries = false;
     [SerializeField, Range(0, 5)] private int baseDamage = 1;
     [field: SerializeField, Range(0, 5), ReadOnly] public int currDamage { get; private set; } = 1;
@@ -64,7 +64,7 @@ public class PlayerAttack : PlayerComponent
     #region ----- Event Functions -----
     void EnhanceAttack()
     {
-        attackIsEnhanced = true;
+        attackIsStrong = true;
     }
     void AttackStarts()
     {
@@ -80,7 +80,7 @@ public class PlayerAttack : PlayerComponent
     {
         player.RemoveState(PlayerState.Attacking);
         currDamage = baseDamage;
-        if (!attackParries) attackIsEnhanced = false; // Unenhance attack if player DOES NOT parry
+        if (!attackParries) attackIsStrong = false; // Unenhance attack if player DOES NOT parry
     }
     void EngineFullyRecovers()
     {
@@ -129,7 +129,7 @@ public class PlayerAttack : PlayerComponent
         if (player.autoEnhance) player.playerEvents.enhanceAttack?.Invoke();
         if (attackParries) currDamage = baseDamage; // Reset Damage if attack starts before it's ended due to parry
 
-        BulletScript bullet = Instantiate(attackIsEnhanced ? playerEnhancedAttack : playerAttack).GetComponent<BulletScript>();
+        BulletScript bullet = Instantiate(attackIsStrong ? playerAttackStrong : playerAttackWeak).GetComponent<BulletScript>();
         bullet.Initialize(this.gameObject, null, player.move.lastMovementDirection, player.move.lastMovementDirection);
         bullet.damage = currDamage;
         // No target to attack

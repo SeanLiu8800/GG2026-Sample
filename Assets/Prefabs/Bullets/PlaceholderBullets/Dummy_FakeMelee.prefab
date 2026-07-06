@@ -151,6 +151,10 @@ PrefabInstance:
       propertyPath: damage
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5476034631633967730, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
+      propertyPath: engineDrainAmount
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6452316627612785655, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -313,6 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da6551300c4de4c4ca505162f653c6bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletCollision
+  perTargetHitCount: 1
 --- !u!114 &2340856358030695266
 MonoBehaviour:
   m_ObjectHideFlags: 0

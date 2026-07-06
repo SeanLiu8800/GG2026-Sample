@@ -788,8 +788,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d68ee6d1397f2e04ea48b08c7034b2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  playerAttack: {fileID: 8109537810932913037, guid: 9ba7a0f8776d61d4d973cd622b1b725e, type: 3}
-  playerEnhancedAttack: {fileID: 8109537810932913037, guid: 95934a21210b09a46ae26aee4ad4a89a, type: 3}
+  playerAttackWeak: {fileID: 8109537810932913037, guid: 9ba7a0f8776d61d4d973cd622b1b725e, type: 3}
+  playerAttackStrong: {fileID: 8109537810932913037, guid: 95934a21210b09a46ae26aee4ad4a89a, type: 3}
   attackTargetFilter:
     useTriggers: 1
     useLayerMask: 1
@@ -805,7 +805,7 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   attackBufferLifespan: 0.1
-  <attackIsEnhanced>k__BackingField: 0
+  <attackIsStrong>k__BackingField: 0
   attackParries: 0
   baseDamage: 1
   <currDamage>k__BackingField: 1
