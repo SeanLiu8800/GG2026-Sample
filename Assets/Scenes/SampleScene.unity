@@ -2166,7 +2166,7 @@ MonoBehaviour:
   isDebugging: 1
   easeInDuration: 0.1
   slowdownDuration: 0.1
-  easeOutDuration: 0.3
+  easeOutDuration: 0.2
 --- !u!4 &1542837899
 Transform:
   m_ObjectHideFlags: 0

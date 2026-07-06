@@ -5,8 +5,8 @@ using System.Collections;
 public class SlowdownManager : MonoBehaviour
 {
     public static SlowdownManager Instance;
-    [SerializeField] private float globalTimescale = 1.0f;
-    [SerializeField] private float actionSlowdownTimescale = 0.05f;
+    [SerializeField, Range(0.0f, 1.0f)] private float globalTimescale = 1.0f;
+    [SerializeField, Range(0.0f, 0.3f)] private float actionSlowdownTimescale = 0.05f;
 
     public bool isDebugging = false;
     [Range(0.0f, 1.0f)] public float easeInDuration = 0.1f;
@@ -37,7 +37,7 @@ public class SlowdownManager : MonoBehaviour
     /// <param name="easeInDuration">Time it takes to reach actionSlowdownTimescale</param>
     /// <param name="slowDownDuration">Time to stay in actionSlowdownTimescale</param>
     /// <param name="easeOutDuration">Time to return to globalTimescale</param>
-    public void ActionSlowdown(float easeInDuration = 0.01f, float slowdownDuration = 0.0f, float easeOutDuration = 0.3f)
+    public void ActionSlowdown(float easeInDuration = 0.1f, float slowdownDuration = 0.1f, float easeOutDuration = 0.2f)
     {
         StopAllCoroutines();
         StartCoroutine(ActionSlowdownCoroutine(easeInDuration, slowdownDuration, easeOutDuration));
@@ -65,7 +65,7 @@ public class SlowdownManager : MonoBehaviour
     /// <param name="easeInDuration">Time it takes to reach actionSlowdownTimescale</param>
     /// <param name="slowdownDuration">Time to stay in actionSlowdownTimescale</param>
     /// <param name="easeOutDuration">Time to return to globalTimescale</param>
-    private IEnumerator ActionSlowdownCoroutine(float easeInDuration = 0.01f, float slowdownDuration = 0.0f, float easeOutDuration = 0.3f)
+    private IEnumerator ActionSlowdownCoroutine(float easeInDuration = 0.1f, float slowdownDuration = 0.1f, float easeOutDuration = 0.2f)
     {
         yield return StartCoroutine(EaseTimescale((x) => x * x, actionSlowdownTimescale, easeInDuration));
         yield return new WaitForSecondsRealtime(slowdownDuration);

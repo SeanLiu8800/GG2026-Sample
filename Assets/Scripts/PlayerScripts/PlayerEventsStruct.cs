@@ -12,9 +12,9 @@ public struct PlayerEvents
 
     public Action<Enemy> pummelStarts;
     public Action pummelEnds;
-    public Action pummelReleased; // May be Redudant
+    public Action pummelReleased; // May be Redundant
     public Action pummelDismount;
-    public Action pummelEjected; // May be Redudant
+    public Action pummelEjected; // May be Redundant
 
     public Action lungeStarts;
     public Action lungeEnds;
