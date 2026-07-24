@@ -1,31 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
-public class PlayerUI : MonoBehaviour
+public class EngineGaugeUI : MonoBehaviour
 {
-    private IDamageable owner;
-    private Slider healthbar;
-
     private Player player;
     private Slider engineGauge;
     private void Awake()
     {
-        owner = GetComponentInParent<IDamageable>();
-        if (owner == null)
-        {
-            Debug.LogWarning("This Healthbar is not associated with any Damageable GameObject! Disabling!");
-            enabled = false;
-            gameObject.SetActive(false);
-        }
-
-        healthbar = transform.GetChild(0).GetComponent<Slider>();
-        if (healthbar == null)
-        {
-            Debug.LogWarning("There is no Healthbar Slider with this Damageable GameObject! Disabling!");
-            enabled = false;
-            gameObject.SetActive(false);
-        }
-
-        engineGauge = transform.GetChild(1).GetComponent<Slider>();
+        engineGauge = this.GetComponent<Slider>();
         if (engineGauge == null)
         {
             Debug.LogWarning("There is no EngineGauge Slider with this Damageable GameObject! Disabling!");
@@ -39,30 +20,21 @@ public class PlayerUI : MonoBehaviour
             Debug.LogWarning("There is no Player script component with this Damageable GameObject! Disabling!");
             enabled = false;
             gameObject.SetActive(false);
-        }    
+        }
     }
     private void OnEnable()
     {
-        owner.onHealthChange += UpdateHealthbar;
         player.playerEvents.engineValueChanges += UpdateEngineGauge;
     }
     private void OnDisable()
     {
-        owner.onHealthChange -= UpdateHealthbar;
         player.playerEvents.engineValueChanges -= UpdateEngineGauge;
     }
     void Start()
     {
-        UpdateHealthbar();
         UpdateEngineGauge();
     }
 
-    private void UpdateHealthbar()
-    {
-        healthbar.minValue = 0.0f;
-        healthbar.maxValue = owner.maxHealth;
-        healthbar.value = owner.currHealth;
-    }
     private void UpdateEngineGauge()
     {
         engineGauge.minValue = 0.0f;

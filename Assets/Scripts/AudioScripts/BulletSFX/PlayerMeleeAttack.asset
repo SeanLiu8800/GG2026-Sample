@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: PlayerMeleeAttack
   m_EditorClassIdentifier: Assembly-CSharp::BulletSFX
   firingSound: {fileID: 8300000, guid: f9519bbdf372ada46a694dd9c7e0606a, type: 3}
+  firingSoundVolume: 1
   travelSound: {fileID: 0}
+  travelSoundVolume: 1
   hitSound: {fileID: 0}
+  hitSoundVolume: 1
   dashedIntoSound: {fileID: 0}
-  enhancedAttackedSound: {fileID: 0}
+  dashedIntoSoundVolume: 1
+  playerAttackedSound: {fileID: 0}
+  playerAttackedSoundVolume: 1

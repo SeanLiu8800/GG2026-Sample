@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: damage
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4753286054545726346, guid: 75cbcb039f1a9f149a9079a4b2d8f0d3, type: 3}
+      propertyPath: engineDrainAmount
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8109537810932913037, guid: 75cbcb039f1a9f149a9079a4b2d8f0d3, type: 3}
       propertyPath: m_Name
       value: DemoBoss_MeleeAttack
@@ -83,6 +87,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8109537810932913037, guid: 75cbcb039f1a9f149a9079a4b2d8f0d3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3254601145499782308}
+    - targetCorrespondingSourceObject: {fileID: 8109537810932913037, guid: 75cbcb039f1a9f149a9079a4b2d8f0d3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5463007847662138317}
   m_SourcePrefab: {fileID: 100100000, guid: 75cbcb039f1a9f149a9079a4b2d8f0d3, type: 3}
 --- !u!1 &1176788867619865850 stripped
 GameObject:
@@ -168,3 +175,18 @@ MonoBehaviour:
   emissionDelay: 0
   emissionOffset: 2.2
   bulletToEmit: {fileID: 3020573356033518482, guid: 23a0159513919544caf0764d208883d9, type: 3}
+--- !u!114 &5463007847662138317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176788867619865850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 848d746ffd1e07c49b9a106733896694, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Bullet_OnPlayerAttacked_ActionSlowdown
+  easeInDuration: 0.01
+  slowdownDuration: 0.1
+  easeOutDuration: 0.01

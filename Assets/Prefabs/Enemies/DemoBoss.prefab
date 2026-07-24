@@ -121,6 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8997026841482692850}
   - component: {fileID: 3397278158569295998}
+  - component: {fileID: 6703167427690422850}
   m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
@@ -200,6 +201,18 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6703167427690422850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5351263068196147924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ec9ed14f8e96074f8192364445699d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthBarUI
 --- !u!1 &5624561997033724886
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +225,6 @@ GameObject:
   - component: {fileID: 6283802993320126812}
   - component: {fileID: 8881964115805979149}
   - component: {fileID: 993660490262057759}
-  - component: {fileID: 7409443400636851961}
   m_Layer: 5
   m_Name: UICanvas
   m_TagString: Untagged
@@ -303,18 +315,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &7409443400636851961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5624561997033724886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53e55730b685cec4e8ebe449f8632954, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!1 &8552138857640011333
 GameObject:
   m_ObjectHideFlags: 0

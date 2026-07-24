@@ -20,5 +20,5 @@ MonoBehaviour:
   hitSoundVolume: 1
   dashedIntoSound: {fileID: 0}
   dashedIntoSoundVolume: 1
-  enhancedAttackedSound: {fileID: 8300000, guid: 49db03c3066623d4384c661c3a9796fd, type: 3}
-  enhancedAttackedSoundVolume: 0.8
+  playerAttackedSound: {fileID: 8300000, guid: 49db03c3066623d4384c661c3a9796fd, type: 3}
+  playerAttackedSoundVolume: 0.4
