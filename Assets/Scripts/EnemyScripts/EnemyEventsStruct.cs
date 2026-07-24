@@ -8,6 +8,7 @@ public struct EnemyEvents
     public Action attackEnds;
 
     public Action<GameObject> onParried;
+    public Action parryProgressChanges;
     public Action parryStunStarts;
     public Action parryStunEnds;
 
