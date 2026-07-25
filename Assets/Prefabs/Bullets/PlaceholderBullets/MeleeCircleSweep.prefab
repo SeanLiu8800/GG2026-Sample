@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5476034631633967730, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
+      propertyPath: <bulletStats>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 415d1d122216dee4c98b27b7f40f9771, type: 2}
     - target: {fileID: 6452316627612785655, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -136,7 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac85ec39bd2845a4c8495dc8f528ac40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletLockToOwner
-  offset: {x: 0, y: 0, z: 0}
+  distanceOffset: 0
+  relativeOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &5008779815239859551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da6551300c4de4c4ca505162f653c6bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletCollision
+  perTargetHitCount: 1
 --- !u!114 &-5115271328266124220
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -175,15 +175,12 @@ MonoBehaviour:
   <damageLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 0
+  <bulletStats>k__BackingField: {fileID: 11400000, guid: 146d31593b8f601449e11c0a65745bb3, type: 2}
   <owner>k__BackingField: {fileID: 0}
   <target>k__BackingField: {fileID: 0}
-  <moveDirection>k__BackingField: {x: 0, y: 1, z: 0}
   <moveSpeed>k__BackingField: 5
+  <moveDirection>k__BackingField: {x: 0, y: 1, z: 0}
   _lookDirection: {x: 0, y: 1, z: 0}
-  damage: 1
-  element: 0
-  elementBuildup: 1
-  empowerRate: 1
 --- !u!114 &3335254446662555079
 MonoBehaviour:
   m_ObjectHideFlags: 0
