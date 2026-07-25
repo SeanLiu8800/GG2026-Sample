@@ -128,7 +128,7 @@ public class PlayerAttack : PlayerComponent
 
         BulletScript bullet = Instantiate(attackIsStrong ? playerAttackStrong : playerAttackWeak).GetComponent<BulletScript>();
         bullet.Initialize(this.gameObject, null, player.move.lastMovementDirection, player.move.lastMovementDirection);
-        bullet.gameObject.AddComponent<Bullet_Multiplier_DashDestroy>().Initialize(currDashDestroyCount);
+        bullet.gameObject.AddComponent<Bullet_DashDestroyCounter>().Initialize(currDashDestroyCount);
         currDashDestroyCount = 0; // Reset counter for dash destroyed bullets if attack starts before it's ended due to parry
 
         // No target to attack
