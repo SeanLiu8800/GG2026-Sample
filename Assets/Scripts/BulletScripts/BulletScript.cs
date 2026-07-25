@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections.Generic;
 public class BulletScript : MonoBehaviour
 {
     public Collider2D bulletCollider { get; private set; }
@@ -43,6 +43,9 @@ public class BulletScript : MonoBehaviour
         if (!wasInitialized) transform.parent = GameManager.Instance.currRoom.roomBullets.bulletContainer.transform;
         if (owner == null) owner = this.gameObject;
         moveSpeed = bulletStats.initialMoveSpeed;
+
+        damageMultipliers = new List<Bullet_StatMultiplier_Base>();
+        parryMultipliers = new List<Bullet_StatMultiplier_Base>();
     }
     
     private bool wasInitialized = false;
@@ -50,7 +53,7 @@ public class BulletScript : MonoBehaviour
     (
         GameObject owner,
         GameObject target,
-        Vector3 initialMoveDirection= default,
+        Vector3 initialMoveDirection = default,
         Vector3 lookDirection = default
     )
     {
@@ -64,8 +67,19 @@ public class BulletScript : MonoBehaviour
         transform.parent = GameManager.Instance.currRoom.roomBullets.bulletContainer.transform;
     }
 
+    public List<Bullet_StatMultiplier_Base> damageMultipliers;
     public float GetDamage()
     {
-        return bulletStats.damage;
+        float returnDamage = bulletStats.damage;
+        foreach (Bullet_StatMultiplier_Base currMultiplier in damageMultipliers) { returnDamage = currMultiplier.Multiply(returnDamage); }
+        return returnDamage;
+    }
+
+    public List<Bullet_StatMultiplier_Base> parryMultipliers;
+    public float GetParry()
+    {
+        float returnParry = bulletStats.parryValue;
+        foreach (Bullet_StatMultiplier_Base currMultiplier in parryMultipliers) returnParry = currMultiplier.Multiply(returnParry);
+        return returnParry;
     }
 }

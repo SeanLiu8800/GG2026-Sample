@@ -45,16 +45,17 @@ public class EnemyHealth : EnemyComponent, IDamageable
     #endregion
     public void BulletHits(BulletScript bullet)
     {
-        if (bullet.bulletStats.damage < 0.0f)
+        float bulletDamage = bullet.GetDamage();
+        if (bulletDamage < 0.0f)
         {
-            Heal(-bullet.bulletStats.damage, bullet.gameObject);
+            Heal(-bullet.GetDamage(), bullet.gameObject);
             return;
         }
         if (!enemy.allowDamage) return;
         if (currHealth <= 0.0f) return;
 
         bullet.bulletEvents.onDamage?.Invoke(this.gameObject);
-        Damage(bullet.bulletStats.damage, bullet.bulletStats.element, bullet.bulletStats.elementBuildup, bullet.gameObject);
+        Damage(bulletDamage, bullet.bulletStats.element, bullet.bulletStats.elementBuildup, bullet.gameObject);
     }
     public void Damage(float damage, DamageElement element = DamageElement.None, float elementBuildup = 0.0f, GameObject damager = null)
     {
