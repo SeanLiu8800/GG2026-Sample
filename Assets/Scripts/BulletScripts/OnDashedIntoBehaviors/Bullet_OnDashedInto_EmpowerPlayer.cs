@@ -4,6 +4,6 @@ public class Bullet_OnDashedInto_EmpowerPlayer : Bullet_OnDashedInto_BehaviorBas
 {
     protected override void OnDashedInto(Player player)
     {
-        player.attack.Empower(bullet.bulletStats.empowerRate);
+        player.attack.Empower();
     }
 }

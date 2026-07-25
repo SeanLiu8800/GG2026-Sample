@@ -981,8 +981,7 @@ MonoBehaviour:
   attackBufferLifespan: 0.1
   <attackIsStrong>k__BackingField: 0
   attackParries: 0
-  baseDamage: 1
-  <currDamage>k__BackingField: 1
+  <currDashDestroyCount>k__BackingField: 0
   attackDuration: 0.2
   maxEngine: 10
   _currEngine: 10

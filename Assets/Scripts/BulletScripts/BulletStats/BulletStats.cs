@@ -11,6 +11,5 @@ public class BulletStats : ScriptableObject
 
     [Range(0.0f, 5.0f)] public float parryValue = 1.0f;
 
-    [Range(0, 5)] public int empowerRate = 1;
     [Range(0.0f, 10.0f)] public float engineDrainAmount = 0.0f;
 }

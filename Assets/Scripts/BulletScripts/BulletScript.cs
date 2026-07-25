@@ -63,4 +63,9 @@ public class BulletScript : MonoBehaviour
         
         transform.parent = GameManager.Instance.currRoom.roomBullets.bulletContainer.transform;
     }
+
+    public float GetDamage()
+    {
+        return bulletStats.damage;
+    }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DefaultMelee
   m_EditorClassIdentifier: Assembly-CSharp::BulletStats
   initialMoveSpeed: 5
-  damage: 0.5
+  damage: 6
   element: 0
   elementBuildup: 0
   parryValue: 1

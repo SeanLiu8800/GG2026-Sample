@@ -14,8 +14,7 @@ public class PlayerAttack : PlayerComponent
     private float attackBufferFillTime = 0.0f;
     [field: SerializeField, ReadOnly] public bool attackIsStrong { get; private set; } = false;
     [SerializeField, ReadOnly] private bool attackParries = false;
-    [SerializeField, Range(0, 5)] private int baseDamage = 1;
-    [field: SerializeField, Range(0, 5), ReadOnly] public int currDamage { get; private set; } = 1;
+    [field: SerializeField, Range(0, 10), ReadOnly] public int currDashDestroyCount { get; private set; } = 0;
     [SerializeField, Range(0.0f, 1.0f)] private float attackDuration = 0.2f;
     private float attackStartTime = 0.0f;
 
@@ -79,7 +78,6 @@ public class PlayerAttack : PlayerComponent
     void AttackEnds()
     {
         player.RemoveState(PlayerState.Attacking);
-        currDamage = baseDamage;
         if (!attackParries) attackIsStrong = false; // weaken attack if player DOES NOT parry
     }
     void EngineFullyRecovers()
@@ -127,11 +125,12 @@ public class PlayerAttack : PlayerComponent
     {
         attackBuffered = false; // Empty buffer
         if (player.autoStrongAttack) player.playerEvents.strengthenAttack?.Invoke();
-        if (attackParries) currDamage = baseDamage; // Reset Damage if attack starts before it's ended due to parry
 
         BulletScript bullet = Instantiate(attackIsStrong ? playerAttackStrong : playerAttackWeak).GetComponent<BulletScript>();
         bullet.Initialize(this.gameObject, null, player.move.lastMovementDirection, player.move.lastMovementDirection);
-        bullet.bulletStats.damage = currDamage;
+        bullet.gameObject.AddComponent<Bullet_Multiplier_DashDestroy>().Initialize(currDashDestroyCount);
+        currDashDestroyCount = 0; // Reset counter for dash destroyed bullets if attack starts before it's ended due to parry
+
         // No target to attack
         if (!CheckAttackArea(bullet.bulletCollider))
         {
@@ -188,9 +187,9 @@ public class PlayerAttack : PlayerComponent
         if (!player.isAttacking || Time.time - attackStartTime < attackDuration) return;
         player.playerEvents.attackEnds?.Invoke();
     }
-    public void Empower(int input = 1)
+    public void Empower()
     {
-        currDamage += input;
+        currDashDestroyCount++;
     }
 
     private void RecoverEngine()
