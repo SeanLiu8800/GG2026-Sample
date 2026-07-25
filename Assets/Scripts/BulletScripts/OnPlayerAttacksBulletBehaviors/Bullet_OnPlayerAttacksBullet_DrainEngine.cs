@@ -14,7 +14,7 @@ public class Bullet_OnPlayerAttacksBullet_DrainEngine : Bullet_OnPlayerAttacksBu
     }
     protected override void OnPlayerAttacksBullet(BulletScript bullet)
     {
-        player.attack.DrainEngine(bullet.engineDrainAmount, bullet.owner);
+        player.attack.DrainEngine(bullet.bulletStats.engineDrainAmount, bullet.owner);
         if (onlyApplyOnce) bullet.bulletEvents.onPlayerAttacksBullet -= OnPlayerAttacksBullet;
     }
 }

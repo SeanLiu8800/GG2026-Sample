@@ -41,11 +41,11 @@ public class EnemyParry : EnemyComponent
     }
 
     #region ----- Event Functions -----
-    protected void OnParried(GameObject parrier)
+    protected void OnParried(GameObject parrier, float parryValue)
     {
         if (enemy.isParryStunned) return;
 
-        parryProgress += 1.0f;
+        parryProgress += parryValue;
         if (parryProgress >= parryTarget) enemy.enemyEvents.parryStunStarts?.Invoke();
     }
     protected void ParryStunStarts()

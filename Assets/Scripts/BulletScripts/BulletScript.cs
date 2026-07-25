@@ -8,17 +8,16 @@ public class BulletScript : MonoBehaviour
     [field: SerializeField] public LayerMask damageLayer { get; private set; }
 
     [field: Header("Bullet Variables")]
+    [field: SerializeField] public BulletStats bulletStats { get; private set; }
     [field: SerializeField, ReadOnly] public GameObject owner { get; private set; }
     [field: SerializeField, ReadOnly] public GameObject target { get; private set; }
-    [field: SerializeField, ReadOnly] public Vector3 moveDirection { get; set; } = Vector3.up;
+    [field: SerializeField, ReadOnly] public float damage { get; set; }
     [field: SerializeField, Range(0.0f, 60.0f)] public float moveSpeed { get; private set; } = 5.0f;
+    [field: SerializeField, ReadOnly] public Vector3 moveDirection { get; set; } = Vector3.up;
     [SerializeField, ReadOnly] private Vector3 _lookDirection = Vector3.up;
     public Vector3 lookDirection 
     { 
-        get
-        {
-            return _lookDirection;
-        }
+        get { return _lookDirection; }
         private set 
         {
             _lookDirection = value;
@@ -26,13 +25,6 @@ public class BulletScript : MonoBehaviour
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         } 
     }
-    
-    public float damage = 1.0f;
-    public DamageElement element = DamageElement.None;
-    [Range(0.0f, 5.0f)] public float elementBuildup = 1.0f;
-    [Range(0, 5)] public int empowerRate = 1;
-    [Range(0.0f, 10.0f)] public float engineDrainAmount = 0.0f;
-
     public BulletEvents bulletEvents;
     void Awake()
     {
@@ -51,6 +43,8 @@ public class BulletScript : MonoBehaviour
     {
         if (!wasInitialized) transform.parent = GameManager.Instance.currRoom.roomBullets.bulletContainer.transform;
         if (owner == null) owner = this.gameObject;
+        damage = bulletStats.damage;
+        moveSpeed = bulletStats.initialMoveSpeed;
     }
     
     private bool wasInitialized = false;

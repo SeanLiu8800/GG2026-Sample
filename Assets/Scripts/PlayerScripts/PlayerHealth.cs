@@ -71,7 +71,7 @@ public class PlayerHealth : PlayerComponent, IDamageable
 
     public void BulletHits(BulletScript bullet)
     {
-        if (bullet.damage < 0.0f)
+        if (bullet.bulletStats.damage < 0.0f)
         {
             Heal(-bullet.damage, bullet.gameObject);
             return;
@@ -82,7 +82,7 @@ public class PlayerHealth : PlayerComponent, IDamageable
         if (!isInvincible)
         {
             bullet.bulletEvents.onDamage?.Invoke(this.gameObject);
-            Damage(bullet.damage, bullet.element, bullet.elementBuildup, bullet.gameObject);
+            Damage(bullet.damage, bullet.bulletStats.element, bullet.bulletStats.elementBuildup, bullet.gameObject);
         }
     }
     public void Damage(float damage, DamageElement element = DamageElement.None, float elementBuildup = 0.0f, GameObject damager = null)
