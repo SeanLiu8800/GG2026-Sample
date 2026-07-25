@@ -11,7 +11,6 @@ public class BulletScript : MonoBehaviour
     [field: SerializeField] public BulletStats bulletStats { get; private set; }
     [field: SerializeField, ReadOnly] public GameObject owner { get; private set; }
     [field: SerializeField, ReadOnly] public GameObject target { get; private set; }
-    [field: SerializeField, ReadOnly] public float damage { get; set; }
     [field: SerializeField, Range(0.0f, 60.0f)] public float moveSpeed { get; private set; } = 5.0f;
     [field: SerializeField, ReadOnly] public Vector3 moveDirection { get; set; } = Vector3.up;
     [SerializeField, ReadOnly] private Vector3 _lookDirection = Vector3.up;
@@ -43,7 +42,6 @@ public class BulletScript : MonoBehaviour
     {
         if (!wasInitialized) transform.parent = GameManager.Instance.currRoom.roomBullets.bulletContainer.transform;
         if (owner == null) owner = this.gameObject;
-        damage = bulletStats.damage;
         moveSpeed = bulletStats.initialMoveSpeed;
     }
     

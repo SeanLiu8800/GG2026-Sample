@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: engineDrainAmount
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4753286054545726346, guid: 75cbcb039f1a9f149a9079a4b2d8f0d3, type: 3}
+      propertyPath: <bulletStats>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 0aeb05181e44fb141aa4982447266678, type: 2}
     - target: {fileID: 8109537810932913037, guid: 75cbcb039f1a9f149a9079a4b2d8f0d3, type: 3}
       propertyPath: m_Name
       value: DemoBoss_MeleeAttack

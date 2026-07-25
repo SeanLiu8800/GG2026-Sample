@@ -47,14 +47,14 @@ public class EnemyHealth : EnemyComponent, IDamageable
     {
         if (bullet.bulletStats.damage < 0.0f)
         {
-            Heal(-bullet.damage, bullet.gameObject);
+            Heal(-bullet.bulletStats.damage, bullet.gameObject);
             return;
         }
         if (!enemy.allowDamage) return;
         if (currHealth <= 0.0f) return;
 
         bullet.bulletEvents.onDamage?.Invoke(this.gameObject);
-        Damage(bullet.damage, bullet.bulletStats.element, bullet.bulletStats.elementBuildup, bullet.gameObject);
+        Damage(bullet.bulletStats.damage, bullet.bulletStats.element, bullet.bulletStats.elementBuildup, bullet.gameObject);
     }
     public void Damage(float damage, DamageElement element = DamageElement.None, float elementBuildup = 0.0f, GameObject damager = null)
     {

@@ -131,7 +131,7 @@ public class PlayerAttack : PlayerComponent
 
         BulletScript bullet = Instantiate(attackIsStrong ? playerAttackStrong : playerAttackWeak).GetComponent<BulletScript>();
         bullet.Initialize(this.gameObject, null, player.move.lastMovementDirection, player.move.lastMovementDirection);
-        bullet.damage = currDamage;
+        bullet.bulletStats.damage = currDamage;
         // No target to attack
         if (!CheckAttackArea(bullet.bulletCollider))
         {

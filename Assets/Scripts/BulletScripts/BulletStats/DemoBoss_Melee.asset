@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c14c1b8bcd5e4e346aad933e4537ea9a, type: 3}
-  m_Name: DefaultBullet
+  m_Name: DemoBoss_Melee
   m_EditorClassIdentifier: Assembly-CSharp::BulletStats
-  initialMoveSpeed: 7
-  damage: 1
+  initialMoveSpeed: 5
+  damage: 0.5
   element: 0
   elementBuildup: 0
   parryValue: 1
-  empowerRate: 1
+  empowerRate: 0
   engineDrainAmount: 0
