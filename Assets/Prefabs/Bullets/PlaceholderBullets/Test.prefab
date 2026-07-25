@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5476034631633967730, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
+      propertyPath: <bulletStats>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 63b539d49122c284f9884ed210bb2820, type: 2}
     - target: {fileID: 6452316627612785655, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -105,6 +109,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8827905931808526965, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
       insertIndex: -1
       addedObject: {fileID: -1041529301730255600}
+    - targetCorrespondingSourceObject: {fileID: 8827905931808526965, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4401420378428171357}
   m_SourcePrefab: {fileID: 100100000, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
 --- !u!1 &6658492540878686078 stripped
 GameObject:
@@ -199,3 +206,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet_OnDashedInto_ReenableCollider
   reenablingDelay: 0.1
+--- !u!114 &-4401420378428171357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6658492540878686078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f8debe85063ac3409d45c28f94a0e61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  easeInDuration: 0
+  slowdownDuration: 0.1
+  easeOutDuration: 0
