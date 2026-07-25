@@ -8,7 +8,6 @@ public class Bullet_StatMultiplier_Damage : Bullet_StatMultiplier_Base
     }
     public override float Multiply(float input)
     {
-        Debug.Log("HI FROM Damage MULTI");
         return input * (x + 1);
     }
 }

@@ -6,7 +6,7 @@ public class BulletCollision : BulletComponent
     private int wallLayer;
     [SerializeField] private Dictionary<GameObject, int> damagedGameObjects;
     [Tooltip("Controls how many times this same exact bullet can hit the same GameObject")]
-    [SerializeField, Range(0, 3)] private int perTargetHitCount = 1;
+    [SerializeField, Range(0, 5)] private int perTargetHitCount = 1;
     private void Start()
     {
         if (bullet.damageLayer == 0) Debug.LogWarning($"{this.name}'s layerMask is set to Nothing! Should you set this to something?");
