@@ -25,6 +25,7 @@ public interface IDamageable
         float damage, 
         DamageElement element = DamageElement.None, 
         float elementBuildup = 0.0f, 
+        float invincibilityTime = 1.0f,
         GameObject damager = null
     );
     public void ElementDamage(DamageElement element, float buildupRate);

@@ -113,7 +113,7 @@ public class PlayerPummel : PlayerComponent
     {
         if (ignoreFirstPummel) return;
 
-        pummelTarget.health.Damage(pummelDamage, DamageElement.None, 0.0f, this.gameObject);
+        pummelTarget.health.Damage(pummelDamage, DamageElement.None, 0.0f, -1.0f, this.gameObject);
         pummelTarget.enemyRigidbody.AddForce(
             (pummelTarget.transform.position - transform.position).normalized * 4.0f, 
             ForceMode2D.Impulse

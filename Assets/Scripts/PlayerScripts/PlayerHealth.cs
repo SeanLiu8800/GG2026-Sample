@@ -65,8 +65,6 @@ public class PlayerHealth : PlayerComponent, IDamageable
     void Update()
     {
         UpdateInvincibility();
-        if (Keyboard.current.nKey.wasPressedThisFrame) ApplyCorrosion(0.5f);
-        if (Keyboard.current.mKey.wasPressedThisFrame) StopCorrosion();
     }
 
     public void BulletHits(BulletScript bullet)
@@ -74,7 +72,7 @@ public class PlayerHealth : PlayerComponent, IDamageable
         float bulletDamage = bullet.GetDamage();
         if (bulletDamage < 0.0f)
         {
-            Heal(-bullet.GetDamage(), bullet.gameObject);
+            Heal(bulletDamage, bullet.gameObject);
             return;
         }
         if (player.isDashing) return;
@@ -83,10 +81,10 @@ public class PlayerHealth : PlayerComponent, IDamageable
         if (!isInvincible)
         {
             bullet.bulletEvents.onDamage?.Invoke(this.gameObject);
-            Damage(bulletDamage, bullet.bulletStats.element, bullet.bulletStats.elementBuildup, bullet.gameObject);
+            Damage(bulletDamage, bullet.bulletStats.element, bullet.bulletStats.elementBuildup, bullet.bulletStats.invincibilityTime, bullet.gameObject);
         }
     }
-    public void Damage(float damage, DamageElement element = DamageElement.None, float elementBuildup = 0.0f, GameObject damager = null)
+    public void Damage(float damage, DamageElement element = DamageElement.None, float elementBuildup = 0.0f, float invincibilityTime = -1.0f, GameObject damager = null)
     {
         if (damage < 0.0f)
         {
@@ -104,7 +102,7 @@ public class PlayerHealth : PlayerComponent, IDamageable
         else
         {
             ElementDamage(element, elementBuildup);
-            StartInvincibility();
+            StartInvincibility(invincibilityTime);
         }
         return;
     }
@@ -143,7 +141,7 @@ public class PlayerHealth : PlayerComponent, IDamageable
         if (!player.allowHealing) return;
         if (heal < 0.0f)
         {
-            Damage(-heal, DamageElement.None, 0.0f, healer);
+            Damage(-heal, DamageElement.None, 0.0f, -1.0f, healer);
             return;
         }
 
