@@ -123,7 +123,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0.62445116, g: 0, b: 1, a: 1}
@@ -336,9 +336,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e4d06fa11c549844a1ed5b1b00a0a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyParry
-  parryProgress: 0
-  parryDecayRate: 0
-  parryTarget: 3
+  _parryProgress: 0
+  <parryDecayRate>k__BackingField: 0
+  <parryTarget>k__BackingField: 3
   parryStunDuration: 3
 --- !u!114 &59801324413392711
 MonoBehaviour:

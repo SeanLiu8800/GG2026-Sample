@@ -81,7 +81,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -147,7 +147,6 @@ MonoBehaviour:
   <bulletStats>k__BackingField: {fileID: 11400000, guid: 146d31593b8f601449e11c0a65745bb3, type: 2}
   <owner>k__BackingField: {fileID: 0}
   <target>k__BackingField: {fileID: 0}
-  <damage>k__BackingField: 0
   <moveSpeed>k__BackingField: 10
   <moveDirection>k__BackingField: {x: 0, y: 1, z: 0}
   _lookDirection: {x: 0, y: 1, z: 0}
