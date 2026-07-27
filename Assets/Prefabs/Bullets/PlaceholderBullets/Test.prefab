@@ -112,6 +112,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8827905931808526965, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
       insertIndex: -1
       addedObject: {fileID: -4401420378428171357}
+    - targetCorrespondingSourceObject: {fileID: 8827905931808526965, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1008658328671646985}
   m_SourcePrefab: {fileID: 100100000, guid: c4c1f5dc80725204caf5ec95eee25a7f, type: 3}
 --- !u!1 &6658492540878686078 stripped
 GameObject:
@@ -130,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba23d89df0dde13499b79d72a60ef9b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletLifespan
-  lifespan: 0.2
+  lifespan: 3
 --- !u!114 &1773215468397388245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,6 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 137ea7f207784f9468a3bbc89546898f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet_OnDashedInto_Parry
+  parryMultiplier: 0.75
 --- !u!114 &-2101888936646239099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,3 +225,16 @@ MonoBehaviour:
   easeInDuration: 0
   slowdownDuration: 0.1
   easeOutDuration: 0
+--- !u!114 &1008658328671646985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6658492540878686078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ce7aa6b310a7fd439c9297e8ce99a0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Bullet_OnOwnerParryStunned_Destroy
+  ownerEnemy: {fileID: 0}
