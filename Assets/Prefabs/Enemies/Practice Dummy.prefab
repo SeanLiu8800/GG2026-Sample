@@ -829,7 +829,7 @@ MonoBehaviour:
   attackCooldown: 2
   isOffscreen: 0
   bulletAttack: {fileID: 3020573356033518482, guid: 9d1e4b559aef47d45a4b43dc93ceb991, type: 3}
-  meleeAttack: {fileID: 6658492540878686078, guid: e27eab00c77f2b045b84fd7adc20a6bb, type: 3}
+  meleeAttack: {fileID: 8109537810932913037, guid: d878b8563be22e44b90a332199700757, type: 3}
 --- !u!114 &-368328122197004935
 MonoBehaviour:
   m_ObjectHideFlags: 0
