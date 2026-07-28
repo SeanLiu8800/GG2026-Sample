@@ -18,8 +18,11 @@ public class Player : MonoBehaviour
     public bool allowDash = true;
     public bool allowAttack = true;
     public bool allowLunge = true;
-    public bool autoStrongAttack = false;
     public bool autoLunge = false;
+
+    [Header("Attack Ability Toggles")]
+    public bool alwaysAttack = false;
+    public bool autoStrongAttack = false;
 
     [Header("Health Toggles")]
     public bool allowDamage = true;

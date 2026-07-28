@@ -131,14 +131,9 @@ public class PlayerAttack : PlayerComponent
         bullet.gameObject.AddComponent<Bullet_DashDestroyCounter>().Initialize(currDashDestroyCount);
         currDashDestroyCount = 0; // Reset counter for dash destroyed bullets if attack starts before it's ended due to parry
 
-        // No target to attack
-        if (!CheckAttackArea(bullet.bulletCollider))
-        {
-            Destroy(bullet.gameObject);
-            return;
-        }
-
-        player.playerEvents.attackStarts?.Invoke();
+        // 
+        if (player.alwaysAttack || CheckAttackArea(bullet.bulletCollider)) player.playerEvents.attackStarts?.Invoke();
+        else Destroy(bullet.gameObject);
     }
     /// <summary>
     /// Check to see if there are Colliders within attackArea's Collider2D that follow attackTargetFilter
