@@ -1,4 +1,4 @@
-using UnityEngine;
+ using UnityEngine;
 using System.Collections;
 public class Bullet_OnDashedInto_ReenableCollider : Bullet_OnDashedInto_BehaviorBase
 {

@@ -15,7 +15,7 @@ public abstract class Bullet_OnOwnerParryStunned_BehaviorBase : BulletComponent
     {
         if (!bullet.owner.TryGetComponent<Enemy>(out Enemy _ownerEnemy))
         {
-            Debug.LogError("This OnOwnerParryStunned Behavior doesn't have an Enemy as it's Owner! Disabling!");
+            Debug.LogWarning("This OnOwnerParryStunned Behavior doesn't have an Enemy as it's Owner! Disabling!");
             this.enabled = false;
             return;
         }
