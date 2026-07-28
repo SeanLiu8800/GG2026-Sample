@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Bullet_OnPlayerAttacksBullet_SpawnParticles : Bullet_OnPlayerAttacksBullet_BehaviorBase
+public class Bullet_OnPlayerAttacked_SpawnParticles : Bullet_OnPlayerAttacked_BehaviorBase
 {
     [Header("Particle Variables")]
     [SerializeField] private ParticleSystem particles;
@@ -13,10 +13,10 @@ public class Bullet_OnPlayerAttacksBullet_SpawnParticles : Bullet_OnPlayerAttack
             return;
         }
     }
-    protected override void OnPlayerAttacksBullet(BulletScript bullet)
+    protected override void OnPlayerAttackedBehavior(Player player)
     {
-        Vector3 spawnPosition = Vector3.Lerp(bullet.transform.position, this.transform.position, 0.5f);
-        Vector3 spawnDirection = bullet.transform.position - this.transform.position;
+        Vector3 spawnPosition = Vector3.Lerp(player.transform.position, this.transform.position, 0.5f);
+        Vector3 spawnDirection = player.transform.position - this.transform.position;
         float angle = Mathf.Atan2(spawnDirection.y, spawnDirection.x) * Mathf.Rad2Deg;
 
         // turn the angle clockwise/ counterclockwise so that it's kinda perpendicular to the clash
